@@ -1,1 +1,9 @@
 node_modules
+npm-debug.log
+static/js/*.js
+static/js/*.js.map
+
+# Ignore vim temporary files
+*~
+*.swp
+*.swo

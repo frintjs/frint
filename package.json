@@ -1,11 +1,68 @@
 {
   "name": "frint",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Framework for building front-end apps",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "transpile": "babel src --out-dir lib",
+    "test": "mocha",
+    "docs:prepare": "gitbook install",
+    "docs:clean": "rimraf _book",
+    "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
+    "docs:watch": "npm run docs:prepare && gitbook serve",
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:Travix-International/frint gh-pages --force"
   },
-  "author": "",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Travix-International/frint.git"
+  },
+  "author": {
+    "name": "Travix International",
+    "url": "http://travix.com"
+  },
+  "contributors": [
+    {
+      "name": "Fahad Ibnay Heylaal",
+      "url": "https://github.com/fahad19"
+    },
+    {
+      "name": "Ricardo Machado",
+      "url": "https://github.com/mAiNiNfEcTiOn"
+    },
+    {
+      "name": "Mark Vincze",
+      "url": "https://github.com/markvincze"
+    },
+    {
+      "name": "Alex Miranda",
+      "url": "https://github.com/alexmiranda"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Travix-International/frint/issues"
+  },
+  "homepage": "https://github.com/Travix-International/frint#readme",
+  "dependencies": {
+    "lodash": "^4.13.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
+    "rxjs": "^5.0.0-beta.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.9.1",
+    "babel-preset-travix": "^1.1.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "gitbook-cli": "^1.0.1",
+    "jsdom": "^9.4.1",
+    "mocha": "^2.5.3",
+    "rimraf": "^2.5.2"
+  }
 }

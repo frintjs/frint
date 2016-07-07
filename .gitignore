@@ -1,9 +1,11 @@
 node_modules
 npm-debug.log
-static/js/*.js
-static/js/*.js.map
+_book
+lib
 
 # Ignore vim temporary files
 *~
 *.swp
 *.swo
+
+

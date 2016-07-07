@@ -69,6 +69,10 @@ class BaseApp {
     return this.options.rootApp;
   }
 
+  getModel(modelName) { // eslint-disable-line
+    // will be implemented below when extended
+  }
+
   getService(serviceName) { // eslint-disable-line
     // will be implemented below when extended
   }

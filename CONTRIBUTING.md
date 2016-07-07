@@ -5,6 +5,9 @@
 To publish a new release:
 
 ```
+$ git checkout master
+$ git pull origin master
+
 $ npm run transpile
 $ npm version patch(|minor|major)
 $ npm publish

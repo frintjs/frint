@@ -38,7 +38,7 @@ It is good practice to keep your Action types as constants separately, since you
 export const ADD_TODO = 'ADD_TODO';
 ```
 
-and then import as use them in Action creators:
+and then import and use them in Action creators:
 
 ```js
 // actions/todos.js

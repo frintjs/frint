@@ -19,7 +19,7 @@ export default React.createClass({
     name: PropTypes.string.isRequired
   },
 
-  componentDidMount() {
+  componentWillMount() {
     const observable = getObservable();
 
     this.subscription = observable.subscribe({

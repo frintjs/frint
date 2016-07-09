@@ -3,36 +3,28 @@ import chai, { expect } from 'chai';
 import React from 'react';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-chai.use(sinonChai);
+import createComponent from '../src/createComponent';
 
-const sandbox = sinon.sandbox.create();
-const createComponent = require('../src/createComponent');
+chai.use(sinonChai);
+sinon.spy(React, 'createClass');
+
 
 describe('createComponent', function () {
-  beforeEach(function () {
-    sandbox.spy(React, 'createClass');
-  });
-
-
-  afterEach(function () {
-    sandbox.restore();
-  });
-
   it('creates a component', function () {
-    const MyComponent = createComponent({
+    const mySpec = {
       myCustomFunction() { return 'foo'; },
       render() {
         return null;
       }
-    });
-
+    };
+    const MyComponent = createComponent(mySpec);
     const myComponentInstance = new MyComponent();
 
     expect(React.createClass)
       .to.be.callCount(1)
       .and.to.be.calledWith({
-        myCustomFunction: sinon.match.func,
-        render: sinon.match.func,
+        myCustomFunction: mySpec.myCustomFunction,
+        render: mySpec.render,
         componentDidMount: sinon.match.func,
         componentWillUnmount: sinon.match.func
       });

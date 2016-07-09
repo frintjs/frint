@@ -13,9 +13,7 @@ describe('createComponent', function () {
   it('creates a component', function () {
     const mySpec = {
       myCustomFunction() { return 'foo'; },
-      render() {
-        return null;
-      }
+      render() { return null; }
     };
     const MyComponent = createComponent(mySpec);
     const myComponentInstance = new MyComponent();

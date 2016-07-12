@@ -5,11 +5,20 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import createComponent from '../src/createComponent';
 
+const sandbox = sinon.sandbox.create();
+
 chai.use(sinonChai);
-sinon.spy(React, 'createClass');
 
 
 describe('createComponent', function () {
+  beforeEach(function () {
+    sandbox.spy(React, 'createClass');
+  });
+
+  afterEach(function () {
+    sandbox.restore();
+  });
+
   it('creates a component', function () {
     const mySpec = {
       myCustomFunction() { return 'foo'; },

@@ -10,7 +10,7 @@ describe('createFactory', function () {
     const fakeAppInstance = {};
     const mySpec = {
       initialize: sinon.stub(),
-      myCustomFunction: () => 'lol'
+      myCustomFunction: () => 'value'
     };
 
     const MyFactory = createFactory(mySpec);
@@ -25,6 +25,6 @@ describe('createFactory', function () {
 
     /* And contain the functions passed in the spec */
     expect('myCustomFunction' in myFactoryInstance).to.be.equal(true);
-    expect(myFactoryInstance.myCustomFunction()).to.be.equal('lol');
+    expect(myFactoryInstance.myCustomFunction()).to.be.equal('value');
   });
 });

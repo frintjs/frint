@@ -1,11 +1,7 @@
 /* global describe, it */
-import chai, { expect } from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-
+import { expect } from 'chai';
 import BaseModel from '../src/Model';
 import createModel from '../src/createModel';
-chai.use(sinonChai);
 
 describe('createModel', () => {
   const mySpec = {

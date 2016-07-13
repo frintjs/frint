@@ -81,10 +81,12 @@ export default createApp({
 
   component: Root,
 
+  // defining how the app should looks like
   initialState: {},
 
+  // letting our app know which reducer handles the business
   reducer: rootReducer
 });
 ```
 
-And you are done. Next we would talk about how to inject state and action dispatchers in Components.
+And you are done with the class definition of `App`, the high-level stuff where we define our app as one single conherent unit. Next we would talk about how to inject state and action dispatchers in `Components`, which handles the nitty-gritty bits of updating the front-end.

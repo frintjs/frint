@@ -8,6 +8,9 @@ import _ from 'lodash';
 import createAppendActionMiddleware from './middlewares/appendAction';
 import Provider from './components/Provider';
 
+/**
+ * Class definition of an app.
+ */
 class BaseApp {
   constructor(opts = {}) {
     this.options = {
@@ -65,18 +68,38 @@ class BaseApp {
     this.readableApps = [];
   }
 
+  /**
+   * Return the rootApp instance.
+   *
+   * @return {Object} - The root app instance
+   */
   getRootApp() {
     return this.options.rootApp;
   }
 
+  /**
+   * Return model scoped to one single app instance.
+   * Implemented when this baseApp class is extended.
+   */
   getModel(modelName) { // eslint-disable-line
     // will be implemented below when extended
   }
 
+  /**
+   * Returns service scoped to one single root app instance.
+   * Implemented when this baseApp class is extended.
+   */
   getService(serviceName) { // eslint-disable-line
     // will be implemented below when extended
   }
 
+  /**
+   * Returns new instance of a factory, scoped to the current app, if existing.
+   * Otherwise return factory from the root app.
+   *
+   * @param  {String} factoryName
+   * @return {Object} new instance of the factory
+   */
   getFactory(factoryName) {
     // TODO: optimize code to be more DRY
     const factories = this.getOption('factories');
@@ -106,6 +129,13 @@ class BaseApp {
     return null;
   }
 
+  /**
+   * Creates a store scoped to one single app instance.
+   *
+   * @param  {Object} rootReducer  - reducer that returns a single state object
+   * @param  {Object} initialState - initial shape of the state object
+   * @return {Object}
+   */
   createStore(rootReducer, initialState = {}) {
     this.options.store = createStore(
       rootReducer,
@@ -125,6 +155,12 @@ class BaseApp {
     return this.options.store;
   }
 
+  /**
+   * Returns instance of the store, scoped to one single app instance.
+   *
+   * @param  {String} appName
+   * @return {Object}
+   */
   getStore(appName = null) {
     if (!appName) {
       return this.getOption('store');
@@ -152,10 +188,23 @@ class BaseApp {
     return null;
   }
 
+  /**
+   * Utility function that returns properties from options.
+   *
+   * @param  {String} key - any key of the options object
+   * @return {Object}
+   */
   getOption(key) {
     return this.options[key];
   }
 
+  /**
+   * Adding widgets to a Region, for rendering widgets in the designated area.
+   *
+   * @param  {Object} WidgetApp  - widget to be registered
+   * @param  {String} regionName - region to be registered to
+   * @return {Object}            - Subject appended with list of widgets
+   */
   registerWidget(WidgetApp, regionName) {
     if (!Array.isArray(this.widgetsByRegion[regionName])) {
       this.widgetsByRegion[regionName] = [];
@@ -166,10 +215,20 @@ class BaseApp {
     return this.widgetsSubject.next(this.widgetsByRegion);
   }
 
+  /**
+   * Calling the beforeMount lifecycle method binded to the correct app instance context.
+   *
+   * @return {Function}
+   */
   beforeMount() {
     return this.options.beforeMount.bind(this)();
   }
 
+  /**
+   * Renders a scoped component with it's own store.
+   *
+   * @return {JSX}
+   */
   render() {
     const Component = this.getOption('component');
 
@@ -183,17 +242,31 @@ class BaseApp {
     );
   }
 
+  /**
+   * Calling the afterMount lifecycle method, binded to the correct app instance context.
+   *
+   * @return {Function}
+   */
   afterMount() {
     return this.options.afterMount.bind(this)();
   }
 
+
+  /**
+   * Calling the beforeUnmount lifecycle method, binded to the correct app instance context.
+   *
+   * @return {Function}
+   */
   beforeUnmount() {
     return this.options.beforeUnmount.bind(this)();
   }
 
   /**
-   * Alternative to Core.registerWidget(),
-   * by doing Widget.setRegion()
+   * Registering the app to the specified Region.
+   * When this method is called, the specified Region will be re-rendered, loading the child app.
+   *
+   * This is an alternative method to CoreApp.registerWidget(),
+   * by doing childApp.setRegion()
    */
   setRegion(regionName) {
     const rootApp = this.getRootApp();
@@ -205,6 +278,13 @@ class BaseApp {
     return rootApp.registerWidget(this, regionName);
   }
 
+  /**
+   * Return array of widgets in the specified region, if any.
+   * If none is specified, return array of widgets of the root app.
+   *
+   * @param  {String} regionName
+   * @return {Array}
+   */
   getWidgets(regionName = null) {
     if (!regionName) {
       return this.widgetsByRegion;
@@ -219,17 +299,34 @@ class BaseApp {
     return list;
   }
 
+  /**
+   * Prepends the list of widgets to the widgets Subject.
+   *
+   * @return {Observable} - the sequence prepended with the widget list
+   */
   observeWidgets() {
     return this.widgetsSubject.startWith(
       this.getWidgets()
     );
   }
 
+  /**
+   * Exposing list of appNames to this.readableApps.
+   *
+   * @param  {Array}  appNames - list of exposed apps
+   * @return {Null}
+   */
   readStateFrom(appNames = []) {
     this.readableApps = appNames;
   }
 }
 
+/**
+ * Creates an app instance.
+ *
+ * @param  {Object} options - object of app-specific configurations
+ * @return {Object}         - new app instance
+ */
 export default function createApp(options = {}) {
   const modelRegistry = {};
   const serviceInstances = {};
@@ -244,7 +341,7 @@ export default function createApp(options = {}) {
       // models
       _.each(this.options.models, (ModelClass, modelName) => {
         if (typeof ModelClass !== 'function') {
-          throw new Error(`Expected model class '${modelName}' to be a valid Model class`);
+          throw new Error(`Expected model class '${modelName}' to be a valid Model class. Its type should be 'function'.`);
         }
 
         modelRegistry[modelName] = _.memoize(() => {
@@ -261,6 +358,12 @@ export default function createApp(options = {}) {
       });
     }
 
+    /**
+     * Return instance of model.
+     *
+     * @param  {String} modelName - name of model requested
+     * @return {Function}
+     */
     getModel(modelName) {
       if (modelName in modelRegistry) {
         return modelRegistry[modelName]();
@@ -272,6 +375,12 @@ export default function createApp(options = {}) {
       return null;
     }
 
+    /**
+     * Return the same service instance.
+     *
+     * @param  {String} serviceName - name of service requested
+     * @return {Function}
+     */
     getService(serviceName) {
       if (serviceInstances[serviceName]) {
         return serviceInstances[serviceName];

@@ -1,12 +1,6 @@
 ## Table of Contents
 
 * [Read Me](/README.md)
-* [Introduction](/docs/introduction/README.md)
-  * [Motivation](/docs/introduction/Motivation.md)
-  * [Terminologies](/docs/introduction/Terminologies.md)
-* [Installation](/docs/installation/README.md)
-  * [Requirements](/docs/installation/Requirements.md)
-  * [NPM](/docs/installation/Npm.md)
 * [Guides](/docs/guides/README.md)
   * [Creating a new App](/docs/guides/create-app/README.md)
     * [Initialize npm package](/docs/guides/create-app/NpmInit.md)

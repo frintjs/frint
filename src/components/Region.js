@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
 // @TODO: check for an alternative to remove global dependency

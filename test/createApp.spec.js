@@ -3,8 +3,8 @@ import { expect } from 'chai';
 
 import createApp from '../src/createApp';
 
-describe('createApp', function () {
-  it('creates an instance', function () {
+describe('createApp', () => {
+  it('creates an instance', () => {
     const App = createApp({
       name: 'MyAppName',
       appId: '123',

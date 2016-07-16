@@ -58,7 +58,7 @@ describe('components › Provider', function () {
     });
   });
 
-  it('calls React.Children.only() with the props.children provided', function () {
+  it('calls React.Children.only() with the props.children provided, on render', function () {
     myProviderInstance.render();
     expect(Children.only)
       .to.be.callCount(1)

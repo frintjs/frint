@@ -7,7 +7,7 @@ import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 
 
-const fakeComponent = React.createClass({
+const FakeComponent = React.createClass({
   render() { return null; }
 });
 const targetElement = document.getElementById('root');

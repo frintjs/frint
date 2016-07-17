@@ -33,10 +33,7 @@ describe('createService', () => {
   });
 
   it('must contain the functions passed in the spec', () => {
-    expect('initialize' in myServiceInstance).to.be.equal(true);
-    expect('customFunction1' in myServiceInstance).to.be.equal(true);
-    expect('customFunction2' in myServiceInstance).to.be.equal(true);
-    expect('returnsThis' in myServiceInstance).to.be.equal(true);
+    expect(myServiceInstance).to.include.all.keys('initialize', 'customFunction1', 'customFunction2', 'returnsThis');
 
     expect(myServiceInstance.customFunction1()).to.be.equal('value1');
     expect(myServiceInstance.customFunction2()).to.be.equal('value2');

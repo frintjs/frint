@@ -18,7 +18,7 @@ describe('render', () => {
     afterMount: sandbox.stub(),
     beforeMount: sandbox.stub(),
     beforeUnmount: sandbox.stub(),
-    render: sandbox.stub().returns(fakeComponent)
+    render: sandbox.stub().returns(FakeComponent)
   };
 
   let renderedComponent;

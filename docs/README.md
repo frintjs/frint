@@ -27,6 +27,7 @@
 * [API Reference](/docs/api/README.md)
   * [createApp](/docs/api/createApp.md)
   * [createComponent](/docs/api/createComponent.md)
+  * [PropTypes](/docs/api/PropTypes.md)
   * [combineReducers](/docs/api/combineReducers.md)
   * [createModel](/docs/api/createModel.md)
   * [createService](/docs/api/createService.md)

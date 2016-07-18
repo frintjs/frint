@@ -5,7 +5,7 @@ import sinonChai from 'sinon-chai';
 import createFactory from '../src/createFactory';
 chai.use(sinonChai);
 
-describe('createFactory', function () {
+describe('createFactory', () => {
   const fakeAppInstance = {};
   const mySpec = {
     initialize: sinon.stub(),
@@ -15,16 +15,20 @@ describe('createFactory', function () {
   const MyFactory = createFactory(mySpec);
   const myFactoryInstance = new MyFactory({ app: fakeAppInstance });
 
-  it('executes the initialize() at construction', function () {
+  it('throws error when an app instance is not provided', () => {
+    expect(() => new MyFactory()).to.throw(Error, 'App instance not provided.');
+  });
+
+  it('executes the initialize() at construction', () => {
     expect(mySpec.initialize).to.be.callCount(1);
   });
 
-  it('must be an instance of MyFactory and have the app passed', function () {
+  it('must be an instance of MyFactory and have the app passed', () => {
     expect(myFactoryInstance).to.be.instanceOf(MyFactory);
     expect(myFactoryInstance.app).to.be.deep.equal(fakeAppInstance);
   });
 
-  it('must contain the functions passed in the spec', function () {
+  it('must contain the functions passed in the spec', () => {
     expect('myCustomFunction' in myFactoryInstance).to.be.equal(true);
     expect(myFactoryInstance.myCustomFunction()).to.be.equal('value');
   });

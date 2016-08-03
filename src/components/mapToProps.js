@@ -86,7 +86,7 @@ export default function mapToProps(opts = {}) {
           options.options
         )(Component);
 
-        return <ConnectedComponent />;
+        return <ConnectedComponent {...this.props} />;
       }
     });
 

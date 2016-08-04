@@ -8,6 +8,7 @@ Previously, we saw that App requires a Component for rendering. We will write ou
 import { createComponent } from 'frint';
 
 export default createComponent({
+  // required method
   render() {
     return (
       <p>Hello World!</p>

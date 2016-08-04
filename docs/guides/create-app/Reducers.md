@@ -87,4 +87,4 @@ export default createApp({
 });
 ```
 
-And you are done. Next we would talk about how to inject state and action dispatchers in Components.
+And you are done with the class definition of `App`, the high-level stuff where we define our app as one single coherent unit. Next we would talk about how to inject state and action dispatchers in `Components`, which handles the nitty-gritty bits of updating the front-end.

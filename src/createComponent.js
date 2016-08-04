@@ -16,6 +16,10 @@ import React from 'react';
  * @public
  */
 export default function createComponent(options = {}) {
+  if (!options.render || typeof options.render !== 'function') {
+    throw new Error('Render is a required method.');
+  }
+
   return React.createClass({
     ...options,
     componentDidMount() {

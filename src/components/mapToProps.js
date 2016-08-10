@@ -7,7 +7,13 @@ export default function mapToProps(opts = {}) {
     app: () => {},
     dispatch: {},
     factories: {},
-    merge: undefined,
+    merge(stateProps, dispatchProps, ownProps) {
+      return {
+        ...ownProps,
+        ...dispatchProps,
+        ...stateProps,
+      };
+    },
     options: {},
     services: {},
     shared: () => {},
@@ -22,7 +28,7 @@ export default function mapToProps(opts = {}) {
           mappedAppToProps: {},
           readableStores: {},
           services: {},
-          factories: {}
+          factories: {},
         };
       },
 
@@ -75,7 +81,7 @@ export default function mapToProps(opts = {}) {
             ...options.shared(this.state.readableStores),
             ...mappedAppToProps,
             ...services,
-            ...factories
+            ...factories,
           };
         };
 
@@ -86,7 +92,7 @@ export default function mapToProps(opts = {}) {
           options.options
         )(Component);
 
-        return <ConnectedComponent />;
+        return <ConnectedComponent {...this.props} />;
       }
     });
 

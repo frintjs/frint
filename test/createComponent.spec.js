@@ -1,17 +1,19 @@
 /* global describe, it */
 import chai, { expect } from 'chai';
+import createComponent from '../src/createComponent';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import createComponent from '../src/createComponent';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);
 
 describe('createComponent', () => {
+  const expectedRender = <div className="test"></div>;
   const mySpec = {
     myCustomFunction() { return 'foo'; },
-    render() { return null; }
+    render() { return expectedRender; }
   };
   let MyComponent;
   let myComponentInstance;
@@ -19,7 +21,7 @@ describe('createComponent', () => {
   beforeEach(() => {
     sandbox.spy(React, 'createClass');
     MyComponent = createComponent(mySpec);
-    myComponentInstance = new MyComponent();
+    myComponentInstance = ReactDOM.render(React.createElement(MyComponent), document.getElementById('root'));
   });
 
   afterEach(() => {
@@ -33,7 +35,8 @@ describe('createComponent', () => {
         myCustomFunction: mySpec.myCustomFunction,
         render: mySpec.render,
         componentDidMount: sinon.match.func,
-        componentWillUnmount: sinon.match.func
+        componentWillUnmount: sinon.match.func,
+        getDOMElement: sinon.match.func
       });
   });
 
@@ -42,8 +45,12 @@ describe('createComponent', () => {
     expect(myComponentInstance).to.be.instanceof(MyComponent);
   });
 
+  it('gets the DOM Node when executing getDOMElement()', () => {
+    expect(myComponentInstance.getDOMElement()).to.be.equal(document.querySelector('#root .test'));
+  });
+
   it('has the spec\'s functions', () => {
     expect(myComponentInstance.myCustomFunction()).to.be.equal('foo');
-    expect(myComponentInstance.render()).to.be.equal(null);
+    expect(myComponentInstance.render()).to.be.equal(expectedRender);
   });
 });

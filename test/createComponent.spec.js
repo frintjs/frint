@@ -25,6 +25,8 @@ describe('createComponent', () => {
   });
 
   afterEach(() => {
+    const element = document.querySelector('#root .test');
+    element.parentNode.removeChild(element);
     sandbox.restore();
   });
 

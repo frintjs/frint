@@ -14,6 +14,34 @@ const MyComponent = createComponent({
 });
 ```
 
+## Custom methods
+
+The `createComponent` function also adds some custom methods to the object passed to it. These can be called directly
+by the instance of the component.
+
+```js
+import { createComponent } from 'frint';
+
+const MyComponent = createComponent({
+  handleSubmit(e) {
+    const rootElement = this.getDOMElement();
+
+    /** Adds the class .hide to the component's root DOM element */
+    rootElement.classList.add('hide');
+  },
+
+  render() {
+    return <div><button onClick={this.handleSubmit}>Click me to hide</button></div>;
+  }
+});
+```
+
+### getDOMElement
+
+This method returns the topmost HTMLElement of your component's DOM tree. In case you don't have any DOM tree rendered,
+it will return `null`.
+
+
 ## Lifecycle events
 
 On the object passed to `createComponent`, certain lifecycle events can be defined. These will be called by the framework automatically.

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 /**
  * Module that specifies the createComponent function for creating Components.
@@ -18,6 +19,7 @@ import React from 'react';
 export default function createComponent(options = {}) {
   return React.createClass({
     ...options,
+
     componentDidMount() {
       if (typeof options.afterMount === 'function') {
         return options.afterMount.call(this);
@@ -32,6 +34,17 @@ export default function createComponent(options = {}) {
       }
 
       return null;
-    }
+    },
+
+    /**
+     * Returns the root HTML element of the component.
+     *
+     * @method getDOMElement
+     * @return {HTMLElement|null} Returns the component's root HTML Node.
+     * @public
+     */
+    getDOMElement() {
+      return ReactDOM.findDOMNode(this);
+    },
   });
 }

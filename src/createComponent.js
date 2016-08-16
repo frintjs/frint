@@ -35,16 +35,5 @@ export default function createComponent(options = {}) {
 
       return null;
     },
-
-    /**
-     * Returns the root HTML element of the component.
-     *
-     * @method getDOMElement
-     * @return {HTMLElement|null} Returns the component's root HTML Node.
-     * @public
-     */
-    getDOMElement() {
-      return ReactDOM.findDOMNode(this);
-    },
   });
 }

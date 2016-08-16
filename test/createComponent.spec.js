@@ -37,18 +37,13 @@ describe('createComponent', () => {
         myCustomFunction: mySpec.myCustomFunction,
         render: mySpec.render,
         componentDidMount: sinon.match.func,
-        componentWillUnmount: sinon.match.func,
-        getDOMElement: sinon.match.func
+        componentWillUnmount: sinon.match.func
       });
   });
 
   it('is a valid React component and a MyComponent\'s instance', () => {
     expect('isReactComponent' in Object.getPrototypeOf(myComponentInstance)).to.be.equal(true);
     expect(myComponentInstance).to.be.instanceof(MyComponent);
-  });
-
-  it('gets the DOM Node when executing getDOMElement()', () => {
-    expect(myComponentInstance.getDOMElement()).to.be.equal(document.querySelector('#root .test'));
   });
 
   it('has the spec\'s functions', () => {

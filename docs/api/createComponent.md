@@ -36,11 +36,6 @@ const MyComponent = createComponent({
 });
 ```
 
-### getDOMElement
-
-This method returns the topmost HTMLElement of your component's DOM tree. In case you don't have any DOM tree rendered,
-it will return `null`.
-
 
 ## Lifecycle events
 

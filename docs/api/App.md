@@ -76,6 +76,12 @@ childApp.setRegion('sidebar');
 
 Returns a list of child apps, by a specific region. Returns all the child apps, irrespective of their region, if no `regionName` is provided.
 
+### getValidationFunctions()
+
+Returns a list of validation functions, passed via options to the app, to be used with the Validation service.
+
+This method attempts to obtain the list from the RootApp's options. If not available will try to obtain it from the options of the app calling it. Returns undefined in case everything fails.
+
 ### observeWidgets()
 
 Returns an observable, that you can subscribe to. Emit's a `next` event every time there is a change in the list of registered widgets.

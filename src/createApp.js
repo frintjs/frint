@@ -291,6 +291,23 @@ export default function createApp(options = {}) {
 
       return null;
     }
+
+    /**
+     * Attempts to get the option 'validationFunctions' from the RootApp.
+     * If it's not possible, returns from the current app as a fallback
+     *
+     * @method getValidationFunctions
+     * @return {Array|undefined} List of functions
+     * @public
+     */
+    getValidationFunctions() {
+      const rootApp = this.getRootApp();
+      if (rootApp && rootApp.getOption('validationFunctions')) {
+        return rootApp.getOption('validationFunctions');
+      }
+
+      return this.getOption('validationFunctions');
+    }
   }
 
   return App;

@@ -6,8 +6,7 @@
   "scripts": {
     "build": "webpack",
     "transpile": "babel src --out-dir lib",
-    "test": "mocha",
-    "coverage:test": "istanbul cover $(npm bin)/../mocha/bin/_mocha --",
+    "test": "istanbul cover $(npm bin)/../mocha/bin/_mocha --",
     "coverage:coveralls": "cat ./coverage/lcov.info | $(npm bin)/../coveralls/bin/coveralls.js && rm -Rf ./coverage",
     "docs:prepare": "gitbook install",
     "docs:clean": "rimraf _book",

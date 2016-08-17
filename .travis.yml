@@ -6,7 +6,7 @@ node_js:
 after_success: 'npm run coveralls'
 
 env:
-  COVERALLS_SERVICE_JOB_ID: $TRAVIS_BUILD_NUMBER
+  - COVERALLS_SERVICE_JOB_ID: $TRAVIS_REPO_SLUG:$TRAVIS_BRANCH:$TRAVIS_PULL_REQUEST:$TRAVIS_BUILD_NUMBER
 
 notifications:
   email: false

@@ -14,6 +14,7 @@ export default function mapToProps(opts = {}) {
         ...stateProps,
       };
     },
+    models: {},
     options: {},
     services: {},
     shared: () => {},
@@ -29,6 +30,7 @@ export default function mapToProps(opts = {}) {
           readableStores: {},
           services: {},
           factories: {},
+          models: {},
         };
       },
 
@@ -61,6 +63,9 @@ export default function mapToProps(opts = {}) {
           }),
           factories: _.mapValues(options.factories, (factoryName) => {
             return this.context.app.getFactory(factoryName);
+          }),
+          models: _.mapValues(options.models, (modelName) => {
+            return this.context.app.getModel(modelName);
           })
         });
       },
@@ -73,7 +78,7 @@ export default function mapToProps(opts = {}) {
       },
 
       render() {
-        const { mappedAppToProps, services, factories } = this.state;
+        const { mappedAppToProps, services, factories, models } = this.state;
 
         const combinedMapStateToProps = (...args) => {
           return {
@@ -82,6 +87,7 @@ export default function mapToProps(opts = {}) {
             ...mappedAppToProps,
             ...services,
             ...factories,
+            ...models,
           };
         };
 

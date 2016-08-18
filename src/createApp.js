@@ -2,7 +2,6 @@ import { Subject } from 'rxjs';
 import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
 import _ from 'lodash';
 
 import createAppendActionMiddleware from './middlewares/appendAction';
@@ -107,18 +106,25 @@ class BaseApp {
   }
 
   createStore(rootReducer, initialState = {}) {
+    const middlewares = [
+      thunk.withExtraArgument({ app: this }),
+      createAppendActionMiddleware({
+        key: 'appName',
+        value: this.getOption('name')
+      })
+    ];
+
+    if (process.env.NODE_ENV !== 'production') {
+      const createLogger = require('redux-logger');
+
+      middlewares.push(createLogger());
+    }
+
     this.options.store = createStore(
       rootReducer,
       initialState,
       compose(
-        applyMiddleware(
-          thunk.withExtraArgument({ app: this }),
-          createAppendActionMiddleware({
-            key: 'appName',
-            value: this.getOption('name')
-          }),
-          createLogger() // @TODO: load it in DEV environment only
-        )
+        applyMiddleware(...middlewares)
       )
     );
 

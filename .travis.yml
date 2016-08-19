@@ -3,6 +3,10 @@ language: node_js
 node_js:
   - 'stable'
 
+script:
+  - 'npm test'
+  - 'npm run lint:docs'
+
 after_success: 'npm run coverage:coveralls'
 
 notifications:

@@ -8,6 +8,7 @@
     "transpile": "babel src --out-dir lib",
     "test": "istanbul cover $(npm bin)/../mocha/bin/_mocha --",
     "coverage:coveralls": "cat ./coverage/lcov.info | $(npm bin)/../coveralls/bin/coveralls.js && rm -Rf ./coverage",
+    "lint:docs": "alex '*.md' 'docs/**/*.md'",
     "docs:prepare": "gitbook install",
     "docs:clean": "rimraf _book",
     "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
@@ -56,6 +57,7 @@
     "rxjs": "^5.0.0-beta.10"
   },
   "devDependencies": {
+    "alex": "^3.1.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.9.1",
     "babel-preset-travix": "^1.1.0",

@@ -5,7 +5,7 @@ node_js:
 
 script:
   - 'npm test'
-  - 'npm run lint:docs'
+  - 'npm run alex'
 
 after_success: 'npm run coverage:coveralls'
 

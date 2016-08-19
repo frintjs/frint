@@ -1,29 +1,29 @@
-const createApp = require('./lib/createApp');
-const createComponent = require('./lib/createComponent');
-const Model = require('./lib/Model');
-const createModel = require('./lib/createModel');
-const createService = require('./lib/createService');
-const createFactory = require('./lib/createFactory');
+var createApp = require('./lib/createApp');
+var createComponent = require('./lib/createComponent');
+var Model = require('./lib/Model');
+var createModel = require('./lib/createModel');
+var createService = require('./lib/createService');
+var createFactory = require('./lib/createFactory');
 
-const render = require('./lib/render');
+var render = require('./lib/render');
 
-const Region = require('./lib/components/Region');
+var Region = require('./lib/components/Region');
 
-const combineReducers = require('redux').combineReducers;
-const mapToProps = require('./lib/components/mapToProps');
+var combineReducers = require('redux').combineReducers;
+var mapToProps = require('./lib/components/mapToProps');
 
-const PropTypes = require('./lib/PropTypes');
+var PropTypes = require('./lib/PropTypes');
 
 module.exports = {
-  createApp,
-  createComponent,
-  Model,
-  createModel,
-  createService,
-  createFactory,
-  render,
-  Region,
-  combineReducers,
-  mapToProps,
-  PropTypes
+  createApp: createApp,
+  createComponent: createComponent,
+  Model: Model,
+  createModel: createModel,
+  createService: createService,
+  createFactory: createFactory,
+  render: render,
+  Region: Region,
+  combineReducers: combineReducers,
+  mapToProps: mapToProps,
+  PropTypes: PropTypes
 };

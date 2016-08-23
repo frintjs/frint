@@ -19,7 +19,7 @@ export default function mapToProps(opts = {}) {
     services: {},
     shared: () => {},
     state: () => {},
-    ...opts
+    ...opts,
   };
 
   return (Component) => {
@@ -48,8 +48,8 @@ export default function mapToProps(opts = {}) {
               ...currentState,
               readableStores: {
                 ...readableStores,
-                [readableAppName]: readableAppStore.getState()
-              }
+                [readableAppName]: readableAppStore.getState(),
+              },
             };
 
             this.replaceState(updatedState);
@@ -58,9 +58,7 @@ export default function mapToProps(opts = {}) {
 
         this.setState({
           mappedAppToProps: options.app(this.context.app),
-          services: _.mapValues(options.services, (serviceName) => {
-            return this.context.app.getService(serviceName);
-          }),
+          services: _.mapValues(options.services, (serviceName) => this.context.app.getService(serviceName)),
           factories: _.mapValues(options.factories, (factoryName) => {
             return this.context.app.getFactory(factoryName);
           }),

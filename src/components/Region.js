@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* globals window */
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
@@ -50,7 +51,6 @@ export default React.createClass({
         this.setState({
           list: getWidgets(this.props.name)
         }, () => {
-
           this.state.list.forEach((widget) => {
             if (!isRootAppAvailable()) {
               return;

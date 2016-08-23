@@ -1,11 +1,12 @@
+/* globals after, before, describe, document, it */
 import chai, { expect } from 'chai';
-import render from '../src/render';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-chai.use(sinonChai);
+import render from '../src/render';
 
+chai.use(sinonChai);
 
 const FakeComponent = React.createClass({
   render() { return null; }

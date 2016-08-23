@@ -1,5 +1,5 @@
 /* global describe, it */
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import PropTypes from '../src/PropTypes';
 
 describe('PropTypes', () => {

@@ -1,4 +1,4 @@
-/* global describe, it */
+/* global afterEach, beforeEach, describe, it */
 import chai, { expect } from 'chai';
 import React, { Children, Component, PropTypes } from 'react';
 import sinon from 'sinon';
@@ -20,7 +20,7 @@ describe('components › Provider', function () {
       app: fakeApp,
       children: fakeChildren,
       store: fakeStore
-    })
+    });
   });
 
   afterEach(function () {

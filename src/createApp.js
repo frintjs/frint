@@ -1,9 +1,9 @@
+/* globals window */
 import { Subject } from 'rxjs';
 import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import _ from 'lodash';
-
 import createAppendActionMiddleware from './middlewares/appendAction';
 import Provider from './components/Provider';
 
@@ -115,7 +115,7 @@ class BaseApp {
     ];
 
     if (process.env.NODE_ENV !== 'production') {
-      const createLogger = require('redux-logger');
+      const createLogger = require('redux-logger'); // eslint-disable-line
 
       middlewares.push(createLogger());
     }

@@ -1,10 +1,10 @@
-/* global describe, it */
+/* global afterEach, beforeEach, describe, it, document */
 import chai, { expect } from 'chai';
-import createComponent from '../src/createComponent';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import createComponent from '../src/createComponent';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);

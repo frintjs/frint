@@ -7,6 +7,9 @@ When you embed this Component with a given `name`, any time other apps register 
 ## Example
 
 ```js
+// on the core app
+// ./core/components/Root.js
+
 import { createComponent, Region } from 'frint';
 
 const MyComponent = createComponent({
@@ -25,6 +28,9 @@ const MyComponent = createComponent({
 Next time, when a new Widget gets loaded, and it calls `setRegion`:
 
 ```js
+// on the child app
+// ./widgets/someChildApp/index.js
+
 someChildApp.setRegion('sidebar');
 ```
 

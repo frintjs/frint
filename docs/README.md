@@ -2,8 +2,6 @@
 
 * [Read Me](/README.md)
 * [Introduction](/docs/introduction/README.md)
-  * [Motivation](/docs/introduction/Motivation.md)
-  * [Terminologies](/docs/introduction/Terminologies.md)
 * [Installation](/docs/installation/README.md)
   * [Requirements](/docs/installation/Requirements.md)
   * [NPM](/docs/installation/Npm.md)
@@ -24,6 +22,7 @@
     * [Props Injection](/docs/guides/create-app/Injection.md)
     * [Build](/docs/guides/create-app/Build.md)
     * [Testing](/docs/guides/create-app/Testing.md)
+  * [Testing an App](/docs/guides/test-app/README.md)
 * [API Reference](/docs/api/README.md)
   * [createApp](/docs/api/createApp.md)
   * [createComponent](/docs/api/createComponent.md)
@@ -38,5 +37,6 @@
   * [mapToProps](/docs/api/mapToProps.md)
   * [Region](/docs/api/Region.md)
 * [Glossary](/docs/Glossary.md)
+* [FAQ](/docs/faq.md)
 * [Contributing](/CONTRIBUTING.md)
 * [Change Log](/CHANGELOG.md)

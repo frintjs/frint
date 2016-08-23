@@ -15,6 +15,7 @@ describe('createComponent', () => {
     myCustomFunction() { return 'foo'; },
     render() { return expectedRender; }
   };
+
   let MyComponent;
   let myComponentInstance;
 
@@ -54,5 +55,21 @@ describe('createComponent', () => {
   it('has the spec\'s functions', () => {
     expect(myComponentInstance.myCustomFunction()).to.be.equal('foo');
     expect(myComponentInstance.render()).to.be.equal(expectedRender);
+  });
+
+  it('throws an error if no render method is defined', function () {
+    const noRenderSpec = {};
+
+    expect(createComponent.bind(null, noRenderSpec))
+      .to.throw('Render is a required method.');
+  });
+
+  it('throws an error if render is not a function', function () {
+    const badRenderSpec = {
+      render: 'it is a string moron'
+    }
+
+    expect(createComponent.bind(null, badRenderSpec))
+      .to.throw('Render is a required method.');
   });
 });

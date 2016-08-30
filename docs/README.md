@@ -38,5 +38,6 @@
   * [mapToProps](/docs/api/mapToProps.md)
   * [Region](/docs/api/Region.md)
 * [Glossary](/docs/Glossary.md)
+* [FAQ](/docs/faq.md)
 * [Contributing](/CONTRIBUTING.md)
 * [Change Log](/CHANGELOG.md)

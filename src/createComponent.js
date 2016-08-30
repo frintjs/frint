@@ -17,6 +17,10 @@ import ReactDOM from 'react-dom';
  * @public
  */
 export default function createComponent(options = {}) {
+  if (!options.render || typeof options.render !== 'function') {
+    throw new Error(`Component ${options.name} missing required method: render`);
+  }
+
   return React.createClass({
     ...options,
 

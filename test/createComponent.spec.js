@@ -55,4 +55,13 @@ describe('createComponent', () => {
     expect(myComponentInstance.myCustomFunction()).to.be.equal('foo');
     expect(myComponentInstance.render()).to.be.equal(expectedRender);
   });
+
+  it('throws an error if no render method is defined', function () {
+    const noRenderSpec = {
+      name: 'mySillyApp'
+    };
+
+    expect(createComponent.bind(null, noRenderSpec))
+      .to.throw('Component mySillyApp missing required method: render');
+  });
 });

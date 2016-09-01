@@ -1,17 +1,11 @@
 /* global afterEach, beforeEach, describe, it, window, document */
-import chai, { expect } from 'chai';
-import React, { Children, Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
+import { expect } from 'chai';
+import React from 'react';
 
 import createApp from '../../src/createApp';
 import createComponent from '../../src/createComponent';
 import Region from '../../src/components/Region';
 import render from '../../src/render';
-
-const sandbox = sinon.sandbox.create();
-chai.use(sinonChai);
 
 describe('components › Region', () => {
   function generateCoreAppTemplate(appOptions = {}, regionName) {

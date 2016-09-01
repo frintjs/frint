@@ -56,6 +56,7 @@ export default React.createClass({
               return;
             }
 
+            const appName = widget.getOption('appName');
             const widgetName = widget.getOption('name');
 
             // @TODO: later re-implement this check with observables
@@ -69,7 +70,7 @@ export default React.createClass({
             }
 
             const existsInState = this.state.listForRendering.some((item) => {
-              return item.name === widgetName;
+              return (item.appName === appName) && (item.name === widgetName);
             });
 
             if (existsInState) {
@@ -96,8 +97,9 @@ export default React.createClass({
             });
 
             const listForRendering = [...this.state.listForRendering, {
-              name: widgetName,
+              appName,
               Component: WrapperComponent,
+              name: widgetName,
             }];
 
             this.setState({ listForRendering });
@@ -131,10 +133,10 @@ export default React.createClass({
     return (
       <div>
         {listForRendering.map((item) => {
-          const { Component, name } = item;
+          const { appName, Component, name } = item;
 
           return (
-            <Component key={name} />
+            <Component key={`${appName}_${name}`} />
           );
         })}
       </div>

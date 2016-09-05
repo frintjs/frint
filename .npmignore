@@ -1,1 +1,5 @@
 !lib/
+src
+test
+Makefile
+book.json

@@ -24,6 +24,10 @@ export default function mapToProps(opts = {}) {
 
   return (Component) => {
     const WrappedComponent = React.createClass({
+      displayName: (typeof Component.displayName !== 'undefined')
+        ? `mapToProps(${Component.displayName})`
+        : 'mapToProps',
+
       getInitialState() {
         return {
           mappedAppToProps: {},

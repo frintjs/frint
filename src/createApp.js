@@ -27,6 +27,7 @@ class BaseApp {
       store: null,
       reducer: (state = {}) => state,
       initialState: {},
+      enableLogger: true,
 
       services: {},
       factories: {},
@@ -115,9 +116,11 @@ class BaseApp {
     ];
 
     if (process.env.NODE_ENV !== 'production') {
-      const createLogger = require('redux-logger'); // eslint-disable-line
+      if (this.getOption('enableLogger') === true) {
+        const createLogger = require('redux-logger'); // eslint-disable-line
 
-      middlewares.push(createLogger());
+        middlewares.push(createLogger());
+      }
     }
 
     this.options.store = createStore(

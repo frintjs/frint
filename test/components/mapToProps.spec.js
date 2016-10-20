@@ -1,4 +1,4 @@
-/* global afterEach, beforeEach, describe, it, window, document */
+/* global afterEach, beforeEach, describe, it, window, document, before, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
 
@@ -14,6 +14,10 @@ import {
 } from '../../src';
 
 describe('components › mapToProps', () => {
+  before(function () {
+    resetDOM();
+  });
+
   afterEach(() => {
     delete window.app;
     document.getElementById('root').innerHTML = '';

@@ -24,6 +24,10 @@ export default function mapToProps(opts = {}) {
 
   return (Component) => {
     const WrappedComponent = React.createClass({
+      displayName: (typeof Component.displayName !== 'undefined')
+        ? `mapToProps(${Component.displayName})`
+        : 'mapToProps',
+
       getInitialState() {
         return {
           mappedAppToProps: {},
@@ -40,19 +44,27 @@ export default function mapToProps(opts = {}) {
         this.context.app.readableApps.forEach((readableAppName) => {
           const readableAppStore = this.context.app.getStore(readableAppName);
 
-          this.storeSubscriptions[readableAppName] = readableAppStore.subscribe(() => {
+          const generateUpdatedState = () => {
             const currentState = this.state;
             const readableStores = this.state.readableStores;
 
-            const updatedState = {
+            return {
               ...currentState,
               readableStores: {
                 ...readableStores,
                 [readableAppName]: readableAppStore.getState(),
               },
             };
+          };
 
-            this.replaceState(updatedState);
+          this.replaceState({
+            ...generateUpdatedState()
+          });
+
+          this.storeSubscriptions[readableAppName] = readableAppStore.subscribe(() => {
+            this.replaceState({
+              ...generateUpdatedState()
+            });
           });
         });
 

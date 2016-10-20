@@ -44,7 +44,7 @@ export default function mapToProps(opts = {}) {
         this.context.app.readableApps.forEach((readableAppName) => {
           const readableAppStore = this.context.app.getStore(readableAppName);
 
-          function generateUpdatedState() {
+          const generateUpdatedState = () => {
             const currentState = this.state;
             const readableStores = this.state.readableStores;
 
@@ -55,7 +55,7 @@ export default function mapToProps(opts = {}) {
                 [readableAppName]: readableAppStore.getState(),
               },
             };
-          }
+          };
 
           this.replaceState({
             ...generateUpdatedState()

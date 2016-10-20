@@ -9,6 +9,7 @@ import {
   render,
   createService,
   createFactory,
+  Region,
   mapToProps
 } from '../../src';
 
@@ -210,6 +211,155 @@ describe('components › mapToProps', () => {
       document.querySelector('#root .subtract').click(); // 11
 
       expect(document.querySelector('#root .counter').innerHTML).to.equal('11');
+    });
+  });
+
+  describe('Shared state', function () {
+    // Core App
+    const CoreComponent = createComponent({
+      render() {
+        return (
+          <div>
+            <Region name="main" />
+            <Region name="sidebar" />
+          </div>
+        );
+      }
+    });
+
+    const CoreApp = createApp({
+      appId: 'TestCore',
+      component: CoreComponent
+    });
+
+    // Widget #1: Foo
+    const FOO_INCREMENT_COUNTER = 'FOO_INCREMENT_COUNTER';
+
+    function fooIncrementCounter() {
+      return { type: FOO_INCREMENT_COUNTER };
+    }
+
+    const FOO_INITIAL_STATE = {
+      value: 10
+    };
+
+    function fooCounterReducer(state = FOO_INITIAL_STATE, action) {
+      switch (action.type) {
+        case FOO_INCREMENT_COUNTER:
+          return Object.assign({}, {
+            value: state.value + 1
+          });
+
+        default:
+          return state;
+      }
+    }
+
+    const fooRootReducer = combineReducers({
+      counter: fooCounterReducer
+    });
+
+    const FooComponent = createComponent({
+      render() {
+        return (
+          <div className="foo">
+            <p className="text">Hello World from Foo</p>
+            <p className="counter">{this.props.counter}</p>
+            <a className="add" onClick={() => this.props.incrementCounter()}>Add</a>
+          </div>
+        );
+      }
+    });
+
+    const FooRootComponent = mapToProps({
+      dispatch: {
+        incrementCounter: fooIncrementCounter
+      },
+      state(state) {
+        return {
+          counter: state.counter.value
+        };
+      }
+    })(FooComponent);
+
+    const FooApp = createApp({
+      appId: 'TestFooId',
+      name: 'testFoo',
+      component: FooRootComponent,
+      reducer: fooRootReducer,
+      enableLogger: false
+    });
+
+    // Widget #2: Bar
+    const BarComponent = createComponent({
+      render() {
+        return (
+          <div className="bar">
+            <p className="text">Hello World from Bar</p>
+            <p className="counter">{this.props.counter}</p>
+          </div>
+        );
+      }
+    });
+
+    const BarRootComponent = mapToProps({
+      shared(sharedState) {
+        return {
+          counter: (
+            typeof sharedState.testFoo !== 'undefined' &&
+            typeof sharedState.testFoo.counter !== 'undefined'
+          )
+            ? sharedState.testFoo.counter.value
+            : 'n/a',
+          sharedWasCalled: true
+        };
+      }
+    })(BarComponent);
+
+    const BarApp = createApp({
+      appId: 'TestBarId',
+      name: 'testBar',
+      component: BarRootComponent
+    });
+
+    it('renders Widget Bar, with Foo\'s initial state', function () {
+      window.app = new CoreApp();
+      render(window.app, document.getElementById('root'));
+
+      const fooApp = new FooApp();
+      fooApp.setRegion('main');
+
+      const barApp = new BarApp();
+      barApp.readStateFrom(['testFoo']);
+      barApp.setRegion('sidebar');
+
+      expect(document.querySelector('#root .foo .text').innerHTML).to.equal('Hello World from Foo');
+      expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('10');
+
+      expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
+      expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('10');
+    });
+
+    it('re-renders Widget Bar, with Foo\'s updated state', function () {
+      window.app = new CoreApp();
+      render(window.app, document.getElementById('root'));
+
+      const fooApp = new FooApp();
+      fooApp.setRegion('main');
+
+      const barApp = new BarApp();
+      barApp.readStateFrom(['testFoo']);
+      barApp.setRegion('sidebar');
+
+      expect(document.querySelector('#root .foo .text').innerHTML).to.equal('Hello World from Foo');
+      expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('10');
+
+      document.querySelector('#root .foo .add').click();
+      document.querySelector('#root .foo .add').click();
+      expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('12');
+
+      expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
+      expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('12');
     });
   });
 });

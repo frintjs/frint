@@ -2,11 +2,15 @@
 import { expect } from 'chai';
 import React from 'react';
 
-import createApp from '../../src/createApp';
-import createComponent from '../../src/createComponent';
-import render from '../../src/render';
-import { combineReducers } from '../../src';
-import mapToProps from '../../src/components/mapToProps';
+import {
+  createApp,
+  createComponent,
+  combineReducers,
+  render,
+  createService,
+  createFactory,
+  mapToProps
+} from '../../src';
 
 describe('components › mapToProps', () => {
   afterEach(() => {
@@ -33,27 +37,55 @@ describe('components › mapToProps', () => {
     expect(Container.contextTypes).to.exist; // eslint-disable-line
   });
 
-  describe('Basic', function () {
+  describe('Injection', function () {
     const TestComponent = createComponent({
       render() {
         return (
           <div>
             <p className="appId">{this.props.appId}</p>
             <p className="text">Hello World</p>
+            <p className="serviceName">{this.props.foo.getName()}</p>
+            <p className="factoryName">{this.props.bar.getName()}</p>
           </div>
         );
       }
     });
+
     const TestRootComponent = mapToProps({
       app(app) {
         return {
           appId: app.getOption('appId')
         };
+      },
+      services: {
+        foo: 'foo'
+      },
+      factories: {
+        bar: 'bar'
       }
     })(TestComponent);
+
+    const TestFooService = createService({
+      getName() {
+        return 'TestService';
+      }
+    });
+
+    const TestBarFactory = createFactory({
+      getName() {
+        return 'TestFactory';
+      }
+    });
+
     const TestApp = createApp({
       appId: 'test',
-      component: TestRootComponent
+      component: TestRootComponent,
+      services: {
+        foo: TestFooService
+      },
+      factories: {
+        bar: TestBarFactory
+      }
     });
 
     it('creates container from component', function () {
@@ -75,6 +107,22 @@ describe('components › mapToProps', () => {
 
       const text = document.querySelector('#root .appId');
       expect(text.innerHTML).to.equal('customAppIdHere');
+    });
+
+    it('maps from Service to props', function () {
+      const app = new TestApp();
+      render(app, document.getElementById('root'));
+
+      const text = document.querySelector('#root .serviceName');
+      expect(text.innerHTML).to.equal('TestService');
+    });
+
+    it('maps from Factory to props', function () {
+      const app = new TestApp();
+      render(app, document.getElementById('root'));
+
+      const text = document.querySelector('#root .factoryName');
+      expect(text.innerHTML).to.equal('TestFactory');
     });
   });
 

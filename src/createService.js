@@ -16,7 +16,7 @@ export default function createService(extend = {}) {
         .forEach((prop) => (this[prop] = this[prop].bind(this)));
 
       if (typeof this.initialize === 'function') {
-        this.initialize();
+        this.initialize(options);
       }
     }
   }

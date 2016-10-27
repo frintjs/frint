@@ -25,7 +25,8 @@ you can use the lifecycle method `initialize()`.
 import { createService } from 'frint';
 
 export default createService({
-  initialize() {
+  initialize(options = {}) {
+    // `options` contains all constructor options
     this.myProp = 'something';
   },
   myMethod() {

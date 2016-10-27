@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.4.7](https://github.com/Travix-International/frint/tree/v0.4.7) (2016-10-27)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.6...v0.4.7)
+
+**Merged pull requests:**
+
+- Trigger `initialize\(\)` method in Service and Factory with constructor options [\#35](https://github.com/Travix-International/frint/pull/35) ([fahad19](https://github.com/fahad19))
+- Changelogs [\#34](https://github.com/Travix-International/frint/pull/34) ([fahad19](https://github.com/fahad19))
+
 ## [v0.4.6](https://github.com/Travix-International/frint/tree/v0.4.6) (2016-10-20)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.5...v0.4.6)
 

@@ -42,4 +42,22 @@ describe('createService', () => {
   it('must bind methods to the service instance', () => {
     expect(myServiceInstance.returnsThis()).to.be.deep.equal(myServiceInstance);
   });
+
+  it('triggers initialize method with constructor options', () => {
+    const TestService = createService({
+      initialize(options) {
+        this.storedOptions = options;
+      }
+    });
+
+    const testServiceInstance = new TestService({
+      app: true,
+      foo: 'bar'
+    });
+
+    expect(testServiceInstance.storedOptions).to.deep.equal({
+      app: true,
+      foo: 'bar'
+    });
+  });
 });

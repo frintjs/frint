@@ -32,4 +32,22 @@ describe('createFactory', () => {
     expect('myCustomFunction' in myFactoryInstance).to.be.equal(true);
     expect(myFactoryInstance.myCustomFunction()).to.be.equal('value');
   });
+
+  it('triggers initialize method with constructor options', () => {
+    const TestFactory = createFactory({
+      initialize(options) {
+        this.storedOptions = options;
+      }
+    });
+
+    const testFactoryInstance = new TestFactory({
+      app: true,
+      foo: 'bar'
+    });
+
+    expect(testFactoryInstance.storedOptions).to.deep.equal({
+      app: true,
+      foo: 'bar'
+    });
+  });
 });

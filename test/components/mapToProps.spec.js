@@ -45,6 +45,9 @@ describe('components › mapToProps', () => {
 
   describe('Injection', function () {
     const TestComponent = createComponent({
+      beforeMount() {},
+      afterMount() {},
+
       render() {
         return (
           <div>

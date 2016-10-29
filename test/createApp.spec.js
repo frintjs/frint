@@ -1,19 +1,230 @@
-/* global describe, it */
+/* global describe, it, window, beforeEach, resetDOM */
 import { expect } from 'chai';
 
-import createApp from '../src/createApp';
+import {
+  createApp,
+  createFactory,
+  createService,
+  createModel,
+} from '../src';
 
-describe('createApp', () => {
-  it('creates an instance', () => {
+describe('createApp', function () {
+  const TestFooService = createService({
+    getName() {
+      return 'TestService';
+    }
+  });
+
+  const TestBarFactory = createFactory({
+    getName() {
+      return 'TestFactory';
+    }
+  });
+
+  const TestBazModel = createModel({
+    getName() {
+      return this.attributes.name;
+    }
+  });
+
+  const CoreApp = createApp({
+    name: 'CoreAppName',
+    appId: 'Core',
+    component: true
+  });
+
+  const WidgetApp = createApp({
+    name: 'WidgetAppName',
+    appId: 'Widget',
+    component: true
+  });
+
+  const SecondWidgetApp = createApp({
+    name: 'SecondWidgetAppName',
+    appId: 'SecondWidget',
+    component: true
+  });
+
+  beforeEach(function () {
+    resetDOM();
+  });
+
+  it('creates an instance', function () {
+    const app = new CoreApp();
+
+    expect(app).to.be.instanceof(CoreApp);
+    expect(app.getOption('name')).to.equal('CoreAppName');
+  });
+
+  it('throws error if instantiated without appId option', function () {
+    const App = createApp();
+    expect(() => new App()).to.throw(/Must provide `appId`/);
+  });
+
+  it('throws error if instantiated without component option', function () {
     const App = createApp({
-      name: 'MyAppName',
-      appId: '123',
-      component: true
+      appId: '123'
+    });
+    expect(() => new App()).to.throw(/Must provide `component`/);
+  });
+
+  it('gets root app instance from widget', function () {
+    window.app = new CoreApp();
+    const widget = new WidgetApp();
+
+    expect(widget.getRootApp()).to.deep.equal(window.app);
+  });
+
+  it('gets model from self', function () {
+    const app = new CoreApp({
+      models: {
+        baz: TestBazModel
+      },
+      modelAttributes: {
+        baz: {
+          name: 'Baz'
+        }
+      }
     });
 
-    const app = new App();
+    expect(app.getModel('baz').getName()).to.equal('Baz');
+  });
 
-    expect(app).to.be.instanceof(App);
-    expect(app.getOption('name')).to.eql('MyAppName');
+  it('gets model from root app, when called in widget', function () {
+    window.app = new CoreApp({
+      models: {
+        baz: TestBazModel
+      },
+      modelAttributes: {
+        baz: {
+          name: 'Baz'
+        }
+      }
+    });
+
+    const widget = new WidgetApp();
+
+    expect(widget.getModel('baz').getName()).to.equal('Baz');
+  });
+
+  it('gets factory from self', function () {
+    const app = new CoreApp({
+      factories: {
+        bar: TestBarFactory
+      }
+    });
+
+    expect(app.getFactory('bar').getName()).to.equal('TestFactory');
+  });
+
+  it('gets factory from root app, when called in widget', function () {
+    window.app = new CoreApp({
+      factories: {
+        bar: TestBarFactory
+      }
+    });
+
+    const widget = new CoreApp();
+
+    expect(widget.getFactory('bar').getName()).to.equal('TestFactory');
+  });
+
+  it('gets service from self', function () {
+    const app = new CoreApp({
+      services: {
+        foo: TestFooService
+      }
+    });
+
+    expect(app.getService('foo').getName()).to.equal('TestService');
+  });
+
+  it('gets service from root app, when called in widget', function () {
+    window.app = new CoreApp({
+      services: {
+        foo: TestFooService
+      }
+    });
+
+    const widget = new CoreApp();
+
+    expect(widget.getService('foo').getName()).to.equal('TestService');
+  });
+
+  it('gets store for self', function () {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const store = app.getStore();
+    const state = store.getState();
+
+    expect(state).to.deep.equal({ hello: 'world' });
+  });
+
+  it('gets store of another widget, from root', function () {
+    window.app = new CoreApp();
+
+    const widget = new WidgetApp({
+      initialState: {
+        widget1: 'widget1'
+      }
+    });
+
+    widget.setRegion('sidebar');
+
+    const store = window.app.getStore('WidgetAppName');
+    const state = store.getState();
+
+    expect(state).to.deep.equal({ widget1: 'widget1' });
+  });
+
+  it('gets store of another widget, from a widget', function () {
+    window.app = new CoreApp();
+
+    const widget = new WidgetApp({
+      initialState: {
+        widget1: 'widget1'
+      }
+    });
+
+    widget.setRegion('sidebar');
+
+    const secondWidget = new SecondWidgetApp({
+      initialState: {
+        widget2: 'widget2'
+      }
+    });
+
+    secondWidget.setRegion('footer');
+
+    // Widget1 reading store of Widget2
+    const store = widget.getStore('SecondWidgetAppName');
+    const state = store.getState();
+
+    expect(state).to.deep.equal({ widget2: 'widget2' });
+  });
+
+  it('returns null when no store is found', function () {
+    window.app = new CoreApp();
+    expect(window.app.getStore('blah')).to.equal(null);
+  });
+
+  it('throws error if setRegion is called without a root app', function () {
+    const widget = new WidgetApp();
+
+    expect(() => widget.setRegion('sidebar')).to.throw(/No root app instance available/);
+  });
+
+  it('throws error if wrong Model class is given', function () {
+    expect(function () {
+      new CoreApp({ // eslint-disable-line
+        models: {
+          baz: 'baz'
+        }
+      });
+    }).to.throw(/Expected model class 'baz' to be a valid Model class/);
   });
 });

@@ -1,6 +1,6 @@
 # frint
 
-[![Build Status](https://img.shields.io/travis/Travix-International/frint/master.svg)](http://travis-ci.org/Travix-International/frint) [![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint)
+[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/Travix-International/frint/master.svg)](http://travis-ci.org/Travix-International/frint) [![Coverage](https://img.shields.io/coveralls/Travix-International/frint.svg)](https://coveralls.io/github/Travix-International/frint)
 
 > An opinionated library for building front-end applications.
 

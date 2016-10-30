@@ -9,6 +9,7 @@ import {
   render,
   createService,
   createFactory,
+  createModel,
   Region,
   mapToProps
 } from '../../src';
@@ -44,6 +45,9 @@ describe('components › mapToProps', () => {
 
   describe('Injection', function () {
     const TestComponent = createComponent({
+      beforeMount() {},
+      afterMount() {},
+
       render() {
         return (
           <div>
@@ -51,6 +55,7 @@ describe('components › mapToProps', () => {
             <p className="text">Hello World</p>
             <p className="serviceName">{this.props.foo.getName()}</p>
             <p className="factoryName">{this.props.bar.getName()}</p>
+            <p className="modelName">{this.props.baz.getName()}</p>
           </div>
         );
       }
@@ -67,6 +72,9 @@ describe('components › mapToProps', () => {
       },
       factories: {
         bar: 'bar'
+      },
+      models: {
+        baz: 'baz'
       }
     })(TestComponent);
 
@@ -82,6 +90,12 @@ describe('components › mapToProps', () => {
       }
     });
 
+    const TestBazModel = createModel({
+      getName() {
+        return this.attributes.name;
+      }
+    });
+
     const TestApp = createApp({
       appId: 'test',
       component: TestRootComponent,
@@ -90,6 +104,14 @@ describe('components › mapToProps', () => {
       },
       factories: {
         bar: TestBarFactory
+      },
+      models: {
+        baz: TestBazModel
+      },
+      modelAttributes: {
+        baz: {
+          name: 'TestBazModel'
+        }
       }
     });
 
@@ -128,6 +150,14 @@ describe('components › mapToProps', () => {
 
       const text = document.querySelector('#root .factoryName');
       expect(text.innerHTML).to.equal('TestFactory');
+    });
+
+    it('maps from Model to props', function () {
+      const app = new TestApp();
+      render(app, document.getElementById('root'));
+
+      const text = document.querySelector('#root .modelName');
+      expect(text.innerHTML).to.equal('TestBazModel');
     });
   });
 

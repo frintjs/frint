@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.5.0](https://github.com/Travix-International/frint/tree/v0.5.0) (2016-10-31)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.7...v0.5.0)
+
+**Merged pull requests:**
+
+- App: new `setRegions` method [\#37](https://github.com/Travix-International/frint/pull/37) ([fahad19](https://github.com/fahad19))
+- Tests: for `mapToProps`, `createApp`, and middleware [\#36](https://github.com/Travix-International/frint/pull/36) ([fahad19](https://github.com/fahad19))
+
 ## [v0.4.7](https://github.com/Travix-International/frint/tree/v0.4.7) (2016-10-27)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.6...v0.4.7)
 

@@ -212,6 +212,17 @@ describe('createApp', function () {
     expect(window.app.getStore('blah')).to.equal(null);
   });
 
+  it('sets multiple regions for a widget', function () {
+    window.app = new CoreApp();
+
+    const widget = new WidgetApp();
+
+    widget.setRegions(['header', 'footer']);
+
+    expect(window.app.getWidgets('header')).to.deep.equal([widget]);
+    expect(window.app.getWidgets('footer')).to.deep.equal([widget]);
+  });
+
   it('throws error if setRegion is called without a root app', function () {
     const widget = new WidgetApp();
 

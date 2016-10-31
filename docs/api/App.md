@@ -72,6 +72,14 @@ To be called from the child-app, for setting its region in the parent app.
 childApp.setRegion('sidebar');
 ```
 
+### setRegions(regionNames)
+
+Similar to `setRegion`, but accepts an array of multiple region names:
+
+```js
+childApp.setRegions(['sidebar', 'footer']);
+```
+
 ### getWidgets(regionName)
 
 Returns a list of child apps, by a specific region. Returns all the child apps, irrespective of their region, if no `regionName` is provided.

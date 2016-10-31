@@ -165,12 +165,12 @@ class BaseApp {
     return this.options[key];
   }
 
-  registerWidget(WidgetApp, regionName) {
+  registerWidget(widgetApp, regionName) {
     if (!Array.isArray(this.widgetsByRegion[regionName])) {
       this.widgetsByRegion[regionName] = [];
     }
 
-    this.widgetsByRegion[regionName].push(WidgetApp);
+    this.widgetsByRegion[regionName].push(widgetApp);
 
     return this.widgetsSubject.next(this.widgetsByRegion);
   }
@@ -205,13 +205,19 @@ class BaseApp {
    * by doing Widget.setRegion()
    */
   setRegion(regionName) {
+    return this.setRegions([regionName]);
+  }
+
+  setRegions(regionNames) {
     const rootApp = this.getRootApp();
 
     if (!rootApp) {
       throw new Error('No root app instance available, so cannot set region.');
     }
 
-    return rootApp.registerWidget(this, regionName);
+    return regionNames.forEach((regionName) => {
+      return rootApp.registerWidget(this, regionName);
+    });
   }
 
   getWidgets(regionName = null) {

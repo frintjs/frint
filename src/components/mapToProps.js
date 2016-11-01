@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import isObservable from '../utils/isObservable';
+
 export default function mapToProps(opts = {}) {
   const options = {
     app: () => {},
@@ -19,6 +21,7 @@ export default function mapToProps(opts = {}) {
     services: {},
     shared: () => {},
     state: () => {},
+    observe: null,
     ...opts,
   };
 
@@ -40,7 +43,9 @@ export default function mapToProps(opts = {}) {
 
       componentWillMount() {
         this.storeSubscriptions = {};
+        this.observeSubscription = null;
 
+        // shared state
         this.context.app.readableApps.forEach((readableAppName) => {
           const readableAppStore = this.context.app.getStore(readableAppName);
 
@@ -68,6 +73,20 @@ export default function mapToProps(opts = {}) {
           });
         });
 
+        // observe
+        if (typeof options.observe === 'function') {
+          const observe$ = options.observe(this.context.app);
+
+          if (isObservable(observe$)) {
+            this.observeSubscription = observe$.subscribe((observedProps) => {
+              this.setState({
+                observe: observedProps
+              });
+            });
+          }
+        }
+
+        // other non-changeable mappings
         this.setState({
           mappedAppToProps: options.app(this.context.app),
           services: _.mapValues(options.services, (serviceName) => this.context.app.getService(serviceName)),
@@ -88,7 +107,13 @@ export default function mapToProps(opts = {}) {
       },
 
       render() {
-        const { mappedAppToProps, services, factories, models } = this.state;
+        const {
+          mappedAppToProps,
+          services,
+          factories,
+          models,
+          observe,
+        } = this.state;
 
         const combinedMapStateToProps = (...args) => {
           return {
@@ -98,6 +123,7 @@ export default function mapToProps(opts = {}) {
             ...services,
             ...factories,
             ...models,
+            ...observe,
           };
         };
 

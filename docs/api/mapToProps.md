@@ -133,3 +133,38 @@ export default mapToProps({
   }
 })(MyComponent);
 ```
+
+## Observe
+
+The `observe` key can be used for listening to an observable, and then map its returned object as props.
+
+You have access to the `app` instance, leaving you free to get observables from other Factories or Services if need be
+
+```js
+import { Observable } from 'rxjs';
+
+export default mapToProps({
+  observe: (app) => {
+    return Observable
+      // iterate over these values in a sequence
+      .of(1, 2)
+
+      // now convert it to an object, which will be available as props
+      .scan(
+        // this function would be called twice,
+        // first with `1`, and then `2` as number
+        (props, number) => {
+          props.total = props.total + number;
+
+          return acc;
+        },
+
+        // the initial object to start the `scan` with
+        {
+          appId: app.getOption('appId'),
+          total: 0
+        }
+      );
+  }
+})(RootComponent);
+```

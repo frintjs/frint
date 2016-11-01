@@ -10,6 +10,7 @@ import Model from './Model';
 import PropTypes from './PropTypes';
 import Region from './components/Region';
 import render from './render';
+import isObservable from './utils/isObservable';
 
 export default {
   combineReducers,
@@ -23,4 +24,5 @@ export default {
   PropTypes,
   Region,
   render,
+  isObservable,
 };

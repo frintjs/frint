@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.6.0](https://github.com/Travix-International/frint/tree/v0.6.0) (2016-11-01)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.5.0...v0.6.0)
+
+**Merged pull requests:**
+
+- mapToProps: support new `observe` key for Observables [\#39](https://github.com/Travix-International/frint/pull/39) ([fahad19](https://github.com/fahad19))
+
 ## [v0.5.0](https://github.com/Travix-International/frint/tree/v0.5.0) (2016-10-31)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.7...v0.5.0)
 

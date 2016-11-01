@@ -1,6 +1,7 @@
 /* global afterEach, beforeEach, describe, it, window, document, before, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
+import { Observable } from 'rxjs';
 
 import {
   createApp,
@@ -14,7 +15,7 @@ import {
   mapToProps
 } from '../../src';
 
-describe('components › mapToProps', () => {
+describe('components › mapToProps', function () {
   before(function () {
     resetDOM();
   });
@@ -394,6 +395,55 @@ describe('components › mapToProps', () => {
 
       expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
       expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('12');
+    });
+  });
+
+  describe('Observable subscription', function () {
+    const TestComponent = createComponent({
+      render() {
+        return (
+          <div>
+            <div className="appId">{this.props.appId}</div>
+            <div className="total">{this.props.total}</div>
+          </div>
+        );
+      }
+    });
+
+    const TestRootComponent = mapToProps({
+      observe(app) {
+        return Observable
+          .of(1, 2)
+          .scan((acc, number) => {
+            acc.total = acc.total + number;
+
+            return acc;
+          }, {
+            appId: app.getOption('appId'),
+            total: 0
+          });
+      }
+    })(TestComponent);
+
+    const TestApp = createApp({
+      appId: 'TestCore',
+      component: TestRootComponent
+    });
+
+    it('maps Observable values to props', function () {
+      window.app = new TestApp();
+      render(window.app, document.getElementById('root'));
+
+      expect(document.querySelector('#root .total').innerHTML).to.equal('3');
+    });
+
+    it('can map values from app through `observe`', function () {
+      window.app = new TestApp({
+        appId: 'customAppIdHere'
+      });
+      render(window.app, document.getElementById('root'));
+
+      expect(document.querySelector('#root .appId').innerHTML).to.equal('customAppIdHere');
     });
   });
 });

@@ -57,7 +57,7 @@ class BaseApp {
 
     this.widgetsSubject = new Subject();
 
-    this.createStore(
+    this._createStore(
       this.options.reducer,
       this.options.initialState
     );
@@ -107,6 +107,12 @@ class BaseApp {
   }
 
   createStore(rootReducer, initialState = {}) {
+    console.warn('[DEPRECATED] `createStore` has been deprecated.');
+
+    return this._createStore(rootReducer, initialState);
+  }
+
+  _createStore(rootReducer, initialState = {}) {
     const middlewares = [
       thunk.withExtraArgument({ app: this }),
       createAppendActionMiddleware({
@@ -135,6 +141,12 @@ class BaseApp {
   }
 
   getStore(appName = null) {
+    console.warn('[DEPRECATED] `getStore` has been deprecated, use `getState$` instead.');
+
+    return this._getStore(appName);
+  }
+
+  _getStore(appName = null) {
     if (!appName) {
       return this.getOption('store');
     }
@@ -155,7 +167,7 @@ class BaseApp {
 
     // @TODO: check for permissions
     if (typeof appsByName[appName] !== 'undefined') {
-      return appsByName[appName].getStore();
+      return appsByName[appName]._getStore();
     }
 
     return null;
@@ -163,7 +175,7 @@ class BaseApp {
 
   getState$(appName = null) {
     const subject$ = new Subject();
-    const store = this.getStore(appName);
+    const store = this._getStore(appName);
 
     if (store === null) {
       return subject$.startWith(null);
@@ -178,7 +190,7 @@ class BaseApp {
   }
 
   dispatch(action) {
-    return this.getStore().dispatch(action);
+    return this._getStore().dispatch(action);
   }
 
   getOption(key) {
@@ -201,12 +213,10 @@ class BaseApp {
 
   render() {
     const Component = this.getOption('component');
-
-    const store = this.getStore();
     const self = this;
 
     return () => (
-      <Provider app={self} store={store}>
+      <Provider app={self}>
         <Component />
       </Provider>
     );

@@ -138,8 +138,7 @@ export default function mapToProps(opts = {}) {
     });
 
     WrappedComponent.contextTypes = {
-      app: PropTypes.object.isRequired,
-      store: PropTypes.object.isRequired
+      app: PropTypes.object.isRequired
     };
 
     return WrappedComponent;

@@ -8,20 +8,6 @@ App class are created via `createApp` function. Once instantiated they expose th
 
 Returns a specific option that was passed to it during construction.
 
-### createStore(rootReducer, initialState = {})
-
-Used internally.
-
-@TODO: should this be removed from public API?
-
-### getStore(appName)
-
-If no `appName` is given, it would fetch the store of the current app instance.
-
-Returns the Store of an App by its name.
-
-@TODO: could this be removed from public API?
-
 ### getState$(appName)
 
 If no `appName` is given, it would fetch the state of the current app instance.

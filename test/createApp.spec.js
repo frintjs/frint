@@ -151,20 +151,22 @@ describe('createApp', function () {
     expect(widget.getService('foo').getName()).to.equal('TestService');
   });
 
-  it('gets store for self', function () {
+  it('gets state for self', function (done) {
     const app = new CoreApp({
       initialState: {
         hello: 'world'
       }
     });
 
-    const store = app.getStore();
-    const state = store.getState();
+    app.getState$()
+      .subscribe(function (state) {
+        expect(state).to.deep.equal({ hello: 'world' });
 
-    expect(state).to.deep.equal({ hello: 'world' });
+        done();
+      });
   });
 
-  it('gets store of another widget, from root', function () {
+  it('gets state of another widget, from root', function (done) {
     window.app = new CoreApp();
 
     const widget = new WidgetApp({
@@ -175,13 +177,15 @@ describe('createApp', function () {
 
     widget.setRegion('sidebar');
 
-    const store = window.app.getStore('WidgetAppName');
-    const state = store.getState();
+    window.app.getState$('WidgetAppName')
+      .subscribe(function (state) {
+        expect(state).to.deep.equal({ widget1: 'widget1' });
 
-    expect(state).to.deep.equal({ widget1: 'widget1' });
+        done();
+      });
   });
 
-  it('gets store of another widget, from a widget', function () {
+  it('gets state of another widget, from a widget', function (done) {
     window.app = new CoreApp();
 
     const widget = new WidgetApp({
@@ -200,16 +204,24 @@ describe('createApp', function () {
 
     secondWidget.setRegion('footer');
 
-    // Widget1 reading store of Widget2
-    const store = widget.getStore('SecondWidgetAppName');
-    const state = store.getState();
+    // Widget1 reading state of Widget2
+    widget.getState$('SecondWidgetAppName')
+      .subscribe(function (state) {
+        expect(state).to.deep.equal({ widget2: 'widget2' });
 
-    expect(state).to.deep.equal({ widget2: 'widget2' });
+        done();
+      });
   });
 
-  it('returns null when no store is found', function () {
+  it('returns null when no state is found', function (done) {
     window.app = new CoreApp();
-    expect(window.app.getStore('blah')).to.equal(null);
+
+    window.app.getState$('blah')
+      .subscribe(function (state) {
+        expect(state).to.equal(null);
+
+        done();
+      });
   });
 
   it('sets multiple regions for a widget', function () {

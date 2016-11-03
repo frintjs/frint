@@ -8,15 +8,7 @@ export default function mapToProps(opts = {}) {
     app: () => {},
     dispatch: {},
     factories: {},
-    merge(stateProps, dispatchProps, ownProps) {
-      return {
-        ...ownProps,
-        ...dispatchProps,
-        ...stateProps,
-      };
-    },
     models: {},
-    options: {},
     services: {},
     shared: () => {},
     state: () => {},
@@ -128,8 +120,6 @@ export default function mapToProps(opts = {}) {
           ...models,
           ...dispatch,
           ...observe,
-          // @TODO: options.merge?
-          // @TODO: options.options?
           ...this.props,
         };
 

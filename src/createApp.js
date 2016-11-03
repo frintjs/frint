@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
 import { Subject } from 'rxjs';
 import React from 'react';
@@ -182,7 +183,7 @@ class BaseApp {
     }
 
     // @TODO: take care of this leak
-    store.subscribe(function () {
+    store.subscribe(() => {
       subject$.next(store.getState());
     });
 

@@ -95,7 +95,7 @@ export default function mapToProps(opts = {}) {
           dispatch: _.mapValues(options.dispatch, (actionCreator) => {
             return () => {
               return this.context.app.dispatch(actionCreator());
-            }
+            };
           })
         });
       },
@@ -133,7 +133,7 @@ export default function mapToProps(opts = {}) {
           ...this.props,
         };
 
-        return <Component {...props} />
+        return <Component {...props} />;
       }
     });
 

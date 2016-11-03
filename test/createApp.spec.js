@@ -6,6 +6,7 @@ import {
   createFactory,
   createService,
   createModel,
+  isObservable,
 } from '../src';
 
 describe('createApp', function () {
@@ -107,6 +108,12 @@ describe('createApp', function () {
     expect(widget.getModel('baz').getName()).to.equal('Baz');
   });
 
+  it('fails to get non-existent model', function () {
+    const app = new CoreApp();
+
+    expect(app.getModel('blah')).to.equal(null);
+  });
+
   it('gets factory from self', function () {
     const app = new CoreApp({
       factories: {
@@ -124,9 +131,17 @@ describe('createApp', function () {
       }
     });
 
-    const widget = new CoreApp();
+    const widget = new WidgetApp();
 
     expect(widget.getFactory('bar').getName()).to.equal('TestFactory');
+  });
+
+  it('fails to get factory from non-existent root app, when called in widget', function () {
+    window.app = new CoreApp();
+
+    const widget = new WidgetApp();
+
+    expect(widget.getFactory('blah')).to.equal(null);
   });
 
   it('gets service from self', function () {
@@ -146,9 +161,50 @@ describe('createApp', function () {
       }
     });
 
-    const widget = new CoreApp();
+    const widget = new WidgetApp();
 
     expect(widget.getService('foo').getName()).to.equal('TestService');
+  });
+
+  it('fails to get service from non-existent root app, when called in widget', function () {
+    window.app = new CoreApp();
+
+    const widget = new WidgetApp();
+
+    expect(widget.getService('blah')).to.equal(null);
+  });
+
+  it('creates store', function () {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const store = app.createStore(() => {}, {});
+    expect(store.subscribe).to.be.a('function');
+  });
+
+  it('gets store', function () {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const store = app.getStore();
+    expect(store.subscribe).to.be.a('function');
+  });
+
+  it('observes widgets', function () {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const observe$ = app.observeWidgets();
+    expect(isObservable(observe$)).to.equal(true);
   });
 
   it('gets state for self', function (done) {

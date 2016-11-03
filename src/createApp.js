@@ -161,6 +161,26 @@ class BaseApp {
     return null;
   }
 
+  getState$(appName = null) {
+    const subject$ = new Subject();
+    const store = this.getStore(appName);
+
+    if (store === null) {
+      return subject$.startWith(null);
+    }
+
+    // @TODO: take care of this leak
+    store.subscribe(function () {
+      subject$.next(store.getState());
+    });
+
+    return subject$.startWith(store.getState());
+  }
+
+  dispatch(action) {
+    return this.getStore().dispatch(action);
+  }
+
   getOption(key) {
     return this.options[key];
   }
@@ -235,6 +255,12 @@ class BaseApp {
   }
 
   observeWidgets() {
+    console.warn('[DEPRECATED] `observeWidgets` is deprecated, use `observeWidgets$` instead.');
+
+    return this.observeWidgets$();
+  }
+
+  observeWidgets$() {
     return this.widgetsSubject.startWith(
       this.getWidgets()
     );

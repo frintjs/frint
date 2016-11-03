@@ -8,8 +8,8 @@ function getWidgets(name) {
   return window.app.getWidgets(name);
 }
 
-function getObservable(name) {
-  return window.app.observeWidgets(name);
+function getObservable$(name) {
+  return window.app.observeWidgets$(name);
 }
 
 function isRootAppAvailable() {
@@ -43,7 +43,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    const observable = getObservable();
+    const observable = getObservable$();
 
     this.subscription = observable.subscribe({
       // @TODO: this can be optimized further

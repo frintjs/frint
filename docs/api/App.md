@@ -16,9 +16,21 @@ Used internally.
 
 ### getStore(appName)
 
+If no `appName` is given, it would fetch the store of the current app instance.
+
 Returns the Store of an App by its name.
 
 @TODO: could this be removed from public API?
+
+### getState$(appName)
+
+If no `appName` is given, it would fetch the state of the current app instance.
+
+Returns the state of an app as an Observable.
+
+### dispatch(action)
+
+Dispatches action to the current Store.
 
 ### getRootApp()
 
@@ -84,7 +96,7 @@ childApp.setRegions(['sidebar', 'footer']);
 
 Returns a list of child apps, by a specific region. Returns all the child apps, irrespective of their region, if no `regionName` is provided.
 
-### observeWidgets()
+### observeWidgets$()
 
 Returns an observable, that you can subscribe to. Emit's a `next` event every time there is a change in the list of registered widgets.
 

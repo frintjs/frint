@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 
 import isObservable from '../utils/isObservable';
 
@@ -34,7 +33,7 @@ export default function mapToProps(opts = {}) {
       getInitialState() {
         return {
           mappedAppToProps: {},
-          readableStores: {},
+          readableStates: {},
           services: {},
           factories: {},
           models: {},
@@ -42,35 +41,32 @@ export default function mapToProps(opts = {}) {
       },
 
       componentWillMount() {
-        this.storeSubscriptions = {};
+        this.stateSubscriptions = {};
         this.observeSubscription = null;
 
-        // shared state
-        this.context.app.readableApps.forEach((readableAppName) => {
-          const readableAppStore = this.context.app.getStore(readableAppName);
-
-          const generateUpdatedState = () => {
-            const currentState = this.state;
-            const readableStores = this.state.readableStores;
-
-            return {
-              ...currentState,
-              readableStores: {
-                ...readableStores,
-                [readableAppName]: readableAppStore.getState(),
-              },
-            };
-          };
-
-          this.replaceState({
-            ...generateUpdatedState()
-          });
-
-          this.storeSubscriptions[readableAppName] = readableAppStore.subscribe(() => {
+        // self state
+        const appName = this.context.app.getOption('name');
+        this.stateSubscriptions[appName] = this.context.app.getState$()
+          .subscribe((appState) => {
             this.replaceState({
-              ...generateUpdatedState()
+              ...this.state,
+              state: appState,
             });
           });
+
+        // shared states
+        this.context.app.readableApps.forEach((readableAppName) => {
+          this.stateSubscriptions[readableAppName] = this.context.app
+            .getState$(readableAppName)
+            .subscribe((readableAppState) => {
+              this.replaceState({
+                ...this.state,
+                readableStates: {
+                  ...this.state.readableStates,
+                  [readableAppName]: readableAppState
+                }
+              });
+            });
         });
 
         // observe
@@ -95,14 +91,19 @@ export default function mapToProps(opts = {}) {
           }),
           models: _.mapValues(options.models, (modelName) => {
             return this.context.app.getModel(modelName);
+          }),
+          dispatch: _.mapValues(options.dispatch, (actionCreator) => {
+            return () => {
+              return this.context.app.dispatch(actionCreator());
+            }
           })
         });
       },
 
       componentWillUnmount() {
-        Object.keys(this.storeSubscriptions)
+        Object.keys(this.stateSubscriptions)
           .forEach((appName) => {
-            this.storeSubscriptions[appName]();
+            this.stateSubscriptions[appName].unsubscribe();
           });
       },
 
@@ -112,29 +113,27 @@ export default function mapToProps(opts = {}) {
           services,
           factories,
           models,
+          dispatch,
           observe,
+          readableStates,
+          state,
         } = this.state;
 
-        const combinedMapStateToProps = (...args) => {
-          return {
-            ...options.state(...args),
-            ...options.shared(this.state.readableStores),
-            ...mappedAppToProps,
-            ...services,
-            ...factories,
-            ...models,
-            ...observe,
-          };
+        const props = {
+          ...options.state(state),
+          ...options.shared(readableStates),
+          ...mappedAppToProps,
+          ...services,
+          ...factories,
+          ...models,
+          ...dispatch,
+          ...observe,
+          // @TODO: options.merge?
+          // @TODO: options.options?
+          ...this.props,
         };
 
-        const ConnectedComponent = connect(
-          combinedMapStateToProps,
-          options.dispatch,
-          options.merge,
-          options.options
-        )(Component);
-
-        return <ConnectedComponent {...this.props} />;
+        return <Component {...props} />
       }
     });
 

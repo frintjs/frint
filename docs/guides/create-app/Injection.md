@@ -69,20 +69,6 @@ export default mapToProps({
 })(RootComponent);
 ```
 
-You can also do it in a more verbose way, that allows you more control or returned functions:
-
-```js
-
-export default mapToProps({
-  dispatch: (dispatch) => {
-    addTodo: (...args) => addTodo(...args),
-
-    // same as:
-    // addTodo: (title) => addTodo(title)
-  }
-})(RootComponent);
-```
-
 ## App instance
 
 What if you also want to inject values from your App's instance to your Components? Like the App's name?

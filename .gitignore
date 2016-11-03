@@ -9,3 +9,4 @@ lib
 *.swo
 
 coverage
+.nyc_output/

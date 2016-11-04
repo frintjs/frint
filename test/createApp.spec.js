@@ -137,11 +137,16 @@ describe('createApp', function () {
   });
 
   it('fails to get factory from non-existent root app, when called in widget', function () {
-    window.app = new CoreApp();
-
     const widget = new WidgetApp();
 
     expect(widget.getFactory('blah')).to.equal(null);
+  });
+
+  it('fails to get non-existent factory in both widget and root, when called in widget', function () {
+    window.app = new CoreApp();
+    const widget = new WidgetApp();
+
+    expect(widget.getFactory('hello')).to.equal(null);
   });
 
   it('gets service from self', function () {
@@ -194,6 +199,17 @@ describe('createApp', function () {
 
     const store = app.getStore();
     expect(store.subscribe).to.be.a('function');
+  });
+
+  it('fails to get store of non-existent app', function () {
+    window.app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const store = window.app.getStore('iDontExist');
+    expect(store).to.equal(null);
   });
 
   it('observes widgets', function () {
@@ -269,15 +285,10 @@ describe('createApp', function () {
       });
   });
 
-  it('returns null when no state is found', function (done) {
+  it('returns null when no state is found', function () {
     window.app = new CoreApp();
 
-    window.app.getState$('blah')
-      .subscribe(function (state) {
-        expect(state).to.equal(null);
-
-        done();
-      });
+    expect(window.app.getState$('blah')).to.equal(null);
   });
 
   it('sets multiple regions for a widget', function () {
@@ -289,6 +300,19 @@ describe('createApp', function () {
 
     expect(window.app.getWidgets('header')).to.deep.equal([widget]);
     expect(window.app.getWidgets('footer')).to.deep.equal([widget]);
+  });
+
+  it('triggers beforeUnmount as passed in option', function () {
+    let foo;
+
+    window.app = new CoreApp({
+      beforeUnmount() {
+        foo = 'bar';
+      }
+    });
+
+    window.app.beforeUnmount();
+    expect(foo).to.equal('bar');
   });
 
   it('throws error if setRegion is called without a root app', function () {

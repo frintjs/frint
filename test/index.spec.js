@@ -17,6 +17,7 @@ describe('index', function () {
     PropTypes: require('../src/PropTypes'),
     Region: require('../src/components/Region'),
     render: require('../src/render'),
+    isObservable: require('../src/utils/isObservable'),
   };
 
   _.each(publicModules, (module, moduleName) => {

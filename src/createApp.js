@@ -42,6 +42,7 @@ class BaseApp {
       ...opts
     };
 
+    // errors
     if (!this.options.appId) {
       throw new Error('Must provide `appId` in options');
     }
@@ -50,6 +51,7 @@ class BaseApp {
       throw new Error('Must provide `component` in options');
     }
 
+    // widgets
     this.widgetsByRegion = {};
 
     if (typeof window.app !== 'undefined') {
@@ -58,12 +60,25 @@ class BaseApp {
 
     this.widgetsSubject$ = new Subject();
 
+    // store
     this._createStore(
       this.options.reducer,
       this.options.initialState
     );
 
     this.readableApps = [];
+
+    // state$
+    this._storeSubscription = null;
+    const store = this._getStore();
+    const state$ = new Subject();
+
+    // @TODO: take care of this leak
+    this._storeSubscription = store.subscribe(() => {
+      state$.next(store.getState());
+    });
+
+    this.state$ = state$.startWith(store.getState());
   }
 
   getRootApp() {
@@ -147,9 +162,9 @@ class BaseApp {
     return this._getStore(appName);
   }
 
-  _getStore(appName = null) {
+  _getAppByName(appName = null) {
     if (!appName) {
-      return this.getOption('store');
+      return this;
     }
 
     const rootApp = this.getRootApp();
@@ -168,26 +183,30 @@ class BaseApp {
 
     // @TODO: check for permissions
     if (typeof appsByName[appName] !== 'undefined') {
-      return appsByName[appName]._getStore();
+      return appsByName[appName];
     }
 
     return null;
   }
 
-  getState$(appName = null) {
-    const subject$ = new Subject();
-    const store = this._getStore(appName);
+  _getStore(appName = null) {
+    const app = this._getAppByName(appName);
 
-    if (store === null) {
-      return subject$.startWith(null);
+    if (!app) {
+      return null;
     }
 
-    // @TODO: take care of this leak
-    store.subscribe(() => {
-      subject$.next(store.getState());
-    });
+    return app.getOption('store');
+  }
 
-    return subject$.startWith(store.getState());
+  getState$(appName = null) {
+    const app = this._getAppByName(appName);
+
+    if (!app) {
+      return null;
+    }
+
+    return app.state$;
   }
 
   dispatch(action) {

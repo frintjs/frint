@@ -247,7 +247,13 @@ class BaseApp {
   }
 
   beforeUnmount() {
-    return this.options.beforeUnmount.bind(this)();
+    const output = this.options.beforeUnmount.bind(this)();
+
+    if (typeof this._storeSubscription === 'function') {
+      this._storeSubscription();
+    }
+
+    return output;
   }
 
   /**

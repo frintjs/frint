@@ -56,7 +56,7 @@ class BaseApp {
       this.options.rootApp = window.app;
     }
 
-    this.widgetsSubject = new Subject();
+    this.widgetsSubject$ = new Subject();
 
     this._createStore(
       this.options.reducer,
@@ -205,7 +205,7 @@ class BaseApp {
 
     this.widgetsByRegion[regionName].push(widgetApp);
 
-    return this.widgetsSubject.next(this.widgetsByRegion);
+    return this.widgetsSubject$.next(this.widgetsByRegion);
   }
 
   beforeMount() {
@@ -272,7 +272,7 @@ class BaseApp {
   }
 
   observeWidgets$() {
-    return this.widgetsSubject.startWith(
+    return this.widgetsSubject$.startWith(
       this.getWidgets()
     );
   }

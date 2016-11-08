@@ -6,6 +6,7 @@ import {
   createFactory,
   createService,
   createModel,
+  isObservable,
 } from '../src';
 
 describe('createApp', function () {
@@ -107,6 +108,12 @@ describe('createApp', function () {
     expect(widget.getModel('baz').getName()).to.equal('Baz');
   });
 
+  it('fails to get non-existent model', function () {
+    const app = new CoreApp();
+
+    expect(app.getModel('blah')).to.equal(null);
+  });
+
   it('gets factory from self', function () {
     const app = new CoreApp({
       factories: {
@@ -124,9 +131,22 @@ describe('createApp', function () {
       }
     });
 
-    const widget = new CoreApp();
+    const widget = new WidgetApp();
 
     expect(widget.getFactory('bar').getName()).to.equal('TestFactory');
+  });
+
+  it('fails to get factory from non-existent root app, when called in widget', function () {
+    const widget = new WidgetApp();
+
+    expect(widget.getFactory('blah')).to.equal(null);
+  });
+
+  it('fails to get non-existent factory in both widget and root, when called in widget', function () {
+    window.app = new CoreApp();
+    const widget = new WidgetApp();
+
+    expect(widget.getFactory('hello')).to.equal(null);
   });
 
   it('gets service from self', function () {
@@ -146,12 +166,31 @@ describe('createApp', function () {
       }
     });
 
-    const widget = new CoreApp();
+    const widget = new WidgetApp();
 
     expect(widget.getService('foo').getName()).to.equal('TestService');
   });
 
-  it('gets store for self', function () {
+  it('fails to get service from non-existent root app, when called in widget', function () {
+    window.app = new CoreApp();
+
+    const widget = new WidgetApp();
+
+    expect(widget.getService('blah')).to.equal(null);
+  });
+
+  it('creates store', function () {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const store = app.createStore(() => {}, {});
+    expect(store.subscribe).to.be.a('function');
+  });
+
+  it('gets store', function () {
     const app = new CoreApp({
       initialState: {
         hello: 'world'
@@ -159,12 +198,47 @@ describe('createApp', function () {
     });
 
     const store = app.getStore();
-    const state = store.getState();
-
-    expect(state).to.deep.equal({ hello: 'world' });
+    expect(store.subscribe).to.be.a('function');
   });
 
-  it('gets store of another widget, from root', function () {
+  it('fails to get store of non-existent app', function () {
+    window.app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const store = window.app.getStore('iDontExist');
+    expect(store).to.equal(null);
+  });
+
+  it('observes widgets', function () {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    const observe$ = app.observeWidgets();
+    expect(isObservable(observe$)).to.equal(true);
+  });
+
+  it('gets state for self', function (done) {
+    const app = new CoreApp({
+      initialState: {
+        hello: 'world'
+      }
+    });
+
+    app.getState$()
+      .subscribe(function (state) {
+        expect(state).to.deep.equal({ hello: 'world' });
+
+        done();
+      });
+  });
+
+  it('gets state of another widget, from root', function (done) {
     window.app = new CoreApp();
 
     const widget = new WidgetApp({
@@ -175,13 +249,15 @@ describe('createApp', function () {
 
     widget.setRegion('sidebar');
 
-    const store = window.app.getStore('WidgetAppName');
-    const state = store.getState();
+    window.app.getState$('WidgetAppName')
+      .subscribe(function (state) {
+        expect(state).to.deep.equal({ widget1: 'widget1' });
 
-    expect(state).to.deep.equal({ widget1: 'widget1' });
+        done();
+      });
   });
 
-  it('gets store of another widget, from a widget', function () {
+  it('gets state of another widget, from a widget', function (done) {
     window.app = new CoreApp();
 
     const widget = new WidgetApp({
@@ -200,16 +276,19 @@ describe('createApp', function () {
 
     secondWidget.setRegion('footer');
 
-    // Widget1 reading store of Widget2
-    const store = widget.getStore('SecondWidgetAppName');
-    const state = store.getState();
+    // Widget1 reading state of Widget2
+    widget.getState$('SecondWidgetAppName')
+      .subscribe(function (state) {
+        expect(state).to.deep.equal({ widget2: 'widget2' });
 
-    expect(state).to.deep.equal({ widget2: 'widget2' });
+        done();
+      });
   });
 
-  it('returns null when no store is found', function () {
+  it('returns null when no state is found', function () {
     window.app = new CoreApp();
-    expect(window.app.getStore('blah')).to.equal(null);
+
+    expect(window.app.getState$('blah')).to.equal(null);
   });
 
   it('sets multiple regions for a widget', function () {
@@ -221,6 +300,19 @@ describe('createApp', function () {
 
     expect(window.app.getWidgets('header')).to.deep.equal([widget]);
     expect(window.app.getWidgets('footer')).to.deep.equal([widget]);
+  });
+
+  it('triggers beforeUnmount as passed in option', function () {
+    let foo;
+
+    window.app = new CoreApp({
+      beforeUnmount() {
+        foo = 'bar';
+      }
+    });
+
+    window.app.beforeUnmount();
+    expect(foo).to.equal('bar');
   });
 
   it('throws error if setRegion is called without a root app', function () {

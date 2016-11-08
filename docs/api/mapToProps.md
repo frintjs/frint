@@ -46,30 +46,6 @@ export default mapToProps({
 })(MyComponent);
 ```
 
-Alternatively, you can map it like this:
-
-```js
-export default mapToProps({
-  dispatch: (dispatch) => {
-    return {
-      handleAddButton: (...args) => addTodo(...args)
-    };
-  }
-})(MyComponent);
-```
-
-Or, if you want to be more strict about the arguments being passed down to the Action:
-
-```js
-export default mapToProps({
-  dispatch: (dispatch) => {
-    return {
-      handleAddButton: (title) => addTodo(title)
-    };
-  }
-})(MyComponent);
-```
-
 ## App
 
 If you want to inject something coming from the App instance:

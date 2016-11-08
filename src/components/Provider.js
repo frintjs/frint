@@ -3,26 +3,22 @@ import { Component, PropTypes, Children } from 'react';
 export default class Provider extends Component {
   static propTypes = {
     app: PropTypes.object.isRequired,
-    children: PropTypes.element.isRequired,
-    store: PropTypes.object.isRequired
+    children: PropTypes.element.isRequired
   };
 
   static childContextTypes = {
-    app: PropTypes.object.isRequired,
-    store: PropTypes.object.isRequired
+    app: PropTypes.object.isRequired
   };
 
   getChildContext() {
     return {
-      app: this.app,
-      store: this.store
+      app: this.app
     };
   }
 
   constructor(props, context) {
     super(props, context);
 
-    this.store = props.store;
     this.app = props.app;
   }
 

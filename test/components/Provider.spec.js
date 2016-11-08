@@ -10,7 +10,6 @@ chai.use(sinonChai);
 
 describe('components › Provider', function () {
   const fakeApp = {};
-  const fakeStore = {};
   const fakeChildren = (<div id="myFakeChildren"></div>);
   let myProviderInstance;
 
@@ -18,8 +17,7 @@ describe('components › Provider', function () {
     sandbox.spy(Children, 'only');
     myProviderInstance = new Provider({
       app: fakeApp,
-      children: fakeChildren,
-      store: fakeStore
+      children: fakeChildren
     });
   });
 
@@ -34,27 +32,23 @@ describe('components › Provider', function () {
   it('has static propTypes defined', function () {
     expect(Provider.propTypes).to.be.deep.equal({
       app: PropTypes.object.isRequired,
-      children: PropTypes.element.isRequired,
-      store: PropTypes.object.isRequired
+      children: PropTypes.element.isRequired
     });
   });
 
   it('has static childContextTypes defined', function () {
     expect(Provider.childContextTypes).to.be.deep.equal({
-      app: PropTypes.object.isRequired,
-      store: PropTypes.object.isRequired
+      app: PropTypes.object.isRequired
     });
   });
 
-  it('has the app and store as private properties, just like the passed arguments', function () {
+  it('has the app as private property, just like the passed arguments', function () {
     expect(myProviderInstance.app).to.be.deep.equal(fakeApp);
-    expect(myProviderInstance.store).to.be.deep.equal(fakeStore);
   });
 
-  it('has a getChildContext method which returns app and store objects of the instance', function () {
+  it('has a getChildContext method which returns app object of the instance', function () {
     expect(myProviderInstance.getChildContext()).to.be.deep.equal({
-      app: fakeApp,
-      store: fakeStore
+      app: fakeApp
     });
   });
 

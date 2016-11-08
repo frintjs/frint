@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
 import { Subject } from 'rxjs';
 import React from 'react';
@@ -41,6 +42,7 @@ class BaseApp {
       ...opts
     };
 
+    // errors
     if (!this.options.appId) {
       throw new Error('Must provide `appId` in options');
     }
@@ -49,20 +51,34 @@ class BaseApp {
       throw new Error('Must provide `component` in options');
     }
 
+    // widgets
     this.widgetsByRegion = {};
 
     if (typeof window.app !== 'undefined') {
       this.options.rootApp = window.app;
     }
 
-    this.widgetsSubject = new Subject();
+    this.widgetsSubject$ = new Subject();
 
-    this.createStore(
+    // store
+    this._createStore(
       this.options.reducer,
       this.options.initialState
     );
 
     this.readableApps = [];
+
+    // state$
+    this._storeSubscription = null;
+    const store = this._getStore();
+    const state$ = new Subject();
+
+    // @TODO: take care of this leak
+    this._storeSubscription = store.subscribe(() => {
+      state$.next(store.getState());
+    });
+
+    this.state$ = state$.startWith(store.getState());
   }
 
   getRootApp() {
@@ -107,6 +123,12 @@ class BaseApp {
   }
 
   createStore(rootReducer, initialState = {}) {
+    console.warn('[DEPRECATED] `createStore` has been deprecated.');
+
+    return this._createStore(rootReducer, initialState);
+  }
+
+  _createStore(rootReducer, initialState = {}) {
     const middlewares = [
       thunk.withExtraArgument({ app: this }),
       createAppendActionMiddleware({
@@ -135,8 +157,14 @@ class BaseApp {
   }
 
   getStore(appName = null) {
+    console.warn('[DEPRECATED] `getStore` has been deprecated, use `getState$` instead.');
+
+    return this._getStore(appName);
+  }
+
+  _getAppByName(appName = null) {
     if (!appName) {
-      return this.getOption('store');
+      return this;
     }
 
     const rootApp = this.getRootApp();
@@ -155,10 +183,34 @@ class BaseApp {
 
     // @TODO: check for permissions
     if (typeof appsByName[appName] !== 'undefined') {
-      return appsByName[appName].getStore();
+      return appsByName[appName];
     }
 
     return null;
+  }
+
+  _getStore(appName = null) {
+    const app = this._getAppByName(appName);
+
+    if (!app) {
+      return null;
+    }
+
+    return app.getOption('store');
+  }
+
+  getState$(appName = null) {
+    const app = this._getAppByName(appName);
+
+    if (!app) {
+      return null;
+    }
+
+    return app.state$;
+  }
+
+  dispatch(action) {
+    return this._getStore().dispatch(action);
   }
 
   getOption(key) {
@@ -172,7 +224,7 @@ class BaseApp {
 
     this.widgetsByRegion[regionName].push(widgetApp);
 
-    return this.widgetsSubject.next(this.widgetsByRegion);
+    return this.widgetsSubject$.next(this.widgetsByRegion);
   }
 
   beforeMount() {
@@ -181,12 +233,10 @@ class BaseApp {
 
   render() {
     const Component = this.getOption('component');
-
-    const store = this.getStore();
     const self = this;
 
     return () => (
-      <Provider app={self} store={store}>
+      <Provider app={self}>
         <Component />
       </Provider>
     );
@@ -197,7 +247,13 @@ class BaseApp {
   }
 
   beforeUnmount() {
-    return this.options.beforeUnmount.bind(this)();
+    const output = this.options.beforeUnmount.bind(this)();
+
+    if (typeof this._storeSubscription === 'function') {
+      this._storeSubscription();
+    }
+
+    return output;
   }
 
   /**
@@ -235,7 +291,13 @@ class BaseApp {
   }
 
   observeWidgets() {
-    return this.widgetsSubject.startWith(
+    console.warn('[DEPRECATED] `observeWidgets` is deprecated, use `observeWidgets$` instead.');
+
+    return this.observeWidgets$();
+  }
+
+  observeWidgets$() {
+    return this.widgetsSubject$.startWith(
       this.getWidgets()
     );
   }

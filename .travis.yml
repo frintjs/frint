@@ -4,8 +4,8 @@ node_js:
   - 'stable'
 
 script:
-  - 'npm test'
   - 'npm run lint'
+  - 'npm test'
   - 'npm run alex'
 
 after_success: 'npm run coverage:coveralls'

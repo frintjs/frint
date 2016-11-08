@@ -243,9 +243,13 @@ describe('components › mapToProps', function () {
 
       document.querySelector('#root .add').click(); // 11
       document.querySelector('#root .add').click(); // 12
-      document.querySelector('#root .subtract').click(); // 11
+      document.querySelector('#root .add').click(); // 13
+      document.querySelector('#root .add').click(); // 14
 
-      expect(document.querySelector('#root .counter').innerHTML).to.equal('11');
+      document.querySelector('#root .subtract').click(); // 13
+      document.querySelector('#root .subtract').click(); // 12
+
+      expect(document.querySelector('#root .counter').innerHTML).to.equal('12');
     });
   });
 

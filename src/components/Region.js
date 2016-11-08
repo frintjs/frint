@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
@@ -8,8 +8,8 @@ function getWidgets(name) {
   return window.app.getWidgets(name);
 }
 
-function getObservable(name) {
-  return window.app.observeWidgets(name);
+function getObservable$(name) {
+  return window.app.observeWidgets$(name);
 }
 
 function isRootAppAvailable() {
@@ -43,7 +43,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    const observable = getObservable();
+    const observable = getObservable$();
 
     this.subscription = observable.subscribe({
       // @TODO: this can be optimized further
@@ -62,7 +62,7 @@ export default React.createClass({
             // @TODO: later re-implement this check with observables
             const rootApp = widget.getRootApp();
             const areDependenciesLoaded = widget.readableApps.length > 0
-              ? widget.readableApps.every((readableApp) => rootApp.getStore(readableApp))
+              ? widget.readableApps.every((readableApp) => rootApp._getStore(readableApp))
               : true;
 
             if (!areDependenciesLoaded) {

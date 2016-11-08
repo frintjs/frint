@@ -8,17 +8,15 @@ App class are created via `createApp` function. Once instantiated they expose th
 
 Returns a specific option that was passed to it during construction.
 
-### createStore(rootReducer, initialState = {})
+### getState$(appName)
 
-Used internally.
+If no `appName` is given, it would fetch the state of the current app instance.
 
-@TODO: should this be removed from public API?
+Returns the state of an app as an Observable.
 
-### getStore(appName)
+### dispatch(action)
 
-Returns the Store of an App by its name.
-
-@TODO: could this be removed from public API?
+Dispatches action to the current Store.
 
 ### getRootApp()
 
@@ -84,7 +82,7 @@ childApp.setRegions(['sidebar', 'footer']);
 
 Returns a list of child apps, by a specific region. Returns all the child apps, irrespective of their region, if no `regionName` is provided.
 
-### observeWidgets()
+### observeWidgets$()
 
 Returns an observable, that you can subscribe to. Emit's a `next` event every time there is a change in the list of registered widgets.
 

@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.7.0](https://github.com/Travix-International/frint/tree/v0.7.0) (2016-11-08)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.6.0...v0.7.0)
+
+**Merged pull requests:**
+
+- State as an Observable [\#40](https://github.com/Travix-International/frint/pull/40) ([fahad19](https://github.com/fahad19))
+
 ## [v0.6.0](https://github.com/Travix-International/frint/tree/v0.6.0) (2016-11-01)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.5.0...v0.6.0)
 

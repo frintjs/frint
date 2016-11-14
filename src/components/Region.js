@@ -62,7 +62,7 @@ export default React.createClass({
             // @TODO: later re-implement this check with observables
             const rootApp = widget.getRootApp();
             const areDependenciesLoaded = widget.readableApps.length > 0
-              ? widget.readableApps.every((readableApp) => rootApp._getStore(readableApp))
+              ? widget.readableApps.every(readableApp => rootApp._getStore(readableApp))
               : true;
 
             if (!areDependenciesLoaded) {

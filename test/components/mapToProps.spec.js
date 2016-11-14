@@ -419,7 +419,7 @@ describe('components › mapToProps', function () {
         return Observable
           .of(1, 2)
           .scan((acc, number) => {
-            acc.total = acc.total + number;
+            acc.total += number;
 
             return acc;
           }, {

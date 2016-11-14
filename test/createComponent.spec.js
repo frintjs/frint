@@ -10,7 +10,7 @@ const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);
 
 describe('createComponent', () => {
-  const expectedRender = <div className="test"></div>;
+  const expectedRender = <div className="test"/>;
   const mySpec = {
     myCustomFunction() { return 'foo'; },
     render() { return expectedRender; }

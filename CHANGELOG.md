@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.8.1](https://github.com/Travix-International/frint/tree/v0.8.1) (2016-11-15)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- Fixes issue about reducers not receiving arguments passed to actions. [\#42](https://github.com/Travix-International/frint/pull/42) ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+
 ## [v0.8.0](https://github.com/Travix-International/frint/tree/v0.8.0) (2016-11-15)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.7.0...v0.8.0)
 

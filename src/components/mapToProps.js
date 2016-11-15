@@ -77,7 +77,7 @@ export default function mapToProps(opts = {}) {
         // other non-changeable mappings
         this.setState({
           mappedAppToProps: options.app(this.context.app),
-          services: _.mapValues(options.services, (serviceName) => this.context.app.getService(serviceName)),
+          services: _.mapValues(options.services, serviceName => this.context.app.getService(serviceName)),
           factories: _.mapValues(options.factories, (factoryName) => {
             return this.context.app.getFactory(factoryName);
           }),

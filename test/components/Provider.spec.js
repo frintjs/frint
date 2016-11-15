@@ -10,7 +10,7 @@ chai.use(sinonChai);
 
 describe('components › Provider', function () {
   const fakeApp = {};
-  const fakeChildren = (<div id="myFakeChildren"></div>);
+  const fakeChildren = (<div id="myFakeChildren"/>);
   let myProviderInstance;
 
   beforeEach(function () {

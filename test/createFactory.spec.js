@@ -3,6 +3,7 @@ import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import createFactory from '../src/createFactory';
+
 chai.use(sinonChai);
 
 describe('createFactory', () => {

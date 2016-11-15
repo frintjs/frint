@@ -85,8 +85,8 @@ export default function mapToProps(opts = {}) {
             return this.context.app.getModel(modelName);
           }),
           dispatch: _.mapValues(options.dispatch, (actionCreator) => {
-            return () => {
-              return this.context.app.dispatch(actionCreator());
+            return (...args) => {
+              return this.context.app.dispatch(actionCreator(...args));
             };
           })
         });

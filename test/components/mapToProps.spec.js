@@ -164,6 +164,7 @@ describe('components › mapToProps', function () {
 
   describe('Dispatchable actions and state', function () {
     const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
+    const INCREMENT_COUNTER_BY_STEP = 'INCREMENT_COUNTER_BY_STEP';
     const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
     const INITIAL_STATE = {
@@ -175,6 +176,11 @@ describe('components › mapToProps', function () {
         case INCREMENT_COUNTER:
           return Object.assign({}, {
             value: state.value + 1
+          });
+
+        case INCREMENT_COUNTER_BY_STEP:
+          return Object.assign({}, {
+            value: state.value + action.step
           });
 
         case DECREMENT_COUNTER:
@@ -195,6 +201,10 @@ describe('components › mapToProps', function () {
       return { type: INCREMENT_COUNTER };
     }
 
+    function incrementCounterByStep(step) {
+      return { type: INCREMENT_COUNTER_BY_STEP, step };
+    }
+
     function decrementCounter() {
       return { type: DECREMENT_COUNTER };
     }
@@ -204,6 +214,7 @@ describe('components › mapToProps', function () {
         return (
           <div>
             <a className="add" onClick={() => this.props.incrementCounter()}>Add</a>
+            <a className="addByStep" onClick={() => this.props.incrementCounterByStep(5)}>Add +5</a>
             <a className="subtract" onClick={() => this.props.decrementCounter()}>Subtract</a>
             <p className="counter">{this.props.counter}</p>
           </div>
@@ -214,6 +225,7 @@ describe('components › mapToProps', function () {
     const TestRootComponent = mapToProps({
       dispatch: {
         incrementCounter,
+        incrementCounterByStep,
         decrementCounter
       },
       state(state) {
@@ -250,6 +262,15 @@ describe('components › mapToProps', function () {
       document.querySelector('#root .subtract').click(); // 12
 
       expect(document.querySelector('#root .counter').innerHTML).to.equal('12');
+    });
+
+    it('triggers an action with arguments', () => {
+      const app = new TestApp();
+      render(app, document.getElementById('root'));
+
+      document.querySelector('#root .addByStep').click(); // 15
+      document.querySelector('#root .addByStep').click(); // 20
+      expect(document.querySelector('#root .counter').innerHTML).to.equal('20');
     });
   });
 

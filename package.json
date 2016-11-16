@@ -54,7 +54,8 @@
   "dependencies": {
     "lodash": "^4.13.1",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react-dom": "^15.4.0",
+    "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "rxjs": "^5.0.0-rc.1"

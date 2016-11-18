@@ -166,6 +166,7 @@ describe('components › mapToProps', function () {
     const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
     const INCREMENT_COUNTER_BY_STEP = 'INCREMENT_COUNTER_BY_STEP';
     const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
+    const SET_COUNTER = 'SET_COUNTER';
 
     const INITIAL_STATE = {
       value: 10
@@ -188,6 +189,11 @@ describe('components › mapToProps', function () {
             value: state.value - 1
           });
 
+        case SET_COUNTER:
+          return Object.assign({}, {
+            value: action.value
+          });
+
         default:
           return state;
       }
@@ -205,6 +211,22 @@ describe('components › mapToProps', function () {
       return { type: INCREMENT_COUNTER_BY_STEP, step };
     }
 
+    function setCounter(value) {
+      return { type: SET_COUNTER, value };
+    }
+
+    function setCounterByStepAsync(step) {
+      return (dispatch, getState, { app }) => {
+        const currentState = getState();
+
+        if (app.getOption('appId') === 'Test') {
+          const newValue = currentState.counter.value + step;
+
+          dispatch(setCounter(newValue));
+        }
+      };
+    }
+
     function decrementCounter() {
       return { type: DECREMENT_COUNTER };
     }
@@ -216,6 +238,7 @@ describe('components › mapToProps', function () {
             <a className="add" onClick={() => this.props.incrementCounter()}>Add</a>
             <a className="addByStep" onClick={() => this.props.incrementCounterByStep(5)}>Add +5</a>
             <a className="subtract" onClick={() => this.props.decrementCounter()}>Subtract</a>
+            <a className="setByStepAsync" onClick={() => this.props.setCounterByStepAsync(5)}>Set async</a>
             <p className="counter">{this.props.counter}</p>
           </div>
         );
@@ -226,6 +249,7 @@ describe('components › mapToProps', function () {
       dispatch: {
         incrementCounter,
         incrementCounterByStep,
+        setCounterByStepAsync,
         decrementCounter
       },
       state(state) {
@@ -270,6 +294,15 @@ describe('components › mapToProps', function () {
 
       document.querySelector('#root .addByStep').click(); // 15
       document.querySelector('#root .addByStep').click(); // 20
+      expect(document.querySelector('#root .counter').innerHTML).to.equal('20');
+    });
+
+    it('triggers an asynchronous action', () => {
+      const app = new TestApp();
+      render(app, document.getElementById('root'));
+
+      document.querySelector('#root .setByStepAsync').click(); // 15
+      document.querySelector('#root .setByStepAsync').click(); // 20
       expect(document.querySelector('#root .counter').innerHTML).to.equal('20');
     });
   });

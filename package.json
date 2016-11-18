@@ -1,6 +1,6 @@
 {
   "name": "frint",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Framework for building front-end apps",
   "main": "./lib/index.js",
   "scripts": {

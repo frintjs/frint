@@ -37,6 +37,8 @@
   * [Component](/docs/api/Component.md)
   * [mapToProps](/docs/api/mapToProps.md)
   * [Region](/docs/api/Region.md)
+  * [server](/docs/api/server/README.md)
+    * [renderToString](/docs/api/server/renderToString.md)
 * [Glossary](/docs/Glossary.md)
 * [FAQ](/docs/faq.md)
 * [Contributing](/CONTRIBUTING.md)

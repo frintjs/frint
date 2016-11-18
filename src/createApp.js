@@ -3,9 +3,9 @@
 import { Subject } from 'rxjs';
 import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
 import _ from 'lodash';
 import createAppendActionMiddleware from './middlewares/appendAction';
+import createAsyncMiddleware from './middlewares/async';
 import Provider from './components/Provider';
 
 class BaseApp {
@@ -130,7 +130,7 @@ class BaseApp {
 
   _createStore(rootReducer, initialState = {}) {
     const middlewares = [
-      thunk.withExtraArgument({ app: this }),
+      createAsyncMiddleware({ app: this }),
       createAppendActionMiddleware({
         key: 'appName',
         value: this.getOption('name')

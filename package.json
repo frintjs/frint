@@ -58,7 +58,6 @@
     "react-dom": "^0.14.8",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0",
     "rxjs": "^5.0.0-rc.1"
   },
   "devDependencies": {

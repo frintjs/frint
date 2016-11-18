@@ -34,8 +34,5 @@ describe('server › renderToString', function () {
 
     const html = renderToString(app);
     expect(html).to.contain('>Hello World!</p></div>');
-
-    const htmlWithoutCallbacks = renderToString(app, false);
-    expect(htmlWithoutCallbacks).to.contain('>Hello World!</p></div>');
   });
 });

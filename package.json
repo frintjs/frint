@@ -18,8 +18,7 @@
     "docs:clean": "rimraf _book",
     "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
     "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:Travix-International/frint gh-pages --force",
-    "prepublish": "npm run transpile"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:Travix-International/frint gh-pages --force"
   },
   "repository": {
     "type": "git",

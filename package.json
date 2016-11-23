@@ -1,32 +1,10 @@
 {
-  "name": "frint",
-  "version": "0.9.0",
-  "description": "Framework for building front-end apps",
-  "main": "./lib/index.js",
-  "scripts": {
-    "build": "webpack",
-    "transpile": "babel src --out-dir lib",
-    "lint": "eslint --color '{src,test}/**/*.js'",
-    "cover": "nyc --reporter=lcov --require babel-register mocha && npm run cover:report",
-    "cover:report": "nyc report",
-    "test": "npm run cover",
-    "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
-    "alex:docs": "alex",
-    "alex:code": "for file in $(find . -path ./node_modules -prune -o -name '*.js' -print); do echo \"\nchecking $file:\" && cat $file | ./node_modules/.bin/alex; done",
-    "alex": "npm run alex:docs && npm run alex:code",
-    "docs:prepare": "gitbook install",
-    "docs:clean": "rimraf _book",
-    "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
-    "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:Travix-International/frint gh-pages --force"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Travix-International/frint.git"
-  },
   "author": {
     "name": "Travix International",
     "url": "http://travix.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Travix-International/frint/issues"
   },
   "contributors": [
     {
@@ -46,11 +24,6 @@
       "url": "https://github.com/alexmiranda"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Travix-International/frint/issues"
-  },
-  "homepage": "https://github.com/Travix-International/frint#readme",
   "dependencies": {
     "lodash": "^4.13.1",
     "react": "^0.14.8",
@@ -59,6 +32,7 @@
     "redux-logger": "^2.6.1",
     "rxjs": "^5.0.0-rc.1"
   },
+  "description": "Framework for building front-end apps",
   "devDependencies": {
     "alex": "^4.0.1",
     "babel-cli": "^6.10.1",
@@ -81,5 +55,34 @@
     "rimraf": "^2.5.2",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0"
-  }
+  },
+  "greenkeeper": {
+    "ignore": ["react", "react-dom"]
+  },
+  "homepage": "https://github.com/Travix-International/frint#readme",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "name": "frint",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Travix-International/frint.git"
+  },
+  "scripts": {
+    "alex": "npm run alex:docs && npm run alex:code",
+    "alex:code": "for file in $(find . -path ./node_modules -prune -o -name '*.js' -print); do echo \"\nchecking $file:\" && cat $file | ./node_modules/.bin/alex; done",
+    "alex:docs": "alex",
+    "build": "webpack",
+    "cover": "nyc --reporter=lcov --require babel-register mocha && npm run cover:report",
+    "cover:report": "nyc report",
+    "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
+    "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:Travix-International/frint gh-pages --force",
+    "docs:watch": "npm run docs:prepare && gitbook serve",
+    "lint": "eslint --color '{src,test}/**/*.js'",
+    "test": "npm run cover",
+    "transpile": "babel src --out-dir lib"
+  },
+  "version": "0.9.0"
 }

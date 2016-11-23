@@ -3,3 +3,11 @@ src
 test
 Makefile
 book.json
+node_modules
+npm-debug.log
+_book
+*~
+*.swp
+*.swo
+coverage
+.nyc_output/

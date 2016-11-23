@@ -1,6 +1,6 @@
 {
   "name": "frint",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Framework for building front-end apps",
   "main": "./lib/index.js",
   "scripts": {
@@ -83,6 +83,9 @@
     "sinon-chai": "^2.8.0"
   },
   "greenkeeper": {
-    "ignore": ["react", "react-dom"]
+    "ignore": [
+      "react",
+      "react-dom"
+    ]
   }
 }

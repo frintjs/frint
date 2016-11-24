@@ -13,7 +13,7 @@
 **Merged pull requests:**
 
 - Adds greenkeeper ignore and updates .gitignore [\#50](https://github.com/Travix-International/frint/pull/50) ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
-- Remove redundant `prepublish` hook, already taken care of by `Makefile`. [\#49](https://github.com/Travix-International/frint/pull/49) ([fahad19](https://github.com/fahad19))
+- Remove redundant `prepublish`, already taken care of by `Makefile`. [\#49](https://github.com/Travix-International/frint/pull/49) ([fahad19](https://github.com/fahad19))
 - Middleware for asynchronous actions [\#48](https://github.com/Travix-International/frint/pull/48) ([fahad19](https://github.com/fahad19))
 - Rename middleware test file name to follow convention [\#47](https://github.com/Travix-International/frint/pull/47) ([fahad19](https://github.com/fahad19))
 

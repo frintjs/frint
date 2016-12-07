@@ -12,7 +12,7 @@
     "test": "npm run cover",
     "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
     "alex:docs": "alex",
-    "alex:code": "for file in $(find . -path ./node_modules -prune -o -name '*.js' -print); do echo \"\nchecking $file:\" && cat $file | ./node_modules/.bin/alex; done",
+    "alex:code": "alex 'src/**/*.js'",
     "alex": "npm run alex:docs && npm run alex:code",
     "docs:prepare": "gitbook install",
     "docs:clean": "rimraf _book",

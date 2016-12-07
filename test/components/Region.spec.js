@@ -14,7 +14,6 @@ describe('components › Region', () => {
     });
 
     const MyCoreApp = createApp({
-      appId: '123',
       name: 'myAppName',
       component: MyCoreComponent
     });
@@ -28,7 +27,6 @@ describe('components › Region', () => {
     });
 
     const MyWidgetApp = createApp({
-      appId: appName,
       appName: appName,
       name: widgetName,
       component: MyWidgetComponent

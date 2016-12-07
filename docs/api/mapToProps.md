@@ -137,7 +137,7 @@ export default mapToProps({
 
         // the initial object to start the `scan` with
         {
-          appId: app.getOption('appId'),
+          name: app.getOption('name'),
           total: 0
         }
       );

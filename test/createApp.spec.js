@@ -30,19 +30,16 @@ describe('createApp', function () {
 
   const CoreApp = createApp({
     name: 'CoreAppName',
-    appId: 'Core',
     component: true
   });
 
   const WidgetApp = createApp({
     name: 'WidgetAppName',
-    appId: 'Widget',
     component: true
   });
 
   const SecondWidgetApp = createApp({
     name: 'SecondWidgetAppName',
-    appId: 'SecondWidget',
     component: true
   });
 
@@ -57,14 +54,9 @@ describe('createApp', function () {
     expect(app.getOption('name')).to.equal('CoreAppName');
   });
 
-  it('throws error if instantiated without appId option', function () {
-    const App = createApp();
-    expect(() => new App()).to.throw(/Must provide `appId`/);
-  });
-
   it('throws error if instantiated without component option', function () {
     const App = createApp({
-      appId: '123'
+      name: 'Something'
     });
     expect(() => new App()).to.throw(/Must provide `component`/);
   });

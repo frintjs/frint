@@ -54,11 +54,16 @@ describe('createApp', function () {
     expect(app.getOption('name')).to.equal('CoreAppName');
   });
 
+  it('throws error if instantiated without name option', function () {
+    const App = createApp({ appId: '123' });
+    expect(() => new App()).to.throw(/Must provide `name`/);
+  });
+
   it('throws error if instantiated without component option', function () {
     const App = createApp({
-      name: 'Something'
+      appId: '123',
+      name: 'AppName',
     });
-    expect(() => new App()).to.throw(/Must provide `component`/);
   });
 
   it('gets root app instance from widget', function () {

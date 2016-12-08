@@ -73,7 +73,6 @@ class BaseApp {
     const store = this._getStore();
     const state$ = new Subject();
 
-    // @TODO: take care of this leak
     this._storeSubscription = store.subscribe(() => {
       state$.next(store.getState());
     });

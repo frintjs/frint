@@ -55,13 +55,12 @@ describe('createApp', function () {
   });
 
   it('throws error if instantiated without name option', function () {
-    const App = createApp({ appId: '123' });
+    const App = createApp({});
     expect(() => new App()).to.throw(/Must provide `name`/);
   });
 
   it('throws error if instantiated without component option', function () {
     const App = createApp({
-      appId: '123',
       name: 'AppName',
     });
   });

@@ -60,7 +60,7 @@ describe('createApp', function () {
   });
 
   it('throws error if instantiated without component option', function () {
-    const App = createApp({
+    createApp({
       name: 'AppName',
     });
   });

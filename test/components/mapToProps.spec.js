@@ -52,7 +52,7 @@ describe('components › mapToProps', function () {
       render() {
         return (
           <div>
-            <p className="appId">{this.props.appId}</p>
+            <p className="name">{this.props.name}</p>
             <p className="text">Hello World</p>
             <p className="serviceName">{this.props.foo.getName()}</p>
             <p className="factoryName">{this.props.bar.getName()}</p>
@@ -65,7 +65,7 @@ describe('components › mapToProps', function () {
     const TestRootComponent = mapToProps({
       app(app) {
         return {
-          appId: app.getOption('appId')
+          name: app.getOption('name')
         };
       },
       services: {
@@ -98,7 +98,7 @@ describe('components › mapToProps', function () {
     });
 
     const TestApp = createApp({
-      appId: 'test',
+      name: 'test',
       component: TestRootComponent,
       services: {
         foo: TestFooService
@@ -129,12 +129,12 @@ describe('components › mapToProps', function () {
 
     it('maps from App instance to props', function () {
       const app = new TestApp({
-        appId: 'customAppIdHere'
+        name: 'customNameHere'
       });
       render(app, document.getElementById('root'));
 
-      const text = document.querySelector('#root .appId');
-      expect(text.innerHTML).to.equal('customAppIdHere');
+      const text = document.querySelector('#root .name');
+      expect(text.innerHTML).to.equal('customNameHere');
     });
 
     it('maps from Service to props', function () {
@@ -219,7 +219,7 @@ describe('components › mapToProps', function () {
       return (dispatch, getState, { app }) => {
         const currentState = getState();
 
-        if (app.getOption('appId') === 'Test') {
+        if (app.getOption('name') === 'Test') {
           const newValue = currentState.counter.value + step;
 
           dispatch(setCounter(newValue));
@@ -260,7 +260,7 @@ describe('components › mapToProps', function () {
     })(TestComponent);
 
     const TestApp = createApp({
-      appId: 'Test',
+      name: 'Test',
       reducer: testRootReducer,
       component: TestRootComponent,
       enableLogger: false
@@ -321,7 +321,7 @@ describe('components › mapToProps', function () {
     });
 
     const CoreApp = createApp({
-      appId: 'TestCore',
+      name: 'TestCore',
       component: CoreComponent
     });
 
@@ -376,7 +376,6 @@ describe('components › mapToProps', function () {
     })(FooComponent);
 
     const FooApp = createApp({
-      appId: 'TestFooId',
       name: 'testFoo',
       component: FooRootComponent,
       reducer: fooRootReducer,
@@ -410,7 +409,6 @@ describe('components › mapToProps', function () {
     })(BarComponent);
 
     const BarApp = createApp({
-      appId: 'TestBarId',
       name: 'testBar',
       component: BarRootComponent
     });
@@ -461,7 +459,7 @@ describe('components › mapToProps', function () {
       render() {
         return (
           <div>
-            <div className="appId">{this.props.appId}</div>
+            <div className="name">{this.props.name}</div>
             <div className="total">{this.props.total}</div>
           </div>
         );
@@ -477,14 +475,14 @@ describe('components › mapToProps', function () {
 
             return acc;
           }, {
-            appId: app.getOption('appId'),
+            name: app.getOption('name'),
             total: 0
           });
       }
     })(TestComponent);
 
     const TestApp = createApp({
-      appId: 'TestCore',
+      name: 'TestCore',
       component: TestRootComponent
     });
 
@@ -497,11 +495,11 @@ describe('components › mapToProps', function () {
 
     it('can map values from app through `observe`', function () {
       window.app = new TestApp({
-        appId: 'customAppIdHere'
+        name: 'customNameHere'
       });
       render(window.app, document.getElementById('root'));
 
-      expect(document.querySelector('#root .appId').innerHTML).to.equal('customAppIdHere');
+      expect(document.querySelector('#root .name').innerHTML).to.equal('customNameHere');
     });
   });
 });

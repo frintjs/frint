@@ -25,7 +25,6 @@ describe('server › renderToString', function () {
     });
 
     const TestApp = createApp({
-      appId: 'TestAppId',
       name: 'TestAppname',
       component: TestComponent,
     });

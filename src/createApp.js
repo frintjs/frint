@@ -13,7 +13,6 @@ class BaseApp {
     this.options = {
       // primary info
       name: 'App',
-      appId: null,
       devSessionId: null,
       rootApp: null,
       version: 1,
@@ -43,10 +42,6 @@ class BaseApp {
     };
 
     // errors
-    if (!this.options.appId) {
-      throw new Error('Must provide `appId` in options');
-    }
-
     if (!this.options.component) {
       throw new Error('Must provide `component` in options');
     }

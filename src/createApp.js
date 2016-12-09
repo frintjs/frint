@@ -12,7 +12,7 @@ class BaseApp {
   constructor(opts = {}) {
     this.options = {
       // primary info
-      name: 'App',
+      name: null,
       devSessionId: null,
       rootApp: null,
       version: 1,
@@ -42,6 +42,10 @@ class BaseApp {
     };
 
     // errors
+    if (!this.options.name) {
+      throw new Error('Must provide `name` in options');
+    }
+
     if (!this.options.component) {
       throw new Error('Must provide `component` in options');
     }

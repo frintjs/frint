@@ -16,7 +16,7 @@ const Root = createComponent({
       <div>
         <h5>Widget: Foo</h5>
 
-        <p>Counter value from <strong>Foo</strong>: <code>{this.props.counter}</code></p>
+        <p>Counter value in <strong>Foo</strong>: <code>{this.props.counter}</code></p>
 
         <div>
           <button

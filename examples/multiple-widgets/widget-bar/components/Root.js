@@ -19,7 +19,7 @@ const Root = createComponent({
       <div>
         <h5>Widget: Bar</h5>
 
-        <p>Color value from <strong>Bar</strong>: <code style={codeStyle}>{this.props.color}</code></p>
+        <p>Color value in <strong>Bar</strong>: <code style={codeStyle}>{this.props.color}</code></p>
 
         <div>
           <button

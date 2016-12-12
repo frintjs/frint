@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
+import { Observable } from 'rxjs';
 
 import isObservable from '../utils/isObservable';
 
@@ -50,16 +51,52 @@ export default function mapToProps(opts = {}) {
           readableStates: {}
         });
         this.context.app.readableApps.forEach((readableAppName) => {
-          this.stateSubscriptions[readableAppName] = this.context.app
-            .getState$(readableAppName)
-            .subscribe((readableAppState) => {
-              this.setState({
-                readableStates: {
-                  ...this.state.readableStates,
-                  [readableAppName]: readableAppState
-                }
+          const readableAppState$ = this.context.app
+            .getState$(readableAppName);
+
+          // shared state, that is already available
+          if (readableAppState$ !== null) {
+            this.stateSubscriptions[readableAppName] = readableAppState$
+              .subscribe((readableAppState) => {
+                this.setState({
+                  readableStates: {
+                    ...this.state.readableStates,
+                    [readableAppName]: readableAppState
+                  }
+                });
               });
-            });
+          }
+
+          // shared state, that we need to wait for to load
+          if (readableAppState$ === null) {
+            const interval$ = Observable
+              .interval(100) // check every X ms
+              .filter(() => {
+                if (this.context.app.getState$(readableAppName) !== null) {
+                  return true;
+                }
+
+                return false;
+              });
+
+            const intervalSubscription = interval$
+              .subscribe(() => {
+                // this will fire only once
+                this.stateSubscriptions[readableAppName] = this.context.app
+                  .getState$(readableAppName)
+                  .subscribe((readableAppState) => {
+                    this.setState({
+                      readableStates: {
+                        ...this.state.readableStates,
+                        [readableAppName]: readableAppState
+                      }
+                    });
+                  });
+
+                // clean up soon after subscribing to new state
+                intervalSubscription.unsubscribe();
+              });
+          }
         });
 
         // observe

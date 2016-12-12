@@ -11,3 +11,4 @@ _book
 *.swo
 coverage
 .nyc_output/
+examples/

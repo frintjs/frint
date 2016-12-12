@@ -132,3 +132,6 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+
+examples/**/build/js/*.js
+examples/**/build/js/*.map

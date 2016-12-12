@@ -40,8 +40,7 @@ export default function mapToProps(opts = {}) {
         const appName = this.context.app.getOption('name');
         this.stateSubscriptions[appName] = this.context.app.getState$()
           .subscribe((appState) => {
-            this.replaceState({
-              ...this.state,
+            this.setState({
               state: appState,
             });
           });
@@ -51,8 +50,7 @@ export default function mapToProps(opts = {}) {
           this.stateSubscriptions[readableAppName] = this.context.app
             .getState$(readableAppName)
             .subscribe((readableAppState) => {
-              this.replaceState({
-                ...this.state,
+              this.setState({
                 readableStates: {
                   ...this.state.readableStates,
                   [readableAppName]: readableAppState

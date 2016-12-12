@@ -50,12 +50,7 @@ export default mapToProps({
   },
   state(state) {
     return {
-      color: (
-        typeof state !== 'undefined' &&
-        typeof state.color !== 'undefined'
-      )
-        ? state.color.value
-        : 'n/a'
+      color: state.color.value
     };
   },
   shared(sharedState) {

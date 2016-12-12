@@ -8,11 +8,15 @@ export default createComponent({
           <div className="eight columns">
             <h3>Main</h3>
 
+            <hr />
+
             <Region name="main" />
           </div>
 
           <div className="four columns">
             <h3>Sidebar</h3>
+
+            <hr />
 
             <Region name="sidebar" />
           </div>

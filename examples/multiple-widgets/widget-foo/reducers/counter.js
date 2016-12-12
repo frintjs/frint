@@ -4,7 +4,7 @@ import {
 } from '../constants';
 
 const INITIAL_STATE = {
-  value: 0
+  value: 5
 };
 
 export default function counter(state = INITIAL_STATE, action) {

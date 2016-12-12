@@ -1,5 +1,8 @@
 import App from './app';
 
-const fooApp = new App();
+const barApp = new App();
 
-fooApp.setRegion('sidebar');
+barApp.readStateFrom(['WidgetFoo']);
+barApp.setRegion('sidebar');
+
+export default barApp;

@@ -37,6 +37,8 @@ const Root = createComponent({
             Red
           </button>
         </div>
+
+        <p>Counter value from <strong>Foo</strong>: <code>{this.props.counter}</code></p>
       </div>
     );
   }
@@ -48,7 +50,19 @@ export default mapToProps({
   },
   state(state) {
     return {
-      color: state.color.value
+      color: (
+        typeof state !== 'undefined' &&
+        typeof state.color !== 'undefined'
+      )
+        ? state.color.value
+        : 'n/a'
+    };
+  },
+  shared(sharedState) {
+    return {
+      counter: (typeof sharedState.WidgetFoo !== 'undefined')
+        ? sharedState.WidgetFoo.counter.value
+        : 'n/a'
     };
   }
 })(Root);

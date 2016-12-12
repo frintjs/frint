@@ -46,6 +46,9 @@ export default function mapToProps(opts = {}) {
           });
 
         // shared states
+        this.setState({
+          readableStates: {}
+        });
         this.context.app.readableApps.forEach((readableAppName) => {
           this.stateSubscriptions[readableAppName] = this.context.app
             .getState$(readableAppName)

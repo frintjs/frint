@@ -4,7 +4,7 @@ import {
   changeColor
 } from '../actions/color';
 import {
-  BLUE_COLOR,
+  GREEN_COLOR,
   RED_COLOR
 } from '../constants';
 
@@ -23,10 +23,11 @@ const Root = createComponent({
 
         <div>
           <button
-            className="button button-primary"
-            onClick={() => this.props.changeColor(BLUE_COLOR)}
+            className="button"
+            style={{backgroundColor: GREEN_COLOR, color: '#fff'}}
+            onClick={() => this.props.changeColor(GREEN_COLOR)}
           >
-            Blue
+            Green
           </button>
 
           <button

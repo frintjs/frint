@@ -59,16 +59,6 @@ export default React.createClass({
             const appName = widget.getOption('appName');
             const widgetName = widget.getOption('name');
 
-            // @TODO: later re-implement this check with observables
-            const rootApp = widget.getRootApp();
-            const areDependenciesLoaded = widget.readableApps.length > 0
-              ? widget.readableApps.every(readableApp => rootApp._getStore(readableApp))
-              : true;
-
-            if (!areDependenciesLoaded) {
-              return;
-            }
-
             const existsInState = this.state.listForRendering.some((item) => {
               return (item.appName === appName) && (item.name === widgetName);
             });

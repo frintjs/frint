@@ -7,6 +7,11 @@ import {
 
 const Root = createComponent({
   render() {
+    const codeStyle = {
+      color: this.props.color,
+      backgroundColor: this.props.color
+    };
+
     return (
       <div>
         <h5>Widget: Foo</h5>
@@ -28,6 +33,8 @@ const Root = createComponent({
             -
           </button>
         </div>
+
+        <p>Color value from <strong>Bar</strong>: <code style={codeStyle}>{this.props.color}</code></p>
       </div>
     );
   }
@@ -41,6 +48,13 @@ export default mapToProps({
   state(state) {
     return {
       counter: state.counter.value
+    };
+  },
+  shared(sharedState) {
+    return {
+      color: (typeof sharedState.WidgetBar !== 'undefined')
+        ? sharedState.WidgetBar.color.value
+        : 'n/a'
     };
   }
 })(Root);

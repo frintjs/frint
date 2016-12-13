@@ -24,5 +24,3 @@ const shirt = new MyModel({
 
 const color = shirt.getColor(); // blue
 ```
-
-Alternate syntax is available for using ES6 classes directly [here](./Model.md).

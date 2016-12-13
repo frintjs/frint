@@ -32,7 +32,6 @@
   * [createModel](/docs/api/createModel.md)
   * [createService](/docs/api/createService.md)
   * [createFactory](/docs/api/createFactory.md)
-  * [Model](/docs/api/Model.md)
   * [App](/docs/api/App.md)
   * [Component](/docs/api/Component.md)
   * [mapToProps](/docs/api/mapToProps.md)

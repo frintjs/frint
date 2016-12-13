@@ -464,23 +464,41 @@ describe('components › mapToProps', function () {
       expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
       expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('n/a');
 
-      const fooApp = new FooApp();
-      fooApp.setRegion('main');
+      Promise.resolve(true) // eslint-disable-line
+        .then(function () {
+          // load Widget, after X ms
+          return new Promise(function (resolve) {
+            setTimeout(function () {
+              const fooApp = new FooApp();
+              fooApp.setRegion('main');
 
-      const timeoutId = setTimeout(function () {
-        expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('10');
+              resolve(true);
+            }, 150);
+          });
+        })
+        .then(function () {
+          // assert, after X ms
+          return new Promise(function (resolve) {
+            setTimeout(function () {
+              expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('10');
 
-        document.querySelector('#root .foo .add').click();
-        document.querySelector('#root .foo .add').click();
-        expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('12');
+              document.querySelector('#root .foo .add').click();
+              document.querySelector('#root .foo .add').click();
+              expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('12');
 
-        expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
-        expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('12');
+              expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
+              expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('12');
 
-        clearTimeout(timeoutId);
-
-        done();
-      }, 300);
+              resolve(true);
+            }, 150);
+          });
+        })
+        .then(function () {
+          done();
+        })
+        .catch(function (err) {
+          done(err);
+        });
     });
   });
 

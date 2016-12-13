@@ -2,10 +2,14 @@
 import { expect } from 'chai';
 import React from 'react';
 
-import createApp from '../../src/createApp';
-import createComponent from '../../src/createComponent';
-import Region from '../../src/components/Region';
-import render from '../../src/render';
+import {
+  createApp,
+  createComponent,
+  combineReducers,
+  render,
+  Region,
+  mapToProps
+} from '../../src';
 
 describe('components › Region', () => {
   function generateCoreAppTemplate(appOptions = {}, regionName) {
@@ -80,5 +84,177 @@ describe('components › Region', () => {
     expect(document.querySelectorAll('#root .myWidgetComponent').length).to.be.eql(2);
     expect(document.querySelectorAll('#root .myWidgetComponent')[0].textContent).to.be.eql('app1 - myWidgetName');
     expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName');
+  });
+
+  describe('Multiple widgets', function () {
+    // Core App
+    const CORE_SET_SIDEBAR_VISIBILITY = 'CORE_SET_SIDEBAR_VISIBILITY';
+
+    function coreSetSidebarVisibility(visible) {
+      return {
+        type: CORE_SET_SIDEBAR_VISIBILITY,
+        visible
+      };
+    }
+
+    const CORE_INITIAL_STATE = {
+      sidebar: true
+    };
+
+    function coreVisibilityReducer(state = CORE_INITIAL_STATE, action) {
+      switch (action.type) {
+        case CORE_SET_SIDEBAR_VISIBILITY:
+          return Object.assign({}, {
+            sidebar: action.visible
+          });
+
+        default:
+          return state;
+      }
+    }
+
+    const coreRootReducer = combineReducers({
+      visibility: coreVisibilityReducer
+    });
+
+    const CoreComponent = createComponent({
+      render() {
+        return (
+          <div>
+            <Region name="main" />
+            {this.props.sidebarVisible && <Region name="sidebar" />}
+          </div>
+        );
+      }
+    });
+
+    const CoreRootComponent = mapToProps({
+      state(state) {
+        return {
+          sidebarVisible: state.visibility.sidebar,
+        };
+      }
+    })(CoreComponent);
+
+    const CoreApp = createApp({
+      name: 'TestCore',
+      component: CoreRootComponent,
+      reducer: coreRootReducer,
+    });
+
+    // Widget #1: Foo
+    const FOO_INCREMENT_COUNTER = 'FOO_INCREMENT_COUNTER';
+
+    function fooIncrementCounter() {
+      return { type: FOO_INCREMENT_COUNTER };
+    }
+
+    const FOO_INITIAL_STATE = {
+      value: 10
+    };
+
+    function fooCounterReducer(state = FOO_INITIAL_STATE, action) {
+      switch (action.type) {
+        case FOO_INCREMENT_COUNTER:
+          return Object.assign({}, {
+            value: state.value + 1
+          });
+
+        default:
+          return state;
+      }
+    }
+
+    const fooRootReducer = combineReducers({
+      counter: fooCounterReducer
+    });
+
+    const FooComponent = createComponent({
+      render() {
+        return (
+          <div className="foo">
+            <p className="text">Hello World from Foo</p>
+            <p className="counter">{this.props.counter}</p>
+            <a className="add" onClick={() => this.props.incrementCounter()}>Add</a>
+          </div>
+        );
+      }
+    });
+
+    const FooRootComponent = mapToProps({
+      dispatch: {
+        incrementCounter: fooIncrementCounter
+      },
+      state(state) {
+        return {
+          counter: state.counter.value
+        };
+      }
+    })(FooComponent);
+
+    const FooApp = createApp({
+      name: 'testFoo',
+      component: FooRootComponent,
+      reducer: fooRootReducer,
+      enableLogger: false
+    });
+
+    // Widget #2: Bar
+    const BarComponent = createComponent({
+      beforeUnmount() {
+        return true;
+      },
+
+      render() {
+        return (
+          <div className="bar">
+            <p className="text">Hello World from Bar</p>
+            <p className="counter">{this.props.counter}</p>
+          </div>
+        );
+      }
+    });
+
+    const BarRootComponent = mapToProps({
+      shared(sharedState) {
+        return {
+          counter: (
+            typeof sharedState.testFoo !== 'undefined' &&
+            typeof sharedState.testFoo.counter !== 'undefined'
+          )
+            ? sharedState.testFoo.counter.value
+            : 'n/a',
+          sharedWasCalled: true
+        };
+      }
+    })(BarComponent);
+
+    const BarApp = createApp({
+      name: 'testBar',
+      component: BarRootComponent
+    });
+
+    it('unmounts widget if Region is removed', function () {
+      window.app = new CoreApp();
+      render(window.app, document.getElementById('root'));
+
+      const fooApp = new FooApp();
+      fooApp.setRegion('main');
+
+      const barApp = new BarApp();
+      barApp.readStateFrom(['testFoo']);
+      barApp.setRegion('sidebar');
+
+      expect(document.querySelector('#root .foo .text').innerHTML).to.equal('Hello World from Foo');
+      expect(document.querySelector('#root .foo .counter').innerHTML).to.equal('10');
+
+      expect(document.querySelector('#root .bar .text').innerHTML).to.equal('Hello World from Bar');
+      expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('10');
+
+      window.app.dispatch(coreSetSidebarVisibility(false));
+
+      expect(document.querySelector('#root .bar .text')).to.equal(null);
+      expect(document.querySelector('#root .bar .counter')).to.equal(null);
+    });
   });
 });

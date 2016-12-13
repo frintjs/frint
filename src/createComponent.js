@@ -34,10 +34,8 @@ export default function createComponent(options = {}) {
 
     componentWillUnmount() {
       if (typeof options.beforeUnmount === 'function') {
-        return options.beforeUnmount.call(this);
+        options.beforeUnmount.call(this);
       }
-
-      return null;
     },
 
     /**

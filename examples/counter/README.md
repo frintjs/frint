@@ -1,0 +1,7 @@
+# Counter
+
+Run:
+
+```
+$ make serve
+```

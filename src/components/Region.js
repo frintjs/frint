@@ -43,6 +43,10 @@ export default React.createClass({
   },
 
   componentWillMount() {
+    if (!isRootAppAvailable()) {
+      return;
+    }
+
     const observable = getObservable$();
 
     this.subscription = observable.subscribe({
@@ -52,22 +56,8 @@ export default React.createClass({
           list: getWidgets(this.props.name)
         }, () => {
           this.state.list.forEach((widget) => {
-            if (!isRootAppAvailable()) {
-              return;
-            }
-
             const appName = widget.getOption('appName');
             const widgetName = widget.getOption('name');
-
-            // @TODO: later re-implement this check with observables
-            const rootApp = widget.getRootApp();
-            const areDependenciesLoaded = widget.readableApps.length > 0
-              ? widget.readableApps.every(readableApp => rootApp._getStore(readableApp))
-              : true;
-
-            if (!areDependenciesLoaded) {
-              return;
-            }
 
             const existsInState = this.state.listForRendering.some((item) => {
               return (item.appName === appName) && (item.name === widgetName);

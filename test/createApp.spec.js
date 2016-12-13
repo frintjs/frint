@@ -60,9 +60,8 @@ describe('createApp', function () {
   });
 
   it('throws error if instantiated without component option', function () {
-    createApp({
-      name: 'AppName',
-    });
+    const App = createApp({ name: 'AppName' });
+    expect(() => new App()).to.throw(/Must provide `component`/);
   });
 
   it('gets root app instance from widget', function () {

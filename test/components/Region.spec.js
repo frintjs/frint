@@ -1,4 +1,4 @@
-/* global afterEach, beforeEach, describe, it, window, document */
+/* global afterEach, beforeEach, describe, it, window, document, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';

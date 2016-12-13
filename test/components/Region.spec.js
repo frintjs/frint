@@ -2,6 +2,8 @@
 import { expect } from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Subject } from 'rxjs';
+import sinon from 'sinon';
 
 import {
   createApp,
@@ -278,6 +280,22 @@ describe('components › Region', () => {
 
       expect(document.querySelector('#root .sample .text').innerHTML).to.equal('Hello');
       expect(document.querySelector('#root .sample').innerHTML).to.contain('Hello</p><noscript');
+    });
+
+    it('should catch errors when observing for widgets', function () {
+      window.app = new CoreApp();
+
+      const subject$ = new Subject();
+      window.app.observeWidgets$ = function () {
+        return subject$;
+      };
+
+      render(window.app, document.getElementById('root'));
+
+      const stub = sinon.stub(console, 'warn');
+      subject$.error(new Error('Something bad happened...'));
+
+      sinon.assert.calledTwice(stub); // two Regions
     });
   });
 });

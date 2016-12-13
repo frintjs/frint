@@ -43,6 +43,10 @@ export default React.createClass({
   },
 
   componentWillMount() {
+    if (!isRootAppAvailable()) {
+      return;
+    }
+
     const observable = getObservable$();
 
     this.subscription = observable.subscribe({
@@ -52,10 +56,6 @@ export default React.createClass({
           list: getWidgets(this.props.name)
         }, () => {
           this.state.list.forEach((widget) => {
-            if (!isRootAppAvailable()) {
-              return;
-            }
-
             const appName = widget.getOption('appName');
             const widgetName = widget.getOption('name');
 

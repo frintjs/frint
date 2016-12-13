@@ -1,6 +1,7 @@
 /* global afterEach, beforeEach, describe, it, window, document */
 import { expect } from 'chai';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import {
   createApp,
@@ -140,6 +141,7 @@ describe('components › Region', () => {
       name: 'TestCore',
       component: CoreRootComponent,
       reducer: coreRootReducer,
+      enableLogger: false,
     });
 
     // Widget #1: Foo
@@ -255,6 +257,27 @@ describe('components › Region', () => {
 
       expect(document.querySelector('#root .bar .text')).to.equal(null);
       expect(document.querySelector('#root .bar .counter')).to.equal(null);
+    });
+
+    it('should not render Region without any available Core App', function () {
+      resetDOM();
+
+      const SampleComponent = React.createClass({
+        render() {
+          return (
+            <div className="sample">
+              <p className="text">Hello</p>
+
+              <Region name="main" />
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(<SampleComponent />, document.getElementById('root'));
+
+      expect(document.querySelector('#root .sample .text').innerHTML).to.equal('Hello');
+      expect(document.querySelector('#root .sample').innerHTML).to.contain('Hello</p><noscript');
     });
   });
 });

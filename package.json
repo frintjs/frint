@@ -57,7 +57,7 @@
     "react-dom": "^0.14.8",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
-    "rxjs": "^5.0.0-rc.1"
+    "rxjs": "^5.0.1"
   },
   "devDependencies": {
     "alex": "^4.0.1",

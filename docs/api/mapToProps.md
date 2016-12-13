@@ -76,7 +76,7 @@ export default mapToProps({
 
 ## Shared state from other Apps
 
-If you app is alloed to listen to state changes happening in other Apps, you can:
+If you app is allwoed to listen to state changes happening in other Apps, you can:
 
 ```js
 export default mapToProps({

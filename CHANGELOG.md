@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.10.3](https://github.com/Travix-International/frint/tree/v0.10.3) (2016-12-14)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.2...v0.10.3)
+
+**Merged pull requests:**
+
+- Check if `window` exists in Region [\#62](https://github.com/Travix-International/frint/pull/62) ([fahad19](https://github.com/fahad19))
+
 ## [v0.10.2](https://github.com/Travix-International/frint/tree/v0.10.2) (2016-12-14)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.1...v0.10.2)
 

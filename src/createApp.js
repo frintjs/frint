@@ -53,7 +53,10 @@ class BaseApp {
     // widgets
     this.widgetsByRegion = {};
 
-    if (typeof window.app !== 'undefined') {
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.app !== 'undefined'
+    ) {
       this.options.rootApp = window.app;
     }
 

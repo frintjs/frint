@@ -13,7 +13,10 @@ function getObservable$(name) {
 }
 
 function isRootAppAvailable() {
-  return window.app;
+  return (
+    typeof window !== 'undefined' &&
+    window.app
+  );
 }
 
 export default React.createClass({

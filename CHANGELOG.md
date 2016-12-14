@@ -1,5 +1,22 @@
 # Change Log
 
+## [v0.10.2](https://github.com/Travix-International/frint/tree/v0.10.2) (2016-12-14)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.1...v0.10.2)
+
+**Merged pull requests:**
+
+- Check if `window` exists before setting Root app [\#61](https://github.com/Travix-International/frint/pull/61) ([fahad19](https://github.com/fahad19))
+- Gitbook upgraded to latest version [\#60](https://github.com/Travix-International/frint/pull/60) ([fahad19](https://github.com/fahad19))
+- Generate dist when publishing to npm [\#59](https://github.com/Travix-International/frint/pull/59) ([fahad19](https://github.com/fahad19))
+- Maintainers guide [\#58](https://github.com/Travix-International/frint/pull/58) ([fahad19](https://github.com/fahad19))
+
+## [v0.10.1](https://github.com/Travix-International/frint/tree/v0.10.1) (2016-12-13)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.0...v0.10.1)
+
+**Merged pull requests:**
+
+- Remove ES6 Model class documentation [\#57](https://github.com/Travix-International/frint/pull/57) ([alexmiranda](https://github.com/alexmiranda))
+
 ## [v0.10.0](https://github.com/Travix-International/frint/tree/v0.10.0) (2016-12-13)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.9.2...v0.10.0)
 
@@ -113,11 +130,17 @@
 - Make root index.js es5 compatible [\#28](https://github.com/Travix-International/frint/pull/28) ([fahad19](https://github.com/fahad19))
 
 ## [v0.4.2](https://github.com/Travix-International/frint/tree/v0.4.2) (2016-08-18)
-[Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.0...v0.4.2)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.1...v0.4.2)
 
 **Merged pull requests:**
 
 - Do not load logger in production mode [\#26](https://github.com/Travix-International/frint/pull/26) ([fahad19](https://github.com/fahad19))
+
+## [v0.4.1](https://github.com/Travix-International/frint/tree/v0.4.1) (2016-08-18)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.4.0...v0.4.1)
+
+**Merged pull requests:**
+
 - Support for injecting models [\#25](https://github.com/Travix-International/frint/pull/25) ([alexmiranda](https://github.com/alexmiranda))
 - Add code coverage with Coveralls.io [\#24](https://github.com/Travix-International/frint/pull/24) ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
 

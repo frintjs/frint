@@ -135,3 +135,6 @@ fabric.properties
 
 examples/**/build/js/*.js
 examples/**/build/js/*.map
+
+dist/frint.js
+dist/frint.min.js

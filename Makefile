@@ -6,6 +6,7 @@ release:
 	git checkout master
 	git pull origin master
 	npm run transpile
+	npm run dist
 	npm version $(VERSION)
 	npm publish
 	git push --follow-tags

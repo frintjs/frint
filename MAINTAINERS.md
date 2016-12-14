@@ -1,4 +1,4 @@
-# Contributing
+# Maintainers
 
 ## Pull Requests
 
@@ -9,19 +9,6 @@ When merging Pull Requests on GitHub, use the [squash and merge](https://github.
 To publish a new release:
 
 ```
-$ git checkout master
-$ git pull origin master
-
-$ npm run transpile
-$ npm version patch(|minor|major)
-$ npm publish
-$ git push --follow-tags
-$ npm run docs:publish
-```
-
-Or via Makefile:
-
-```
 $ make release VERSION=patch
 ```
 
@@ -29,7 +16,7 @@ $ make release VERSION=patch
 
 Changelogs are generated using the `github_changelog_generator` gem.
 
-Make sure you have Ruby v2+:
+Make sure you have Ruby v2.2+:
 
 ```
 $ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3

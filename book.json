@@ -1,7 +1,7 @@
 {
-  "gitbook": "2.4.3",
+  "gitbook": "3.2.2",
   "structure": {
-    "summary": "docs/README.md"
+    "summary": "SUMMARY.md"
   },
   "plugins": [
     "edit-link",

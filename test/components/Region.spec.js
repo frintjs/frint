@@ -11,7 +11,8 @@ import {
   combineReducers,
   render,
   Region,
-  mapToProps
+  mapToProps,
+  h
 } from '../../src';
 
 describe('components › Region', () => {

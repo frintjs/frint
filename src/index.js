@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux';
-
+import combineReducers from './combineReducers';
 import createApp from './createApp';
 import createComponent from './createComponent';
 import createFactory from './createFactory';
@@ -11,6 +10,7 @@ import PropTypes from './PropTypes';
 import Region from './components/Region';
 import render from './render';
 import isObservable from './utils/isObservable';
+import h from './h';
 
 export default {
   combineReducers,
@@ -25,4 +25,5 @@ export default {
   Region,
   render,
   isObservable,
+  h,
 };

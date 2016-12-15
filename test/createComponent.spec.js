@@ -5,7 +5,10 @@ import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import { createComponent } from '../src';
+import {
+  createComponent,
+  h,
+} from '../src';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);

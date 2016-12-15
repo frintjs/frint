@@ -4,7 +4,8 @@ import React from 'react';
 
 import {
   createApp,
-  createComponent
+  createComponent,
+  h,
 } from '../../src';
 import renderToString from '../../src/server/renderToString';
 

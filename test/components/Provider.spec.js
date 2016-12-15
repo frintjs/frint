@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
 import Provider from '../../src/components/Provider';
+import { h } from '../../src';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);

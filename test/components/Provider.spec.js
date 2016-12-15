@@ -3,6 +3,7 @@ import chai, { expect } from 'chai';
 import React, { Children, Component, PropTypes } from 'react';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+
 import Provider from '../../src/components/Provider';
 
 const sandbox = sinon.sandbox.create();

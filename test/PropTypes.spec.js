@@ -1,6 +1,6 @@
 /* global describe, it */
 import { expect } from 'chai';
-import PropTypes from '../src/PropTypes';
+import { PropTypes } from '../src';
 
 describe('PropTypes', () => {
   it('checks for existence of various types', () => {

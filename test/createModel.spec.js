@@ -1,7 +1,10 @@
 /* global describe, it */
 import { expect } from 'chai';
-import BaseModel from '../src/Model';
-import createModel from '../src/createModel';
+
+import {
+  Model as BaseModel,
+  createModel,
+} from '../src';
 
 describe('createModel', () => {
   const mySpec = {

@@ -4,7 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import render from '../src/render';
+
+import { render } from '../src';
 
 chai.use(sinonChai);
 

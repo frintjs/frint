@@ -28,3 +28,21 @@ If you want to avoid pointing to frint's JSX pragma function in every file that 
 ```
 
 More discussed in [Component](./Component.md) page.
+
+### ESLint
+
+ESLint configuration can be used as follows:
+
+```json
+{
+  "extends": [
+    "travix"
+  ],
+  "parser": "babel-eslint",
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  }
+}
+```

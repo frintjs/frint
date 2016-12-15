@@ -7,7 +7,8 @@ This is a handy function that is used for enhancing your Components, by injectin
 If you want to get values from state, and bind the values as they change to your Component as props, you can:
 
 ```js
-import { createComponent, mapToProps } from 'frint';
+/** @jsx h */
+import { createComponent, mapToProps, h } from 'frint';
 
 const MyComponent = createComponent({
   render() {
@@ -27,7 +28,8 @@ export default mapToProps({
 ## Actions
 
 ```js
-import { createComponent, mapToProps } from 'frint';
+/** @jsx h */
+import { createComponent, mapToProps, h } from 'frint';
 
 import { addTodo } from '../actions/todos';
 

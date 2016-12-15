@@ -5,7 +5,8 @@ Component classes ready to be embedded as JSX for rendering.
 ## Usage
 
 ```js
-import { createComponent } from 'frint';
+/** @jsx h */
+import { createComponent, h } from 'frint';
 
 const MyComponent = createComponent({
   render() {

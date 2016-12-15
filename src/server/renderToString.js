@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   renderToString as reactRenderToString
 } from 'react-dom/server';

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { PropTypes } from 'react';
 import { Observable } from 'rxjs';
 
+import h from '../h';
 import isObservable from '../utils/isObservable';
 
 export default function mapToProps(opts = {}) {

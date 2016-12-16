@@ -3,6 +3,8 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
+import h from '../h';
+
 // @TODO: check for an alternative to remove global dependency
 function getWidgets(name) {
   return window.app.getWidgets(name);

@@ -2,5 +2,10 @@
   "extends": [
     "travix"
   ],
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  }
 }

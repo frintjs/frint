@@ -1,12 +1,13 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
 import { Subject } from 'rxjs';
-import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import _ from 'lodash';
+
 import createAppendActionMiddleware from './middlewares/appendAction';
 import createAsyncMiddleware from './middlewares/async';
 import Provider from './components/Provider';
+import h from './h';
 
 class BaseApp {
   constructor(opts = {}) {

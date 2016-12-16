@@ -7,7 +7,8 @@ When you embed this Component with a given `name`, any time other apps register 
 ## Example
 
 ```js
-import { createComponent, Region } from 'frint';
+/** @jsx h */
+import { createComponent, Region, h } from 'frint';
 
 const MyComponent = createComponent({
   render() {

@@ -4,8 +4,8 @@ Previously, we saw that App requires a Component for rendering. We will write ou
 
 ```js
 // components/Root.js
-
-import { createComponent } from 'frint';
+/** @jsx h */
+import { createComponent, h } from 'frint';
 
 export default createComponent({
   render() {
@@ -15,3 +15,5 @@ export default createComponent({
   }
 });
 ```
+
+If you have already configured your transpiler to point JSX pragma to frint's `h` function, then you don't need the comment block `/** @jsx h */`.

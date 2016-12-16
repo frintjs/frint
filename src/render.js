@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import h from './h';
+
 export default function render(app, node) {
   const Component = app.render();
 

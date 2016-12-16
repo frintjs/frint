@@ -9,3 +9,40 @@ We use Babel for transpiling ES6/JSX code to browser compatible ES5. Since we al
   ]
 }
 ```
+
+## JSX
+
+If you want to avoid pointing to frint's JSX pragma function in every file that involves JSX, you can do:
+
+```json
+{
+  "presets": [
+    "travix"
+  ],
+  "plugins": [
+    ["transform-react-jsx", {
+      "pragma": "h"
+    }]
+  ]
+}
+```
+
+More discussed in [Component](./Component.md) page.
+
+### ESLint
+
+ESLint configuration can be used as follows:
+
+```json
+{
+  "extends": [
+    "travix"
+  ],
+  "parser": "babel-eslint",
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  }
+}
+```

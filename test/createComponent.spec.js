@@ -4,7 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import createComponent from '../src/createComponent';
+
+import {
+  createComponent,
+  h,
+} from '../src';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);
@@ -21,7 +25,7 @@ describe('createComponent', () => {
   beforeEach(() => {
     sandbox.spy(React, 'createClass');
     MyComponent = createComponent(mySpec);
-    myComponentInstance = ReactDOM.render(React.createElement(MyComponent), document.getElementById('root'));
+    myComponentInstance = ReactDOM.render(<MyComponent />, document.getElementById('root'));
   });
 
   afterEach(() => {

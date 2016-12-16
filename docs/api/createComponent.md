@@ -5,7 +5,8 @@ Creates Component classes with a `render` method, for returning JSX.
 ## Usage
 
 ```js
-import { createComponent } from 'frint';
+/** @jsx h */
+import { createComponent, h } from 'frint';
 
 const MyComponent = createComponent({
   render() {
@@ -20,7 +21,8 @@ The `createComponent` function also adds some custom methods to the object passe
 by the instance of the component.
 
 ```js
-import { createComponent } from 'frint';
+/** @jsx h */
+import { createComponent, h } from 'frint';
 
 const MyComponent = createComponent({
   handleSubmit(e) {
@@ -47,6 +49,7 @@ it will return `null`.
 On the object passed to `createComponent`, certain lifecycle events can be defined. These will be called by the framework automatically.
 
 ```js
+/** @jsx h */
 const MyComponent = createComponent({
   afterMount() {
     console.log('my component: afterMount');

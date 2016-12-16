@@ -2,7 +2,8 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import createFactory from '../src/createFactory';
+
+import { createFactory } from '../src';
 
 chai.use(sinonChai);
 

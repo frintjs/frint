@@ -1,6 +1,5 @@
 /* global afterEach, beforeEach, describe, it, window, document, before, resetDOM */
 import { expect } from 'chai';
-import React from 'react';
 import { Observable } from 'rxjs';
 
 import {
@@ -12,7 +11,8 @@ import {
   createFactory,
   createModel,
   Region,
-  mapToProps
+  mapToProps,
+  h,
 } from '../../src';
 
 describe('components › mapToProps', function () {

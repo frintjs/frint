@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.11.0](https://github.com/Travix-International/frint/tree/v0.11.0) (2016-12-16)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.3...v0.11.0)
+
+**Merged pull requests:**
+
+- Hyperscript for JSX [\#63](https://github.com/Travix-International/frint/pull/63) ([fahad19](https://github.com/fahad19))
+
 ## [v0.10.3](https://github.com/Travix-International/frint/tree/v0.10.3) (2016-12-14)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.2...v0.10.3)
 

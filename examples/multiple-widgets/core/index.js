@@ -1,4 +1,4 @@
-import { render } from '../../../src';
+import { render } from 'frint';
 
 import App from './app';
 

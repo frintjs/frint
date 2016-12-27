@@ -1,4 +1,4 @@
-import { createApp } from '../../../../src';
+import { createApp } from 'frint';
 
 import RootComponent from '../components/Root';
 

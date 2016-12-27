@@ -141,7 +141,7 @@ class BaseApp {
 
     if (process.env.NODE_ENV !== 'production') {
       if (this.getOption('enableLogger') === true) {
-        const createLogger = require('redux-logger'); // eslint-disable-line
+        const createLogger = require('./middlewares/logger'); // eslint-disable-line
 
         middlewares.push(createLogger());
       }

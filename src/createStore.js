@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 class BaseStore {
   constructor(options = {}) {
@@ -10,27 +10,31 @@ class BaseStore {
       appendAction: false,
       reducer: state => state,
       enableLogger: true,
-      cacheState: true,
       ...options,
     };
 
-    this.dispatch$ = new Subject();
-    this.state$ = this.dispatch$
-      .startWith(this.options.initialState)
+    this.state$ = new BehaviorSubject(this.options.initialState) // @TODO: initial state needs to fire
       .scan(this.options.reducer);
 
-    // @TODO: remove this chunk (with `getState()`) in next breaking release
-    if (this.options.cacheState) {
-      this.cachedState = Object.assign({}, this.options.initialState);
-      this.getState$()
-        .subscribe((state) => {
-          this.cachedState = state;
-        });
-    }
+    this.listeners = [];
+
+    this.cachedState = Object.assign({}, this.options.initialState);
+    this.subscription = this.state$
+      .subscribe((state) => {
+        this.cachedState = state;
+        this.listeners.forEach(listener => listener(state));
+      });
   }
 
   getState$() {
-    return this.state$;
+    const subject$ = new Subject();
+
+    // @TODO: unlisten when Subject unsubscribes
+    this.listeners.push(function (state) {
+      subject$.next(state);
+    });
+
+    return subject$;
   }
 
   getState() {
@@ -57,7 +61,15 @@ class BaseStore {
       ? { ...this.options.appendAction, ...action }
       : action;
 
-    return this.dispatch$.next(payload);
+    return this.state$.next(payload);
+  }
+
+  destroy() {
+    this.listeners.forEach(function (unsubscribe) {
+      if (typeof unsubscribe === 'function') {
+        return unsubscribe();
+      }
+    });
   }
 }
 

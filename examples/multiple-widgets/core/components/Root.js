@@ -1,4 +1,4 @@
-import { createComponent, Region } from '../../../../src';
+import { createComponent, Region } from 'frint';
 
 export default createComponent({
   render() {

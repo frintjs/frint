@@ -1,4 +1,4 @@
-import { combineReducers } from '../../../../src';
+import { combineReducers } from 'frint';
 
 import counter from './counter';
 

@@ -1,4 +1,4 @@
-import { createComponent, mapToProps } from '../../../../src';
+import { createComponent, mapToProps } from 'frint';
 
 import {
   changeColor

@@ -4,5 +4,6 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx',
+    'frint': 'Frint',
   }
 };

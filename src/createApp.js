@@ -123,6 +123,9 @@ class BaseApp {
       initialState,
       enableLogger: this.options.enableLogger,
       thunkArgument: { app: this },
+      appendAction: {
+        appName: this.options.name,
+      },
     });
     this.options.store = new Store();
 

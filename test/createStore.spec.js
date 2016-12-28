@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import {
   createStore,
+  combineReducers,
 } from '../src';
 
 describe('createStore', function () {
@@ -357,6 +358,74 @@ describe('createStore', function () {
     expect(consoleCalls[1].args[0]).to.exist
       .and.be.instanceof(Error)
       .and.have.property('message', 'Something went wrong...');
+
+    subscription.unsubscribe();
+  });
+
+  it('handles combined reducers', function () {
+    function counterReducer(state = { value: 0 }, action) {
+      switch (action.type) {
+        case 'INCREMENT_COUNTER':
+          return Object.assign({}, {
+            value: state.value + 1
+          });
+        case 'DECREMENT_COUNTER':
+          return Object.assign({}, {
+            value: state.value - 1
+          });
+        default:
+          return state;
+      }
+    }
+
+    function colorReducer(state = { value: 'blue' }, action) {
+      switch (action.type) {
+        case 'SET_COLOR':
+          return Object.assign({}, {
+            value: action.color
+          });
+        default:
+          return state;
+      }
+    }
+
+    const rootReducer = combineReducers({
+      counter: counterReducer,
+      color: colorReducer,
+    });
+
+    const Store = createStore({
+      enableLogger: false,
+      initialState: {
+        counter: {
+          value: 100,
+        },
+        color: {
+          value: 'red'
+        }
+      },
+      reducer: rootReducer,
+    });
+    const store = new Store();
+
+    const states = [];
+    const subscription = store.getState$()
+      .subscribe((state) => {
+        states.push(state);
+      });
+
+    store.dispatch({ type: 'INCREMENT_COUNTER' });
+    store.dispatch({ type: 'INCREMENT_COUNTER' });
+    store.dispatch({ type: 'DECREMENT_COUNTER' });
+    store.dispatch({ type: 'SET_COLOR', color: 'green' });
+
+    expect(states).to.deep.equal([
+      { counter: { value: 100 }, color: { value: 'red' } },  // initial
+      { counter: { value: 101 }, color: { value: 'red' } },  // INCREMENT_COUNTER
+      { counter: { value: 102 }, color: { value: 'red' } },  // INCREMENT_COUNTER
+      { counter: { value: 101 }, color: { value: 'red' } },  // DECREMENT_COUNTER
+      { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
+    ]);
 
     subscription.unsubscribe();
   });

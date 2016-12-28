@@ -108,11 +108,10 @@ describe('createStore', function () {
 
     store.dispatch({ type: 'INCREMENT_COUNTER' });
 
-    expect(states.length).to.equal(2); // 1 initial + 1 dispatch
-    expect(actions[0]).to.deep.equal({
-      appName: 'Blah',
-      type: 'INCREMENT_COUNTER',
-    });
+    expect(actions).to.deep.equal([
+      { appName: 'Blah', type: '__FRINT_INIT__' },
+      { appName: 'Blah', type: 'INCREMENT_COUNTER' },
+    ]);
 
     subscription.unsubscribe();
   });
@@ -152,15 +151,15 @@ describe('createStore', function () {
 
     store.dispatch({ type: 'INCREMENT_COUNTER' });
     store.dispatch(function (dispatch, getState, thunkArg) {
-      return {
+      dispatch({
         type: 'INCREMENT_COUNTER',
         thunkArg
-      };
+      });
     });
     store.dispatch({ type: 'DECREMENT_COUNTER' });
 
-    expect(actions.length).to.equal(3);
     expect(actions).to.deep.equal([
+      { type: '__FRINT_INIT__' },
       { type: 'INCREMENT_COUNTER' },
       { type: 'INCREMENT_COUNTER', thunkArg: { foo: 'bar' } },
       { type: 'DECREMENT_COUNTER' },
@@ -304,10 +303,10 @@ describe('createStore', function () {
       { counter: 1 },
     ]);
 
-    expect(consoleCalls.length).to.equal(9); // 3 actions * 3 logs (prev + action + current)
-    expect(consoleCalls[0].args[2]).to.deep.equal({ counter: 0 }); // prev
-    expect(consoleCalls[1].args[2]).to.deep.equal({ type: 'INCREMENT_COUNTER' }); // action
-    expect(consoleCalls[2].args[2]).to.deep.equal({ counter: 1 }); // action
+    expect(consoleCalls.length).to.equal(12); // (1 init + 3 actions) * 3 logs (prev + action + current)
+    expect(consoleCalls[3].args[2]).to.deep.equal({ counter: 0 }); // prev
+    expect(consoleCalls[4].args[2]).to.deep.equal({ type: 'INCREMENT_COUNTER' }); // action
+    expect(consoleCalls[5].args[2]).to.deep.equal({ counter: 1 }); // action
 
     subscription.unsubscribe();
   });
@@ -347,15 +346,15 @@ describe('createStore', function () {
 
     store.dispatch({ type: 'DO_SOMETHING' });
 
-    expect(consoleCalls.length).to.equal(2);
+    expect(consoleCalls.length).to.equal(5); // 3 init + 2 errors
 
-    expect(consoleCalls[0].method).to.equal('error');
-    expect(consoleCalls[0].args[0]).to.exist
+    expect(consoleCalls[3].method).to.equal('error');
+    expect(consoleCalls[3].args[0]).to.exist
       .and.to.contain('Error processing @')
       .and.to.contain('DO_SOMETHING');
 
-    expect(consoleCalls[1].method).to.equal('error');
-    expect(consoleCalls[1].args[0]).to.exist
+    expect(consoleCalls[4].method).to.equal('error');
+    expect(consoleCalls[4].args[0]).to.exist
       .and.be.instanceof(Error)
       .and.have.property('message', 'Something went wrong...');
 

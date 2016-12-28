@@ -56,31 +56,30 @@ class BaseStore {
 
     this.cachedState = Object.assign({}, this.options.initialState);
     this.subscription = this.internalState$
-      .startWith(this.options.cachedState)
       .subscribe((state) => {
         this.cachedState = state;
         this.exposedState$.next(state);
       });
+
+    this.dispatch({ type: '__FRINT_INIT__' });
   }
 
   getState$() {
     return this.exposedState$;
   }
 
-  getState() {
+  getState = () => {
     this.options.console.warn('[DEPRECATED] `Store.getState` has been deprecated, and kept for consistency purpose only with v0.x');
 
     return this.cachedState;
   }
 
-  dispatch(action) {
+  dispatch = (action) => {
     if (typeof action === 'function') {
-      return this.dispatch(
-        action(
-          this.dispatch,
-          this.getState,
-          this.options.thunkArgument
-        )
+      return action(
+        this.dispatch,
+        this.getState,
+        this.options.thunkArgument
       );
     }
 

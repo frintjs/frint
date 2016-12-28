@@ -23,7 +23,8 @@ describe('components › Region', () => {
 
     const MyCoreApp = createApp({
       name: 'myAppName',
-      component: MyCoreComponent
+      component: MyCoreComponent,
+      enableLogger: false,
     });
 
     return new MyCoreApp(appOptions);
@@ -37,7 +38,8 @@ describe('components › Region', () => {
     const MyWidgetApp = createApp({
       appName: appName,
       name: widgetName,
-      component: MyWidgetComponent
+      component: MyWidgetComponent,
+      enableLogger: false,
     });
 
     const myWidgetAppInstance = new MyWidgetApp();
@@ -236,7 +238,8 @@ describe('components › Region', () => {
 
     const BarApp = createApp({
       name: 'testBar',
-      component: BarRootComponent
+      component: BarRootComponent,
+      enableLogger: false,
     });
 
     it('unmounts widget if Region is removed', function () {

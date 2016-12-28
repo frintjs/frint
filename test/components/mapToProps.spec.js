@@ -113,7 +113,8 @@ describe('components › mapToProps', function () {
         baz: {
           name: 'TestBazModel'
         }
-      }
+      },
+      enableLogger: false,
     });
 
     it('creates container from component', function () {
@@ -303,6 +304,7 @@ describe('components › mapToProps', function () {
 
       document.querySelector('#root .setByStepAsync').click(); // 15
       document.querySelector('#root .setByStepAsync').click(); // 20
+
       expect(document.querySelector('#root .counter').innerHTML).to.equal('20');
     });
   });
@@ -322,7 +324,8 @@ describe('components › mapToProps', function () {
 
     const CoreApp = createApp({
       name: 'TestCore',
-      component: CoreComponent
+      component: CoreComponent,
+      enableLogger: false,
     });
 
     // Widget #1: Foo
@@ -410,7 +413,8 @@ describe('components › mapToProps', function () {
 
     const BarApp = createApp({
       name: 'testBar',
-      component: BarRootComponent
+      component: BarRootComponent,
+      enableLogger: false,
     });
 
     it('renders Widget Bar, with Foo\'s initial state', function () {
@@ -531,7 +535,8 @@ describe('components › mapToProps', function () {
 
     const TestApp = createApp({
       name: 'TestCore',
-      component: TestRootComponent
+      component: TestRootComponent,
+      enableLogger: false,
     });
 
     it('maps Observable values to props', function () {

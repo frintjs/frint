@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.12.0](https://github.com/Travix-International/frint/tree/v0.12.0) (2016-12-28)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.11.0...v0.12.0)
+
+**Merged pull requests:**
+
+- Logger middleware [\#70](https://github.com/Travix-International/frint/pull/70) ([fahad19](https://github.com/fahad19))
+- Examples: use CDN url for `frint` [\#69](https://github.com/Travix-International/frint/pull/69) ([fahad19](https://github.com/fahad19))
+
 ## [v0.11.0](https://github.com/Travix-International/frint/tree/v0.11.0) (2016-12-16)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.10.3...v0.11.0)
 

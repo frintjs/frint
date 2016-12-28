@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 class BaseStore {
   constructor(options = {}) {
@@ -13,28 +13,21 @@ class BaseStore {
       ...options,
     };
 
-    this.state$ = new BehaviorSubject(this.options.initialState) // @TODO: initial state needs to fire
+    this.internalState$ = new BehaviorSubject(this.options.initialState)
       .scan(this.options.reducer);
-
-    this.listeners = [];
+    this.exposedState$ = new BehaviorSubject();
 
     this.cachedState = Object.assign({}, this.options.initialState);
-    this.subscription = this.state$
+    this.subscription = this.internalState$
+      .startWith(this.options.cachedState)
       .subscribe((state) => {
         this.cachedState = state;
-        this.listeners.forEach(listener => listener(state));
+        this.exposedState$.next(state);
       });
   }
 
   getState$() {
-    const subject$ = new Subject();
-
-    // @TODO: unlisten when Subject unsubscribes
-    this.listeners.push(function (state) {
-      subject$.next(state);
-    });
-
-    return subject$;
+    return this.exposedState$;
   }
 
   getState() {
@@ -61,15 +54,13 @@ class BaseStore {
       ? { ...this.options.appendAction, ...action }
       : action;
 
-    return this.state$.next(payload);
+    return this.internalState$.next(payload);
   }
 
   destroy() {
-    this.listeners.forEach(function (unsubscribe) {
-      if (typeof unsubscribe === 'function') {
-        return unsubscribe();
-      }
-    });
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
 

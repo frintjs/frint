@@ -79,6 +79,7 @@ describe('createStore', function () {
   });
 
   it('appends to action payload', function () {
+    const actions = [];
     const Store = createStore({
       appendAction: {
         appName: 'Blah',
@@ -93,7 +94,6 @@ describe('createStore', function () {
       }
     });
 
-    const actions = [];
     const store = new Store();
 
     const states = [];
@@ -154,11 +154,16 @@ describe('createStore', function () {
     });
     store.dispatch({ type: 'DECREMENT_COUNTER' });
 
-    console.log(states);
-    console.log(actions);
-    // expect(actions[0]).to.deep.equal({ type: 'INCREMENT_COUNTER' });
-    // expect(actions[1]).to.deep.equal({ type: 'INCREMENT_COUNTER', thunkArg: { foo: 'bar' } });
-    // expect(actions[2]).to.deep.equal({ type: 'DECREMENT_COUNTER' });
+    expect(actions.length).to.equal(3);
+    expect(actions[0]).to.deep.equal({ type: 'INCREMENT_COUNTER' });
+    expect(actions[1]).to.deep.equal({ type: 'INCREMENT_COUNTER', thunkArg: { foo: 'bar' } });
+    expect(actions[2]).to.deep.equal({ type: 'DECREMENT_COUNTER' });
+
+    expect(states.length).to.equal(4);
+    expect(states[0]).to.deep.equal({ counter: 0 });
+    expect(states[1]).to.deep.equal({ counter: 1 });
+    expect(states[2]).to.deep.equal({ counter: 2 });
+    expect(states[3]).to.deep.equal({ counter: 1 });
 
     subscription.unsubscribe();
   });

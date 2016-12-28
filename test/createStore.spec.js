@@ -14,6 +14,7 @@ describe('createStore', function () {
   it('returns initial state upon subscription', function (done) {
     const Store = createStore();
     const store = new Store({
+      enableLogger: false,
       initialState: {
         ok: true,
       }
@@ -33,6 +34,7 @@ describe('createStore', function () {
 
   it('dispatches actions, that update state', function () {
     const Store = createStore({
+      enableLogger: false,
       initialState: {
         counter: 0,
       },
@@ -81,6 +83,7 @@ describe('createStore', function () {
   it('appends to action payload', function () {
     const actions = [];
     const Store = createStore({
+      enableLogger: false,
       appendAction: {
         appName: 'Blah',
       },
@@ -116,6 +119,7 @@ describe('createStore', function () {
   it('dispatches async actions, with thunk argument', function () {
     const actions = [];
     const Store = createStore({
+      enableLogger: false,
       thunkArgument: { foo: 'bar' },
       initialState: {
         counter: 0,
@@ -174,6 +178,7 @@ describe('createStore', function () {
 
   it('subscribes with callback function', function () {
     const Store = createStore({
+      enableLogger: false,
       thunkArgument: { foo: 'bar' },
       initialState: {
         counter: 0,
@@ -220,6 +225,7 @@ describe('createStore', function () {
 
   it('destroys internal subscription', function () {
     const Store = createStore({
+      enableLogger: false,
       initialState: {
         counter: 0
       }
@@ -239,6 +245,118 @@ describe('createStore', function () {
 
     store.dispatch({ type: 'DO_SOMETHING_IGNORED' });
     expect(changesCount).to.equal(2); // will stop at 2
+
+    subscription.unsubscribe();
+  });
+
+  it('logs state changes', function () {
+    const consoleCalls = [];
+    const fakeConsole = {
+      group() { },
+      groupEnd() { },
+      log(...args) {
+        consoleCalls.push({ method: 'log', args });
+      },
+      error(...args) {
+        consoleCalls.push({ method: 'error', args });
+      }
+    };
+
+    const Store = createStore({
+      enableLogger: true,
+      console: fakeConsole,
+      initialState: {
+        counter: 0,
+      },
+      reducer: function (state, action) {
+        switch (action.type) {
+          case 'INCREMENT_COUNTER':
+            return Object.assign({}, {
+              counter: state.counter + 1
+            });
+          case 'DECREMENT_COUNTER':
+            return Object.assign({}, {
+              counter: state.counter - 1
+            });
+          default:
+            return state;
+        }
+      }
+    });
+    const store = new Store();
+
+    const states = [];
+    const subscription = store.getState$()
+      .subscribe(function (state) {
+        states.push(state);
+      });
+
+    store.dispatch({ type: 'INCREMENT_COUNTER' });
+    store.dispatch({ type: 'INCREMENT_COUNTER' });
+    store.dispatch({ type: 'DECREMENT_COUNTER' });
+
+    expect(states.length).to.equal(4); // 1 initial + 3 dispatches
+    expect(states).to.deep.equal([
+      { counter: 0 },
+      { counter: 1 },
+      { counter: 2 },
+      { counter: 1 },
+    ]);
+
+    expect(consoleCalls.length).to.equal(9); // 3 actions * 3 logs (prev + action + current)
+    expect(consoleCalls[0].args[2]).to.deep.equal({ counter: 0 }); // prev
+    expect(consoleCalls[1].args[2]).to.deep.equal({ type: 'INCREMENT_COUNTER' }); // action
+    expect(consoleCalls[2].args[2]).to.deep.equal({ counter: 1 }); // action
+
+    subscription.unsubscribe();
+  });
+
+  it('logs errors from reducers', function () {
+    const consoleCalls = [];
+    const fakeConsole = {
+      group() { },
+      groupEnd() { },
+      log(...args) {
+        consoleCalls.push({ method: 'log', args });
+      },
+      error(...args) {
+        consoleCalls.push({ method: 'error', args });
+      }
+    };
+
+    const Store = createStore({
+      enableLogger: true,
+      console: fakeConsole,
+      initialState: {
+        counter: 0,
+      },
+      reducer: function (state, action) {
+        switch (action.type) {
+          case 'DO_SOMETHING':
+            throw new Error('Something went wrong...');
+          default:
+            return state;
+        }
+      }
+    });
+    const store = new Store();
+
+    const subscription = store.getState$()
+      .subscribe(() => {});
+
+    store.dispatch({ type: 'DO_SOMETHING' });
+
+    expect(consoleCalls.length).to.equal(2);
+
+    expect(consoleCalls[0].method).to.equal('error');
+    expect(consoleCalls[0].args[0]).to.exist
+      .and.to.contain('Error processing @')
+      .and.to.contain('DO_SOMETHING');
+
+    expect(consoleCalls[1].method).to.equal('error');
+    expect(consoleCalls[1].args[0]).to.exist
+      .and.be.instanceof(Error)
+      .and.have.property('message', 'Something went wrong...');
 
     subscription.unsubscribe();
   });

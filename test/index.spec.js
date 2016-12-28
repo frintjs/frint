@@ -8,7 +8,7 @@ import frint from '../src';
 
 describe('index', function () {
   const publicModules = {
-    combineReducers: require('redux').combineReducers,
+    combineReducers: require('../src/combineReducers'),
     createApp: require('../src/createApp'),
     createComponent: require('../src/createComponent'),
     createFactory: require('../src/createFactory'),

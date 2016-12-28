@@ -167,4 +167,29 @@ describe('createStore', function () {
 
     subscription.unsubscribe();
   });
+
+  it('destroys internal subscription', function () {
+    const Store = createStore({
+      initialState: {
+        counter: 0
+      }
+    });
+    const store = new Store();
+
+    let changesCount = 0;
+    const subscription = store.getState$()
+      .subscribe(function () {
+        changesCount += 1;
+      });
+
+    store.dispatch({ type: 'DO_SOMETHING' });
+    expect(changesCount).to.equal(2); // 1 initial + 1 dispatch
+
+    store.destroy();
+
+    store.dispatch({ type: 'DO_SOMETHING_IGNORED' });
+    expect(changesCount).to.equal(2); // will stop at 2
+
+    subscription.unsubscribe();
+  });
 });

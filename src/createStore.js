@@ -31,7 +31,7 @@ class BaseStore {
   }
 
   getState() {
-    console.warn('[DEPRECATED] `getState` has been deprecated, and kept for consistency purpose only with v0.x');
+    console.warn('[DEPRECATED] `Store.getState` has been deprecated, and kept for consistency purpose only with v0.x');
 
     return this.cachedState;
   }
@@ -55,6 +55,21 @@ class BaseStore {
       : action;
 
     return this.internalState$.next(payload);
+  }
+
+  subscribe(callback) {
+    console.warn('[DEPRECATED] `Store.subscribe` has been deprecated, and kept for consistency purpose only with v0.x');
+
+    const store = this;
+
+    const subscription = this.getState$()
+      .subscribe((state) => {
+        callback(state);
+      });
+
+    return function () {
+      subscription.unsubscribe();
+    }
   }
 
   destroy() {

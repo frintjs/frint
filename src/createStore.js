@@ -18,7 +18,15 @@ class BaseStore {
       .scan((previousState, action) => {
         let updatedState;
         const d = new Date();
-        const prettyDate = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}.${d.getMilliseconds()}`;
+        const prettyDate = [
+          _.padStart(d.getHours(), 2, 0),
+          ':',
+          _.padStart(d.getMinutes(), 2, 0),
+          ':',
+          _.padStart(d.getSeconds(), 2, 0),
+          '.',
+          _.padStart(d.getMilliseconds(), 3, 0)
+        ].join('');
 
         try {
           updatedState = this.options.reducer(previousState, action);

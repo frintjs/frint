@@ -9,6 +9,7 @@ import Model from './Model';
 import PropTypes from './PropTypes';
 import Region from './components/Region';
 import render from './render';
+import createStore from './createStore';
 import isObservable from './utils/isObservable';
 import h from './h';
 
@@ -19,6 +20,7 @@ export default {
   createFactory,
   createModel,
   createService,
+  createStore,
   mapToProps,
   Model,
   PropTypes,

@@ -1,11 +1,9 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
 import { Subject } from 'rxjs';
-import { createStore, applyMiddleware, compose } from 'redux';
 import _ from 'lodash';
 
-import createAppendActionMiddleware from './middlewares/appendAction';
-import createAsyncMiddleware from './middlewares/async';
+import createStore from './createStore';
 import Provider from './components/Provider';
 import h from './h';
 
@@ -70,17 +68,6 @@ class BaseApp {
     );
 
     this.readableApps = [];
-
-    // state$
-    this._storeSubscription = null;
-    const store = this._getStore();
-    const state$ = new Subject();
-
-    this._storeSubscription = store.subscribe(() => {
-      state$.next(store.getState());
-    });
-
-    this.state$ = state$.startWith(store.getState());
   }
 
   getRootApp() {
@@ -131,29 +118,16 @@ class BaseApp {
   }
 
   _createStore(rootReducer, initialState = {}) {
-    const middlewares = [
-      createAsyncMiddleware({ app: this }),
-      createAppendActionMiddleware({
-        key: 'appName',
-        value: this.getOption('name')
-      })
-    ];
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (this.getOption('enableLogger') === true) {
-        const createLogger = require('./middlewares/logger'); // eslint-disable-line
-
-        middlewares.push(createLogger());
-      }
-    }
-
-    this.options.store = createStore(
-      rootReducer,
+    const Store = createStore({
+      reducer: rootReducer,
       initialState,
-      compose(
-        applyMiddleware(...middlewares)
-      )
-    );
+      enableLogger: this.options.enableLogger,
+      thunkArgument: { app: this },
+      appendAction: {
+        appName: this.options.name,
+      },
+    });
+    this.options.store = new Store();
 
     return this.options.store;
   }
@@ -208,7 +182,7 @@ class BaseApp {
       return null;
     }
 
-    return app.state$;
+    return app.options.store.getState$();
   }
 
   dispatch(action) {
@@ -250,10 +224,7 @@ class BaseApp {
 
   beforeUnmount() {
     const output = this.options.beforeUnmount.bind(this)();
-
-    if (typeof this._storeSubscription === 'function') {
-      this._storeSubscription();
-    }
+    this.options.store.destroy();
 
     return output;
   }

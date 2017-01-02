@@ -30,17 +30,20 @@ describe('createApp', function () {
 
   const CoreApp = createApp({
     name: 'CoreAppName',
-    component: true
+    component: true,
+    enableLogger: false,
   });
 
   const WidgetApp = createApp({
     name: 'WidgetAppName',
-    component: true
+    component: true,
+    enableLogger: false,
   });
 
   const SecondWidgetApp = createApp({
     name: 'SecondWidgetAppName',
-    component: true
+    component: true,
+    enableLogger: false,
   });
 
   beforeEach(function () {

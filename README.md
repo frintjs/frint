@@ -4,7 +4,7 @@
 
 > An opinionated library for building front-end applications.
 
-For documentation, visit [https://travix-international.github.io/frint](https://travix-international.github.io/frint).
+For documentation, visit [https://frint.js.org](https://frint.js.org).
 
 ## Installation
 

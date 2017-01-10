@@ -77,8 +77,6 @@ class BaseStore {
   }
 
   getState = () => {
-    this.options.console.warn('[DEPRECATED] `Store.getState` has been deprecated, and kept for consistency purpose only with v0.x');
-
     return this.cachedState;
   }
 

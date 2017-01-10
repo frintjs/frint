@@ -7,6 +7,8 @@ import createStore from './createStore';
 import Provider from './components/Provider';
 import h from './h';
 
+import mergeServicesAndFactories from './_mergeServicesAndFactories'; // TODO: get rid of this when factories are removed
+
 class BaseApp {
   constructor(opts = {}) {
     this.options = {
@@ -29,7 +31,6 @@ class BaseApp {
       enableLogger: true,
 
       services: {},
-      factories: {},
 
       // lifecycle callbacks
       beforeMount: () => {},
@@ -39,6 +40,9 @@ class BaseApp {
       // override
       ...opts
     };
+
+    // TODO: get rid of this when factories are removed
+    mergeServicesAndFactories(this.options);
 
     // errors
     if (!this.options.name) {
@@ -72,43 +76,6 @@ class BaseApp {
 
   getRootApp() {
     return this.options.rootApp;
-  }
-
-  getModel(modelName) { // eslint-disable-line
-    // will be implemented below when extended
-  }
-
-  getService(serviceName) { // eslint-disable-line
-    // will be implemented below when extended
-  }
-
-  getFactory(factoryName) {
-    // TODO: optimize code to be more DRY
-    const factories = this.getOption('factories');
-    const FactoryClass = factories[factoryName];
-
-    if (FactoryClass) {
-      return new FactoryClass({
-        app: this
-      });
-    }
-
-    const rootApp = this.getRootApp();
-
-    if (!rootApp) {
-      return null;
-    }
-
-    const rootFactories = rootApp.getOption('factories');
-    const RootFactoryClass = rootFactories[factoryName];
-
-    if (RootFactoryClass) {
-      return new RootFactoryClass({
-        app: this
-      });
-    }
-
-    return null;
   }
 
   createStore(rootReducer, initialState = {}) {
@@ -284,6 +251,9 @@ export default function createApp(options = {}) {
   const modelRegistry = {};
   const serviceInstances = {};
 
+  // TODO: get rid of ths when factories are removed
+  mergeServicesAndFactories(options);
+
   class App extends BaseApp {
     constructor(opts = {}) {
       super(_.merge(
@@ -302,13 +272,35 @@ export default function createApp(options = {}) {
           return new ModelClass(attrs);
         }, () => modelName);
       });
+    }
 
-      // services
-      _.each(this.options.services, (ServiceClass, serviceName) => {
-        serviceInstances[serviceName] = new ServiceClass({
-          app: this
-        });
-      });
+    getService(serviceName, rootLookup = true, app = this) {
+      const services = this.getOption('services');
+      let ServiceClass = services[serviceName];
+      if (!ServiceClass && rootLookup) {
+        const rootApp = this.getRootApp();
+        if (rootApp) {
+          return rootApp.getService(serviceName, false, this);
+        }
+      }
+
+      if (!ServiceClass) { return null; }
+
+      const p = ServiceClass.prototype;
+      const scopedByApp = typeof p.initialize === 'function' && p.initialize.length === 1;
+      const cacheKey = scopedByApp ? `${app.getOption('name')}/${serviceName}` : serviceName;
+
+      let instance = serviceInstances[cacheKey];
+      if (!instance) {
+        instance = serviceInstances[cacheKey] = new ServiceClass({ app });
+      }
+
+      return instance;
+    }
+
+    getFactory(factoryName) {
+      console.warn('[DEPRECATED] `getFactory` has been deprecated, use `getService` instead.');
+      return this.getService(factoryName);
     }
 
     getModel(modelName) {
@@ -319,26 +311,6 @@ export default function createApp(options = {}) {
       if (rootApp) {
         return rootApp.getModel(modelName);
       }
-      return null;
-    }
-
-    getService(serviceName) {
-      if (serviceInstances[serviceName]) {
-        return serviceInstances[serviceName];
-      }
-
-      const rootApp = this.getRootApp();
-
-      if (!rootApp) {
-        return null;
-      }
-
-      const serviceFromRoot = rootApp.getService(serviceName);
-
-      if (serviceFromRoot) {
-        return serviceFromRoot;
-      }
-
       return null;
     }
   }

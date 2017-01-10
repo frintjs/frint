@@ -4,8 +4,13 @@ import { Observable } from 'rxjs';
 
 import h from '../h';
 import isObservable from '../utils/isObservable';
+import mergeServicesAndFactories from '../_mergeServicesAndFactories'; // TODO: get rid of this when factories are removed
 
 export default function mapToProps(opts = {}) {
+  if ('factories' in opts) {
+    console.warn('[DEPRECATED] `factories` options has been deprecated! Use `services` instead.'); // eslint-disable-line no-console
+  }
+
   const options = {
     app: () => {},
     dispatch: {},
@@ -18,6 +23,8 @@ export default function mapToProps(opts = {}) {
     ...opts,
   };
 
+  mergeServicesAndFactories(options); // TODO: get rid of this when factories are removed
+
   return (Component) => {
     const WrappedComponent = React.createClass({
       displayName: (typeof Component.displayName !== 'undefined')
@@ -29,7 +36,6 @@ export default function mapToProps(opts = {}) {
           mappedAppToProps: {},
           readableStates: {},
           services: {},
-          factories: {},
           models: {},
         };
       },
@@ -117,9 +123,6 @@ export default function mapToProps(opts = {}) {
         this.setState({
           mappedAppToProps: options.app(this.context.app),
           services: _.mapValues(options.services, serviceName => this.context.app.getService(serviceName)),
-          factories: _.mapValues(options.factories, (factoryName) => {
-            return this.context.app.getFactory(factoryName);
-          }),
           models: _.mapValues(options.models, (modelName) => {
             return this.context.app.getModel(modelName);
           }),
@@ -142,7 +145,6 @@ export default function mapToProps(opts = {}) {
         const {
           mappedAppToProps,
           services,
-          factories,
           models,
           dispatch,
           observe,
@@ -155,7 +157,6 @@ export default function mapToProps(opts = {}) {
           ...options.shared(readableStates),
           ...mappedAppToProps,
           ...services,
-          ...factories,
           ...models,
           ...dispatch,
           ...observe,

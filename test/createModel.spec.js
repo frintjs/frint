@@ -41,4 +41,20 @@ describe('createModel', () => {
     expect('toJS' in myModelInstance).to.be.equal(true);
     expect(myModelInstance.toJS()).to.be.deep.equal(myAttributes);
   });
+
+  it('triggers initialize method with constructor options', () => {
+    const TestModel = createModel({
+      initialize(attributes) {
+        this.storedFromInitialize = attributes;
+      }
+    });
+
+    const testModel = new TestModel({
+      foo: 'bar'
+    });
+
+    expect(testModel.storedFromInitialize).to.deep.equal({
+      foo: 'bar'
+    });
+  });
 });

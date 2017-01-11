@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.13.0](https://github.com/Travix-International/frint/tree/v0.13.0) (2017-01-11)
+[Full Changelog](https://github.com/Travix-International/frint/compare/v0.12.0...v0.13.0)
+
+**Merged pull requests:**
+
+- Models: `initialize` lifecycle method. [\#78](https://github.com/Travix-International/frint/pull/78) ([fahad19](https://github.com/fahad19))
+- Undeprecate `Store.getState\(\)`. [\#77](https://github.com/Travix-International/frint/pull/77) ([fahad19](https://github.com/fahad19))
+- Update link to docs [\#75](https://github.com/Travix-International/frint/pull/75) ([alexmiranda](https://github.com/alexmiranda))
+- CNAME for frint.js.org [\#73](https://github.com/Travix-International/frint/pull/73) ([fahad19](https://github.com/fahad19))
+- Store management with `createStore` [\#71](https://github.com/Travix-International/frint/pull/71) ([fahad19](https://github.com/fahad19))
+
 ## [v0.12.0](https://github.com/Travix-International/frint/tree/v0.12.0) (2016-12-28)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.11.0...v0.12.0)
 

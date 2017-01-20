@@ -3,6 +3,7 @@ import { expect } from 'chai';
 
 import {
   createApp,
+  createComponent,
   createFactory,
   createService,
   createModel,
@@ -327,5 +328,24 @@ describe('createApp', function () {
         }
       });
     }).to.throw(/Expected model class 'baz' to be a valid Model class/);
+  });
+
+  it('spreads "render" argument as Component properties', function () {
+    const props = {
+      frint: true,
+      coolness: 100,
+    };
+
+    const App = createApp({
+      component: createComponent({
+        render() {},
+      }),
+      name: 'name',
+    });
+
+    const provider = new App().render(props);
+
+    const component = provider().props.children;
+    expect(component.props).to.be.eql(props);
   });
 });

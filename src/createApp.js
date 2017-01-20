@@ -207,13 +207,18 @@ class BaseApp {
     return this.options.beforeMount.bind(this)();
   }
 
-  render() {
+  /**
+   *
+   * @param {Object} [componentProps=null]
+   * @return {Function<Object>}
+   */
+  render(componentProps = null) {
     const Component = this.getOption('component');
     const self = this;
 
     return () => (
       <Provider app={self}>
-        <Component />
+        <Component {...componentProps} />
       </Provider>
     );
   }

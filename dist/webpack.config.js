@@ -12,8 +12,9 @@ module.exports = {
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx',
   },
+  target: 'web',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,

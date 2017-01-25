@@ -8,20 +8,17 @@ module.exports = {
     filename: 'core.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js)$/,
-        loaders: [
-          'babel'
-        ]
+        loader: 'babel-loader',
+        query: {
+          presets: [
+            'travix'
+          ]
+        }
       }
     ]
   },
   externals: config.externals,
-  resolve: {
-    extensions: [
-      '',
-      '.js'
-    ]
-  }
 };

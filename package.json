@@ -55,7 +55,7 @@
   "homepage": "https://github.com/Travix-International/frint#readme",
   "dependencies": {
     "lodash": "^4.13.1",
-    "react": "^0.14.8",
+    "react": "^15.4.0",
     "react-dom": "^0.14.8",
     "rxjs": "^5.0.1"
   },

@@ -23,4 +23,14 @@ describe('Model', () => {
     expect('toJS' in myModelInstance).to.be.equal(true);
     expect(myModelInstance.toJS()).to.be.deep.equal(myAttributes);
   });
+
+  it('must have the attributes available with .get() method', () => {
+    expect(myModelInstance.get('attribute1')).to.be.deep.equal('value1');
+    expect(myModelInstance.get('attribute2')).to.be.deep.equal('value2');
+  });
+
+  it('must return an undefined using .get() method if attribute doesn\'t exist', () => {
+    expect(myModelInstance.get()).to.be.deep.equal(undefined);
+    expect(myModelInstance.get('attribute3')).to.be.deep.equal(undefined);
+  });
 });

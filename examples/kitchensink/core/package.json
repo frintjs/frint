@@ -1,0 +1,12 @@
+{
+  "name": "frint-multiple-widgets-counter",
+  "version": "0.0.1",
+  "description": "Multiple widgets example in frint",
+  "main": "index.js",
+  "scripts": {
+    "build": "../../../node_modules/.bin/webpack"
+  },
+  "author": "Travix International B.V.",
+  "license": "MIT",
+  "dependencies": {}
+}

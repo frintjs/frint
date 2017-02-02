@@ -1,27 +1,93 @@
-import { createComponent, Region } from 'frint';
+import { createComponent, Region, observe } from 'frint';
+import { Observable, BehaviorSubject } from 'rxjs';
 
-export default createComponent({
+const Root = createComponent({
   render() {
     return (
       <div className="container">
         <div className="row">
-          <div className="eight columns">
+          <div className="seven columns">
             <h3>Main</h3>
 
             <hr />
 
-            <Region name="main" />
-          </div>
-
-          <div className="four columns">
-            <h3>Sidebar</h3>
+            <Region
+              name="main"
+              data={{
+                hi: `available from props of 'main' region`,
+                /*showSidebar: this.props.showSidebar*/
+              }}
+            />
 
             <hr />
 
-            <Region name="sidebar" />
+            <h3>Core: {this.props.appName}</h3>
+
+            <p>
+              <a
+                href="#"
+                onClick={() => this.props.toggle(!this.props.showSidebar)}
+              >
+                Toggle sidebar
+              </a>
+            </p>
+
+            <p>
+              <strong>Services:</strong>
+
+              <ul>
+                <li><strong>Foo</strong> (self): is from <code>{this.props.foo.getAppName()}</code></li>
+                <li><strong>Bar</strong> (self): is from <code>{this.props.bar.getAppName()}</code></li>
+                <li><strong>Baz</strong> (self): is from <code>{this.props.baz.getAppName()}</code></li>
+              </ul>
+            </p>
           </div>
+
+          {this.props.showSidebar && (
+            <div className="five columns">
+              <h3>Sidebar</h3>
+
+              <hr />
+
+              <Region name="sidebar" data={{hi: `data from 'sidebar' region here`}} />
+            </div>
+          )}
         </div>
       </div>
     );
   }
 });
+
+export default observe(function (app) {
+  const sidebarToggle$ = (new BehaviorSubject(true))
+    .map((toggleValue) => {
+      return {
+        showSidebar: toggleValue,
+      };
+    });
+
+  const actions$ = Observable.of({
+    toggle: (value) => {
+      sidebarToggle$.next(value);
+    }
+  });
+
+  const services$ = Observable.of({
+    foo: app.get('foo'),
+    bar: app.get('bar'),
+    baz: app.get('baz'),
+  });
+
+  return sidebarToggle$
+    .merge(actions$)
+    .merge(services$)
+    .scan((props, emitted) => {
+      return {
+        ...props,
+        ...emitted,
+      };
+    }, {
+      // start with these props
+      appName: app.getOption('name'),
+    });
+})(Root);

@@ -1,11 +1,11 @@
+import _ from 'lodash';
 import { createApp, createStore, RegionService } from 'frint';
 
-import { DEFAULT_COLOR } from '../constants';
 import RootComponent from '../components/Root';
 import rootReducer from '../reducers';
 
 export default createApp({
-  name: 'WidgetColor',
+  name: 'WidgetTodos',
   providers: [
     {
       name: 'component',
@@ -13,11 +13,20 @@ export default createApp({
     },
     {
       name: 'store',
-      useFactory: ({ app }) => {
+      useFactory({ app }) {
         const Store = createStore({
           initialState: {
-            color: {
-              value: DEFAULT_COLOR,
+            todos: {
+              records: [
+                {
+                  id: _.uniqueId(),
+                  title: 'First todo',
+                },
+                {
+                  id: _.uniqueId(),
+                  title: 'Second todo',
+                },
+              ]
             },
           },
           reducer: rootReducer,

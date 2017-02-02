@@ -8,10 +8,13 @@ import mapToProps from './components/mapToProps';
 import Model from './Model';
 import PropTypes from './PropTypes';
 import Region from './components/Region';
+import observe from './components/observe';
 import render from './render';
 import createStore from './createStore';
 import isObservable from './utils/isObservable';
+import getMountableComponent from './components/getMountableComponent';
 import h from './h';
+import RegionService from './services/Region';
 
 export default {
   combineReducers,
@@ -25,7 +28,10 @@ export default {
   Model,
   PropTypes,
   Region,
+  observe,
   render,
   isObservable,
+  getMountableComponent,
   h,
+  RegionService,
 };

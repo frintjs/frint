@@ -1,43 +1,57 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import _ from 'lodash';
+import { createContainer, resolveContainer } from 'diyai';
 
-import createStore from './createStore';
 import Provider from './components/Provider';
 import h from './h';
+
+function makeInstanceKey(region = null, regionKey = null, reuse) {
+  if (
+    reuse === true ||
+    (!region && !regionKey)
+  ) {
+    return 'default';
+  }
+
+  let key = '';
+
+  if (region) {
+    key = region;
+  }
+
+  if (regionKey) {
+    key = `${region}_${regionKey}`;
+  }
+
+  return key;
+}
 
 class BaseApp {
   constructor(opts = {}) {
     this.options = {
-      // primary info
       name: null,
-      devSessionId: null,
       rootApp: null,
-      version: 1,
+      providers: [],
 
-      // the root component to render
-      component: null,
-
-      // list of Model instances
-      models: {},
-
-      // store
-      store: null,
-      reducer: (state = {}) => state,
-      initialState: {},
-      enableLogger: true,
-
-      services: {},
-      factories: {},
+      providerNames: {
+        component: 'component',
+        container: 'container',
+        store: 'store',
+        app: 'app',
+        rootApp: 'rootApp',
+        region: 'region',
+      },
 
       // lifecycle callbacks
+      initialize: () => {},
       beforeMount: () => {},
       afterMount: () => {},
       beforeUnmount: () => {},
 
       // override
-      ...opts
+      ...opts,
     };
 
     // errors
@@ -45,175 +59,263 @@ class BaseApp {
       throw new Error('Must provide `name` in options');
     }
 
-    if (!this.options.component) {
-      throw new Error('Must provide `component` in options');
+    // container
+    const Container = createContainer([
+      { name: this.options.providerNames.app, useValue: this },
+      { name: this.options.providerNames.rootApp, useValue: this.options.rootApp },
+    ], {
+      containerKey: this.options.providerNames.container,
+    });
+    this.container = resolveContainer(Container);
+
+    // root app's providers
+    this._registerRootProviders();
+
+    // self providers
+    this.options.providers.forEach((provider) => {
+      this.container.register(provider);
+    });
+
+    // children
+    this._widgetsCollection = [];
+    this._widgets$ = new BehaviorSubject(this._widgetsCollection);
+
+    this.options.initialize();
+  }
+
+  // @TODO: this method can be optimized further
+  _registerRootProviders() {
+    const rootApp = this.getRootApp();
+
+    if (!rootApp || rootApp === this) {
+      return;
     }
 
-    // widgets
-    this.widgetsByRegion = {};
+    rootApp.getProviders().forEach((rootProvider) => {
+      // do not cascade
+      if (!rootProvider.cascade) {
+        return;
+      }
 
-    if (
-      typeof window !== 'undefined' &&
-      typeof window.app !== 'undefined'
-    ) {
-      this.options.rootApp = window.app;
-    }
+      const definedProvider = Object.assign(
+        {},
+        _.omit(rootProvider, [
+          'useClass',
+          'useValue',
+          'useFactory'
+        ])
+      );
 
-    this.widgetsSubject$ = new Subject();
+      // non-scoped
+      if (!rootProvider.scoped) {
+        this.container.register({
+          ...definedProvider,
+          useValue: rootApp.get(rootProvider.name),
+        });
 
-    // store
-    this._createStore(
-      this.options.reducer,
-      this.options.initialState
-    );
+        return;
+      }
 
-    this.readableApps = [];
+      // scoped
+      if ('useValue' in rootProvider) {
+        // `useValue` providers have no impact with scoping
+        this.container.register({
+          ...definedProvider,
+          useValue: rootApp.get(rootProvider.name)
+        });
+
+        return;
+      }
+
+      if ('useClass' in rootProvider) {
+        this.container.register({
+          ...definedProvider,
+          useClass: rootProvider.useClass,
+        });
+
+        return;
+      }
+
+      if ('useFactory' in rootProvider) {
+        this.container.register({
+          ...definedProvider,
+          useFactory: rootProvider.useFactory
+        });
+      }
+
+      return;
+    });
+  }
+
+  getContainer() {
+    return this.container;
   }
 
   getRootApp() {
-    return this.options.rootApp;
+    const rootApp = this.get(this.getOption('providerNames.rootApp'));
+
+    if (rootApp) {
+      return rootApp;
+    }
+
+    return this;
   }
 
-  getModel(modelName) { // eslint-disable-line
-    // will be implemented below when extended
+  getOption(key) {
+    return _.get(this.options, key);
   }
 
-  getService(serviceName) { // eslint-disable-line
-    // will be implemented below when extended
+  getProviders() {
+    return this.options.providers;
   }
 
-  getFactory(factoryName) {
-    // TODO: optimize code to be more DRY
-    const factories = this.getOption('factories');
-    const FactoryClass = factories[factoryName];
+  getProvider(name) {
+    return _.find(this.options.providers, (p) => {
+      return p.name === name;
+    });
+  }
 
-    if (FactoryClass) {
-      return new FactoryClass({
-        app: this
-      });
+  get(providerName) {
+    const value = this.container.get(providerName);
+
+    if (typeof value !== 'undefined') {
+      return value;
     }
 
     const rootApp = this.getRootApp();
 
     if (!rootApp) {
-      return null;
+      return value;
     }
 
-    const rootFactories = rootApp.getOption('factories');
-    const RootFactoryClass = rootFactories[factoryName];
+    const provider = rootApp.getProvider(providerName);
 
-    if (RootFactoryClass) {
-      return new RootFactoryClass({
-        app: this
+    if (provider.cascade === true) {
+      return rootApp.get(providerName);
+    }
+
+    return value;
+  }
+
+  getWidgets$(regionName = null) {
+    if (!regionName) {
+      return this._widgets$;
+    }
+
+    return this._widgets$
+      .map((collection) => {
+        return collection
+          .filter((w) => {
+            return w.regions.indexOf(regionName) > -1;
+          });
+      });
+  }
+
+  registerWidget(Widget, opts = {}) {
+    const options = {
+      // @TODO: decide on a better name
+      // this holds info whether the App needs to be instantiated on load
+      // or only when the targetted Region is made available
+      reuse: true,
+      ...opts,
+    };
+
+    if (typeof options.name !== 'undefined') {
+      Object.defineProperty(Widget, 'frintAppName', {
+        value: options.name,
+        configurable: true,
       });
     }
 
-    return null;
-  }
-
-  createStore(rootReducer, initialState = {}) {
-    console.warn('[DEPRECATED] `createStore` has been deprecated.');
-
-    return this._createStore(rootReducer, initialState);
-  }
-
-  _createStore(rootReducer, initialState = {}) {
-    const Store = createStore({
-      reducer: rootReducer,
-      initialState,
-      enableLogger: this.options.enableLogger,
-      thunkArgument: { app: this },
-      appendAction: {
-        appName: this.options.name,
-      },
+    const existingIndex = _.findIndex(this._widgetsCollection, (w) => {
+      return w.name === Widget.frintAppName;
     });
-    this.options.store = new Store();
 
-    return this.options.store;
-  }
-
-  getStore(appName = null) {
-    console.warn('[DEPRECATED] `getStore` has been deprecated, use `getState$` instead.');
-
-    return this._getStore(appName);
-  }
-
-  _getAppByName(appName = null) {
-    if (!appName) {
-      return this;
+    if (existingIndex !== -1) {
+      throw new Error(`Widget '${Widget.frintAppName}' has been already registered before.`);
     }
 
+    this._widgetsCollection.push({
+      ...options,
+      name: Widget.frintAppName,
+      App: Widget,
+      regions: options.regions || [],
+      instances: {},
+    });
+
+    if (options.reuse === true) {
+      this.instantiateWidget(Widget.frintAppName);
+    }
+
+    this._widgets$.next(this._widgetsCollection);
+  }
+
+  hasWidgetInstance(name, region = null, regionKey = null) {
+    const instance = this.getWidgetInstance(name, region, regionKey);
+
+    if (typeof instance !== 'undefined') {
+      return true;
+    }
+
+    return false;
+  }
+
+  getWidgetInstance(name, region = null, regionKey = null) {
+    const index = _.findIndex(this._widgetsCollection, (w) => {
+      return w.name === name;
+    });
+
+    if (index === -1) {
+      return false;
+    }
+
+    const w = this._widgetsCollection[index];
+    const instanceKey = makeInstanceKey(region, regionKey, w.reuse);
+
+    return w.instances[instanceKey];
+  }
+
+  getWidgetOnceAvailable$(name, region = null, regionKey = null) {
     const rootApp = this.getRootApp();
-    const widgetsByRegion = rootApp
-      ? rootApp.widgetsByRegion
-      : this.widgetsByRegion;
 
-    const appsByName = _.reduce(widgetsByRegion, (result, value) => {
-      value.forEach((app) => {
-        const name = app.getOption('name');
-        result[name] = app;
-      });
+    return Observable
+      .interval(100) // every X ms
+      .map(() => rootApp.getWidgetInstance(name, region, regionKey))
+      .first(widget => widget);
+  }
 
-      return result;
-    }, {});
+  instantiateWidget(name, region = null, regionKey = null) {
+    const key = makeInstanceKey(region, regionKey);
 
-    // @TODO: check for permissions
-    if (typeof appsByName[appName] !== 'undefined') {
-      return appsByName[appName];
+    const index = _.findIndex(this._widgetsCollection, (w) => {
+      return w.App.frintAppName === name;
+    });
+
+    if (index === -1) {
+      throw new Error(`No widget found with name '${name}'.`);
     }
 
-    return null;
+    const w = this._widgetsCollection[index];
+
+    this._widgetsCollection[index].instances[key] = new w.App({
+      ..._.omit(w, ['App', 'instances']),
+      name: w.App.frintAppName,
+      rootApp: this,
+    });
+
+    return this._widgetsCollection[index].instances[key];
   }
 
-  _getStore(appName = null) {
-    const app = this._getAppByName(appName);
-
-    if (!app) {
-      return null;
-    }
-
-    return app.getOption('store');
-  }
-
-  getState$(appName = null) {
-    const app = this._getAppByName(appName);
-
-    if (!app) {
-      return null;
-    }
-
-    return app.options.store.getState$();
-  }
-
-  dispatch(action) {
-    return this._getStore().dispatch(action);
-  }
-
-  getOption(key) {
-    return this.options[key];
-  }
-
-  registerWidget(widgetApp, regionName) {
-    if (!Array.isArray(this.widgetsByRegion[regionName])) {
-      this.widgetsByRegion[regionName] = [];
-    }
-
-    this.widgetsByRegion[regionName].push(widgetApp);
-
-    return this.widgetsSubject$.next(this.widgetsByRegion);
-  }
+  // unregisterWidget(name, region = null, regionKey = null) {
+  //   // @TODO
+  // }
 
   beforeMount() {
     return this.options.beforeMount.bind(this)();
   }
 
-  /**
-   *
-   * @param {Object} [componentProps=null]
-   * @return {Function<Object>}
-   */
-  render(componentProps = null) {
-    const Component = this.getOption('component');
+  getComponent(componentProps = null) {
+    const Component = this.get(this.getOption('providerNames.component'));
     const self = this;
 
     return () => (
@@ -223,129 +325,36 @@ class BaseApp {
     );
   }
 
+  getStore() {
+    return this.container.get(this.options.providerNames.store);
+  }
+
   afterMount() {
     return this.options.afterMount.bind(this)();
   }
 
   beforeUnmount() {
     const output = this.options.beforeUnmount.bind(this)();
-    this.options.store.destroy();
 
     return output;
-  }
-
-  /**
-   * Alternative to Core.registerWidget(),
-   * by doing Widget.setRegion()
-   */
-  setRegion(regionName) {
-    return this.setRegions([regionName]);
-  }
-
-  setRegions(regionNames) {
-    const rootApp = this.getRootApp();
-
-    if (!rootApp) {
-      throw new Error('No root app instance available, so cannot set region.');
-    }
-
-    return regionNames.forEach((regionName) => {
-      return rootApp.registerWidget(this, regionName);
-    });
-  }
-
-  getWidgets(regionName = null) {
-    if (!regionName) {
-      return this.widgetsByRegion;
-    }
-
-    const list = this.widgetsByRegion[regionName];
-
-    if (!list) {
-      return [];
-    }
-
-    return list;
-  }
-
-  observeWidgets() {
-    console.warn('[DEPRECATED] `observeWidgets` is deprecated, use `observeWidgets$` instead.');
-
-    return this.observeWidgets$();
-  }
-
-  observeWidgets$() {
-    return this.widgetsSubject$.startWith(
-      this.getWidgets()
-    );
-  }
-
-  readStateFrom(appNames = []) {
-    this.readableApps = appNames;
   }
 }
 
 export default function createApp(options = {}) {
-  const modelRegistry = {};
-  const serviceInstances = {};
-
   class App extends BaseApp {
     constructor(opts = {}) {
       super(_.merge(
         options,
         opts
       ));
-
-      // models
-      _.each(this.options.models, (ModelClass, modelName) => {
-        if (typeof ModelClass !== 'function') {
-          throw new Error(`Expected model class '${modelName}' to be a valid Model class`);
-        }
-
-        modelRegistry[modelName] = _.memoize(() => {
-          const attrs = this.options.modelAttributes[modelName] || {};
-          return new ModelClass(attrs);
-        }, () => modelName);
-      });
-
-      // services
-      _.each(this.options.services, (ServiceClass, serviceName) => {
-        serviceInstances[serviceName] = new ServiceClass({
-          app: this
-        });
-      });
     }
+  }
 
-    getModel(modelName) {
-      if (modelName in modelRegistry) {
-        return modelRegistry[modelName]();
-      }
-      const rootApp = this.getRootApp();
-      if (rootApp) {
-        return rootApp.getModel(modelName);
-      }
-      return null;
-    }
-
-    getService(serviceName) {
-      if (serviceInstances[serviceName]) {
-        return serviceInstances[serviceName];
-      }
-
-      const rootApp = this.getRootApp();
-
-      if (!rootApp) {
-        return null;
-      }
-
-      const serviceFromRoot = rootApp.getService(serviceName);
-
-      if (serviceFromRoot) {
-        return serviceFromRoot;
-      }
-
-      return null;
-    }
+  if (typeof options.name !== 'undefined') {
+    Object.defineProperty(App, 'frintAppName', {
+      value: options.name,
+      configurable: true,
+    });
   }
 
   return App;

@@ -1,4 +1,5 @@
-import { createComponent, mapToProps } from 'frint';
+import { createComponent, mapToProps, observe } from 'frint';
+import { Observable } from 'rxjs';
 
 import {
   incrementCounter,
@@ -35,26 +36,110 @@ const Root = createComponent({
         </div>
 
         <p>Color value from <strong>WidgetColor</strong>: <code style={codeStyle}>{this.props.color}</code></p>
+
+        <p>
+          <a
+            href="#"
+            onClick={() => this.props.changeColor('blue')}
+          >
+            Change
+          </a> to blue from here!
+        </p>
+
+        <p>
+          <strong>Region Props:</strong>
+
+          <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}</code></pre>
+        </p>
+
+        <p>
+          <strong>Services:</strong>
+
+          <ul>
+            <li><strong>Foo</strong> (cascaded): is from <code>{this.props.foo.getAppName()}</code></li>
+            <li><strong>Bar</strong> (cascaded and scoped): is from <code>{this.props.bar.getAppName()}</code></li>
+            <li><strong>Baz</strong> (not cascaded): is unavaialble - <code>{this.props.baz}</code></li>
+          </ul>
+        </p>
       </div>
     );
   }
 });
 
-export default mapToProps({
-  dispatch: {
-    incrementCounter,
-    decrementCounter,
-  },
-  state(state) {
-    return {
-      counter: state.counter.value
-    };
-  },
-  shared(sharedState) {
-    return {
-      color: (typeof sharedState.WidgetColor !== 'undefined')
-        ? sharedState.WidgetColor.color.value
-        : 'n/a'
-    };
-  }
+export default observe(function (app) {
+  const store = app.get('store');
+  const region = app.get('region');
+
+  // map state to this this Component's props
+  const state$ = store.getState$()
+    .map((state) => {
+        return {
+          counter: state.counter.value,
+        };
+      });
+
+  // map Region's props to this Component's props
+  const regionProps$ = region.getProps$()
+    .map((regionProps) => {
+      return {
+        regionProps,
+      };
+    });
+
+  // map dispatchable actions
+  const actions$ = Observable.of({
+    incrementCounter(...args) {
+      return store.dispatch(incrementCounter(...args));
+    },
+    decrementCounter(...args) {
+      return store.dispatch(decrementCounter(...args));
+    },
+  });
+
+  const services$ = Observable.of({
+    foo: app.get('foo'),
+    bar: app.get('bar'),
+    baz: app.get('baz'),
+  });
+
+  // other widget: WidgetColor
+  const widgetColor$ = app.getWidgetOnceAvailable$('WidgetColor');
+  const widgetColorState$ = widgetColor$
+    .concatMap((colorWidget) => {
+      return colorWidget
+        .get('store')
+        .getState$();
+    })
+    .map((colorState) => {
+      return {
+        color: colorState.color.value
+      };
+    });
+  const widgetColorActions$ = widgetColor$
+    .map((colorWidget) => {
+      const store = colorWidget.get('store');
+
+      return {
+        changeColor: (color) => {
+          return store.dispatch({
+            type: 'CHANGE_COLOR',
+            color,
+          });
+        },
+      };
+    });
+
+  // merge all props into a single object
+  return state$
+    .merge(regionProps$)
+    .merge(actions$)
+    .merge(services$)
+    .merge(widgetColorState$)
+    .merge(widgetColorActions$)
+    .scan((props, emitted) => {
+      return {
+        ...props,
+        ...emitted,
+      };
+    });
 })(Root);

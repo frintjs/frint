@@ -2,25 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import h from './h';
+import getMountableComponent from './getMountableComponent';
 
 export default function render(app, node) {
-  const Component = app.render();
+  const MountableComponent = getMountableComponent(app);
 
-  app.beforeMount();
-
-  const WrapperComponent = React.createClass({
-    componentDidMount() {
-      app.afterMount();
-    },
-
-    componentWillUnmount() {
-      app.beforeUnmount();
-    },
-
-    render() {
-      return <Component />;
-    }
-  });
-
-  return ReactDOM.render(<WrapperComponent />, node);
+  return ReactDOM.render(<MountableComponent />, node);
 }

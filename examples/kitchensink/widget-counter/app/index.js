@@ -1,10 +1,22 @@
-import { createApp } from 'frint';
+import { createApp, createStore } from 'frint';
 
 import RootComponent from '../components/Root';
 import rootReducer from '../reducers';
 
 export default createApp({
   name: 'WidgetCounter',
-  component: RootComponent,
-  reducer: rootReducer,
+  providers: [
+    {
+      name: 'component',
+      useValue: RootComponent
+    },
+    {
+      name: 'store',
+      useFactory(app) {
+        return new createStore({
+          reducer: rootReducer,
+          thunkArgument: { app }
+        });
+      },
+  ],
 });

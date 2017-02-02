@@ -1,8 +1,5 @@
-import App from './app';
+import WidgetCounter from './app';
 
-const app = new App();
-
-app.readStateFrom(['WidgetColor']);
-app.setRegion('main');
-
-export default app;
+window.app.register(WidgetCounter, {
+  regions: ['main'],
+});

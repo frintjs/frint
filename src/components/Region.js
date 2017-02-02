@@ -4,104 +4,58 @@ import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
 import h from '../h';
-
-// @TODO: check for an alternative to remove global dependency
-function getWidgets(name) {
-  return window.app.getWidgets(name);
-}
-
-function getObservable$(name) {
-  return window.app.observeWidgets$(name);
-}
-
-function isRootAppAvailable() {
-  return (
-    typeof window !== 'undefined' &&
-    window.app
-  );
-}
+import getMountableComponent from '../getMountableComponent';
 
 export default React.createClass({
   propTypes: {
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    key: PropTypes.string,
+    data: PropTypes.any,
   },
 
-  /**
-   * Determines if the the component should be updated or not.
-   * Since we are calling setState multiple times, we need to make sure that only when
-   * the list of widgets to render, i.e. this.state.listForRendering, is changed should
-   * trigger a re-render of the region component.
-   * @param  {Object}  nextProps  the next set of props
-   * @param  {Object}  nextState  the next component state to be set
-   * @return {Boolean} a boolean flag indicating whether the component should be updated
-   */
-  shouldComponentUpdate(nextProps, nextState) {
-    let shouldUpdate = !_.isEqual(this.props, nextProps);
-    if (!shouldUpdate) {
-      const { listForRendering } = nextState;
-      shouldUpdate = shouldUpdate || this.state.listForRendering.length !== listForRendering.length;
-      shouldUpdate = shouldUpdate ||
-        _.zipWith(this.state.listForRendering, listForRendering, (prev, next) => prev.name === next.name)
-          .some(value => !value);
-    }
-    return shouldUpdate;
+  getInitialState() {
+    return {
+      list: [], // array of widgets ==> { name, instance }
+      listForRendering: [] // array of {name, Component} objects
+    };
   },
 
   componentWillMount() {
-    if (!isRootAppAvailable()) {
+    const rootApp = this.context.app.getRootApp();
+
+    if (!rootApp) {
       return;
     }
 
-    const observable = getObservable$();
+    const widgets$ = rootApp.getWidgets$(this.props.name, this.props.key);
 
-    this.subscription = observable.subscribe({
-      // @TODO: this can be optimized further
-      next: () => {
-        this.setState({
-          list: getWidgets(this.props.name)
+    this.subscription = widget$.subscribe({
+      next(list) => {
+        this.set({
+          list,
         }, () => {
-          this.state.list.forEach((widget) => {
-            const appName = widget.getOption('appName');
-            const widgetName = widget.getOption('name');
+          this.state.list.forEach((item) => {
+            const widgetName = item.name;
+            const widgetInstance = item.instance;
 
             const existsInState = this.state.listForRendering.some((item) => {
-              return (item.appName === appName) && (item.name === widgetName);
+              return item.name === widgetName;
             });
 
-            if (existsInState) {
-              return;
+            // @TODO: take care of removal in streamed list too?
+
+            if (!existsInState) {
+              this.setState({
+                listForRendering: this.state.listForRendering.concat({
+                  name: widgetName,
+                  Component: getMountableComponent(widgetInstance),
+                })
+              });
             }
-
-            const WidgetComponent = widget.render();
-            const WrapperComponent = React.createClass({
-              componentWillMount() {
-                widget.beforeMount();
-              },
-
-              componentDidMount() {
-                widget.afterMount();
-              },
-
-              componentWillUnmount() {
-                widget.beforeUnmount();
-              },
-
-              render() {
-                return <WidgetComponent />;
-              }
-            });
-
-            const listForRendering = [...this.state.listForRendering, {
-              appName,
-              Component: WrapperComponent,
-              name: widgetName,
-            }];
-
-            this.setState({ listForRendering });
           });
         });
       },
-      error: (err) => {
+      error(err) => {
         console.warn(`Subscription error for <Region name="${this.props.name}" />:`, err);
       }
     });
@@ -109,13 +63,6 @@ export default React.createClass({
 
   componentWillUnmount() {
     this.subscription.unsubscribe();
-  },
-
-  getInitialState() {
-    return {
-      list: [], // array of widgetApps
-      listForRendering: [] // array of {name, component} objects
-    };
   },
 
   render() {
@@ -128,10 +75,10 @@ export default React.createClass({
     return (
       <div>
         {listForRendering.map((item) => {
-          const { appName, Component, name } = item;
+          const { Component, name } = item;
 
           return (
-            <Component key={`${appName}_${name}`} />
+            <Component key={`widget-${name}`} />
           );
         })}
       </div>

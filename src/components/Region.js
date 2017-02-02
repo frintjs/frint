@@ -44,20 +44,40 @@ export default React.createClass({
 
             // @TODO: take care of removal in streamed list too?
 
-            if (!existsInState) {
-              this.setState({
-                listForRendering: this.state.listForRendering.concat({
-                  name: widgetName,
-                  Component: getMountableComponent(widgetInstance),
-                })
-              });
+            if (existsInState) {
+              return;
             }
+
+            this.sendProps(widgetInstance, this.props);
+
+            this.setState({
+              listForRendering: this.state.listForRendering.concat({
+                name: widgetName,
+                Component: getMountableComponent(widgetInstance),
+              })
+            });
           });
         });
       },
       error(err) => {
         console.warn(`Subscription error for <Region name="${this.props.name}" />:`, err);
       }
+    });
+  },
+
+  sendProps(appInstance, props) {
+    const regionService = instance.get(instance.options.providerNames.region);
+
+    if (!regionService) {
+      return;
+    }
+
+    regionService.emit(props);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.state.list.forEach((item) => {
+      this.sendProps(item.instance, nextProps);
     });
   },
 

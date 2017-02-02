@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import _ from 'lodash';
 import { createContainer, resolveContainer } from 'diyai';
 
@@ -21,6 +21,7 @@ class BaseApp {
         store: 'store',
         app: 'app',
         rootApp: 'rootApp',
+        region: 'region',
       },
 
       // lifecycle callbacks
@@ -30,7 +31,7 @@ class BaseApp {
       beforeUnmount: () => {},
 
       // override
-      ...opts
+      ...opts,
     };
 
     // errors
@@ -58,7 +59,8 @@ class BaseApp {
       this.container.register(provider);
     });
 
-    this._widgetsRegistry = {};
+    this._widgetsCollection = [];
+    this._widgets$ = new BehaviorSubject(this._widgetsCollection);
 
     this.options.initialize();
   }
@@ -79,14 +81,24 @@ class BaseApp {
     return this.container.get(providerName);
   }
 
-  getWidgets$(regionName, regionKey = null) {
-    //
+  // @TODO: figure out regionKey
+  getWidgets$(regionName = null, regionKey = null) {
+    if (!regionName) {
+      return this._widgets$;
+    }
+
+    return this._widgets$
+      .map((collection) => {
+        return collection.filter((w) => {
+          return w.regions.indexOf(regionName) > -1;
+        });
+      });
   }
 
   registerWidget(Widget, opts = {}) {
     const options = {
       override: {}, // override App options while instantiating
-      multi: false, // needs multiple instances?
+      reuse: true, // @TODO: decide on a better name
       name: null, // register the App as this name if different from Widget.name
       ...opts,
     };
@@ -99,23 +111,35 @@ class BaseApp {
       Object.defineProperty(Widget, 'name', { value: options.name });
     }
 
-    if (typeof this._widgetsRegistry[Widget.name] !== 'undefined') {
-      throw new Error(`Widget has been already registered before.`);
+    const existingIndex = _.findIndex(this._widgetsCollection, (w) => {
+      return w.name === Widget.name;
+    });
+
+    if (existingIndex !== -1) {
+      throw new Error(`Widget '${Widget.name}' has been already registered before.`);
     }
 
     const { name } = options;
-    this._widgetsRegistry[name] = {
+    const insertedIndex = this._widgetsCollection.push({
+      name: Widget.name,
       App: Widget,
       regions: options.regions || [],
       instances: {},
-    };
+    });
 
-    if (options.multi === false) {
-      this._widgetsRegistry[name].instances['$default'] = new Widget({
-        ...options.override,
+    if (options.reuse === true) {
+      this._widgetsCollection[insertedIndex].instances['default'] = {
         name: Widget.name,
-      });
+        regions: options.regions,
+        instance: new Widget({
+          ...options.override,
+          name: Widget.name,
+          rootApp: this,
+        },
+      );
     }
+
+    this._widgets$.next(this._widgetsCollection);
   }
 
   beforeMount() {

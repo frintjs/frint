@@ -10,7 +10,7 @@ export default createComponent({
 
             <hr />
 
-            <Region name="main" />
+            <Region name="main" data={{hi: 'available from props of region'}} />
           </div>
 
           <div className="four columns">
@@ -18,7 +18,7 @@ export default createComponent({
 
             <hr />
 
-            <Region name="sidebar" />
+            <Region name="sidebar" data={{hi: 'region data here'}} />
           </div>
         </div>
       </div>

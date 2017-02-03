@@ -1,4 +1,5 @@
 import { createComponent, mapToProps } from 'frint';
+// import { Observable } from 'rxjs';
 
 import {
   incrementCounter,
@@ -34,6 +35,12 @@ const Root = createComponent({
           </button>
         </div>
 
+        <div>
+          <p>Region Props:</p>
+
+          <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}></code></pre>
+        </div>
+
         {/*<p>Color value from <strong>WidgetColor</strong>: <code style={codeStyle}>{this.props.color}</code></p>*/}
       </div>
     );
@@ -42,19 +49,42 @@ const Root = createComponent({
 
 export default observe(function (app) {
   const store = app.get('store');
-  const state$ = store.getState$();
+  const region = app.get('region');
 
-  return state$.scan(
-    (props, state) => {
+  // map state to this this Component's props
+  const state$ = store.getState$()
+    .map((state) => {
+        return {
+          counter: state.counter.value,
+        };
+      });
+
+  // map Region's props to this Component's props
+  const regionProps$ = region.getProps$()
+    .map((regionProps) => {
       return {
-        counter: state.counter.value,
+        regionProps,
       };
-    },
-    {
-      counter: 'n/a',
+    });
 
+  // map dispatchable actions
+  // const actions$ = Observable.of({
+  //   incrementCounter(...args) { return store.dispatch(incrementCounter(...args)); },
+  //   decrementCounter(...args) { return store.dispatch(decrementCounter(...args)); },
+  // });
+
+  // merge all props into a single object
+  return state$
+    .merge(regionProps$)
+    // .merge(actions$)
+    .scan((props, emitted) => {
+      return {
+        ...props,
+        ...emitted,
+      };
+    }, {
+      // default props to start with
       incrementCounter(...args) { return store.dispatch(incrementCounter(...args)); },
       decrementCounter(...args) { return store.dispatch(decrementCounter(...args)); },
-    }
-  );
+    });
 })(Root);

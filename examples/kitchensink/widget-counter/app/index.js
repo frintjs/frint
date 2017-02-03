@@ -1,4 +1,4 @@
-import { createApp, createStore } from 'frint';
+import { createApp, createStore, RegionService } from 'frint';
 
 import RootComponent from '../components/Root';
 import rootReducer from '../reducers';
@@ -8,15 +8,20 @@ export default createApp({
   providers: [
     {
       name: 'component',
-      useValue: RootComponent
+      useValue: RootComponent,
     },
     {
       name: 'store',
       useFactory(app) {
         return new createStore({
           reducer: rootReducer,
-          thunkArgument: { app }
+          thunkArgument: { app },
         });
       },
+    },
+    {
+      name: 'region',
+      useClass: RegionService,
+    }
   ],
 });

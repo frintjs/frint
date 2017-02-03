@@ -7,11 +7,9 @@ export default class Model {
   }
 
   get(key) {
-    if (typeof key !== 'string'
-      || !Object.hasOwnProperty.call(this.attributes, key)) {
-      return undefined;
-    }
-    return this.attributes[key];
+    if (typeof key !== 'string') return undefined;
+
+    return _.get(this.attributes, key);
   }
 
   toJS() {

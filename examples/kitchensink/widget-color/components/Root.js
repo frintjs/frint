@@ -70,19 +70,33 @@ export default observe(function (app) {
       };
     });
 
+  const stateFromCounter$ = app.getWidgetOnceAvailable$('WidgetCounter')
+    .concatMap((counterWidget) => {
+      return counterWidget.get('store');
+    })
+    .map((counterState) => {
+      return {
+        counter: counterState.counter.value
+      };
+    });
+
   const actions$ = Observable.of({
     changeColor(...args) {
-      return store.dispatch(changeColor(...args));
+      return store.dispatch(changeColorAction(...args));
     },
   });
 
   return state$
     .merge(regionProps$)
+    .merge(stateFromCounter$)
     .merge(actions$)
     .scan((props, emitted) => {
       return {
         ...props,
         ...emitted,
       };
+    }, {
+      // default props to start with
+      counter: 'n/a',
     });
 })(Root);

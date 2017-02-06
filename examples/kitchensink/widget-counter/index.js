@@ -1,5 +1,5 @@
 import WidgetCounter from './app';
 
-window.app.register(WidgetCounter, {
+window.app.registerWidget(WidgetCounter, {
   regions: ['main'],
 });

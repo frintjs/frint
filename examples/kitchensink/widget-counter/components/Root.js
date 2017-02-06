@@ -1,4 +1,4 @@
-import { createComponent, mapToProps } from 'frint';
+import { createComponent, mapToProps, observe } from 'frint';
 // import { Observable } from 'rxjs';
 
 import {
@@ -38,7 +38,7 @@ const Root = createComponent({
         <div>
           <p>Region Props:</p>
 
-          <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}></code></pre>
+          <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}</code></pre>
         </div>
 
         {/*<p>Color value from <strong>WidgetColor</strong>: <code style={codeStyle}>{this.props.color}</code></p>*/}
@@ -50,6 +50,8 @@ const Root = createComponent({
 export default observe(function (app) {
   const store = app.get('store');
   const region = app.get('region');
+
+  console.log('store', store);
 
   // map state to this this Component's props
   const state$ = store.getState$()

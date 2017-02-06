@@ -130,7 +130,6 @@ class BaseApp {
       throw new Error(`Widget '${Widget.frintAppName}' has been already registered before.`);
     }
 
-    const { name } = options;
     this._widgetsCollection.push({
       ...options,
       name: Widget.frintAppName,
@@ -140,7 +139,7 @@ class BaseApp {
     });
 
     if (options.reuse === true) {
-      this.instantiateWidget(name);
+      this.instantiateWidget(Widget.frintAppName);
     }
 
     this._widgets$.next(this._widgetsCollection);
@@ -174,7 +173,7 @@ class BaseApp {
     const key = makeInstanceKey(region, regionKey);
 
     const index = _.findIndex(this._widgetsCollection, (w) => {
-      return w.name === name;
+      return w.App.frintAppName === name;
     });
 
     if (index === -1) {

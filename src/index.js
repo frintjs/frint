@@ -14,6 +14,7 @@ import createStore from './createStore';
 import isObservable from './utils/isObservable';
 import getMountableComponent from './components/getMountableComponent';
 import h from './h';
+import RegionService from './services/Region';
 
 export default {
   combineReducers,
@@ -32,4 +33,5 @@ export default {
   isObservable,
   getMountableComponent,
   h,
+  RegionService,
 };

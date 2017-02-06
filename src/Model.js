@@ -2,8 +2,7 @@ import _ from 'lodash';
 
 export default class Model {
   constructor(attributes) {
-    this.attributes = {};
-    Object.assign(this.attributes, attributes);
+    this.attributes = Object.assign({}, attributes);
   }
 
   get(key) {

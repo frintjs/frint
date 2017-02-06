@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import h from './h';
+import h from '../h';
 
 export default function getMountableComponent(app) {
   const Component = app.getComponent();

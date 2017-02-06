@@ -1,10 +1,9 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
-import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
 import h from '../h';
-import getMountableComponent from '../getMountableComponent';
+import getMountableComponent from './getMountableComponent';
 
 export default React.createClass({
   propTypes: {
@@ -29,17 +28,15 @@ export default React.createClass({
 
     const widgets$ = rootApp.getWidgets$(this.props.name, this.props.key);
 
-    this.subscription = widget$.subscribe({
-      next(list) => {
+    this.subscription = widgets$.subscribe({
+      next(list) {
         this.set({
           list,
         }, () => {
           this.state.list.forEach((item) => {
             const widgetName = item.name;
-            const widgetInstance = item.instance;
-
-            const existsInState = this.state.listForRendering.some((item) => {
-              return item.name === widgetName;
+            const existsInState = this.state.listForRendering.some((w) => {
+              return w.name === widgetName;
             });
 
             // @TODO: take care of removal in streamed list too?
@@ -47,6 +44,12 @@ export default React.createClass({
             if (existsInState) {
               return;
             }
+
+            if (!rootApp.hasWidgetInstance(widgetName, this.props.name, this.props.key)) {
+              rootApp.instantiateWidget(widgetName, this.props.name, this.props.key);
+            }
+
+            const widgetInstance = rootApp.getWidgetInstance(widgetName, this.props.name, this.props.key);
 
             this.sendProps(widgetInstance, this.props);
 
@@ -59,14 +62,14 @@ export default React.createClass({
           });
         });
       },
-      error(err) => {
+      error(err) {
         console.warn(`Subscription error for <Region name="${this.props.name}" />:`, err);
       }
     });
   },
 
-  sendProps(appInstance, props) {
-    const regionService = instance.get(instance.options.providerNames.region);
+  sendProps(widgetInstance, props) {
+    const regionService = widgetInstance.get(widgetInstance.options.providerNames.region);
 
     if (!regionService) {
       return;
@@ -83,6 +86,8 @@ export default React.createClass({
 
   componentWillUnmount() {
     this.subscription.unsubscribe();
+
+    // @TODO: clear instances
   },
 
   render() {

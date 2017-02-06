@@ -1,5 +1,5 @@
 import { createComponent, mapToProps, observe } from 'frint';
-// import { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import {
   incrementCounter,
@@ -68,23 +68,23 @@ export default observe(function (app) {
     });
 
   // map dispatchable actions
-  // const actions$ = Observable.of({
-  //   incrementCounter(...args) { return store.dispatch(incrementCounter(...args)); },
-  //   decrementCounter(...args) { return store.dispatch(decrementCounter(...args)); },
-  // });
+  const actions$ = Observable.of({
+    incrementCounter(...args) {
+      return store.dispatch(incrementCounter(...args));
+    },
+    decrementCounter(...args) {
+      return store.dispatch(decrementCounter(...args));
+    },
+  });
 
   // merge all props into a single object
   return state$
     .merge(regionProps$)
-    // .merge(actions$)
+    .merge(actions$)
     .scan((props, emitted) => {
       return {
         ...props,
         ...emitted,
       };
-    }, {
-      // default props to start with
-      incrementCounter(...args) { return store.dispatch(incrementCounter(...args)); },
-      decrementCounter(...args) { return store.dispatch(decrementCounter(...args)); },
     });
 })(Root);

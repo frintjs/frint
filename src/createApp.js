@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import _ from 'lodash';
 import { createContainer, resolveContainer } from 'diyai';
 
@@ -167,6 +167,41 @@ class BaseApp {
     }
 
     return this._widgetsCollection[index].instances[key];
+  }
+
+  getWidgetOnceAvailable$(name, region = null, regionKey = null) {
+    // keep looking for widget instance
+    // once found, return it from observable
+
+
+    const subject$ = new Subject();
+    const interval$ = Observable
+      .interval(100) // check every X ms
+      .filter(() => {
+        if (this.context.app.getState$(readableAppName) !== null) {
+          return true;
+        }
+
+        return false;
+      });
+
+    return subject$;
+
+
+
+    //
+    const interval$ = Observable
+      .interval(100) // check every X ms
+      .filter(() => {
+        if (this.hasWidgetInstance(name, region, regionKey)) {
+          return true;
+        }
+
+        return false;
+      })
+      .map(() => {
+        return this.getWidgetInstance(name, region, regionKey);
+      });
   }
 
   instantiateWidget(name, region = null, regionKey = null) {

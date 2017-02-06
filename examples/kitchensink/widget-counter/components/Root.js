@@ -51,8 +51,6 @@ export default observe(function (app) {
   const store = app.get('store');
   const region = app.get('region');
 
-  console.log('store', store);
-
   // map state to this this Component's props
   const state$ = store.getState$()
     .map((state) => {

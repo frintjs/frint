@@ -1,4 +1,5 @@
-import { createComponent, mapToProps } from 'frint';
+import { createComponent, observe } from 'frint';
+import { Observable } from 'rxjs';
 
 import {
   changeColor
@@ -39,26 +40,49 @@ const Root = createComponent({
           </button>
         </div>
 
-        <p>Counter value from <strong>WidgetCounter</strong>: <code>{this.props.counter}</code></p>
+        {/*<p>Counter value from <strong>WidgetCounter</strong>: <code>{this.props.counter}</code></p>*/}
+
+        <div>
+          <p>Region Props:</p>
+
+          <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}</code></pre>
+        </div>
       </div>
     );
   }
 });
 
-export default mapToProps({
-  dispatch: {
-    changeColor,
-  },
-  state(state) {
-    return {
-      color: state.color.value
-    };
-  },
-  shared(sharedState) {
-    return {
-      counter: (typeof sharedState.WidgetCounter !== 'undefined')
-        ? sharedState.WidgetCounter.counter.value
-        : 'n/a'
-    };
-  }
+export default observe(function (app) {
+  const store = app.get('store');
+  const region = app.get('region');
+
+  const state$ = store.getState$()
+    .map((state) => {
+      return {
+        color: state.color.value,
+      };
+    });
+
+  const regionProps$ = region.getProps$()
+    .map((regionProps) => {
+      return {
+        regionProps,
+      };
+    });
+
+  const actions$ = Observable.of({
+    changeColor(...args) {
+      return store.dispatch(changeColor(...args));
+    },
+  });
+
+  return state$
+    .merge(regionProps$)
+    .merge(actions$)
+    .scan((props, emitted) => {
+      return {
+        ...props,
+        ...emitted,
+      };
+    });
 })(Root);

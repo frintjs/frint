@@ -13,10 +13,17 @@ export default createApp({
     {
       name: 'store',
       useFactory(app) {
-        return new createStore({
+        const Store = createStore({
+          initialState: {
+            counter: {
+              value: 0,
+            }
+          },
           reducer: rootReducer,
           thunkArgument: { app },
         });
+
+        return new Store();
       },
     },
     {

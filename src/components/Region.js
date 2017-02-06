@@ -20,7 +20,12 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    const rootApp = this.context.app.getRootApp();
+    let rootApp;
+    if (!this.context || !this.context.app) {
+      rootApp = window.app; // @TODO: can we avoid globals?
+    } else {
+      rootApp = this.context.app.getRootApp();
+    }
 
     if (!rootApp) {
       return;
@@ -29,8 +34,8 @@ export default React.createClass({
     const widgets$ = rootApp.getWidgets$(this.props.name, this.props.key);
 
     this.subscription = widgets$.subscribe({
-      next(list) {
-        this.set({
+      next: (list) => {
+        this.setState({
           list,
         }, () => {
           this.state.list.forEach((item) => {
@@ -62,7 +67,7 @@ export default React.createClass({
           });
         });
       },
-      error(err) {
+      error: (err) => {
         console.warn(`Subscription error for <Region name="${this.props.name}" />:`, err);
       }
     });

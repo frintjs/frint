@@ -4,9 +4,20 @@ import { BehaviorSubject } from 'rxjs';
 import _ from 'lodash';
 import { createContainer, resolveContainer } from 'diyai';
 
-import createStore from './createStore';
 import Provider from './components/Provider';
 import h from './h';
+
+function makeInstanceKey(region = null, regionKey = null) {
+  let key = 'default';
+  if (region) {
+    key = region;
+  }
+  if (regionKey) {
+    key = `${region}_${regionKey}`;
+  }
+
+  return key;
+}
 
 class BaseApp {
   constructor(opts = {}) {
@@ -97,50 +108,93 @@ class BaseApp {
 
   registerWidget(Widget, opts = {}) {
     const options = {
-      override: {}, // override App options while instantiating
-      reuse: true, // @TODO: decide on a better name
-      name: null, // register the App as this name if different from Widget.name
+      // @TODO: decide on a better name
+      // this holds info whether the App needs to be instantiated on load
+      // or only when the targetted Region is made available
+      reuse: true,
       ...opts,
     };
 
-    if (typeof Widget.name !== 'string') {
-      throw new Error(`No name found`);
-    }
-
     if (typeof options.name !== 'undefined') {
-      Object.defineProperty(Widget, 'name', { value: options.name });
+      Object.defineProperty(Widget, 'frintAppName', {
+        value: options.name,
+        configurable: true,
+      });
     }
 
     const existingIndex = _.findIndex(this._widgetsCollection, (w) => {
-      return w.name === Widget.name;
+      return w.name === Widget.frintAppName;
     });
 
     if (existingIndex !== -1) {
-      throw new Error(`Widget '${Widget.name}' has been already registered before.`);
+      throw new Error(`Widget '${Widget.frintAppName}' has been already registered before.`);
     }
 
     const { name } = options;
-    const insertedIndex = this._widgetsCollection.push({
-      name: Widget.name,
+    this._widgetsCollection.push({
+      ...options,
+      name: Widget.frintAppName,
       App: Widget,
       regions: options.regions || [],
       instances: {},
     });
 
     if (options.reuse === true) {
-      this._widgetsCollection[insertedIndex].instances['default'] = {
-        name: Widget.name,
-        regions: options.regions,
-        instance: new Widget({
-          ...options.override,
-          name: Widget.name,
-          rootApp: this,
-        },
-      );
+      this.instantiateWidget(name);
     }
 
     this._widgets$.next(this._widgetsCollection);
   }
+
+  hasWidgetInstance(name, region = null, regionKey = null) {
+    const instance = this.getWidgetInstance(name, region, regionKey);
+
+    if (typeof instance !== 'undefined') {
+      return true;
+    }
+
+    return false;
+  }
+
+  getWidgetInstance(name, region = null, regionKey = null) {
+    const key = makeInstanceKey(region, regionKey);
+
+    const index = _.findIndex(this._widgetsCollection, (w) => {
+      return w.name === name;
+    });
+
+    if (index === -1) {
+      return false;
+    }
+
+    return this._widgetsCollection[index].instances[key];
+  }
+
+  instantiateWidget(name, region = null, regionKey = null) {
+    const key = makeInstanceKey(region, regionKey);
+
+    const index = _.findIndex(this._widgetsCollection, (w) => {
+      return w.name === name;
+    });
+
+    if (index === -1) {
+      throw new Error(`No widget found with name '${name}'.`);
+    }
+
+    const w = this._widgetsCollection[index];
+
+    this._widgetsCollection[index].instances[key] = new w.App({
+      ..._.omit(w, ['App', 'instances']),
+      name: w.App.frintAppName,
+      rootApp: this,
+    });
+
+    return this._widgetsCollection[index].instances[key];
+  }
+
+  // unregisterWidget(name, region = null, regionKey = null) {
+  //   // @TODO
+  // }
 
   beforeMount() {
     return this.options.beforeMount.bind(this)();
@@ -182,8 +236,11 @@ export default function createApp(options = {}) {
     }
   }
 
-  if (typeof options.name === 'string') {
-    Object.defineProperty(App, 'name', { value: options.name });
+  if (typeof options.name !== 'undefined') {
+    Object.defineProperty(App, 'frintAppName', {
+      value: options.name,
+      configurable: true,
+    });
   }
 
   return App;

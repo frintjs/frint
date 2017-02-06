@@ -12,7 +12,7 @@ import observe from './components/observe';
 import render from './render';
 import createStore from './createStore';
 import isObservable from './utils/isObservable';
-import getMountableComponent from './getMountableComponent';
+import getMountableComponent from './components/getMountableComponent';
 import h from './h';
 
 export default {

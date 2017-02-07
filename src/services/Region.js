@@ -9,6 +9,10 @@ export default class RegionService {
     this.props$.next(props);
   }
 
+  // @TODO: support synchronous versions
+  // getName() {}
+  // getKey() {}
+
   getProps$() {
     return this.props$;
   }

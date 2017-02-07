@@ -1,5 +1,6 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
+import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
 import h from '../h';
@@ -8,7 +9,7 @@ import getMountableComponent from './getMountableComponent';
 export default React.createClass({
   propTypes: {
     name: PropTypes.string.isRequired,
-    key: PropTypes.string,
+    uniqueKey: PropTypes.string,
     data: PropTypes.any,
   },
 
@@ -17,6 +18,27 @@ export default React.createClass({
       list: [], // array of widgets ==> { name, instance }
       listForRendering: [] // array of {name, Component} objects
     };
+  },
+
+  /**
+   * Determines if the the component should be updated or not.
+   * Since we are calling setState multiple times, we need to make sure that only when
+   * the list of widgets to render, i.e. this.state.listForRendering, is changed should
+   * trigger a re-render of the region component.
+   * @param  {Object}  nextProps  the next set of props
+   * @param  {Object}  nextState  the next component state to be set
+   * @return {Boolean} a boolean flag indicating whether the component should be updated
+   */
+  shouldComponentUpdate(nextProps, nextState) {
+    let shouldUpdate = !_.isEqual(this.props, nextProps);
+    if (!shouldUpdate) {
+      const { listForRendering } = nextState;
+      shouldUpdate = shouldUpdate || this.state.listForRendering.length !== listForRendering.length;
+      shouldUpdate = shouldUpdate ||
+        _.zipWith(this.state.listForRendering, listForRendering, (prev, next) => prev.name === next.name)
+          .some(value => !value);
+    }
+    return shouldUpdate;
   },
 
   componentWillMount() {
@@ -31,7 +53,7 @@ export default React.createClass({
       return;
     }
 
-    const widgets$ = rootApp.getWidgets$(this.props.name, this.props.key);
+    const widgets$ = rootApp.getWidgets$(this.props.name, this.props.uniqueKey);
 
     this.subscription = widgets$.subscribe({
       next: (list) => {
@@ -51,11 +73,11 @@ export default React.createClass({
               return;
             }
 
-            if (!rootApp.hasWidgetInstance(widgetName, this.props.name, this.props.key)) {
-              rootApp.instantiateWidget(widgetName, this.props.name, this.props.key);
+            if (!rootApp.hasWidgetInstance(widgetName, this.props.name, this.props.uniqueKey)) {
+              rootApp.instantiateWidget(widgetName, this.props.name, this.props.uniqueKey);
             }
 
-            const widgetInstance = rootApp.getWidgetInstance(widgetName, this.props.name, this.props.key);
+            const widgetInstance = rootApp.getWidgetInstance(widgetName, this.props.name, this.props.uniqueKey);
 
             this.sendProps(widgetInstance, this.props);
 

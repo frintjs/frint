@@ -40,7 +40,7 @@ const Root = createComponent({
 
               <Region
                 name="todo-item"
-                key={`todo-item-${todo.id}`}
+                uniqueKey={`todo-item-${todo.id}`}
                 data={{text: todo.title}}
               />
             </div>

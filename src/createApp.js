@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-underscore-dangle */
 /* globals window */
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import _ from 'lodash';
 import { createContainer, resolveContainer } from 'diyai';
 
@@ -81,7 +81,13 @@ class BaseApp {
   }
 
   getRootApp() {
-    return this.get(this.getOption('providerNames.rootApp'));
+    const rootApp = this.get(this.getOption('providerNames.rootApp'));
+
+    if (rootApp) {
+      return rootApp;
+    }
+
+    return this;
   }
 
   getOption(key) {
@@ -170,38 +176,12 @@ class BaseApp {
   }
 
   getWidgetOnceAvailable$(name, region = null, regionKey = null) {
-    // keep looking for widget instance
-    // once found, return it from observable
+    const rootApp = this.getRootApp();
 
-
-    const subject$ = new Subject();
-    const interval$ = Observable
-      .interval(100) // check every X ms
-      .filter(() => {
-        if (this.context.app.getState$(readableAppName) !== null) {
-          return true;
-        }
-
-        return false;
-      });
-
-    return subject$;
-
-
-
-    //
-    const interval$ = Observable
-      .interval(100) // check every X ms
-      .filter(() => {
-        if (this.hasWidgetInstance(name, region, regionKey)) {
-          return true;
-        }
-
-        return false;
-      })
-      .map(() => {
-        return this.getWidgetInstance(name, region, regionKey);
-      });
+    return Observable
+      .interval(100) // every X ms
+      .map(() => rootApp.getWidgetInstance(name, region, regionKey))
+      .first(widget => widget);
   }
 
   instantiateWidget(name, region = null, regionKey = null) {

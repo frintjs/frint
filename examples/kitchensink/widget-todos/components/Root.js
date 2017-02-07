@@ -1,4 +1,4 @@
-import { h, createComponent, observe } from 'frint';
+import { h, createComponent, observe, Region } from 'frint';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { addTodo, removeTodo } from '../actions/todos';
@@ -7,6 +7,8 @@ const Root = createComponent({
   render() {
     return (
       <div>
+        <h5>Widget: Todos</h5>
+
         <label for="todoInput">
           Create a new Todo item
         </label>
@@ -28,15 +30,23 @@ const Root = createComponent({
           Submit
         </button>
 
-        <ul>
+        <div>
         {this.props.todos.map((todo) => {
           return (
-            <li>
-              {todo.title} [<a href="#" onClick={() => this.props.removeTodo(todo.id)}>x</a>]
-            </li>
+            <div style={{background: '#f1f1f1', border: '1px solid #e1e1e1', marginBottom: '15px', padding: '15px', borderRadius: '4px'}}>
+              <p>{todo.title} [<a href="#" onClick={() => this.props.removeTodo(todo.id)}>x</a>]</p>
+
+              <p>Below is Region <strong>todo-item</strong> that is specific to this Todo item:</p>
+
+              <Region
+                name="todo-item"
+                key={`todo-item-${todo.id}`}
+                data={{text: todo.title}}
+              />
+            </div>
           );
         })}
-        </ul>
+        </div>
       </div>
     );
   }

@@ -40,7 +40,7 @@ const Root = createComponent({
           </button>
         </div>
 
-        {/*<p>Counter value from <strong>WidgetCounter</strong>: <code>{this.props.counter}</code></p>*/}
+        <p>Counter value from <strong>WidgetCounter</strong>: <code>{this.props.counter}</code></p>
 
         <div>
           <p>Region Props:</p>
@@ -72,7 +72,9 @@ export default observe(function (app) {
 
   const stateFromCounter$ = app.getWidgetOnceAvailable$('WidgetCounter')
     .concatMap((counterWidget) => {
-      return counterWidget.get('store');
+      return counterWidget
+        .get('store')
+        .getState$();
     })
     .map((counterState) => {
       return {
@@ -81,8 +83,8 @@ export default observe(function (app) {
     });
 
   const actions$ = Observable.of({
-    changeColor(...args) {
-      return store.dispatch(changeColorAction(...args));
+    changeColor: (...args) => {
+      return store.dispatch(changeColor(...args));
     },
   });
 

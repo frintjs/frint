@@ -8,10 +8,10 @@ import {
 
 const Root = createComponent({
   render() {
-    // const codeStyle = {
-    //   color: this.props.color,
-    //   backgroundColor: this.props.color
-    // };
+    const codeStyle = {
+      color: this.props.color,
+      backgroundColor: this.props.color
+    };
 
     return (
       <div>
@@ -35,13 +35,13 @@ const Root = createComponent({
           </button>
         </div>
 
+        <p>Color value from <strong>WidgetColor</strong>: <code style={codeStyle}>{this.props.color}</code></p>
+
         <div>
           <p>Region Props:</p>
 
           <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}</code></pre>
         </div>
-
-        {/*<p>Color value from <strong>WidgetColor</strong>: <code style={codeStyle}>{this.props.color}</code></p>*/}
       </div>
     );
   }
@@ -77,9 +77,22 @@ export default observe(function (app) {
     },
   });
 
+  const stateFromColor$ = app.getWidgetOnceAvailable$('WidgetColor')
+    .concatMap((colorWidget) => {
+      return colorWidget
+        .get('store')
+        .getState$();
+    })
+    .map((colorState) => {
+      return {
+        color: colorState.color.value
+      };
+    });
+
   // merge all props into a single object
   return state$
     .merge(regionProps$)
+    .merge(stateFromColor$)
     .merge(actions$)
     .scan((props, emitted) => {
       return {

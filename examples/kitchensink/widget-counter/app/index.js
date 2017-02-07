@@ -16,7 +16,7 @@ export default createApp({
         const Store = createStore({
           initialState: {
             counter: {
-              value: 0,
+              value: 5,
             }
           },
           reducer: rootReducer,

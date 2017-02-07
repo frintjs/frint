@@ -106,9 +106,10 @@ class BaseApp {
 
     return this._widgets$
       .map((collection) => {
-        return collection.filter((w) => {
-          return w.regions.indexOf(regionName) > -1;
-        });
+        return collection
+          .filter((w) => {
+            return w.regions.indexOf(regionName) > -1;
+          });
       });
   }
 

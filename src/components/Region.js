@@ -40,6 +40,7 @@ export default React.createClass({
         }, () => {
           this.state.list.forEach((item) => {
             const widgetName = item.name;
+            const widgetWeight = item.weight;
             const existsInState = this.state.listForRendering.some((w) => {
               return w.name === widgetName;
             });
@@ -59,10 +60,15 @@ export default React.createClass({
             this.sendProps(widgetInstance, this.props);
 
             this.setState({
-              listForRendering: this.state.listForRendering.concat({
-                name: widgetName,
-                Component: getMountableComponent(widgetInstance),
-              })
+              listForRendering: this.state.listForRendering
+                .concat({
+                  name: widgetName,
+                  weight: widgetWeight,
+                  Component: getMountableComponent(widgetInstance),
+                })
+                .sort((a, b) => {
+                  return a.weight - b.weight;
+                })
             });
           });
         });

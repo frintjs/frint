@@ -14,7 +14,6 @@ export default createApp({
     {
       name: 'store',
       useFactory({ app }) {
-        console.log('todos store factory:', app);
         const Store = createStore({
           initialState: {
             todos: {

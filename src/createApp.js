@@ -60,13 +60,6 @@ class BaseApp {
     this.container = resolveContainer(Container);
 
     this.options.providers.forEach((provider) => {
-      if (typeof provider.useFactory === 'function') {
-        const givenFactory = provider.useFactory;
-        provider.useFactory = () => {
-          return givenFactory(this);
-        };
-      }
-
       this.container.register(provider);
     });
 

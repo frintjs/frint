@@ -100,8 +100,7 @@ class BaseApp {
     return this.container.get(providerName);
   }
 
-  // @TODO: figure out regionKey
-  getWidgets$(regionName = null, regionKey = null) {
+  getWidgets$(regionName = null) {
     if (!regionName) {
       return this._widgets$;
     }

@@ -13,7 +13,8 @@ export default createApp({
     },
     {
       name: 'store',
-      useFactory(app) {
+      useFactory({ app }) {
+        console.log('todos store factory:', app);
         const Store = createStore({
           initialState: {
             todos: {
@@ -35,6 +36,7 @@ export default createApp({
 
         return new Store();
       },
+      deps: ['app'],
     },
     {
       name: 'region',

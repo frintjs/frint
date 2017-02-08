@@ -13,7 +13,7 @@ export default createApp({
     },
     {
       name: 'store',
-      useFactory: (app) => {
+      useFactory: ({ app }) => {
         const Store = createStore({
           initialState: {
             color: {
@@ -26,6 +26,7 @@ export default createApp({
 
         return new Store();
       },
+      deps: ['app'],
     },
     {
       name: 'region',

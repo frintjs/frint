@@ -74,8 +74,8 @@ export default React.createClass({
             }
 
             const regionArgs = this.props.uniqueKey
-              ? [ this.props.name, this.props.uniqueKey ]
-              : [ this.props.name ];
+              ? [this.props.name, this.props.uniqueKey]
+              : [this.props.name];
 
             if (
               this.props.uniqueKey &&

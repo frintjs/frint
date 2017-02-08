@@ -42,6 +42,15 @@ const Root = createComponent({
 
         <p>Counter value from <strong>WidgetCounter</strong>: <code>{this.props.counter}</code></p>
 
+        <p>
+          <a
+            href="#"
+            onClick={() => this.props.incrementCounter()}
+          >
+            Increment
+          </a> counter from here.
+        </p>
+
         <div>
           <p>Region Props:</p>
 
@@ -53,6 +62,7 @@ const Root = createComponent({
 });
 
 export default observe(function (app) {
+  // self
   const store = app.get('store');
   const region = app.get('region');
 
@@ -70,9 +80,18 @@ export default observe(function (app) {
       };
     });
 
-  const stateFromCounter$ = app.getWidgetOnceAvailable$('WidgetCounter')
-    .concatMap((counterWidget) => {
-      return counterWidget
+  const actions$ = Observable.of({
+    changeColor: (...args) => {
+      return store.dispatch(changeColor(...args));
+    }
+  });
+
+  // other widget: WidgetCounter
+  const widgetCounter$ = app.getWidgetOnceAvailable$('WidgetCounter');
+
+  const widgetCounterState$ = widgetCounter$
+    .concatMap((widgetCounter) => {
+      return widgetCounter
         .get('store')
         .getState$();
     })
@@ -82,16 +101,23 @@ export default observe(function (app) {
       };
     });
 
-  const actions$ = Observable.of({
-    changeColor: (...args) => {
-      return store.dispatch(changeColor(...args));
-    },
-  });
+  const widgetCounterActions$ = widgetCounter$
+    .map((widgetCounter) => {
+      const store = widgetCounter.get('store');
 
+      return {
+        incrementCounter: () => {
+          return store.dispatch({ type: 'INCREMENT_COUNTER' });
+        }
+      }
+    });
+
+  // combine them all into props
   return state$
     .merge(regionProps$)
-    .merge(stateFromCounter$)
     .merge(actions$)
+    .merge(widgetCounterState$)
+    .merge(widgetCounterActions$)
     .scan((props, emitted) => {
       return {
         ...props,

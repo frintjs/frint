@@ -37,6 +37,15 @@ const Root = createComponent({
 
         <p>Color value from <strong>WidgetColor</strong>: <code style={codeStyle}>{this.props.color}</code></p>
 
+        <p>
+          <a
+            href="#"
+            onClick={() => this.props.changeColor('blue')}
+          >
+            Change
+          </a> to blue from here!
+        </p>
+
         <div>
           <p>Region Props:</p>
 
@@ -77,7 +86,9 @@ export default observe(function (app) {
     },
   });
 
-  const stateFromColor$ = app.getWidgetOnceAvailable$('WidgetColor')
+  // other widget: WidgetColor
+  const widgetColor$ = app.getWidgetOnceAvailable$('WidgetColor');
+  const widgetColorState$ = widgetColor$
     .concatMap((colorWidget) => {
       return colorWidget
         .get('store')
@@ -88,12 +99,26 @@ export default observe(function (app) {
         color: colorState.color.value
       };
     });
+  const widgetColorActions$ = widgetColor$
+    .map((colorWidget) => {
+      const store = colorWidget.get('store');
+
+      return {
+        changeColor: (color) => {
+          return store.dispatch({
+            type: 'CHANGE_COLOR',
+            color,
+          });
+        },
+      };
+    });
 
   // merge all props into a single object
   return state$
     .merge(regionProps$)
-    .merge(stateFromColor$)
     .merge(actions$)
+    .merge(widgetColorState$)
+    .merge(widgetColorActions$)
     .scan((props, emitted) => {
       return {
         ...props,

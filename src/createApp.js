@@ -7,11 +7,20 @@ import { createContainer, resolveContainer } from 'diyai';
 import Provider from './components/Provider';
 import h from './h';
 
-function makeInstanceKey(region = null, regionKey = null) {
-  let key = 'default';
+function makeInstanceKey(region = null, regionKey = null, reuse) {
+  if (
+    reuse === true ||
+    (!region && !regionKey)
+  ) {
+    return 'default';
+  }
+
+  let key = '';
+
   if (region) {
     key = region;
   }
+
   if (regionKey) {
     key = `${region}_${regionKey}`;
   }
@@ -156,8 +165,6 @@ class BaseApp {
   }
 
   getWidgetInstance(name, region = null, regionKey = null) {
-    const key = makeInstanceKey(region, regionKey);
-
     const index = _.findIndex(this._widgetsCollection, (w) => {
       return w.name === name;
     });
@@ -166,7 +173,10 @@ class BaseApp {
       return false;
     }
 
-    return this._widgetsCollection[index].instances[key];
+    const w = this._widgetsCollection[index];
+    const instanceKey = makeInstanceKey(region, regionKey, w.reuse);
+
+    return w.instances[instanceKey];
   }
 
   getWidgetOnceAvailable$(name, region = null, regionKey = null) {

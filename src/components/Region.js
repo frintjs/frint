@@ -73,11 +73,18 @@ export default React.createClass({
               return;
             }
 
-            if (!rootApp.hasWidgetInstance(widgetName, this.props.name, this.props.uniqueKey)) {
-              rootApp.instantiateWidget(widgetName, this.props.name, this.props.uniqueKey);
+            const regionArgs = this.props.uniqueKey
+              ? [ this.props.name, this.props.uniqueKey ]
+              : [ this.props.name ];
+
+            if (
+              this.props.uniqueKey &&
+              !rootApp.hasWidgetInstance(widgetName, ...regionArgs)
+            ) {
+              rootApp.instantiateWidget(widgetName, ...regionArgs);
             }
 
-            const widgetInstance = rootApp.getWidgetInstance(widgetName, this.props.name, this.props.uniqueKey);
+            const widgetInstance = rootApp.getWidgetInstance(widgetName, ...regionArgs);
 
             this.sendProps(widgetInstance, this.props);
 
@@ -102,6 +109,10 @@ export default React.createClass({
   },
 
   sendProps(widgetInstance, props) {
+    if (!widgetInstance) {
+      return;
+    }
+
     const regionService = widgetInstance.get(widgetInstance.options.providerNames.region);
 
     if (!regionService) {

@@ -1,6 +1,6 @@
 import { createApp, createStore, RegionService } from 'frint';
 
-import DEFAULT_COLOR from '../constants';
+import { DEFAULT_COLOR } from '../constants';
 import RootComponent from '../components/Root';
 import rootReducer from '../reducers';
 

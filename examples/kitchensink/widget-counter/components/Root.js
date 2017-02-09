@@ -1,4 +1,4 @@
-import { createComponent, mapToProps, observe } from 'frint';
+import { createComponent, mapToProps, observe, streamProps } from 'frint';
 import { Observable } from 'rxjs';
 
 import {
@@ -66,80 +66,131 @@ const Root = createComponent({
   }
 });
 
+// export default observe(function (app) {
+//   const store = app.get('store');
+//   const region = app.get('region');
+
+//   // map state to this this Component's props
+//   const state$ = store.getState$()
+//     .map((state) => {
+//         return {
+//           counter: state.counter.value,
+//         };
+//       });
+
+//   // map Region's props to this Component's props
+//   const regionProps$ = region.getProps$()
+//     .map((regionProps) => {
+//       return {
+//         regionProps,
+//       };
+//     });
+
+//   // map dispatchable actions
+//   const actions$ = Observable.of({
+//     incrementCounter(...args) {
+//       return store.dispatch(incrementCounter(...args));
+//     },
+//     decrementCounter(...args) {
+//       return store.dispatch(decrementCounter(...args));
+//     },
+//   });
+
+//   const services$ = Observable.of({
+//     foo: app.get('foo'),
+//     bar: app.get('bar'),
+//     baz: app.get('baz'),
+//   });
+
+//   // other widget: WidgetColor
+//   const widgetColor$ = app.getWidgetOnceAvailable$('WidgetColor');
+//   const widgetColorState$ = widgetColor$
+//     .concatMap((colorWidget) => {
+//       return colorWidget
+//         .get('store')
+//         .getState$();
+//     })
+//     .map((colorState) => {
+//       return {
+//         color: colorState.color.value
+//       };
+//     });
+//   const widgetColorActions$ = widgetColor$
+//     .map((colorWidget) => {
+//       const store = colorWidget.get('store');
+
+//       return {
+//         changeColor: (color) => {
+//           return store.dispatch({
+//             type: 'CHANGE_COLOR',
+//             color,
+//           });
+//         },
+//       };
+//     });
+
+//   // merge all props into a single object
+//   return state$
+//     .merge(regionProps$)
+//     .merge(actions$)
+//     .merge(services$)
+//     .merge(widgetColorState$)
+//     .merge(widgetColorActions$)
+//     .scan((props, emitted) => {
+//       return {
+//         ...props,
+//         ...emitted,
+//       };
+//     });
+// })(Root);
+
 export default observe(function (app) {
-  const store = app.get('store');
-  const region = app.get('region');
+  return streamProps({}) // start with defualt props
+    // map state to this Component's props
+    .set(
+      app.get('store').getState$(),
+      state => ({ counter: state.counter.value })
+    )
 
-  // map state to this this Component's props
-  const state$ = store.getState$()
-    .map((state) => {
-        return {
-          counter: state.counter.value,
-        };
-      });
+    // map Region's props to this Component's props
+    .set(
+      app.get('region').getProps$(),
+      regionProps => ({ regionProps })
+    )
 
-  // map Region's props to this Component's props
-  const regionProps$ = region.getProps$()
-    .map((regionProps) => {
-      return {
-        regionProps,
-      };
-    });
+    // map dispatchable actions
+    .setDispatch(
+      {
+        incrementCounter,
+        decrementCounter
+      },
+      app.get('store')
+    )
 
-  // map dispatchable actions
-  const actions$ = Observable.of({
-    incrementCounter(...args) {
-      return store.dispatch(incrementCounter(...args));
-    },
-    decrementCounter(...args) {
-      return store.dispatch(decrementCounter(...args));
-    },
-  });
-
-  const services$ = Observable.of({
-    foo: app.get('foo'),
-    bar: app.get('bar'),
-    baz: app.get('baz'),
-  });
-
-  // other widget: WidgetColor
-  const widgetColor$ = app.getWidgetOnceAvailable$('WidgetColor');
-  const widgetColorState$ = widgetColor$
-    .concatMap((colorWidget) => {
-      return colorWidget
-        .get('store')
-        .getState$();
+    // services
+    .set({
+      foo: app.get('foo'),
+      bar: app.get('bar'),
+      baz: app.get('baz'),
     })
-    .map((colorState) => {
-      return {
-        color: colorState.color.value
-      };
-    });
-  const widgetColorActions$ = widgetColor$
-    .map((colorWidget) => {
-      const store = colorWidget.get('store');
 
-      return {
-        changeColor: (color) => {
-          return store.dispatch({
-            type: 'CHANGE_COLOR',
-            color,
-          });
-        },
-      };
-    });
+    // other widget: WidgetColor
+    .set(
+      app.getWidgetOnceAvailable$('WidgetColor'),
+      (widgetColor) => widgetColor.get('store').getState$(),
+      (widgetColorState) => ({ color: widgetColorState.color.value })
+    )
+    .set(
+      app.getWidgetOnceAvailable$('WidgetColor'),
+      (widgetColor) => widgetColor.get('store'),
+      (widgetColorStore) => ({
+        changeColor: (color) => widgetColorStore.dispatch({
+          type: 'CHANGE_COLOR',
+          color,
+        })
+      })
+    )
 
-  // merge all props into a single object
-  return state$
-    .merge(regionProps$)
-    .merge(actions$)
-    .merge(services$)
-    .merge(widgetColorState$)
-    .merge(widgetColorActions$)
-    .scan((props, emitted) => {
-      return {
-        ...props,
-        ...emitted,
-      };
-    });
+    // return composed Observable
+    .get$();
 })(Root);

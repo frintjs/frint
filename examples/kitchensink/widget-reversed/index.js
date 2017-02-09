@@ -1,6 +1,6 @@
 import WidgetReversed from './app';
 
 window.app.registerWidget(WidgetReversed, {
-  reuse: false,
+  multi: true,
   regions: ['todo-item'],
 });

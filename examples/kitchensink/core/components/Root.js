@@ -6,26 +6,45 @@ const Root = createComponent({
     return (
       <div className="container">
         <div className="row">
-          <div className="eight columns">
+          <div className="seven columns">
             <h3>Main</h3>
 
             <hr />
 
             <Region
               name="main"
-              data={{hi: `available from props of 'main' region`}}
+              data={{
+                hi: `available from props of 'main' region`,
+                /*showSidebar: this.props.showSidebar*/
+              }}
             />
 
-            <a
-              href="#"
-              onClick={() => this.props.toggle(!this.props.showSidebar)}
-            >
-              Toggle
-            </a>
+            <hr />
+
+            <h3>Core: {this.props.appName}</h3>
+
+            <p>
+              <a
+                href="#"
+                onClick={() => this.props.toggle(!this.props.showSidebar)}
+              >
+                Toggle sidebar
+              </a>
+            </p>
+
+            <p>
+              <strong>Services:</strong>
+
+              <ul>
+                <li><strong>Foo</strong> (self): is from <code>{this.props.foo.getAppName()}</code></li>
+                <li><strong>Bar</strong> (self): is from <code>{this.props.bar.getAppName()}</code></li>
+                <li><strong>Baz</strong> (self): is from <code>{this.props.baz.getAppName()}</code></li>
+              </ul>
+            </p>
           </div>
 
           {this.props.showSidebar && (
-            <div className="four columns">
+            <div className="five columns">
               <h3>Sidebar</h3>
 
               <hr />
@@ -53,12 +72,22 @@ export default observe(function (app) {
     }
   });
 
+  const services$ = Observable.of({
+    foo: app.get('foo'),
+    bar: app.get('bar'),
+    baz: app.get('baz'),
+  });
+
   return sidebarToggle$
     .merge(actions$)
+    .merge(services$)
     .scan((props, emitted) => {
       return {
         ...props,
         ...emitted,
       };
-    }, {});
+    }, {
+      // start with these props
+      appName: app.getOption('name'),
+    });
 })(Root);

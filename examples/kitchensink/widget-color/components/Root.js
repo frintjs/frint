@@ -51,11 +51,21 @@ const Root = createComponent({
           </a> counter from here.
         </p>
 
-        <div>
-          <p>Region Props:</p>
+        <p>
+          <strong>Region Props:</strong>
 
           <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}</code></pre>
-        </div>
+        </p>
+
+        <p>
+          <strong>Services:</strong>
+
+          <ul>
+            <li><strong>Foo</strong> (cascaded): is from <code>{this.props.foo.getAppName()}</code></li>
+            <li><strong>Bar</strong> (cascaded and scoped): is from <code>{this.props.bar.getAppName()}</code></li>
+            <li><strong>Baz</strong> (not cascaded): is unavaialble - <code>{this.props.baz}</code></li>
+          </ul>
+        </p>
       </div>
     );
   }
@@ -84,6 +94,12 @@ export default observe(function (app) {
     changeColor: (...args) => {
       return store.dispatch(changeColor(...args));
     }
+  });
+
+  const services$ = Observable.of({
+    foo: app.get('foo'),
+    bar: app.get('bar'),
+    baz: app.get('baz'),
   });
 
   // other widget: WidgetCounter
@@ -116,6 +132,7 @@ export default observe(function (app) {
   return state$
     .merge(regionProps$)
     .merge(actions$)
+    .merge(services$)
     .merge(widgetCounterState$)
     .merge(widgetCounterActions$)
     .scan((props, emitted) => {

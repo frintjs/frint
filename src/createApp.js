@@ -68,14 +68,83 @@ class BaseApp {
     });
     this.container = resolveContainer(Container);
 
+    // root app's providers
+    this._registerRootProviders();
+
+    // self providers
     this.options.providers.forEach((provider) => {
       this.container.register(provider);
     });
 
+    // children
     this._widgetsCollection = [];
     this._widgets$ = new BehaviorSubject(this._widgetsCollection);
 
     this.options.initialize();
+  }
+
+  // @TODO: this method can be optimized further
+  _registerRootProviders() {
+    const rootApp = this.getRootApp();
+
+    if (!rootApp || rootApp === this) {
+      return;
+    }
+
+    rootApp.getProviders().forEach((rootProvider) => {
+      // do not cascade
+      if (!rootProvider.cascade) {
+        return;
+      }
+
+      const definedProvider = Object.assign(
+        {},
+        _.omit(rootProvider, [
+          'useClass',
+          'useValue',
+          'useFactory'
+        ])
+      );
+
+      // non-scoped
+      if (!rootProvider.scoped) {
+        this.container.register({
+          ...definedProvider,
+          useValue: rootApp.get(rootProvider.name),
+        });
+
+        return;
+      }
+
+      // scoped
+      if ('useValue' in rootProvider) {
+        // `useValue` providers have no impact with scoping
+        this.container.register({
+          ...definedProvider,
+          useValue: rootApp.get(rootProvider.name)
+        });
+
+        return;
+      }
+
+      if ('useClass' in rootProvider) {
+        this.container.register({
+          ...definedProvider,
+          useClass: rootProvider.useClass,
+        });
+
+        return;
+      }
+
+      if ('useFactory' in rootProvider) {
+        this.container.register({
+          ...definedProvider,
+          useFactory: rootProvider.useFactory
+        });
+      }
+
+      return;
+    });
   }
 
   getContainer() {
@@ -96,8 +165,36 @@ class BaseApp {
     return _.get(this.options, key);
   }
 
+  getProviders() {
+    return this.options.providers;
+  }
+
+  getProvider(name) {
+    return _.find(this.options.providers, (p) => {
+      return p.name === name;
+    });
+  }
+
   get(providerName) {
-    return this.container.get(providerName);
+    const value = this.container.get(providerName);
+
+    if (typeof value !== 'undefined') {
+      return value;
+    }
+
+    const rootApp = this.getRootApp();
+
+    if (!rootApp) {
+      return value;
+    }
+
+    const provider = rootApp.getProvider(providerName);
+
+    if (provider.cascade === true) {
+      return rootApp.get(providerName);
+    }
+
+    return value;
   }
 
   getWidgets$(regionName = null) {

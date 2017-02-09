@@ -15,7 +15,7 @@ const Root = createComponent({
               name="main"
               data={{
                 hi: `available from props of 'main' region`,
-                /*showSidebar: this.props.showSidebar*/
+                showSidebar: this.props.showSidebar
               }}
             />
 
@@ -49,7 +49,13 @@ const Root = createComponent({
 
               <hr />
 
-              <Region name="sidebar" data={{hi: `data from 'sidebar' region here`}} />
+              <Region
+                name="sidebar"
+                data={{
+                  hi: `data from 'sidebar' region here`,
+                  showSidebar: this.props.showSidebar
+                }}
+              />
             </div>
           )}
         </div>

@@ -93,6 +93,7 @@ export default React.createClass({
                 .concat({
                   name: widgetName,
                   weight: widgetWeight,
+                  instance: widgetInstance,
                   Component: getMountableComponent(widgetInstance),
                 })
                 .sort((a, b) => {
@@ -123,7 +124,7 @@ export default React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.state.list.forEach((item) => {
+    this.state.listForRendering.forEach((item) => {
       this.sendProps(item.instance, nextProps);
     });
   },

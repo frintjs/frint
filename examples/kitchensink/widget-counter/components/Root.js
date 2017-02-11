@@ -1,4 +1,4 @@
-import { createComponent, mapToProps, observe } from 'frint';
+import { createComponent, mapToProps, observe, streamProps } from 'frint';
 import { Observable } from 'rxjs';
 
 import {
@@ -143,3 +143,59 @@ export default observe(function (app) {
       };
     });
 })(Root);
+
+// export default observe(function (app) {
+//   return streamProps({}) // start with defualt props
+//     // map state to this Component's props
+//     .set(
+//       app.get('store').getState$(),
+//       state => ({ counter: state.counter.value })
+//     )
+
+//     .set(
+//       Observable.interval(500),
+//       (x) => ({ interval: x })
+//     )
+
+//     // map Region's props to this Component's props
+//     .set(
+//       app.get('region').getProps$(),
+//       regionProps => ({ regionProps })
+//     )
+
+//     // map dispatchable actions
+//     .setDispatch(
+//       {
+//         incrementCounter,
+//         decrementCounter
+//       },
+//       app.get('store')
+//     )
+
+//     // services
+//     .set({
+//       foo: app.get('foo'),
+//       bar: app.get('bar'),
+//       baz: app.get('baz'),
+//     })
+
+//     // other widget: WidgetColor
+//     .set(
+//       app.getWidgetOnceAvailable$('WidgetColor'),
+//       (widgetColor) => widgetColor.get('store').getState$(),
+//       (widgetColorState) => ({ color: colorState.color.value })
+//     )
+//     .set(
+//       app.getWidgetOnceAvailable$('WidgetColor'),
+//       (widgetColor) => widgetColor.get('store'),
+//       (widgetColorStore) => ({
+//         changeColor: (color) => widgetColorStore.dispatch({
+//           type: 'CHANGE_COLOR',
+//           color,
+//         })
+//       })
+//     )
+
+//     // return composed Observable
+//     .get$();
+// })(Root);

@@ -4,6 +4,9 @@ bundle:
 	(cd ./widget-color && npm run build)
 	(cd ./widget-todos && npm run build)
 	(cd ./widget-reversed && npm run build)
+	make bundle-frint
+
+bundle-frint:
 	(cd ../../ && npm run dist:lib)
 	(cp ../../dist/frint.js ./build/js/frint.js)
 

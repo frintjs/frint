@@ -10,7 +10,9 @@ chai.use(sinonChai);
 describe('createFactory', () => {
   const fakeAppInstance = {};
   const mySpec = {
-    initialize: sinon.stub(),
+    initialize: sinon.spy(function ({ app }) {
+      this.app = app;
+    }),
     myCustomFunction: () => 'value'
   };
 

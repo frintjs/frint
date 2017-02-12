@@ -7,8 +7,6 @@ export default function createService(extend = {}) {
         throw new Error('App instance not provided.');
       }
 
-      this.app = options.app;
-
       _.merge(this, extend);
 
       Object.keys(this)
@@ -23,3 +21,14 @@ export default function createService(extend = {}) {
 
   return Service;
 }
+
+
+export const ServiceWithDependency = createService({
+  initialize(options) {
+    this.app = options.app;
+  },
+
+  doSomething() {
+    return this.app.getService('calculator').add(2, 2);
+  }
+});

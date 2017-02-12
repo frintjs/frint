@@ -7,7 +7,7 @@ import isObservable from './isObservable';
 class Streamer {
   constructor(defaults = {}) {
     this._observables = [
-      // Observable.of(defaults),
+      Observable.of(defaults),
     ];
   }
 

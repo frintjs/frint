@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 // @TODO: should go to frint-utils package?
 import _ from 'lodash';
 import { Observable } from 'rxjs';

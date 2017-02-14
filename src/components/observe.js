@@ -33,7 +33,7 @@ export default function observe(fn) {
           computedProps,
         } = this.state;
 
-        return <Component {...computedProps} />;
+        return <Component {...computedProps} {...this.props} />;
       }
     });
 

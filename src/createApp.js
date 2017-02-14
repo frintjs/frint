@@ -7,9 +7,9 @@ import { createContainer, resolveContainer } from 'diyai';
 import Provider from './components/Provider';
 import h from './h';
 
-function makeInstanceKey(region = null, regionKey = null, reuse) {
+function makeInstanceKey(region = null, regionKey = null, multi = false) {
   if (
-    reuse === true ||
+    !multi ||
     (!region && !regionKey)
   ) {
     return 'default';
@@ -213,10 +213,7 @@ class BaseApp {
 
   registerWidget(Widget, opts = {}) {
     const options = {
-      // @TODO: decide on a better name
-      // this holds info whether the App needs to be instantiated on load
-      // or only when the targetted Region is made available
-      reuse: true,
+      multi: false,
       ...opts,
     };
 
@@ -243,7 +240,7 @@ class BaseApp {
       instances: {},
     });
 
-    if (options.reuse === true) {
+    if (options.multi === false) {
       this.instantiateWidget(Widget.frintAppName);
     }
 
@@ -270,7 +267,7 @@ class BaseApp {
     }
 
     const w = this._widgetsCollection[index];
-    const instanceKey = makeInstanceKey(region, regionKey, w.reuse);
+    const instanceKey = makeInstanceKey(region, regionKey, w.multi);
 
     return w.instances[instanceKey];
   }
@@ -285,8 +282,6 @@ class BaseApp {
   }
 
   instantiateWidget(name, region = null, regionKey = null) {
-    const key = makeInstanceKey(region, regionKey);
-
     const index = _.findIndex(this._widgetsCollection, (w) => {
       return w.App.frintAppName === name;
     });
@@ -296,6 +291,7 @@ class BaseApp {
     }
 
     const w = this._widgetsCollection[index];
+    const key = makeInstanceKey(region, regionKey, w.multi);
 
     this._widgetsCollection[index].instances[key] = new w.App({
       ..._.omit(w, ['App', 'instances']),

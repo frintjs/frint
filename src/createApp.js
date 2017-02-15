@@ -288,9 +288,18 @@ class BaseApp {
     });
   }
 
-  getState$() {
+  getState$(appName = null) {
     console.warn('[DEPRECATED] `getState$` has been deprecated. Access your store via `get` instead.');
-    const store = this.get('store');
+
+    const app = appName
+      ? this._getAppByName(appName)
+      : this;
+
+    if (!app) {
+      return null;
+    }
+
+    const store = app.get('store');
 
     if (!store) {
       return null;
@@ -468,7 +477,7 @@ class BaseApp {
     }
 
     const foundWidget = _.find(rootApp._widgetsCollection, (w) => {
-      return w.name = appName;
+      return w.name === appName;
     });
 
     if (!foundWidget) {
@@ -547,7 +556,7 @@ class BaseApp {
           return true;
         }
 
-        return w.regions.indexOf(regionName);
+        return w.regions.indexOf(regionName) > -1;
       })
       .map((w) => {
         return w.instances.default;

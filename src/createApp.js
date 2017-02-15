@@ -516,6 +516,43 @@ class BaseApp {
     console.warn('[DEPRECATED] `getFactory` has been deprecated. Use `get` instead.');
     return this.get(name);
   }
+
+  setRegion(region) {
+    console.warn('[DEPRECATED] `setRegion` has been deprecated. Use `registerWidget` instead.');
+    return this.setRegions([region]);
+  }
+
+  setRegions(regions = []) {
+    console.warn('[DEPRECATED] `setRegions` has been deprecated. Use `registerWidget` instead.');
+    const rootApp = this.getRootApp();
+
+    if (!rootApp || this === rootApp) {
+      throw new Error('No root app instance available');
+    }
+
+    rootApp._widgetsCollection.push({
+      name: this.options.name,
+      regions,
+      instances: {
+        default: this,
+      },
+    });
+  }
+
+  getWidgets(regionName = null) {
+    console.warn('[DEPRECATED] `getWidgets` has been deprecated. Use `getWidgets$` instead.');
+    return this.getRootApp()._widgetsCollection
+      .filter((w) => {
+        if (!regionName) {
+          return true;
+        }
+
+        return w.regions.indexOf(regionName);
+      })
+      .map((w) => {
+        return w.instances.default;
+      });
+  }
 }
 
 export default function createApp(options = {}) {

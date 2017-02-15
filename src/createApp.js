@@ -72,7 +72,7 @@ class BaseApp {
     // root app's providers
     this._registerRootProviders();
 
-    this._registerBackwardsCompatibilityProviders();
+    this._backwardsCompatibility();
 
     // self providers
     this.options.providers.forEach((provider) => {
@@ -86,7 +86,9 @@ class BaseApp {
     this.options.initialize();
   }
 
-  _registerBackwardsCompatibilityProviders() {
+  _backwardsCompatibility() {
+    this.readableAppNames = [];
+
     // backwards compatibility: component
     if (typeof this.options.component !== 'undefined') {
       console.warn('[DEPRECATED] `component` now needs to be defined as a provider.');
@@ -561,6 +563,11 @@ class BaseApp {
       .map((w) => {
         return w.instances.default;
       });
+  }
+
+  readStateFrom(appNames = []) {
+    console.log('[DEPRECATED] `readStateFrom` has been deprecated.');
+    this.readableApps = appNames;
   }
 }
 

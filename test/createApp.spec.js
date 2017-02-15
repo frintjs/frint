@@ -213,16 +213,17 @@ describe('createApp', function () {
     expect(store).to.equal(null);
   });
 
-  it('observes widgets', function () {
-    const app = new CoreApp({
-      initialState: {
-        hello: 'world'
-      }
-    });
+  // NOTE: removed, since it was deprecated in 0.x already
+  // it('observes widgets', function () {
+  //   const app = new CoreApp({
+  //     initialState: {
+  //       hello: 'world'
+  //     }
+  //   });
 
-    const observe$ = app.observeWidgets();
-    expect(isObservable(observe$)).to.equal(true);
-  });
+  //   const observe$ = app.observeWidgets();
+  //   expect(isObservable(observe$)).to.equal(true);
+  // });
 
   it('gets state for self', function (done) {
     const app = new CoreApp({

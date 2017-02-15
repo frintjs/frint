@@ -72,10 +72,25 @@ class BaseApp {
     // root app's providers
     this._registerRootProviders();
 
+    this._registerBackwardsCompatibilityProviders();
+
+    // self providers
+    this.options.providers.forEach((provider) => {
+      this.container.register(provider);
+    });
+
+    // children
+    this._widgetsCollection = [];
+    this._widgets$ = new BehaviorSubject(this._widgetsCollection);
+
+    this.options.initialize();
+  }
+
+  _registerBackwardsCompatibilityProviders() {
     // backwards compatibility: component
     if (typeof this.options.component !== 'undefined') {
       console.warn('[DEPRECATED] `component` now needs to be defined as a provider.');
-      this.container.register({
+      this.options.providers.push({
         name: 'component',
         useValue: this.options.component,
         cascade: false,
@@ -83,9 +98,16 @@ class BaseApp {
     }
 
     // backwards compatibility: store
-    if (typeof this.options.reducer === 'function') {
+    if (typeof this.options.store !== 'undefined') {
+      console.warn('[DEPRECATED] `options.store` has been deprecated. Use `providers` for defining your Store instead.');
+      this.options.providers.push({
+        name: 'store',
+        useValue: this.options.store,
+        cascade: false,
+      });
+    } else if (typeof this.options.reducer === 'function') {
       console.warn('[DEPRECATED] `options.reducer` has been deprecated. Use `providers` for defining your Store instead.');
-      this.container.register({
+      this.options.providers.push({
         name: 'store',
         useFactory: (deps) => {
           const Store = createStore({
@@ -102,13 +124,31 @@ class BaseApp {
         cascade: false,
         deps: ['app'],
       });
+    } else if (typeof this.options.initialState !== 'undefined') {
+      console.warn('[DEPRECATED] `options.initialState` has been deprecated. Use `providers` for defining your Store instead.');
+      this.options.providers.push({
+        name: 'store',
+        useFactory: (deps) => {
+          const Store = createStore({
+            initialState: this.options.initialState
+              ? this.options.initialState
+              : {},
+            thunkArgument: deps,
+            enableLogger: this.options.enableLogger,
+          });
+
+          return new Store();
+        },
+        cascade: false,
+        deps: ['app'],
+      });
     }
 
     // backwards compatibility: services
     if (typeof this.options.services !== 'undefined') {
       console.warn('[DEPRECATED] `options.services` has been deprecated. Use `providers` instead.');
       _.each(this.options.services, (ServiceClass, serviceName) => {
-        this.container.register({
+        this.options.providers.push({
           name: serviceName,
           useClass: ServiceClass,
           deps: ['app'],
@@ -121,7 +161,7 @@ class BaseApp {
     if (typeof this.options.factories !== 'undefined') {
       console.warn('[DEPRECATED] `options.factories` has been deprecated. Use `providers` instead.');
       _.each(this.options.factories, (FactoryClass, factoryName) => {
-        this.container.register({
+        this.options.providers.push({
           name: factoryName,
           useClass: FactoryClass,
           deps: ['app'],
@@ -139,24 +179,13 @@ class BaseApp {
           throw new Error(`Expected model class '${modelName}' to be a valid Model class`);
         }
 
-        this.container.register({
+        this.options.providers.push({
           name: modelName,
           useValue: new ModelClass(this.options.modelAttributes[modelName]),
           cascade: true,
         });
       });
     }
-
-    // self providers
-    this.options.providers.forEach((provider) => {
-      this.container.register(provider);
-    });
-
-    // children
-    this._widgetsCollection = [];
-    this._widgets$ = new BehaviorSubject(this._widgetsCollection);
-
-    this.options.initialize();
   }
 
   // @TODO: this method can be optimized further
@@ -261,7 +290,13 @@ class BaseApp {
 
   getState$() {
     console.warn('[DEPRECATED] `getState$` has been deprecated. Access your store via `get` instead.');
-    return this.get('store').getState$();
+    const store = this.get('store');
+
+    if (!store) {
+      return null;
+    }
+
+    return store.getState$();
   }
 
   get(providerName) {
@@ -274,7 +309,9 @@ class BaseApp {
     const rootApp = this.getRootApp();
 
     if (!rootApp) {
-      return value;
+      return value
+        ? value
+        : null;
     }
 
     const provider = rootApp.getProvider(providerName);
@@ -286,7 +323,9 @@ class BaseApp {
       return rootApp.get(providerName);
     }
 
-    return value;
+    return value
+      ? value
+      : null;
   }
 
   getWidgets$(regionName = null) {
@@ -418,8 +457,39 @@ class BaseApp {
     return this.getComponent(...args);
   }
 
-  getStore() {
-    return this.container.get(this.options.providerNames.store);
+  _getAppByName(appName = null) {
+    if (!appName) {
+      return this;
+    }
+
+    const rootApp = this.getRootApp();
+    if (!rootApp) {
+      return null;
+    }
+
+    const foundWidget = _.find(rootApp._widgetsCollection, (w) => {
+      return w.name = appName;
+    });
+
+    if (!foundWidget) {
+      return null;
+    }
+
+    return foundWidget.instances.default;
+  }
+
+  getStore(appName = null) {
+    console.warn('[DEPRECATED] `getStore` has been deprecated. Use `get` instead.');
+    if (!appName) {
+      return this.container.get(this.options.providerNames.store);
+    }
+
+    const w = this._getAppByName(appName);
+    if (!w) {
+      return null;
+    }
+
+    return w.instances.default.getStore();
   }
 
   afterMount() {

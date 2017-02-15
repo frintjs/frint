@@ -63,10 +63,11 @@ describe('createApp', function () {
     expect(() => new App()).to.throw(/Must provide `name`/);
   });
 
-  it('throws error if instantiated without component option', function () {
-    const App = createApp({ name: 'AppName' });
-    expect(() => new App()).to.throw(/Must provide `component`/);
-  });
+  // NOTE: with 1.x, you can create widgets with no Component
+  // it('throws error if instantiated without component option', function () {
+  //   const App = createApp({ name: 'AppName' });
+  //   expect(() => new App()).to.throw(/Must provide `component`/);
+  // });
 
   it('gets root app instance from widget', function () {
     window.app = new CoreApp();
@@ -178,16 +179,17 @@ describe('createApp', function () {
     expect(widget.getService('blah')).to.equal(null);
   });
 
-  it('creates store', function () {
-    const app = new CoreApp({
-      initialState: {
-        hello: 'world'
-      }
-    });
+  // NOTE: previously deprecated in 0.x, hence removed
+  // it('creates store', function () {
+  //   const app = new CoreApp({
+  //     initialState: {
+  //       hello: 'world'
+  //     }
+  //   });
 
-    const store = app.createStore(() => {}, {});
-    expect(store.subscribe).to.be.a('function');
-  });
+  //   const store = app.createStore(() => {}, {});
+  //   expect(store.subscribe).to.be.a('function');
+  // });
 
   it('gets store', function () {
     const app = new CoreApp({

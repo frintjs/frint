@@ -20,7 +20,7 @@ describe('render', () => {
     afterMount: sandbox.stub(),
     beforeMount: sandbox.stub(),
     beforeUnmount: sandbox.stub(),
-    render: sandbox.stub().returns(FakeComponent)
+    getComponent: sandbox.stub().returns(FakeComponent)
   };
 
   let renderedComponent;
@@ -36,8 +36,8 @@ describe('render', () => {
     targetElement.innerHTML = '';
   });
 
-  it('calls app\'s render method', () => {
-    expect(appStub.render).to.be.callCount(1);
+  it('calls app\'s getComponent method', () => {
+    expect(appStub.getComponent).to.be.callCount(1);
   });
 
   it('calls app\'s beforeMount lifecyle method', () => {

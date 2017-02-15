@@ -16,7 +16,11 @@ export default function observe(fn) {
       },
 
       componentWillMount() {
-        this.subscription = fn(this.context.app)
+        const observableFn = (typeof fn !== 'undefined')
+          ? fn
+          : () => Observable.of({});
+
+        this.subscription = observableFn(this.context.app)
           .subscribe((computedProps) => {
             this.setState({
               computedProps,

@@ -4,172 +4,86 @@ import { Observable } from 'rxjs';
 
 import h from '../h';
 import isObservable from '../utils/isObservable';
+import observe from './observe';
+import streamProps from '../utils/streamProps';
 
 export default function mapToProps(opts = {}) {
+  console.warn('[DEPRECATED] `mapToProps` has been depcreated. Use `observe` instead.');
   const options = {
-    app: () => {},
+    app: null,
     dispatch: {},
     factories: {},
     models: {},
     services: {},
-    shared: () => {},
-    state: () => {},
+    shared: null,
+    state: null,
     observe: null,
     ...opts,
   };
 
-  return (Component) => {
-    const WrappedComponent = React.createClass({
-      displayName: (typeof Component.displayName !== 'undefined')
-        ? `mapToProps(${Component.displayName})`
-        : 'mapToProps',
+  return function (Component) {
+    return observe(function (app) {
+      const props = streamProps();
 
-      getInitialState() {
-        return {
-          mappedAppToProps: {},
-          readableStates: {},
-          services: {},
-          factories: {},
-          models: {},
-        };
-      },
-
-      componentWillMount() {
-        this.stateSubscriptions = {};
-        this.observeSubscription = null;
-
-        // self state
-        const appName = this.context.app.getOption('name');
-        this.stateSubscriptions[appName] = this.context.app.getState$()
-          .subscribe((appState) => {
-            this.setState({
-              state: appState,
-            });
-          });
-
-        // shared states
-        this.setState({
-          readableStates: {}
-        });
-        this.context.app.readableApps.forEach((readableAppName) => {
-          const readableAppState$ = this.context.app
-            .getState$(readableAppName);
-
-          // shared state, that is already available
-          if (readableAppState$ !== null) {
-            this.stateSubscriptions[readableAppName] = readableAppState$
-              .subscribe((readableAppState) => {
-                this.setState({
-                  readableStates: {
-                    ...this.state.readableStates,
-                    [readableAppName]: readableAppState
-                  }
-                });
-              });
-          }
-
-          // shared state, that we need to wait for to load
-          if (readableAppState$ === null) {
-            const interval$ = Observable
-              .interval(100) // check every X ms
-              .filter(() => {
-                if (this.context.app.getState$(readableAppName) !== null) {
-                  return true;
-                }
-
-                return false;
-              });
-
-            const intervalSubscription = interval$
-              .subscribe(() => {
-                // this will fire only once
-                this.stateSubscriptions[readableAppName] = this.context.app
-                  .getState$(readableAppName)
-                  .subscribe((readableAppState) => {
-                    this.setState({
-                      readableStates: {
-                        ...this.state.readableStates,
-                        [readableAppName]: readableAppState
-                      }
-                    });
-                  });
-
-                // clean up soon after subscribing to new state
-                intervalSubscription.unsubscribe();
-              });
-          }
-        });
-
-        // observe
-        if (typeof options.observe === 'function') {
-          const observe$ = options.observe(this.context.app);
-
-          if (isObservable(observe$)) {
-            this.observeSubscription = observe$.subscribe((observedProps) => {
-              this.setState({
-                observe: observedProps
-              });
-            });
-          }
-        }
-
-        // other non-changeable mappings
-        this.setState({
-          mappedAppToProps: options.app(this.context.app),
-          services: _.mapValues(options.services, serviceName => this.context.app.getService(serviceName)),
-          factories: _.mapValues(options.factories, (factoryName) => {
-            return this.context.app.getFactory(factoryName);
-          }),
-          models: _.mapValues(options.models, (modelName) => {
-            return this.context.app.getModel(modelName);
-          }),
-          dispatch: _.mapValues(options.dispatch, (actionCreator) => {
-            return (...args) => {
-              return this.context.app.dispatch(actionCreator(...args));
-            };
-          })
-        });
-      },
-
-      componentWillUnmount() {
-        Object.keys(this.stateSubscriptions)
-          .forEach((appName) => {
-            this.stateSubscriptions[appName].unsubscribe();
-          });
-      },
-
-      render() {
-        const {
-          mappedAppToProps,
-          services,
-          factories,
-          models,
-          dispatch,
-          observe,
-          readableStates,
-          state,
-        } = this.state;
-
-        const props = {
-          ...options.state(state),
-          ...options.shared(readableStates),
-          ...mappedAppToProps,
-          ...services,
-          ...factories,
-          ...models,
-          ...dispatch,
-          ...observe,
-          ...this.props,
-        };
-
-        return <Component {...props} />;
+      // app
+      if (typeof options.app === 'function') {
+        props.set(options.app(app));
       }
-    });
 
-    WrappedComponent.contextTypes = {
-      app: PropTypes.object.isRequired
-    };
+      // dispatch
+      props.setDispatch(options.dispatch, app.get('store'));
 
-    return WrappedComponent;
+      // factories/models/services
+      const providers = Object.assign(
+        {},
+        options.factories,
+        options.models,
+        options.services
+      );
+      _.each(providers, (providerName, propName) => {
+        props.set(propName, app.get(providerName));
+      });
+
+      // shared
+      if (typeof options.shared === 'function') {
+        const sharedStateObservables = [];
+
+        app.readableApps.forEach((readableAppName) => {
+          sharedStateObservables.push(
+            app.getWidgetOnceAvailable$(readableAppName)
+              .concatMap((readableApp) => {
+                return readableApp
+                  .get('store')
+                  .getState$();
+              })
+              .map((readableState) => {
+                return {
+                  [readableAppName]: readableState
+                }
+              })
+          );
+        });
+
+        props.set(
+          Observable.merge(...sharedStateObservables),
+          (sharedState) => options.shared(staredState)
+        );
+      }
+
+      // state
+      if (typeof options.state === 'function') {
+        props.set(
+          app.get('store').getState$(),
+          (state) => options.state(state)
+        );
+      }
+
+      // observe
+      if (typeof options.observe === 'function') {
+        props.set(options.observe(app));
+      }
+
+      return props.get$();
+    })(Component);
   };
 }

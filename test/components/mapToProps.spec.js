@@ -40,7 +40,7 @@ describe('components › mapToProps', function () {
 
     const Container = mapToProps()(TestComponent);
     expect(Container).to.be.a('function');
-    expect(Container.displayName).to.equal('mapToProps(TestComponent)');
+    expect(Container.displayName).to.equal('observe(TestComponent)');
     expect(Container.contextTypes).to.exist; // eslint-disable-line
   });
 

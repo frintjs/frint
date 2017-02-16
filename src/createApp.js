@@ -310,6 +310,11 @@ class BaseApp {
     return store.getState$();
   }
 
+  dispatch(action) {
+    console.warn('[DEPRECATED] `dispatch` has been deprecated. Access your store via `get` instead.');
+    return this.get('store').dispatch(action);
+  }
+
   get(providerName) {
     const value = this.container.get(providerName);
 

@@ -54,10 +54,11 @@ describe('components › Region', () => {
     document.getElementById('root').innerHTML = '';
   });
 
-  it('fails to mount when the "name" prop is missing (unable to set observable)', () => {
-    window.app = generateCoreAppTemplate();
-    expect(() => render(window.app, document.getElementById('root'))).to.throw(TypeError);
-  });
+  // NOTE: not relevant in v1.x any more
+  // it('fails to mount when the "name" prop is missing (unable to set observable)', () => {
+  //   window.app = generateCoreAppTemplate();
+  //   expect(() => render(window.app, document.getElementById('root'))).to.throw(TypeError);
+  // });
 
   it('renders properly the region and renders a widget on it', () => {
     window.app = generateCoreAppTemplate(undefined, 'myRegionName');
@@ -80,16 +81,16 @@ describe('components › Region', () => {
     expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName2');
   });
 
-  it('renders properly the region and renders two widgets on it, with the same name and different appNames', () => {
+  it('renders properly the region and renders two widgets on it', () => {
     window.app = generateCoreAppTemplate(undefined, 'myRegionName');
     render(window.app, document.getElementById('root'));
 
-    generateWidgetAppTemplate('app1', 'myWidgetName', 'myRegionName');
-    generateWidgetAppTemplate('app2', 'myWidgetName', 'myRegionName');
+    generateWidgetAppTemplate('app1', 'myWidgetName1', 'myRegionName');
+    generateWidgetAppTemplate('app2', 'myWidgetName2', 'myRegionName');
 
     expect(document.querySelectorAll('#root .myWidgetComponent').length).to.be.eql(2);
-    expect(document.querySelectorAll('#root .myWidgetComponent')[0].textContent).to.be.eql('app1 - myWidgetName');
-    expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName');
+    expect(document.querySelectorAll('#root .myWidgetComponent')[0].textContent).to.be.eql('app1 - myWidgetName1');
+    expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName2');
   });
 
   describe('Multiple widgets', function () {
@@ -286,20 +287,21 @@ describe('components › Region', () => {
       expect(document.querySelector('#root .sample').innerHTML).to.contain('Hello</p><noscript');
     });
 
-    it('should catch errors when observing for widgets', function () {
-      window.app = new CoreApp();
+    // NOTE: removed because the method is dropped in v1.x
+    // it('should catch errors when observing for widgets', function () {
+    //   window.app = new CoreApp();
 
-      const subject$ = new Subject();
-      window.app.observeWidgets$ = function () {
-        return subject$;
-      };
+    //   const subject$ = new Subject();
+    //   window.app.observeWidgets$ = function () {
+    //     return subject$;
+    //   };
 
-      render(window.app, document.getElementById('root'));
+    //   render(window.app, document.getElementById('root'));
 
-      const stub = sinon.stub(console, 'warn');
-      subject$.error(new Error('Something bad happened...'));
+    //   const stub = sinon.stub(console, 'warn');
+    //   subject$.error(new Error('Something bad happened...'));
 
-      sinon.assert.calledTwice(stub); // two Regions
-    });
+    //   sinon.assert.calledTwice(stub); // two Regions
+    // });
   });
 });

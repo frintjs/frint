@@ -6,7 +6,7 @@ import {
   createComponent,
   h,
 } from '../../src';
-import renderToString from '../../src/server/renderToString';
+import renderToString from '../../src/react/server/renderToString';
 
 describe('server › renderToString', function () {
   it('is a function', function () {

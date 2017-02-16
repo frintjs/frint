@@ -4,7 +4,7 @@ import { Children, Component, PropTypes } from 'react';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import Provider from '../../src/components/Provider';
+import Provider from '../../src/react/components/Provider';
 import { h } from '../../src';
 
 const sandbox = sinon.sandbox.create();

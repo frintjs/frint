@@ -136,8 +136,6 @@ App.prototype._registerRootProviders = function _registerRootProviders() {
         useFactory: rootProvider.useFactory
       });
     }
-
-    return;
   });
 };
 

@@ -417,6 +417,11 @@ class BaseApp {
   getWidgetOnceAvailable$(name, region = null, regionKey = null) {
     const rootApp = this.getRootApp();
 
+    const w = rootApp.getWidgetInstance(name, region, regionKey);
+    if (w) {
+      return Observable.of(w);
+    }
+
     return Observable
       .interval(100) // every X ms
       .map(() => rootApp.getWidgetInstance(name, region, regionKey))
@@ -548,6 +553,8 @@ class BaseApp {
         default: this,
       },
     });
+
+    rootApp._widgets$.next(rootApp._widgetsCollection);
   }
 
   getWidgets(regionName = null) {

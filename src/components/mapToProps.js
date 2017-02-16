@@ -46,6 +46,8 @@ export default function mapToProps(opts = {}) {
 
       // shared
       if (typeof options.shared === 'function') {
+        props.set(options.shared({}));
+
         const sharedStateObservables = [];
 
         app.readableApps.forEach((readableAppName) => {
@@ -59,15 +61,15 @@ export default function mapToProps(opts = {}) {
               .map((readableState) => {
                 return {
                   [readableAppName]: readableState
-                }
+                };
               })
           );
         });
 
-        props.set(
-          Observable.merge(...sharedStateObservables),
-          (sharedState) => options.shared(staredState)
-        );
+        const shared$ = Observable
+            .merge(...sharedStateObservables)
+            .map(sharedState => options.shared(sharedState));
+        props.set(shared$);
       }
 
       // state

@@ -26,8 +26,12 @@ describe('server › renderToString', function () {
 
     const TestApp = createApp({
       name: 'TestAppname',
-      component: TestComponent,
-      enableLogger: false,
+      providers: [
+        {
+          name: 'component',
+          useValue: TestComponent,
+        },
+      ],
     });
 
     const app = new TestApp();

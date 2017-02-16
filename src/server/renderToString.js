@@ -5,7 +5,7 @@ import {
 import { h } from '../';
 
 export default function renderToString(app) {
-  const Component = app.render();
+  const Component = app.getComponent();
 
   return reactRenderToString(<Component />);
 }

@@ -325,9 +325,7 @@ class BaseApp {
     const rootApp = this.getRootApp();
 
     if (!rootApp) {
-      return value
-        ? value
-        : null;
+      return value || null;
     }
 
     const provider = rootApp.getProvider(providerName);
@@ -339,9 +337,7 @@ class BaseApp {
       return rootApp.get(providerName);
     }
 
-    return value
-      ? value
-      : null;
+    return value || null;
   }
 
   getWidgets$(regionName = null) {

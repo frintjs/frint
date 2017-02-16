@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import _ from 'lodash';
 
 export default function createService(extend = {}) {

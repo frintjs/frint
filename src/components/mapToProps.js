@@ -1,9 +1,7 @@
+/* eslint-disable no-console */
 import _ from 'lodash';
-import React, { PropTypes } from 'react';
 import { Observable } from 'rxjs';
 
-import h from '../h';
-import isObservable from '../utils/isObservable';
 import observe from './observe';
 import streamProps from '../utils/streamProps';
 
@@ -21,8 +19,8 @@ export default function mapToProps(opts = {}) {
     ...opts,
   };
 
-  return function (Component) {
-    return observe(function (app) {
+  return (Component) => {
+    return observe((app) => {
       const props = streamProps();
 
       // app
@@ -76,7 +74,7 @@ export default function mapToProps(opts = {}) {
       if (typeof options.state === 'function') {
         props.set(
           app.get('store').getState$(),
-          (state) => options.state(state)
+          state => options.state(state)
         );
       }
 

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Observable } from 'rxjs';
 
 import h from '../h';
 

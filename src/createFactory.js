@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // creation of Service and Factory classes are same as of this point
 import createService from './createService';
 

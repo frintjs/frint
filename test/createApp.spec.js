@@ -7,7 +7,6 @@ import {
   createFactory,
   createService,
   createModel,
-  isObservable,
 } from '../src';
 
 describe('createApp', function () {

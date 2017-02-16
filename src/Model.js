@@ -6,7 +6,9 @@ export default class Model {
   }
 
   get(key) {
-    if (typeof key !== 'string') return undefined;
+    if (typeof key !== 'string') {
+      return undefined;
+    }
 
     return _.get(this.attributes, key);
   }

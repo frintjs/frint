@@ -3,19 +3,7 @@
 import _ from 'lodash';
 import { Observable } from 'rxjs';
 
-// @TODO: this is duplicated from `core`
-function isObservable(obj) {
-  if (
-    obj &&
-    typeof obj.subscribe === 'function' &&
-    typeof obj.map === 'function' &&
-    typeof obj.filter === 'function'
-  ) {
-    return true;
-  }
-
-  return false;
-}
+import isObservable from './isObservable';
 
 class Streamer {
   constructor(defaults = {}) {

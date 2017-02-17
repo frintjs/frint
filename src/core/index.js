@@ -1,11 +1,9 @@
 import App from './App';
 import createApp from './createApp';
-import isObservable from './isObservable';
 
 const Frint = {
   App,
   createApp,
-  isObservable,
 };
 
 Frint.use = function use(Plugin) {

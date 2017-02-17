@@ -9,7 +9,6 @@ import frint from '../src';
 describe('index', function () {
   const publicModules = {
     createApp: require('../src/core/createApp'),
-    isObservable: require('../src/core/isObservable'),
   };
 
   _.each(publicModules, (module, moduleName) => {

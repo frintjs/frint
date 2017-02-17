@@ -1,10 +1,8 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import {
-  createStore,
-  combineReducers,
-} from '../src';
+import createStore from '../createStore';
+import combineReducers from '../combineReducers';
 
 describe('createStore', function () {
   it('returns function', function () {

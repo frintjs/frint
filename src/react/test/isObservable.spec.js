@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
 
-import { isObservable } from '../../src';
+import { isObservable } from './Frint';
 
 describe('utils › isObservable', function () {
   it('returns true when an Observable is given', function () {

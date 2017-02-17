@@ -1,9 +1,7 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import {
-  combineReducers
-} from '../src';
+import combineReducers from '../combineReducers';
 
 describe('combineReducers', function () {
   function counterReducer(state = { value: 0 }, action) {

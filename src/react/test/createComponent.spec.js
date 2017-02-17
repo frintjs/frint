@@ -8,7 +8,7 @@ import sinonChai from 'sinon-chai';
 import {
   createComponent,
   h,
-} from '../src';
+} from './Frint';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);

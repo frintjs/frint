@@ -3,7 +3,7 @@ import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import { createFactory } from '../src';
+import { createFactory } from './Frint';
 
 chai.use(sinonChai);
 

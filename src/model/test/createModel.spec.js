@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import {
   Model as BaseModel,
   createModel,
-} from '../src';
+} from './Frint';
 
 describe('createModel', () => {
   const mySpec = {

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import { render } from '../src';
+import { render } from './Frint';
 
 chai.use(sinonChai);
 

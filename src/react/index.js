@@ -5,6 +5,7 @@ import h from './h';
 import PropTypes from './PropTypes';
 import render from './render';
 import streamProps from './streamProps';
+import isObservable from './isObservable';
 
 import getMountableComponent from './components/getMountableComponent';
 import observe from './components/observe';
@@ -22,6 +23,7 @@ export default {
     Frint.PropTypes = PropTypes;
     Frint.render = render;
     Frint.streamProps = streamProps;
+    Frint.isObservable = isObservable;
 
     Frint.getMountableComponent = getMountableComponent;
     Frint.observe = observe;

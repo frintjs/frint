@@ -1,12 +1,10 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import {
-  Model as BaseModel,
-  createModel,
-} from './Frint';
+import BaseModel from '../Model';
+import createModel from '../createModel';
 
-describe('createModel', () => {
+describe('model › createModel', () => {
   const mySpec = {
     getAttribute1() { return this.attributes.attribute1; },
     getAttribute2() { return this.attributes.attribute2; }

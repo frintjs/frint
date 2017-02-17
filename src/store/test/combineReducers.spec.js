@@ -3,7 +3,7 @@ import { expect } from 'chai';
 
 import combineReducers from '../combineReducers';
 
-describe('combineReducers', function () {
+describe('store › combineReducers', function () {
   function counterReducer(state = { value: 0 }, action) {
     switch (action.type) {
       case 'INCREMENT_COUNTER':

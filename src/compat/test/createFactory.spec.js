@@ -7,7 +7,7 @@ import { createFactory } from './Frint';
 
 chai.use(sinonChai);
 
-describe('createFactory', () => {
+describe('compat › createFactory', () => {
   const fakeAppInstance = {};
   const mySpec = {
     initialize: sinon.stub(),

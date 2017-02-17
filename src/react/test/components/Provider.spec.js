@@ -10,7 +10,7 @@ import Provider from '../../components/Provider';
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);
 
-describe('components › Provider', function () {
+describe('react › components › Provider', function () {
   const fakeApp = {};
   const fakeChildren = (<div id="myFakeChildren"/>);
   let myProviderInstance;

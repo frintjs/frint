@@ -15,7 +15,7 @@ import {
   h,
 } from './Frint';
 
-describe('components › mapToProps', function () {
+describe('compat › components › mapToProps', function () {
   before(function () {
     resetDOM();
   });

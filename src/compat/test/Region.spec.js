@@ -13,7 +13,7 @@ import {
   h
 } from './Frint';
 
-describe('components › Region', () => {
+describe('compat › components › Region', () => {
   function generateCoreAppTemplate(appOptions = {}, regionName) {
     const MyCoreComponent = createComponent({
       render() { return <Region name={regionName} />; }

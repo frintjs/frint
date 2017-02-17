@@ -8,7 +8,7 @@ import {
 } from '../Frint';
 import renderToString from '../../server/renderToString';
 
-describe('server › renderToString', function () {
+describe('react › server › renderToString', function () {
   it('is a function', function () {
     expect(renderToString).to.be.a('function');
   });

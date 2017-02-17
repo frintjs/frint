@@ -15,7 +15,7 @@ const FakeComponent = React.createClass({
 const targetElement = document.getElementById('root');
 const sandbox = sinon.sandbox.create();
 
-describe('render', () => {
+describe('react › render', () => {
   const appStub = {
     afterMount: sandbox.stub(),
     beforeMount: sandbox.stub(),

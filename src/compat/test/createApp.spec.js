@@ -7,7 +7,7 @@ import {
   createFactory,
   createService,
   createModel,
-} from '../src';
+} from './Frint';
 
 describe('createApp', function () {
   const TestFooService = createService({

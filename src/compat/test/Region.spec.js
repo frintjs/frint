@@ -11,7 +11,7 @@ import {
   Region,
   mapToProps,
   h
-} from '../../src';
+} from './Frint';
 
 describe('components › Region', () => {
   function generateCoreAppTemplate(appOptions = {}, regionName) {

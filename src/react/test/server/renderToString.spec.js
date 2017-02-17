@@ -5,8 +5,8 @@ import {
   createApp,
   createComponent,
   h,
-} from '../../src';
-import renderToString from '../../src/react/server/renderToString';
+} from '../Frint';
+import renderToString from '../../server/renderToString';
 
 describe('server › renderToString', function () {
   it('is a function', function () {

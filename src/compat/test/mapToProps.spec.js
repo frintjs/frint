@@ -13,7 +13,7 @@ import {
   Region,
   mapToProps,
   h,
-} from '../../src';
+} from './Frint';
 
 describe('components › mapToProps', function () {
   before(function () {

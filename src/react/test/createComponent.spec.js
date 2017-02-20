@@ -1,15 +1,9 @@
 /* global afterEach, beforeEach, describe, it, document */
-import chai, { expect } from 'chai';
-import React from 'react';
+import { expect } from 'chai';
 import ReactDOM from 'react-dom';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
 
 import createComponent from '../createComponent';
 import h from '../h';
-
-const sandbox = sinon.sandbox.create();
-chai.use(sinonChai);
 
 describe('react › createComponent', function () {
   it('is a function', function () {
@@ -31,7 +25,7 @@ describe('react › createComponent', function () {
       }
     });
 
-    const instance = ReactDOM.render(
+    ReactDOM.render(
       <MyComponent />,
       document.getElementById('root')
     );
@@ -79,8 +73,8 @@ describe('react › createComponent', function () {
       }
     });
 
-    const node = document.getElementById('root')
-    const instance = ReactDOM.render(
+    const node = document.getElementById('root');
+    ReactDOM.render(
       <MyComponent />,
       node
     );
@@ -88,7 +82,7 @@ describe('react › createComponent', function () {
     expect(beforeMountCalled).to.equal(true);
     expect(afterMountCalled).to.equal(true);
 
-    React.unmountComponentAtNode(node);
+    ReactDOM.unmountComponentAtNode(node);
     expect(beforeUnmountCalled).to.equal(true);
   });
 });

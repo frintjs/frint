@@ -1,14 +1,22 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import {
+import Frint from '../../core';
+import ReactPlugin from '../../react';
+import ReactServerPlugin from '../';
+
+// @TODO: figure a way out to not pollute global reference in CommonJS
+Frint.use(ReactPlugin);
+Frint.use(ReactServerPlugin);
+
+const {
   createApp,
   createComponent,
   h,
-} from '../Frint';
-import renderToString from '../../server/renderToString';
+  renderToString,
+} = Frint;
 
-describe('react › server › renderToString', function () {
+describe('react-server › renderToString', function () {
   it('is a function', function () {
     expect(renderToString).to.be.a('function');
   });

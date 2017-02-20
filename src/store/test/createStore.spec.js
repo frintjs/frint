@@ -208,9 +208,6 @@ describe('store › createStore', function () {
       log(...args) {
         consoleCalls.push({ method: 'log', args });
       },
-      error(...args) {
-        consoleCalls.push({ method: 'error', args });
-      }
     };
 
     const Store = createStore({

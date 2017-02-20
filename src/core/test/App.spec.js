@@ -140,6 +140,7 @@ describe('core  › App', function () {
       }
     });
 
+    expect(app.getOption('name')).to.equal('MyApp');
     expect(called).to.equal(true);
   });
 

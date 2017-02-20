@@ -1,8 +1,21 @@
+/* global window */
 /* eslint-disable no-console */
 import _ from 'lodash';
 
 export default function extendApp(Frint) {
   const { App, createStore } = Frint;
+
+  const previousGetRootApp = App.prototype.getRootApp;
+  App.prototype.getRootApp = function getRootApp() {
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.app !== 'undefined'
+    ) {
+      return window.app;
+    }
+
+    return previousGetRootApp.bind(this)();
+  };
 
   const previousRegisterRootProviders = App.prototype._registerRootProviders;
   App.prototype._registerRootProviders = function _registerRootProviders() {

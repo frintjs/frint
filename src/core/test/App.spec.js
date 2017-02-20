@@ -99,6 +99,82 @@ describe('core  › App', function () {
     expect(app.get('baz').getValue()).to.equal('bazValue, fooValue, barValue, fooValue');
   });
 
+  it('returns services from Core that are cascaded', function () {
+    class ServiceC {
+      getValue() {
+        return 'serviceC';
+      }
+    }
+
+    const Core = createApp({
+      name: 'MyApp',
+      providers: [
+        {
+          name: 'serviceA',
+          useValue: 'serviceA',
+          scoped: true,
+          cascade: true,
+        },
+        {
+          name: 'serviceB',
+          useFactory: () => 'serviceB',
+          scoped: true,
+          cascade: true,
+        },
+        {
+          name: 'serviceC',
+          useClass: ServiceC,
+          cascade: true,
+        },
+        {
+          name: 'serviceCScoped',
+          useClass: ServiceC,
+          cascade: true,
+          scoped: true,
+        },
+        {
+          name: 'serviceD',
+          useValue: 'serviceD',
+          cascade: false,
+        },
+        {
+          name: 'serviceE',
+          useValue: 'serviceE',
+          cascade: true,
+          scoped: false,
+        }
+      ],
+    });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+    app.registerWidget(Widget1);
+
+    const widget = app.getWidgetInstance('Widget1');
+    expect(widget.get('serviceA')).to.equal('serviceA');
+    expect(widget.get('serviceB')).to.equal('serviceB');
+    expect(widget.get('serviceC').getValue()).to.equal('serviceC');
+    expect(widget.get('serviceD')).to.equal(null);
+    expect(widget.get('serviceE')).to.equal('serviceE');
+
+    expect(widget.get('serviceF')).to.equal(null);
+    expect(app.get('serviceF')).to.equal(null);
+  });
+
+  it('returns null when service is non-existent in both Widget and Core', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+    app.registerWidget(Widget1);
+
+    const serviceA = app
+      .getWidgetInstance('Widget1')
+      .get('serviceA');
+
+    expect(serviceA).to.equal(null);
+  });
+
   it('gets container', function () {
     const app = new App({
       name: 'MyApp'
@@ -299,6 +375,30 @@ describe('core  › App', function () {
 
         done();
       });
+  });
+
+  it('gets widget scoped by region', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+    const Widget2 = createApp({ name: 'Widget2' });
+
+    const app = new Core();
+    app.registerWidget(Widget1, {
+      regions: ['sidebar'],
+    });
+    app.registerWidget(Widget2, {
+      regions: ['footer'],
+      multi: true,
+    });
+
+    expect(app.getWidgetInstance('Widget1')).to.be.an('object');
+    expect(app.getWidgetInstance('Widget1', 'sidebar')).to.be.an('object');
+
+    expect(app.getWidgetInstance('Widget2')).to.equal(false);
+    expect(app.getWidgetInstance('Widget2', 'footer')).to.equal(false);
+
+    app.instantiateWidget('Widget2', 'footer', 'footer-123');
+    expect(app.getWidgetInstance('Widget2', 'footer', 'footer-123')).to.be.an('object');
   });
 
   it('throws error when registering same Widget twice', function () {

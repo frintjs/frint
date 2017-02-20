@@ -3,6 +3,7 @@
 import { expect } from 'chai';
 
 import App from '../App';
+import createApp from '../createApp';
 
 describe('core  › App', function () {
   it('throws error when creating new instance withour name', function () {
@@ -172,7 +173,6 @@ describe('core  › App', function () {
     expect(called).to.equal(true);
   });
 
-
   it('calls beforeUnmount, as passed in options', function () {
     let called = false;
 
@@ -185,5 +185,151 @@ describe('core  › App', function () {
 
     app.beforeUnmount();
     expect(called).to.equal(true);
+  });
+
+  it('registers widgets', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+
+    app.registerWidget(Widget1, {
+      regions: ['sidebar'],
+    });
+
+    expect(app.hasWidgetInstance('Widget1')).to.equal(true);
+    expect(app.getWidgetInstance('Widget1').getOption('name')).to.equal('Widget1');
+  });
+
+  it('registers widgets, by overriding options', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+
+    app.registerWidget(Widget1, {
+      name: 'WidgetOne',
+      regions: ['sidebar'],
+    });
+
+    expect(app.hasWidgetInstance('WidgetOne')).to.equal(true);
+    expect(app.getWidgetInstance('WidgetOne').getOption('name')).to.equal('WidgetOne');
+  });
+
+  it('registers widgets', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+
+    app.registerWidget(Widget1, {
+      regions: ['sidebar'],
+    });
+
+    expect(app.hasWidgetInstance('Widget1')).to.equal(true);
+    expect(app.getWidgetInstance('Widget1').getOption('name')).to.equal('Widget1');
+  });
+
+  it('streams registered widgets as a collection', function (done) {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+
+    app.registerWidget(Widget1, {
+      regions: ['sidebar'],
+    });
+    const widgets$ = app.getWidgets$();
+
+    widgets$.subscribe(function (widgets) {
+      expect(Array.isArray(widgets)).to.equal(true);
+      expect(widgets.length).to.equal(1);
+      expect(widgets[0].name).to.equal('Widget1');
+
+      done();
+    });
+  });
+
+  it('streams registered widgets as a collection, with region filtering', function (done) {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+
+    app.registerWidget(Widget1, {
+      regions: ['sidebar'],
+    });
+    const widgets$ = app.getWidgets$('sidebar');
+
+    widgets$.subscribe(function (widgets) {
+      expect(Array.isArray(widgets)).to.equal(true);
+      expect(widgets.length).to.equal(1);
+      expect(widgets[0].name).to.equal('Widget1');
+
+      done();
+    });
+  });
+
+  it('gets widget once available (that will be available in future)', function (done) {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+
+    app.getWidgetOnceAvailable$('Widget1')
+      .subscribe(function (widget) {
+        expect(widget.getOption('name')).to.equal('Widget1');
+
+        done();
+      });
+
+    app.registerWidget(Widget1);
+  });
+
+  it('gets widget once available (that is already available)', function (done) {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+    app.registerWidget(Widget1);
+
+    app.getWidgetOnceAvailable$('Widget1')
+      .subscribe(function (widget) {
+        expect(widget.getOption('name')).to.equal('Widget1');
+
+        done();
+      });
+  });
+
+  it('throws error when registering same Widget twice', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+    app.registerWidget(Widget1);
+
+    expect(() => {
+      app.registerWidget(Widget1);
+    }).to.throw(/Widget 'Widget1' has been already registered before/);
+  });
+
+  it('checks for widget instance availability', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const Widget1 = createApp({ name: 'Widget1' });
+
+    const app = new Core();
+    expect(app.hasWidgetInstance('blah')).to.equal(false);
+
+    app.registerWidget(Widget1);
+    expect(app.hasWidgetInstance('Widget1')).to.equal(true);
+  });
+
+  it('throws error when trying to instantiate non-existent Widget', function () {
+    const Core = createApp({ name: 'MyApp' });
+    const app = new Core();
+
+    expect(() => {
+      app.instantiateWidget('blah');
+    }).to.throw(/No widget found with name 'blah'/);
   });
 });

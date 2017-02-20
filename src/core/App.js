@@ -1,4 +1,3 @@
-/* global window */
 import { BehaviorSubject, Observable } from 'rxjs';
 import _ from 'lodash';
 import { createContainer, resolveContainer } from 'diyai';
@@ -150,14 +149,6 @@ App.prototype.getRootApp = function getRootApp() {
     return rootApp;
   }
 
-  // backwards compatibility
-  if (
-    typeof window !== 'undefined' &&
-    typeof window.app !== 'undefined'
-  ) {
-    return window.app;
-  }
-
   return this;
 };
 
@@ -183,22 +174,7 @@ App.prototype.get = function get(providerName) {
     return value;
   }
 
-  const rootApp = this.getRootApp();
-
-  if (!rootApp) {
-    return value || null;
-  }
-
-  const provider = rootApp.getProvider(providerName);
-
-  if (
-    typeof provider !== 'undefined' &&
-    provider.cascade === true
-  ) {
-    return rootApp.get(providerName);
-  }
-
-  return value || null;
+  return null;
 };
 
 App.prototype.getWidgets$ = function getWidgets$(regionName = null) {
@@ -272,8 +248,13 @@ App.prototype.getWidgetInstance = function getWidgetInstance(name, region = null
 
   const w = this._widgetsCollection[index];
   const instanceKey = makeInstanceKey(region, regionKey, w.multi);
+  const instance = w.instances[instanceKey];
 
-  return w.instances[instanceKey];
+  if (!instance) {
+    return false;
+  }
+
+  return instance;
 };
 
 App.prototype.getWidgetOnceAvailable$ = function getWidgetOnceAvailable$(name, region = null, regionKey = null) {

@@ -215,7 +215,6 @@ App.prototype.getWidgets$ = function getWidgets$(regionName = null) {
     });
 };
 
-
 App.prototype.registerWidget = function registerWidget(Widget, opts = {}) {
   const options = {
     multi: false,
@@ -255,7 +254,7 @@ App.prototype.registerWidget = function registerWidget(Widget, opts = {}) {
 App.prototype.hasWidgetInstance = function hasWidgetInstance(name, region = null, regionKey = null) {
   const instance = this.getWidgetInstance(name, region, regionKey);
 
-  if (typeof instance !== 'undefined') {
+  if (instance && typeof instance !== 'undefined') {
     return true;
   }
 

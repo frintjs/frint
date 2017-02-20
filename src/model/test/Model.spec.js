@@ -1,7 +1,7 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import { Model } from './Frint';
+import Model from '../Model';
 
 describe('model › Model', () => {
   const myAttributes = {

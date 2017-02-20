@@ -24,6 +24,14 @@ export default function createComponent(options = {}) {
   return React.createClass({
     ...options,
 
+    componentWillMount() {
+      if (typeof options.beforeMount === 'function') {
+        return options.beforeMount.call(this);
+      }
+
+      return null;
+    },
+
     componentDidMount() {
       if (typeof options.afterMount === 'function') {
         return options.afterMount.call(this);

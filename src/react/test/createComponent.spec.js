@@ -5,67 +5,90 @@ import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import {
-  createComponent,
-  h,
-} from './Frint';
+import createComponent from '../createComponent';
+import h from '../h';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);
 
-describe('react › createComponent', () => {
-  const expectedRender = <div className="test"/>;
-  const mySpec = {
-    myCustomFunction() { return 'foo'; },
-    render() { return expectedRender; }
-  };
-  let MyComponent;
-  let myComponentInstance;
-
-  beforeEach(() => {
-    sandbox.spy(React, 'createClass');
-    MyComponent = createComponent(mySpec);
-    myComponentInstance = ReactDOM.render(<MyComponent />, document.getElementById('root'));
+describe('react › createComponent', function () {
+  it('is a function', function () {
+    expect(createComponent).to.be.a('function');
   });
 
-  afterEach(() => {
-    const element = document.querySelector('#root .test');
-    element.parentNode.removeChild(element);
-    sandbox.restore();
+  it('throws error if render method is not given', function () {
+    expect(() => {
+      createComponent();
+    }).to.throw(/missing required method: render/);
   });
 
-  it('calls React.createClass once, at component creation', () => {
-    expect(React.createClass)
-      .to.be.callCount(1)
-      .and.to.be.calledWith({
-        myCustomFunction: mySpec.myCustomFunction,
-        render: mySpec.render,
-        componentDidMount: sinon.match.func,
-        componentWillUnmount: sinon.match.func,
-        getDOMElement: sinon.match.func
-      });
+  it('returns Component that can be rendered to DOM', function () {
+    const MyComponent = createComponent({
+      render() {
+        return (
+          <p id="paragraph">Hello World</p>
+        );
+      }
+    });
+
+    const instance = ReactDOM.render(
+      <MyComponent />,
+      document.getElementById('root')
+    );
+
+    const element = document.getElementById('paragraph');
+    expect(element.innerHTML).to.equal('Hello World');
   });
 
-  it('is a valid React component and a MyComponent\'s instance', () => {
-    expect('isReactComponent' in Object.getPrototypeOf(myComponentInstance)).to.be.equal(true);
-    expect(myComponentInstance).to.be.instanceof(MyComponent);
+  it('gets the DOM Node when executing getDOMElement()', function () {
+    const MyComponent = createComponent({
+      render() {
+        return (
+          <p id="paragraph">Hello World</p>
+        );
+      }
+    });
+
+    const instance = ReactDOM.render(
+      <MyComponent />,
+      document.getElementById('root')
+    );
+
+    expect(instance.getDOMElement()).to.be.equal(document.querySelector('#paragraph'));
   });
 
-  it('gets the DOM Node when executing getDOMElement()', () => {
-    expect(myComponentInstance.getDOMElement()).to.be.equal(document.querySelector('#root .test'));
-  });
+  it('fires mount callbacks', function () {
+    let beforeMountCalled = false;
+    let afterMountCalled = false;
+    let beforeUnmountCalled = false;
 
-  it('has the spec\'s functions', () => {
-    expect(myComponentInstance.myCustomFunction()).to.be.equal('foo');
-    expect(myComponentInstance.render()).to.be.equal(expectedRender);
-  });
+    const MyComponent = createComponent({
+      beforeMount() {
+        beforeMountCalled = true;
+      },
+      afterMount() {
+        afterMountCalled = true;
+      },
+      beforeUnmount() {
+        beforeUnmountCalled = true;
+      },
+      render() {
+        return (
+          <p>Hello World</p>
+        );
+      }
+    });
 
-  it('throws an error if no render method is defined', function () {
-    const noRenderSpec = {
-      name: 'mySillyApp'
-    };
+    const node = document.getElementById('root')
+    const instance = ReactDOM.render(
+      <MyComponent />,
+      node
+    );
 
-    expect(createComponent.bind(null, noRenderSpec))
-      .to.throw('Component mySillyApp missing required method: render');
+    expect(beforeMountCalled).to.equal(true);
+    expect(afterMountCalled).to.equal(true);
+
+    React.unmountComponentAtNode(node);
+    expect(beforeUnmountCalled).to.equal(true);
   });
 });

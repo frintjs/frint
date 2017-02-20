@@ -130,7 +130,20 @@ describe('core  › App', function () {
     expect(app.getProvider('foo')).to.deep.equal({ name: 'foo', useValue: 'fooValue' });
   });
 
-  it('calls beforeMount passed in options', function () {
+  it('calls initialize during construction, as passed in options', function () {
+    let called = false;
+
+    const app = new App({
+      name: 'MyApp',
+      initialize() {
+        called = true;
+      }
+    });
+
+    expect(called).to.equal(true);
+  });
+
+  it('calls beforeMount, as passed in options', function () {
     let called = false;
 
     const app = new App({
@@ -141,6 +154,35 @@ describe('core  › App', function () {
     });
 
     app.beforeMount();
+    expect(called).to.equal(true);
+  });
+
+  it('calls afterMount, as passed in options', function () {
+    let called = false;
+
+    const app = new App({
+      name: 'MyApp',
+      afterMount() {
+        called = true;
+      }
+    });
+
+    app.afterMount();
+    expect(called).to.equal(true);
+  });
+
+
+  it('calls beforeUnmount, as passed in options', function () {
+    let called = false;
+
+    const app = new App({
+      name: 'MyApp',
+      beforeUnmount() {
+        called = true;
+      }
+    });
+
+    app.beforeUnmount();
     expect(called).to.equal(true);
   });
 });

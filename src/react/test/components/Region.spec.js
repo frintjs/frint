@@ -131,6 +131,6 @@ describe('react › components › Region', function () {
 
     // unmount
     ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-    expect(_.toArray(document.getElementsByClassName('widget2-text'))).to.equal(0);
+    expect(_.toArray(document.getElementsByClassName('widget2-text')).length).to.equal(0);
   });
 });

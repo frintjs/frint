@@ -58,11 +58,11 @@
   },
   "homepage": "https://github.com/Travix-International/frint#readme",
   "dependencies": {
-    "diyai": "^0.6.1",
+    "diyai": "^0.6.3",
     "lodash": "^4.13.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
-    "rxjs": "^5.0.1"
+    "rxjs": "^5.2.0"
   },
   "devDependencies": {
     "alex": "^4.0.1",

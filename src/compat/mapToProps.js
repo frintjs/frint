@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 export default function makeMapToProps({ observe, streamProps }) {
   return function mapToProps(opts = {}) {
-    console.warn('[DEPRECATED] `mapToProps` has been depcreated. Use `observe` instead.');
+    console.warn('[DEPRECATED] `mapToProps` has been deprecated. Use `observe` instead.');
     const options = {
       app: null,
       dispatch: {},

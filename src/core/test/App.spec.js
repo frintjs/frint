@@ -6,7 +6,7 @@ import App from '../App';
 import createApp from '../createApp';
 
 describe('core  › App', function () {
-  it('throws error when creating new instance withour name', function () {
+  it('throws error when creating new instance without name', function () {
     expect(() => {
       new App();
     }).to.throw(/Must provide `name` in options/);

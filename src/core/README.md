@@ -47,7 +47,7 @@ Providers are dependencies for your Frint application (not to be confused with `
 
 They can be set at Core app level, at Widget level, or even only at Core app level but cascade them to the Widgets.
 
-### Direct values
+#### Direct values
 
 For values that are already known:
 
@@ -64,7 +64,7 @@ const app = new CoreApp();
 app.get('foo') === 'foo value here';
 ```
 
-### Values from factories
+#### Values from factories
 
 If you want to get the value from a function (will be called only once during App construction):
 
@@ -83,7 +83,7 @@ const app = new CoreApp();
 app.get('bar') === 'bar value';
 ```
 
-### Classes
+#### Classes
 
 You can also have classes defined as providers. They will be instantiated when the App is constructed, and then made available to you:
 
@@ -106,7 +106,7 @@ const app = new CoreApp();
 app.get('baz').getValue() === 'baz value';
 ```
 
-### Cascading
+#### Cascading
 
 If you wish to cascade a provider from Core App to your Widgets, you can:
 
@@ -133,12 +133,12 @@ app.get('window') === window;
 app.getWidgetInstance('MyWidget').get('window') === window;
 ```
 
-### Reserved provider names
+#### Reserved provider names
 
 * `app`: The current App in scope (Core or Widget)
 * `rootApp`: Always refers to the top-most App (which is Core)
 
-### Dependencies
+#### Dependencies
 
 Providers can also list their dependencies (by their names).
 
@@ -173,7 +173,7 @@ const CoreApp = createCore({
 })
 ```
 
-### Scoped
+#### Scoped
 
 When cascading providers from Core to Widgets, it is likely you may want to scope those values by the Widget they are targeting. It is applicable in only `useFactory` and `useClass` usage, since they generate values.
 

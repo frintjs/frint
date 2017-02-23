@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Subject } from 'rxjs';
 import sinon from 'sinon';
 
-import { createApp } from '../../../'; // Frint with plugins applied
+import { createCore, createWidget } from '../../../'; // Frint with plugins applied
 import h from '../../h';
 import render from '../../render';
 import createComponent from '../../createComponent';
@@ -55,7 +55,7 @@ describe('react › components › Region', function () {
         );
       }
     });
-    const Core = createApp({
+    const Core = createCore({
       name: 'CoreApp',
       providers: [
         { name: 'component', useValue: CoreComponent },
@@ -68,7 +68,7 @@ describe('react › components › Region', function () {
         return <p>Widget 1</p>;
       }
     });
-    const Widget1 = createApp({
+    const Widget1 = createWidget({
       name: 'Widget1',
       providers: [
         { name: 'component', useValue: Widget1Component },
@@ -80,7 +80,7 @@ describe('react › components › Region', function () {
         return <p>Widget 2</p>;
       }
     });
-    const Widget2 = createApp({
+    const Widget2 = createWidget({
       name: 'Widget2',
       providers: [
         { name: 'component', useValue: Widget2Component },
@@ -122,7 +122,7 @@ describe('react › components › Region', function () {
         );
       }
     });
-    const Core = createApp({
+    const Core = createCore({
       name: 'CoreApp',
       providers: [
         { name: 'component', useValue: CoreComponent },
@@ -186,7 +186,7 @@ describe('react › components › Region', function () {
         );
       }
     });
-    const Core = createApp({
+    const Core = createCore({
       name: 'CoreApp',
       providers: [
         { name: 'component', useValue: CoreComponent },
@@ -199,7 +199,7 @@ describe('react › components › Region', function () {
         return <p id="widget1-text">Hello World from Widget1</p>;
       }
     });
-    const Widget1 = createApp({
+    const Widget1 = createWidget({
       name: 'Widget1',
       providers: [
         { name: 'component', useValue: Widget1Component },
@@ -217,7 +217,7 @@ describe('react › components › Region', function () {
         return <p className="widget2-text">Hello World from Widget2 - {this.props.todo.title}</p>;
       }
     }));
-    const Widget2 = createApp({
+    const Widget2 = createWidget({
       name: 'Widget2',
       providers: [
         { name: 'component', useValue: Widget2Component },

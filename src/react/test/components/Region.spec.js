@@ -1,7 +1,9 @@
-/* global describe, it, window, document */
+/* global describe, it, afterEach, resetDOM, window, document */
 import { expect } from 'chai';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
+import { Subject } from 'rxjs';
+import sinon from 'sinon';
 
 import { createApp } from '../../../'; // Frint with plugins applied
 import h from '../../h';
@@ -13,8 +15,138 @@ import RegionService from '../../services/Region';
 import streamProps from '../../streamProps';
 
 describe('react › components › Region', function () {
+  afterEach(function () {
+    resetDOM();
+  });
+
   it('is a function', function () {
     expect(Region).to.be.a('function');
+  });
+
+  it('renders empty region when no root app available', function () {
+    const MyComponent = createComponent({
+      render() {
+        return (
+          <div id="my-component">
+            <Region name="left-sidebar" />
+          </div>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <MyComponent />,
+      document.getElementById('root')
+    );
+
+    const element = document.getElementById('my-component');
+    expect(element.innerHTML.startsWith('<noscript ')).to.equal(true);
+    expect(element.innerHTML.endsWith('</noscript>')).to.equal(true);
+  });
+
+  it('renders widgets with weighted ordering', function () {
+    // core
+    const CoreComponent = createComponent({
+      render() {
+        return (
+          <div>
+            <Region name="sidebar" />
+          </div>
+        );
+      }
+    });
+    const Core = createApp({
+      name: 'CoreApp',
+      providers: [
+        { name: 'component', useValue: CoreComponent },
+      ],
+    });
+
+    // widgets
+    const Widget1Component = createComponent({
+      render() {
+        return <p>Widget 1</p>;
+      }
+    });
+    const Widget1 = createApp({
+      name: 'Widget1',
+      providers: [
+        { name: 'component', useValue: Widget1Component },
+      ],
+    });
+
+    const Widget2Component = createComponent({
+      render() {
+        return <p>Widget 2</p>;
+      }
+    });
+    const Widget2 = createApp({
+      name: 'Widget2',
+      providers: [
+        { name: 'component', useValue: Widget2Component },
+      ],
+    });
+
+    // render
+    window.app = new Core();
+    render(
+      window.app,
+      document.getElementById('root')
+    );
+
+    // register widgets
+    window.app.registerWidget(Widget1, {
+      regions: ['sidebar'],
+      weight: 10,
+    });
+    window.app.registerWidget(Widget2, {
+      regions: ['sidebar'],
+      weight: 5,
+    });
+
+    // verify
+    const paragraphs = document.querySelectorAll('p'); // @TODO: enzyme can be used?
+    expect(paragraphs[0].innerHTML).to.equal('Widget 2');
+    expect(paragraphs[1].innerHTML).to.equal('Widget 1');
+  });
+
+  it('warns when widgets subscription emits an error', function () {
+    // core
+    const CoreComponent = createComponent({
+      render() {
+        return (
+          <div>
+            <Region name="sidebar" />
+            <Region name="footer" />
+          </div>
+        );
+      }
+    });
+    const Core = createApp({
+      name: 'CoreApp',
+      providers: [
+        { name: 'component', useValue: CoreComponent },
+      ],
+    });
+
+    // fake an error
+    window.app = new Core();
+    const subject$ = new Subject();
+    window.app.getWidgets$ = function getWidgets$() {
+      return subject$;
+    };
+
+    // render
+    render(
+      window.app,
+      document.getElementById('root')
+    );
+
+    // verify
+    const stub = sinon.stub(console, 'warn');
+    subject$.error(new Error('Something bad happened...'));
+
+    sinon.assert.calledTwice(stub); // two Regions
   });
 
   it('renders single and multi-instance widgets', function () {

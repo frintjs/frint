@@ -42,12 +42,9 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    let rootApp;
-    if (!this.context || !this.context.app) {
-      rootApp = window.app; // @TODO: can we avoid globals?
-    } else {
-      rootApp = this.context.app.getRootApp();
-    }
+    const rootApp = (!this.context || !this.context.app)
+      ? window.app // @TODO: can we avoid globals?
+      : this.context.app.getRootApp();
 
     if (!rootApp) {
       return;
@@ -85,8 +82,9 @@ export default React.createClass({
             }
 
             const widgetInstance = rootApp.getWidgetInstance(widgetName, ...regionArgs);
-
-            this.sendProps(widgetInstance, this.props);
+            if (widgetInstance) {
+              this.sendProps(widgetInstance, this.props);
+            }
 
             this.setState({
               listForRendering: this.state.listForRendering
@@ -110,10 +108,6 @@ export default React.createClass({
   },
 
   sendProps(widgetInstance, props) {
-    if (!widgetInstance) {
-      return;
-    }
-
     const regionService = widgetInstance.get(widgetInstance.options.providerNames.region);
 
     if (!regionService) {
@@ -124,9 +118,9 @@ export default React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.state.listForRendering.forEach((item) => {
-      this.sendProps(item.instance, nextProps);
-    });
+    this.state.listForRendering
+      .filter(item => item.instance)
+      .forEach(item => this.sendProps(item.instance, nextProps));
   },
 
   componentWillUnmount() {

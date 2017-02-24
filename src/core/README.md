@@ -54,10 +54,12 @@ For values that are already known:
 ```js
 const CoreApp = createCore({
   name: 'MyAppName',
-  providers: {
-    name: 'foo',
-    useValue: 'foo value here'
-  }
+  providers: [
+    {
+      name: 'foo',
+      useValue: 'foo value here'
+    }
+  ]
 });
 
 const app = new CoreApp();
@@ -71,12 +73,14 @@ If you want to get the value from a function (will be called only once during Ap
 ```js
 const CoreApp = createCore({
   name: 'MyAppName',
-  providers: {
-    name: 'bar',
-    useFactory: function () {
-      return 'bar value';
-    }
-  },
+  providers: [
+    {
+      name: 'bar',
+      useFactory: function () {
+        return 'bar value';
+      }
+    },
+  ]
 });
 
 const app = new CoreApp();
@@ -96,10 +100,12 @@ class Baz {
 
 const CoreApp = createCore({
   name: 'MyAppName',
-  providers: {
-    name: 'baz',
-    useClass: Baz
-  }
+  providers: [
+    {
+      name: 'baz',
+      useClass: Baz
+    }
+  ]
 });
 
 const app = new CoreApp();

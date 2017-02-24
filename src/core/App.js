@@ -70,7 +70,7 @@ function App(opts = {}) {
     this.container.register(provider);
   });
 
-  // children
+  // children - create Observable if root
   this._widgetsCollection = [];
   this._widgets$ = new BehaviorSubject(this._widgetsCollection);
 
@@ -243,15 +243,15 @@ App.prototype.getWidgetInstance = function getWidgetInstance(name, region = null
   });
 
   if (index === -1) {
-    return false;
+    return null;
   }
 
   const w = this._widgetsCollection[index];
   const instanceKey = makeInstanceKey(region, regionKey, w.multi);
   const instance = w.instances[instanceKey];
 
-  if (!instance) {
-    return false;
+  if (!instance || typeof instance === 'undefined') {
+    return null;
   }
 
   return instance;
@@ -261,14 +261,19 @@ App.prototype.getWidgetOnceAvailable$ = function getWidgetOnceAvailable$(name, r
   const rootApp = this.getRootApp();
 
   const w = rootApp.getWidgetInstance(name, region, regionKey);
+
   if (w) {
     return Observable.of(w);
   }
 
-  return Observable
-    .interval(100) // every X ms
-    .map(() => rootApp.getWidgetInstance(name, region, regionKey))
-    .first(widget => widget);
+  return rootApp._widgets$
+    .flatMap(y => y)
+    .find(widget => widget.name === name)
+    .map((x) => {
+      const instanceKey = makeInstanceKey(region, regionKey, x.multi);
+      return x.instances[instanceKey];
+    })
+    .first(y => y);
 };
 
 App.prototype.instantiateWidget = function instantiateWidget(name, region = null, regionKey = null) {

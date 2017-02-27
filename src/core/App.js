@@ -40,9 +40,6 @@ function App(opts = {}) {
 
     // lifecycle callbacks
     initialize: () => {},
-    beforeMount: () => {},
-    afterMount: () => {},
-    beforeUnmount: () => {},
 
     // override
     ...opts,
@@ -295,19 +292,5 @@ App.prototype.instantiateWidget = function instantiateWidget(name, region = null
 // unregisterWidget(name, region = null, regionKey = null) {
 //   // @TODO
 // }
-
-App.prototype.beforeMount = function beforeMount() {
-  return this.options.beforeMount.bind(this)();
-};
-
-App.prototype.afterMount = function afterMount() {
-  return this.options.afterMount.bind(this)();
-};
-
-App.prototype.beforeUnmount = function beforeUnmount() {
-  const output = this.options.beforeUnmount.bind(this)();
-
-  return output;
-};
 
 export default App;

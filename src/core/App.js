@@ -267,7 +267,7 @@ App.prototype.getWidgetOnceAvailable$ = function getWidgetOnceAvailable$(name, r
   }
 
   return rootApp._widgets$
-    .flatMap(y => y)
+    .concatMap(y => y)
     .find(widget => widget.name === name)
     .map((x) => {
       const instanceKey = makeInstanceKey(region, regionKey, x.multi);

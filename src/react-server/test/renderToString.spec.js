@@ -1,16 +1,18 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import Frint from '../../core';
+import Frint from '../../frint';
+import CorePlugin from '../../core';
 import ReactPlugin from '../../react';
 import ReactServerPlugin from '../';
 
 // @TODO: figure a way out to not pollute global reference in CommonJS
+Frint.use(CorePlugin);
 Frint.use(ReactPlugin);
 Frint.use(ReactServerPlugin);
 
 const {
-  createApp,
+  createCore,
   createComponent,
   h,
   renderToString,
@@ -32,7 +34,7 @@ describe('react-server › renderToString', function () {
       }
     });
 
-    const TestApp = createApp({
+    const TestApp = createCore({
       name: 'TestAppname',
       providers: [
         {

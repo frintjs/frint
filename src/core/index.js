@@ -1,17 +1,19 @@
 import App from './App';
 import createApp from './createApp';
+import createCore from './createCore';
+import createWidget from './createWidget';
 
-const Frint = {
+const Plugin = {
   App,
   createApp,
+  createCore,
+  createWidget,
 };
 
-Frint.use = function use(Plugin) {
-  if (typeof Plugin.install !== 'function') {
-    throw new Error('Plugin does not have any `install` option.');
-  }
-
-  return Plugin.install(Frint);
+Plugin.install = function install(Frint) {
+  Frint.App = App;
+  Frint.createCore = createCore;
+  Frint.createWidget = createWidget;
 };
 
-export default Frint;
+export default Plugin;

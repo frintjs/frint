@@ -70,7 +70,7 @@ function App(opts = {}) {
     this.container.register(provider);
   });
 
-  // children - create Observable if root
+  // children
   this._widgetsCollection = [];
   this._widgets$ = new BehaviorSubject(this._widgetsCollection);
 

@@ -20,11 +20,8 @@ describe('react › extendApp', function () {
   App.prototype.getOption = () => "COMPONENT_NAME";
   App.prototype.get = () => Component;
 
-  let app;
-
   before(() => {
     extendApp(App);
-    app = new App(props);
   });
 
   it('is a function', () => {
@@ -89,8 +86,10 @@ describe('react › extendApp', function () {
   describe('"getComponent" method', () => {
     let wrapper;
     let provider;
+    let app;
 
     before(() => {
+      app = new App();
       const WrappedComponent = app.getComponent(props);
       wrapper = shallow(<WrappedComponent />);
       provider = wrapper.find(Provider);

@@ -52,7 +52,6 @@ import { createModel } from 'frint';
 export default createModel();
 
 // usage
-
 import Address from './models/Address.js';
 
 const address = new Address({
@@ -64,7 +63,7 @@ const address = new Address({
       long: '∞',
       lat: '∞',
     },
-  }
+  },
 });
 
 const place = address.get('location.place'); // at the end of time and matter

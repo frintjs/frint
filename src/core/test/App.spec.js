@@ -352,8 +352,8 @@ describe('core  › App', function () {
     expect(app.getWidgetInstance('Widget1')).to.be.an('object');
     expect(app.getWidgetInstance('Widget1', 'sidebar')).to.be.an('object');
 
-    expect(app.getWidgetInstance('Widget2')).to.equal(false);
-    expect(app.getWidgetInstance('Widget2', 'footer')).to.equal(false);
+    expect(app.getWidgetInstance('Widget2')).to.equal(null);
+    expect(app.getWidgetInstance('Widget2', 'footer')).to.equal(null);
 
     app.instantiateWidget('Widget2', 'footer', 'footer-123');
     expect(app.getWidgetInstance('Widget2', 'footer', 'footer-123')).to.be.an('object');

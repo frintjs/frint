@@ -2,9 +2,9 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import Frint from '../../frint';
-import CorePlugin from '../../core';
-import ReactPlugin from '../../react';
+import Frint from '../frint';
+import CorePlugin from '../core';
+import ReactPlugin from '../react';
 import ReactServerPlugin from '../';
 
 // @TODO: figure a way out to not pollute global reference in CommonJS

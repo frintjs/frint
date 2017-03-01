@@ -12,7 +12,7 @@ import {
   Region,
   mapToProps,
   h
-} from './Frint';
+} from '../..';
 
 describe('compat › components › Region', () => {
   function generateCoreAppTemplate(appOptions = {}, regionName) {

@@ -2,7 +2,7 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import combineReducers from '../combineReducers';
+import combineReducers from './combineReducers';
 
 describe('store › combineReducers', function () {
   function counterReducer(state = { value: 0 }, action) {

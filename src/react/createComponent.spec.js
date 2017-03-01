@@ -3,8 +3,8 @@
 import { expect } from 'chai';
 import ReactDOM from 'react-dom';
 
-import createComponent from '../createComponent';
-import h from '../h';
+import createComponent from './createComponent';
+import h from './h';
 
 describe('react › createComponent', function () {
   it('is a function', function () {

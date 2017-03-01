@@ -14,7 +14,7 @@ import {
   Region,
   mapToProps,
   h,
-} from './Frint';
+} from '../..';
 
 describe('compat › components › mapToProps', function () {
   before(function () {

@@ -5,9 +5,9 @@ import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import extendApp from '../extendApp';
-import h from '../h';
-import Provider from '../components/Provider';
+import extendApp from './extendApp';
+import h from './h';
+import Provider from './components/Provider';
 
 chai.use(chaiEnzyme());
 

@@ -2,7 +2,7 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import h from '../h';
+import h from './h';
 
 describe('react › h', function () {
   it('is a function', function () {

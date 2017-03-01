@@ -4,11 +4,11 @@ import { expect } from 'chai';
 import { Observable } from 'rxjs';
 import ReactDOM from 'react-dom';
 
-import observe from '../../components/observe';
-import Provider from '../../components/Provider';
-import createComponent from '../../createComponent';
-import render from '../../render';
-import h from '../../h';
+import observe from './observe';
+import Provider from './Provider';
+import createComponent from '../createComponent';
+import render from '../render';
+import h from '../h';
 
 describe('react › components › observe', function () {
   it('is a function', function () {

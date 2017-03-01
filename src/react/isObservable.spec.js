@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
 
-import isObservable from '../isObservable';
+import isObservable from './isObservable';
 
 describe('react › isObservable', function () {
   it('returns true when an Observable is given', function () {

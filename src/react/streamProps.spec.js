@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
 
-import streamProps from '../streamProps';
+import streamProps from './streamProps';
 
 describe('react › streamProps', function () {
   it('is a function', function () {

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
-import PropTypes from '../PropTypes';
+import PropTypes from './PropTypes';
 
 describe('react › PropTypes', () => {
   it('checks for existence of various types', () => {

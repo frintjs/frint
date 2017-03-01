@@ -3,8 +3,8 @@
 /* eslint-disable no-new, class-methods-use-this */
 import { expect } from 'chai';
 
-import App from '../App';
-import createApp from '../createApp';
+import App from './App';
+import createApp from './createApp';
 
 describe('core  › App', function () {
   it('throws error when creating new instance without name', function () {

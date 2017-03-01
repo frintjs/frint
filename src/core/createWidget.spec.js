@@ -2,8 +2,8 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import App from '../App';
-import createWidget from '../createWidget';
+import App from './App';
+import createWidget from './createWidget';
 
 describe('core › createWidget', function () {
   it('is a function', function () {

@@ -6,14 +6,14 @@ import ReactDOM from 'react-dom';
 import { Subject } from 'rxjs';
 import sinon from 'sinon';
 
-import { createCore, createWidget } from '../../../'; // Frint with plugins applied
-import h from '../../h';
-import render from '../../render';
-import createComponent from '../../createComponent';
-import observe from '../../components/observe';
-import Region from '../../components/Region';
-import RegionService from '../../services/Region';
-import streamProps from '../../streamProps';
+import { createCore, createWidget } from '../../'; // Frint with plugins applied
+import h from '../h';
+import render from '../render';
+import createComponent from '../createComponent';
+import observe from './observe';
+import Region from './Region';
+import RegionService from '../services/Region';
+import streamProps from '../streamProps';
 
 describe('react › components › Region', function () {
   afterEach(function () {

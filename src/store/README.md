@@ -184,7 +184,6 @@ combineReducers({
 
 The Store instance.
 
-
 ### getState
 
 > getState()

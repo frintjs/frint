@@ -221,48 +221,6 @@ describe('core  › App', function () {
     expect(called).to.equal(true);
   });
 
-  it('calls beforeMount, as passed in options', function () {
-    let called = false;
-
-    const app = new App({
-      name: 'MyApp',
-      beforeMount() {
-        called = true;
-      }
-    });
-
-    app.beforeMount();
-    expect(called).to.equal(true);
-  });
-
-  it('calls afterMount, as passed in options', function () {
-    let called = false;
-
-    const app = new App({
-      name: 'MyApp',
-      afterMount() {
-        called = true;
-      }
-    });
-
-    app.afterMount();
-    expect(called).to.equal(true);
-  });
-
-  it('calls beforeUnmount, as passed in options', function () {
-    let called = false;
-
-    const app = new App({
-      name: 'MyApp',
-      beforeUnmount() {
-        called = true;
-      }
-    });
-
-    app.beforeUnmount();
-    expect(called).to.equal(true);
-  });
-
   it('registers widgets', function () {
     const Core = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });

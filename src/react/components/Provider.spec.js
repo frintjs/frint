@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global afterEach, beforeEach, describe, it */
 import chai, { expect } from 'chai';
 import { Children, Component, PropTypes } from 'react';

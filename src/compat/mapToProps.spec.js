@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global afterEach, beforeEach, describe, it, window, document, before, resetDOM */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';

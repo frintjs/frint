@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it, window, beforeEach, resetDOM */
 import { expect } from 'chai';
 

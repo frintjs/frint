@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it, document */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';

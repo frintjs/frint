@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it, before, beforeEach, afterEach */
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';

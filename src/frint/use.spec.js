@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 /* eslint-disable global-require */
 import { expect } from 'chai';

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* globals after, before, describe, document, it */
 import chai, { expect } from 'chai';
 import React from 'react';

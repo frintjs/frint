@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global afterEach, beforeEach, describe, it, document */
+/* global describe, it, document, before, after */
 import { expect } from 'chai';
 import ReactDOM from 'react-dom';
 
@@ -7,6 +7,14 @@ import createComponent from './createComponent';
 import h from './h';
 
 describe('react › createComponent', function () {
+  before(() => {
+    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
+  });
+
+  after(() => {
+    this.jsdom();
+  });
+
   it('is a function', function () {
     expect(createComponent).to.be.a('function');
   });

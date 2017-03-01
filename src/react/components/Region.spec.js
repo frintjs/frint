@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it, afterEach, resetDOM, window, document */
+/* global describe, it, beforeEach, afterEach, window, document */
 import { expect } from 'chai';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
@@ -16,8 +16,12 @@ import RegionService from '../services/Region';
 import streamProps from '../streamProps';
 
 describe('react › components › Region', function () {
-  afterEach(function () {
-    resetDOM();
+  beforeEach(() => {
+    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
+  });
+
+  afterEach(() => {
+    this.jsdom();
   });
 
   it('is a function', function () {

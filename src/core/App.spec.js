@@ -1,6 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
+/* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this*/
 /* global describe, it */
-/* eslint-disable no-new, class-methods-use-this */
 import { expect } from 'chai';
 
 import App from './App';

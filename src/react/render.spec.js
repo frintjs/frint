@@ -13,10 +13,9 @@ chai.use(sinonChai);
 const FakeComponent = React.createClass({
   render() { return null; }
 });
-const targetElement = document.getElementById('root');
 const sandbox = sinon.sandbox.create();
 
-describe('react › render', () => {
+describe('react › render', function () {
   const appStub = {
     afterMount: sandbox.stub(),
     beforeMount: sandbox.stub(),
@@ -25,16 +24,19 @@ describe('react › render', () => {
   };
 
   let renderedComponent;
+  let targetElement;
 
   before(() => {
+    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
     sandbox.spy(React, 'createClass');
     sandbox.spy(ReactDOM, 'render');
+    targetElement = document.getElementById('root');
     renderedComponent = render(appStub, targetElement);
   });
 
   after(() => {
     sandbox.restore();
-    targetElement.innerHTML = '';
+    this.jsdom();
   });
 
   it('calls app\'s getComponent method', () => {

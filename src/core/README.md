@@ -7,6 +7,8 @@
 - [Guide](#guide)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
+  - [Creating and registering widgets](#creating-and-registering-widgets)
+  - [Understanding Providers](#understanding-providers)
 - [API](#api)
   - [App](#app)
   - [createCore](#createcore)
@@ -33,14 +35,13 @@ Let's import the necessary functions from the library first:
 
 ```js
 const Frint = require('frint');
-const { createCore, createWidget } = Frint;
+const { createCore } = Frint;
 ```
 
-Now we can create our classes:
+Now we can create our App:
 
 ```js
 const CoreApp = createCore({ name: 'MyAppName' });
-const MyWidget = createWidget({ name: 'MyWidgetName' });
 ```
 
 Instantiate the Core app:
@@ -53,19 +54,27 @@ const app = new CoreApp(); // now you have the Core app's instance
 window.app = app;
 ```
 
-To register the Widget:
+## Creating and registering widgets
 
 ```js
-app.registerWidget(MyWidget);
+const { createWidget } = Frint;
+
+const MyWidget = createWidget({ name: 'MyWidgetName' });
 ```
 
-### Providers
+To register the Widget in your Core App:
+
+```js
+window.app.registerWidget(MyWidget);
+```
+
+## Understanding Providers
 
 Providers are dependencies for your Frint application (not to be confused with `npm` packages).
 
 They can be set at Core app level, at Widget level, or even only at Core app level but cascade them to the Widgets.
 
-#### Direct values
+### Direct values
 
 For values that are already known:
 
@@ -84,7 +93,7 @@ const app = new CoreApp();
 app.get('foo') === 'foo value here';
 ```
 
-#### Values from factories
+### Generated values from factories
 
 If you want to get the value from a function (will be called only once during App construction):
 
@@ -105,7 +114,7 @@ const app = new CoreApp();
 app.get('bar') === 'bar value';
 ```
 
-#### Classes
+### Classes
 
 You can also have classes defined as providers. They will be instantiated when the App is constructed, and then made available to you:
 
@@ -130,7 +139,7 @@ const app = new CoreApp();
 app.get('baz').getValue() === 'baz value';
 ```
 
-#### Cascading
+### Cascading
 
 If you wish to cascade a provider from Core App to your Widgets, you can:
 
@@ -157,12 +166,12 @@ app.get('window') === window;
 app.getWidgetInstance('MyWidget').get('window') === window;
 ```
 
-#### Reserved provider names
+### Reserved provider names
 
 * `app`: The current App in scope (Core or Widget)
 * `rootApp`: Always refers to the top-most App (which is Core)
 
-#### Dependencies
+### Dependencies
 
 Providers can also list their dependencies (by their names).
 
@@ -197,7 +206,7 @@ const CoreApp = createCore({
 })
 ```
 
-#### Scoped
+### Scoped
 
 When cascading providers from Core to Widgets, it is likely you may want to scope those values by the Widget they are targeting. It is applicable in only `useFactory` and `useClass` usage, since they generate values.
 

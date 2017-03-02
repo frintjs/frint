@@ -226,7 +226,15 @@ Dispatches the action, which will later trigger changes in state.
 
 #### Arguments
 
-1. `action` (`Object`): A plain object, with at least a `type` key.
+1. `action` (`Object`|`Function`): A plain object, with at least a `type` key.
+
+The `action` argument can also be a function:
+
+```js
+function (dispatch, getState, thunkArgument) {
+  dispatch(actionPayload);
+}
+```
 
 #### Returns
 

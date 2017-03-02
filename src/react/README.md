@@ -281,7 +281,7 @@ When your Widget's component renders, latest props will be passed to it in this 
 
 ### Helper function for streaming props
 
-As the number of observables grow, it might be difficult maintain your `observe` implementation. That's why we are also shipping a `streamProps` function in the library to make it easier for you:
+As the number of observables grow, it might be difficult to maintain your `observe` implementation. That's why we are also shipping a `streamProps` function in the library to make it easier for you:
 
 ```js
 const { streamProps } = Frint;
@@ -322,6 +322,100 @@ The props available inside your Component would then be in this format:
   key: 'value',
   myKey: 'myValue'
 }
+```
+
+## Multi-instance Widgets
+
+This is a use case where you have multiple instances of Region with the same name mounted in the DOM. And the widgets rendered in them should have their own independent scoped instances too.
+
+Think of a scenario where you have a TodoList, and you want a Region defined for each Todo item:
+
+```js
+/** @jsx h */
+const MyComponent = createComponent({
+  render() {
+    const todos = [
+      { id: '1', title: 'First todo' },
+      { id: '2', title: 'Second todo' },
+      { id: '3', title: 'Third todo' },
+    ];
+
+    return (
+      <ul>
+        {todos.map((todo) => {
+          return (
+            <li>
+              <h3>{todo.title}</h3>
+
+              <Region
+                name="todo-item"
+                data={{ todo }}
+                uniqueKey={`todo-item-${todo.id}`}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+});
+```
+
+Now we may have a Widget that we want to be rendered in `todo-item` Regions.
+
+Let's create a Widget, that will receive the `todo` object, and render the title in UPPERCASE format.
+
+```
+/** @jsx h */
+const {
+  createComponent,
+  createWidget,
+  h,
+  observe,
+  RegionService
+} = Frint;
+
+const WidgetComponent = createComponent({
+  render () {
+    const { todo } = this.props;
+
+    return <p>Todo in upper case: {todo.title.toUpperCase()}</p>
+  }
+});
+
+cost ObservedWidgetComponent = observe(function (app) {
+  return streamProps()
+    .set(
+      app.get('region').getData$(),
+      data => ({ todo: data.todo })
+    )
+    .get$();
+})(WidgetComponent);
+
+const Widget = createWidget({
+  name: 'MyWidget',
+  providers: [
+    {
+      name: 'component',
+      useValue: ObservedWidgetComponent
+    },
+    {
+      name: 'region',
+      useClass: RegionService
+    }
+  ]
+});
+```
+
+Now comes the part of registering our Widget as a multi-instance widget:
+
+```js
+window.app.registerWidget(Widget, {
+  regions: ['todo-item'],
+
+  // this tells Core App to treat this widget as a multi-instance one
+  multi: true
+});
 ```
 
 ---

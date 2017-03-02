@@ -6,7 +6,7 @@
   "scripts": {
     "transpile": "babel src --out-dir lib",
     "lint": "eslint --color '{src,test}/**/*.js'",
-    "cover": "nyc --reporter=lcov --require babel-register mocha 'src/**/*.spec.js' 'test/**/*.spec.js' && npm run cover:report",
+    "cover": "nyc --reporter=lcov --require babel-register mocha 'src/**/*.spec.js' && npm run cover:report",
     "cover:report": "nyc report",
     "test": "npm run cover",
     "test:plugin:core": "nyc --require babel-register mocha './src/core/**/*.spec.js'",

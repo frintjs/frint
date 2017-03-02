@@ -10,7 +10,7 @@ But using old API would give you deprecated warnings, and they can be eliminated
 - [Root components](#root-components)
 - [Store](#store)
 - [Services](#services)
-- [Factory](#factory)
+- [Factories](#factories)
 - [Models](#models)
 - [`mapToProps`](#maptoprops)
 
@@ -177,7 +177,7 @@ const app = new App();
 const foo = app.get('foo');
 ```
 
-## Factory
+## Factories
 
 ### `v0.x`
 

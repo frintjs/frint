@@ -265,9 +265,9 @@ Useful in non-ES6 compatible environments.
 
 The `App` instance (either Core or Widget):
 
-### getOption
+### app.getOption
 
-> getOption(key)
+> app.getOption(key)
 
 #### Arguments
 
@@ -281,17 +281,17 @@ The `App` instance (either Core or Widget):
 
 `app.getOption('name')` would give you `MyAppName` string.
 
-### getRootApp
+### app.getRootApp
 
-> getRootApp()
+> app.getRootApp()
 
 #### Returns
 
 Gives you the Core App instance.
 
-### getProviders
+### app.getProviders
 
-> getProviders()
+> app.getProviders()
 
 Gives you an array of provider definitions as passed while creating the App class.
 
@@ -299,9 +299,9 @@ Gives you an array of provider definitions as passed while creating the App clas
 
 `Array`.
 
-### getProvider
+### app.getProvider
 
-> getProvider(name)
+> app.getProvider(name)
 
 Gives you the provider's original definition.
 
@@ -315,9 +315,9 @@ Gives you the provider's original definition.
 
 Not to be confused with the computed value of the provider.
 
-### get
+### app.get
 
-> get(name)
+> app.get(name)
 
 Gives you the computed value of the provider.
 
@@ -329,9 +329,9 @@ Gives you the computed value of the provider.
 
 `Any`: The computed value of the provider.
 
-### getWidgets$
+### app.getWidgets$
 
-> getWidgets$(regionName = null)
+> app.getWidgets$(regionName = null)
 
 #### Arguments
 
@@ -341,9 +341,9 @@ Gives you the computed value of the provider.
 
 `Observable`: That emits an array of most recent available Widgets.
 
-### registerWidget
+### app.registerWidget
 
-> registerWidget(Widget, options = {})
+> app.registerWidget(Widget, options = {})
 
 Register Widget class to Core app.
 
@@ -358,9 +358,9 @@ Register Widget class to Core app.
 
 `void`
 
-### hasWidgetInstance
+### app.hasWidgetInstance
 
-> hasWidgetInstance(name, region = null, regionKey = null)
+> app.hasWidgetInstance(name, region = null, regionKey = null)
 
 Check if Widget instance is available or not.
 
@@ -374,9 +374,9 @@ Check if Widget instance is available or not.
 
 `Boolean`.
 
-### getWidgetInstance
+### app.getWidgetInstance
 
-> getWidgetInstance(name, region = null, regionKey = null)
+> app.getWidgetInstance(name, region = null, regionKey = null)
 
 Gets the Widget instance if available.
 
@@ -390,10 +390,9 @@ Gets the Widget instance if available.
 
 `App|Boolean`: The widget instance, or false if not availble.
 
+### app.getWidgetOnceAvailable$
 
-### getWidgetOnceAvailable$
-
-> getWidgetOnceAvailable$(name, region = null, regionKey = null)
+> app.getWidgetOnceAvailable$(name, region = null, regionKey = null)
 
 Returns an Observable, which emits with the Widget's instance once it is available.
 
@@ -407,9 +406,9 @@ Returns an Observable, which emits with the Widget's instance once it is availab
 
 `Observable`: Emits the Widget instance once found, only once.
 
-### instantiateWidget
+### app.instantiateWidget
 
-> instantiateWidget(name, region = null, regionKey = null)
+> app.instantiateWidget(name, region = null, regionKey = null)
 
 Instantiates the registered Widget class, (for the targetted region/regionKey if it is a multi-instance Widget).
 

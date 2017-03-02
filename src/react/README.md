@@ -590,6 +590,8 @@ Returns an `Observable`.
 
 ## app
 
+> new App()
+
 The base App class is extended with these methods, affecting all Core Apps and Widgets.
 
 ### app.getComponent

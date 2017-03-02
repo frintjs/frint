@@ -383,7 +383,7 @@ const WidgetComponent = createComponent({
   }
 });
 
-cost ObservedWidgetComponent = observe(function (app) {
+const ObservedWidgetComponent = observe(function (app) {
   return streamProps()
     .set(
       app.get('region').getData$(),
@@ -544,7 +544,9 @@ All `set*` methods return the same `Streamer` instance so multiple set calls can
 #### set
 
 > set(key, value)
+
 > set(plainObject)
+
 > set(observable$, ...mapperFunctions)
 
 #### setKey

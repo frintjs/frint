@@ -54,11 +54,11 @@ function counterReducer(state = INITIAL_COUNTER_STATE, action) {
   switch (action.type) {
     case 'INCREMENT_COUNTER':
       return Object.assign({}, {
-        counter: state.counter + 1
+        value: state.value + 1
       });
     case 'DECREMENT_COUNTER':
       return Object.assign({}, {
-        counter: state.counter - 1
+        value: state.value - 1
       });
     default:
       return state;

@@ -365,7 +365,7 @@ Now we may have a Widget that we want to be rendered in `todo-item` Regions.
 
 Let's create a Widget, that will receive the `todo` object, and render the title in UPPERCASE format.
 
-```
+```js
 /** @jsx h */
 const {
   createComponent,

@@ -4,6 +4,7 @@
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
+- [Guide](#guide)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
   - [Async actions](#async-actions)
@@ -14,6 +15,10 @@
   - [store](#store)
 
 <!-- /MarkdownTOC -->
+
+---
+
+# Guide
 
 ## Terminologies
 

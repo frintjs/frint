@@ -4,12 +4,17 @@
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
+- [Guide](#guide)
   - [Installation](#installation)
   - [Usage](#usage)
 - [API](#api)
   - [renderToString](#rendertostring)
 
 <!-- /MarkdownTOC -->
+
+---
+
+# Guide
 
 ## Installation
 

@@ -4,6 +4,18 @@ We are still keeping majority of the API in `v0.x` backwards compatible with the
 
 But using old API would give you deprecated warnings, and they can be eliminated by following the guide below.
 
+<!-- MarkdownTOC depth=1 autolink=true bracket=round -->
+
+- [Creating Core Apps and Widgets](#creating-core-apps-and-widgets)
+- [Root components](#root-components)
+- [Store](#store)
+- [Services](#services)
+- [Factory](#factory)
+- [Models](#models)
+- [`mapToProps`](#maptoprops)
+
+<!-- /MarkdownTOC -->
+
 ## Creating Core Apps and Widgets
 
 ### `v0.x`

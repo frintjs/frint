@@ -6,7 +6,7 @@ But using old API would give you deprecated warnings, and they can be eliminated
 
 <!-- MarkdownTOC depth=1 autolink=true bracket=round -->
 
-- [Creating Core Apps and Widgets](#creating-core-apps-and-widgets)
+- [app](#app)
 - [Root components](#root-components)
 - [Store](#store)
 - [Services](#services)
@@ -16,7 +16,20 @@ But using old API would give you deprecated warnings, and they can be eliminated
 
 <!-- /MarkdownTOC -->
 
-## Creating Core Apps and Widgets
+## app
+
+Recommended equivalent methods for `App` instance, introduced in new API:
+
+| v0.x                   | v1.x                                |
+|------------------------|-------------------------------------|
+| `app.getService(name)` | `app.get(serviceName)`              |
+| `app.getFactory(name)` | `app.get(factoryName)`              |
+| `app.getModel(name)`   | `app.get(modelName)`                |
+| `app.getStore()`       | `app.get('store')`                  |
+| `app.getSate$()`       | `app.get('store').getState$()`      |
+| `app.dispatch(action)` | `app.get('store').dispatch(action)` |
+| `app.render`           | `app.get('component')`              |
+| `app.getWidgets()`     | `app.getWididgets$()`               |
 
 ### `v0.x`
 

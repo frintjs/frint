@@ -346,8 +346,7 @@ export default observe(function (app) {
   return streamProps({}) // default props to start with
     // state
     .set(
-      app.get('store'),
-      store => store.getState$(),
+      app.get('store').getState$(),
       state => ({ todos: state.todos.records })
     )
 
@@ -362,8 +361,7 @@ export default observe(function (app) {
     // shared state
     .set(
       app.getWidgetOnceAvailable$('SomeOtherAppName'),
-      widget => widget.get('store'),
-      store => store.getState$(),
+      widget => widget.get('store').getState$(),
       state => ({ counter: state[reducerName].someKey })
     )
 

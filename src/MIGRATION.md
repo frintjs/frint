@@ -7,6 +7,7 @@ But using old API would give you deprecated warnings, and they can be eliminated
 <!-- MarkdownTOC depth=1 autolink=true bracket=round -->
 
 - [app](#app)
+- [Creating Core Apps and Widgets](#creating-core-apps-and-widgets)
 - [Root components](#root-components)
 - [Store](#store)
 - [Services](#services)
@@ -31,13 +32,15 @@ Recommended equivalent methods for `App` instance, introduced in new API:
 | `app.render`           | `app.get('component')`              |
 | `app.getWidgets()`     | `app.getWididgets$()`               |
 
+## Creating Core Apps and Widgets
+
 ### `v0.x`
 
 ```js
 import { createApp } from 'frint';
 
 const App = createApp({
-  name: 'MyApp'
+  name: 'MyCoreAppOrWidget'
 });
 ```
 
@@ -47,7 +50,7 @@ const App = createApp({
 import { createCore, createWidget } from 'frint';
 
 const CoreApp = createCore({
-  name: 'MyApp'
+  name: 'MyCoreApp'
 });
 
 const Widget = createWidget({

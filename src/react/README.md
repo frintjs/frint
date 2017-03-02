@@ -2,6 +2,27 @@
 
 > React plugin of Frint
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+  - [Terminologies](#terminologies)
+  - [Usage](#usage)
+  - [Regions](#regions)
+  - [Region and data](#region-and-data)
+  - [Observing components](#observing-components)
+  - [Multi-instance Widgets](#multi-instance-widgets)
+- [API](#api)
+  - [createComponent](#createcomponent)
+  - [h](#h)
+  - [PropTypes](#proptypes)
+  - [render](#render)
+  - [observe](#observe)
+  - [Region](#region)
+  - [RegionService](#regionservice)
+  - [streamProps](#streamprops)
+  - [app](#app)
+
+<!-- /MarkdownTOC -->
+
 ## Terminologies
 
 **React**:

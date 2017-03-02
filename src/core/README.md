@@ -2,6 +2,19 @@
 
 > Core plugin of Frint
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+  - [Terminologies](#terminologies)
+  - [Usage](#usage)
+- [API](#api)
+  - [App](#app)
+  - [createCore](#createcore)
+  - [createWidget](#createwidget)
+  - [createClass](#createclass)
+  - [app](#app-1)
+
+<!-- /MarkdownTOC -->
+
 ## Terminologies
 
 * `App`: The base for Core and Widgets.

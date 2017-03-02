@@ -4,6 +4,17 @@
 
 Everything that you see here has been deprecated and should not be intentionally used.
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+- [API](#api)
+  - [createService](#createservice)
+  - [createFactory](#createfactory)
+  - [createApp](#createapp)
+  - [app](#app)
+  - [mapToProps](#maptoprops)
+
+<!-- /MarkdownTOC -->
+
 ---
 
 # API

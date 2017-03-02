@@ -208,3 +208,6 @@ Maps data coming from various sources into Component's props.
     * `models` (`Object`): Object keyed by prop names, and model names as values.
     * `observe` (`Function`): Accepts `app` (`App`) as an argument, and returns an `Observable` emitting object to be mapped as props.
 
+### Returns
+
+`Function`: That can be alled with the target Component.

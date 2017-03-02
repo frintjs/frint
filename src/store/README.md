@@ -2,6 +2,19 @@
 
 > Store plugin of Frint
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+  - [Terminologies](#terminologies)
+  - [Usage](#usage)
+  - [Async actions](#async-actions)
+  - [Extra arguments](#extra-arguments)
+- [API](#api)
+  - [createStore](#createstore)
+  - [combineReducers](#combinereducers)
+  - [store](#store)
+
+<!-- /MarkdownTOC -->
+
 ## Terminologies
 
 * `Store`: The object that holds state, with additional methods.

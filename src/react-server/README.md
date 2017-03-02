@@ -2,6 +2,15 @@
 
 > Server-side React plugin for Frint
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [API](#api)
+  - [renderToString](#rendertostring)
+
+<!-- /MarkdownTOC -->
+
 ## Installation
 
 This plugin is not set up in the library by default, since we don't want it to be available in the browser.

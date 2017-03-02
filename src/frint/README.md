@@ -2,6 +2,16 @@
 
 > The base of Frint
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+  - [Usage](#usage)
+  - [Terminologies](#terminologies)
+  - [Plugins](#plugins)
+- [API](#api)
+  - [use](#use)
+
+<!-- /MarkdownTOC -->
+
 ## Usage
 
 ```js

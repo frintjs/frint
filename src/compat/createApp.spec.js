@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it, window, beforeEach, resetDOM */
+/* global describe, it, window, beforeEach, afterEach */
 import { expect } from 'chai';
 
 import {
@@ -47,8 +47,12 @@ describe('compat › createApp', function () {
     enableLogger: false,
   });
 
-  beforeEach(function () {
-    resetDOM();
+  beforeEach(() => {
+    this.jsdom = require('jsdom-global')(); // eslint-disable-line global-require
+  });
+
+  afterEach(() => {
+    this.jsdom();
   });
 
   it('creates an instance', function () {

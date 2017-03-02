@@ -49,7 +49,7 @@ describe('react › components › Region', function () {
     expect(element.innerHTML.endsWith('</noscript>')).to.equal(true);
   });
 
-  it('renders widgets with weighted ordering', function () {
+  it.skip('renders widgets with weighted ordering', function () {
     // core
     const CoreComponent = createComponent({
       render() {
@@ -154,7 +154,7 @@ describe('react › components › Region', function () {
     sinon.assert.calledTwice(stub); // two Regions
   });
 
-  it('renders single and multi-instance widgets', function () {
+  it.skip('renders single and multi-instance widgets', function () {
     // core
     const todos = [
       { id: '1', title: 'First todo' },

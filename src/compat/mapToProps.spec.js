@@ -14,7 +14,7 @@ import {
   Region,
   mapToProps,
   h,
-} from '../..';
+} from '../../';
 
 describe('compat › components › mapToProps', function () {
   beforeEach(() => {

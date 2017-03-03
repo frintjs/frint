@@ -2,7 +2,7 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import { createStore } from '../..';
+import { createStore } from '../../';
 
 describe('compat › createStore', function () {
   it('subscribes with callback function', function () {

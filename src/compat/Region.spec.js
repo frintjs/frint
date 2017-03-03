@@ -12,7 +12,7 @@ import {
   Region,
   mapToProps,
   h
-} from '../..';
+} from '../../';
 
 describe.skip('compat › components › Region', function () {
   function generateCoreAppTemplate(appOptions = {}, regionName) {

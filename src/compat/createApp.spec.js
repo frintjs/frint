@@ -8,7 +8,7 @@ import {
   createFactory,
   createService,
   createModel,
-} from '../..';
+} from '../../';
 
 describe('compat › createApp', function () {
   const TestFooService = createService({

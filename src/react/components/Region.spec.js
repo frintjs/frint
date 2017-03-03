@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it, beforeEach, afterEach, window, document */
+/* global describe, it, before, beforeEach, afterEach, window, document */
 import { expect } from 'chai';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
@@ -16,6 +16,13 @@ import RegionService from '../services/Region';
 import streamProps from '../streamProps';
 
 describe('react › components › Region', function () {
+  before(() => {
+    // this is required to avoid react document instance being different from the one used in tests
+    if (typeof document !== 'undefined') {
+      document.destroy();
+    }
+  });
+
   beforeEach(() => {
     this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
   });
@@ -49,7 +56,7 @@ describe('react › components › Region', function () {
     expect(element.innerHTML.endsWith('</noscript>')).to.equal(true);
   });
 
-  it.skip('renders widgets with weighted ordering', function () {
+  it('renders widgets with weighted ordering', function () {
     // core
     const CoreComponent = createComponent({
       render() {
@@ -154,7 +161,7 @@ describe('react › components › Region', function () {
     sinon.assert.calledTwice(stub); // two Regions
   });
 
-  it.skip('renders single and multi-instance widgets', function () {
+  it('renders single and multi-instance widgets', function () {
     // core
     const todos = [
       { id: '1', title: 'First todo' },

@@ -311,7 +311,7 @@ describe('compat › components › mapToProps', function () {
     });
   });
 
-  describe.skip('Shared state', function () {
+  describe('Shared state', function () {
     // Core App
     const CoreComponent = createComponent({
       render() {

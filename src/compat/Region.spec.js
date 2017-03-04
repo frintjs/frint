@@ -14,7 +14,7 @@ import {
   h
 } from '../';
 
-describe.skip('compat › components › Region', function () {
+describe('compat › components › Region', function () {
   function generateCoreAppTemplate(appOptions = {}, regionName) {
     const MyCoreComponent = createComponent({
       render() { return <Region name={regionName} />; }

@@ -27,7 +27,6 @@ describe('react › render', function () {
   let targetElement;
 
   before(() => {
-    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
     sandbox.spy(React, 'createClass');
     sandbox.spy(ReactDOM, 'render');
     targetElement = document.getElementById('root');
@@ -36,7 +35,6 @@ describe('react › render', function () {
 
   after(() => {
     sandbox.restore();
-    this.jsdom();
   });
 
   it('calls app\'s getComponent method', () => {

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global before, afterEach, beforeEach, describe, it, window, document */
+/* global before, afterEach, beforeEach, describe, it, window, document, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -47,16 +47,6 @@ describe('compat › components › Region', function () {
 
     return myWidgetAppInstance;
   }
-
-  beforeEach(() => {
-    // eslint-disable-next-line global-require
-    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>');
-  });
-
-  afterEach(() => {
-    delete window.app;
-    this.jsdom();
-  });
 
   // NOTE: not relevant in v1.x any more
   // it('fails to mount when the "name" prop is missing (unable to set observable)', () => {
@@ -271,6 +261,8 @@ describe('compat › components › Region', function () {
     });
 
     it('should not render Region without any available Core App', function () {
+      resetDOM();
+
       const SampleComponent = React.createClass({
         render() {
           return (

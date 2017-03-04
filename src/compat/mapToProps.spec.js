@@ -17,16 +17,6 @@ import {
 } from '../';
 
 describe('compat › components › mapToProps', function () {
-  beforeEach(() => {
-    // eslint-disable-next-line global-require
-    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>');
-  });
-
-  afterEach(() => {
-    delete window.app;
-    this.jsdom();
-  });
-
   it('is a function', function () {
     expect(mapToProps).to.be.a('function');
   });

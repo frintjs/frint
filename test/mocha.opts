@@ -1,4 +1,4 @@
 --colors
 --compilers js:babel-register
---require ./test/setup.js
+--require jsdom-global/register ./test/setup.js
 --recursive

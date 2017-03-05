@@ -1,5 +1,3 @@
-import extendApp from './extendApp';
-
 import createComponent from './createComponent';
 import h from './h';
 import PropTypes from './PropTypes';
@@ -17,8 +15,6 @@ import RegionService from './services/Region';
 
 export default {
   install(Frint) {
-    extendApp(Frint.App);
-
     Frint.createComponent = createComponent;
     Frint.h = h;
     Frint.PropTypes = PropTypes;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import h from '../h';
 import Provider from './Provider';
 
@@ -14,21 +12,7 @@ export default function getMountableComponent(app) {
     );
   };
 
-  app.beforeMount();
-
-  const WrapperComponent = React.createClass({
-    componentDidMount() {
-      app.afterMount();
-    },
-
-    componentWillUnmount() {
-      app.beforeUnmount();
-    },
-
-    render() {
-      return <ComponentInProvider {...this.props} />;
-    }
-  });
-
-  return WrapperComponent;
+  return (props) => {
+    return <ComponentInProvider {...props} />;
+  };
 }

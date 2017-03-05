@@ -23,45 +23,20 @@ describe('react › render', function () {
     get: sandbox.stub().returns(FakeComponent)
   };
 
-  let renderedComponent;
   let targetElement;
 
   before(() => {
     sandbox.spy(React, 'createClass');
     sandbox.spy(ReactDOM, 'render');
     targetElement = document.getElementById('root');
-    renderedComponent = render(appStub, targetElement);
+    render(appStub, targetElement);
   });
 
   after(() => {
     sandbox.restore();
   });
 
-  it('calls app\'s getComponent method', () => {
+  it('calls app\'s get method', () => {
     expect(appStub.get).to.be.callCount(1);
-  });
-
-  it('calls app\'s beforeMount lifecyle method', () => {
-    expect(appStub.beforeMount).to.be.callCount(1);
-  });
-
-  it('calls React.createClass to create a WrapperComponent with lifecyle methods', () => {
-    expect(React.createClass)
-      .to.be.callCount(1)
-      .and.to.be.calledWith({
-        componentDidMount: sinon.match.func,
-        componentWillUnmount: sinon.match.func,
-        displayName: 'WrapperComponent',
-        render: sinon.match.func
-      });
-  });
-
-  it('calls app\'s afterMount lifecyle method (on componentDidMount)', () => {
-    expect(appStub.afterMount).to.be.callCount(1);
-  });
-
-  it('calls app\'s beforeUnmount lifecyle method when component unmounts', () => {
-    renderedComponent.componentWillUnmount();
-    expect(appStub.beforeUnmount).to.be.callCount(1);
   });
 });

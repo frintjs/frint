@@ -20,7 +20,7 @@ describe('react › render', function () {
     afterMount: sandbox.stub(),
     beforeMount: sandbox.stub(),
     beforeUnmount: sandbox.stub(),
-    getComponent: sandbox.stub().returns(FakeComponent)
+    get: sandbox.stub().returns(FakeComponent)
   };
 
   let renderedComponent;
@@ -38,7 +38,7 @@ describe('react › render', function () {
   });
 
   it('calls app\'s getComponent method', () => {
-    expect(appStub.getComponent).to.be.callCount(1);
+    expect(appStub.get).to.be.callCount(1);
   });
 
   it('calls app\'s beforeMount lifecyle method', () => {

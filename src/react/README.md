@@ -20,7 +20,6 @@
   - [Region](#region)
   - [RegionService](#regionservice)
   - [streamProps](#streamprops)
-  - [app](#app)
 
 <!-- /MarkdownTOC -->
 
@@ -611,17 +610,3 @@ setDispatch({
 > get$()
 
 Returns an `Observable`.
-
-## app
-
-> new App()
-
-The base App class is extended with these methods, affecting all Core Apps and Widgets.
-
-### app.getComponent
-
-> app.getComponent()
-
-#### Returns
-
-`Component`: The root component wrapped in a `<Provider>` to keep the App's instance in the context of the component, as well as sharing the same context among the Component's children.

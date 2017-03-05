@@ -2,17 +2,13 @@
 /* global describe, it, before, beforeEach, afterEach */
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import extendApp from './extendApp';
-import h from './h';
-import Provider from './components/Provider';
 
 chai.use(chaiEnzyme());
 
 describe('react › extendApp', function () {
-  const props = { "a": 1, "b": 2, "c": 3 };
   const Component = function () {};
 
   const App = function (options = {}) {
@@ -35,10 +31,6 @@ describe('react › extendApp', function () {
 
   it('App must be a function', () => {
     expect(() => extendApp({})).to.throw(/undefined/);
-  });
-
-  it('introduces "getComponent" function', () => {
-    expect(App.prototype.getComponent).to.be.a('function');
   });
 
   const hooks = ['beforeMount', 'afterMount', 'beforeUnmount'];
@@ -81,36 +73,6 @@ describe('react › extendApp', function () {
         expect(hookSpy).to.have.callCount(1);
         expect(app.options[hook]).to.have.callCount(2);
       });
-    });
-  });
-
-  describe('"getComponent" method', () => {
-    let wrapper;
-    let provider;
-    let app;
-
-    before(() => {
-      app = new App();
-      const WrappedComponent = app.getComponent(props);
-      wrapper = shallow(<WrappedComponent />);
-      provider = wrapper.find(Provider);
-    });
-
-    it("renders <Provider />", () => {
-      expect(provider).to.be.present();
-    });
-
-    it("wraps <Component /> with <Provider />", () => {
-      expect(provider.childAt(0).type()).to.equal(Component);
-    });
-
-    it('<Provider /> receives app instance', () => {
-      expect(provider.props().app).to.be.eql(app);
-    });
-
-    it('<Component /> receives props', () => {
-      const component = provider.find(Component);
-      expect(component.props()).to.be.eql(props);
     });
   });
 });

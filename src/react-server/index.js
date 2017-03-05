@@ -4,10 +4,10 @@ import {
 
 export default {
   install(Frint) {
-    const { h } = Frint;
+    const { h, getMountableComponent } = Frint;
 
     Frint.renderToString = function renderToString(app) {
-      const Component = app.getComponent();
+      const Component = getMountableComponent(app);
 
       return reactRenderToString(<Component />);
     };

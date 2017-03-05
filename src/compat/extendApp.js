@@ -3,7 +3,12 @@
 import _ from 'lodash';
 
 export default function extendApp(Frint) {
-  const { App, createStore } = Frint;
+  const {
+    App,
+    createStore,
+    h,
+    getMountableComponent,
+  } = Frint;
 
   const previousGetRootApp = App.prototype.getRootApp;
   App.prototype.getRootApp = function getRootApp() {
@@ -154,8 +159,12 @@ export default function extendApp(Frint) {
   };
 
   App.prototype.render = function render(...args) {
-    console.warn('[DEPRECATED] `render` has been deprecated. Use `getComponent` instead.');
-    return this.getComponent(...args);
+    console.warn('[DEPRECATED] `render` has been deprecated.');
+    const Component = getMountableComponent(this);
+
+    return () => {
+      return <Component {...args} />;
+    };
   };
 
   App.prototype._getAppByName = function _getAppByName(appName = null) {

@@ -68,7 +68,7 @@
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
-    "coveralls": "^2.11.12",
+    "coveralls": "2.11.16",
     "eslint": "^3.3.1",
     "eslint-config-travix": "^2.2.0",
     "eslint-plugin-babel": "^4.0.0",

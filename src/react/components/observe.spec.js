@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it, document, before, after */
+/* global describe, it, document, before, after, resetDOM */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
 import ReactDOM from 'react-dom';
@@ -11,12 +11,8 @@ import render from '../render';
 import h from '../h';
 
 describe('react › components › observe', function () {
-  before(() => {
-    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
-  });
-
-  after(() => {
-    this.jsdom();
+  before(function () {
+    resetDOM();
   });
 
   it('is a function', function () {

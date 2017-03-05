@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it, before, beforeEach, afterEach, window, document */
+/* global describe, it, before, beforeEach, afterEach, window, document, resetDOM */
 import { expect } from 'chai';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
@@ -16,21 +16,6 @@ import RegionService from '../services/Region';
 import streamProps from '../streamProps';
 
 describe('react › components › Region', function () {
-  before(() => {
-    // this is required to avoid react document instance being different from the one used in tests
-    if (typeof document !== 'undefined') {
-      document.destroy();
-    }
-  });
-
-  beforeEach(() => {
-    this.jsdom = require('jsdom-global')('<html><body><div id="root"></div></body></html>'); // eslint-disable-line global-require
-  });
-
-  afterEach(() => {
-    this.jsdom();
-  });
-
   it('is a function', function () {
     expect(Region).to.be.a('function');
   });
@@ -57,6 +42,8 @@ describe('react › components › Region', function () {
   });
 
   it('renders widgets with weighted ordering', function () {
+    resetDOM();
+
     // core
     const CoreComponent = createComponent({
       render() {

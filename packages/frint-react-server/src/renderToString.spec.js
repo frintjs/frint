@@ -1,31 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
+import React from 'react';
 import { expect } from 'chai';
 
-import Frint from '../frint';
-import CorePlugin from '../core';
-import ReactPlugin from '../react';
-import ReactServerPlugin from './';
+import { createCore } from 'frint';
 
-// @TODO: figure a way out to not pollute global reference in CommonJS
-Frint.use(CorePlugin);
-Frint.use(ReactPlugin);
-Frint.use(ReactServerPlugin);
+import renderToString from './renderToString';
 
-const {
-  createCore,
-  createComponent,
-  h,
-  renderToString,
-} = Frint;
-
-describe('react-server › renderToString', function () {
+describe('frint-react-server › renderToString', function () {
   it('is a function', function () {
     expect(renderToString).to.be.a('function');
   });
 
   it('returns HTML output of an App instance', function () {
-    const TestComponent = createComponent({
+    const TestComponent = React.createClass({
       render() {
         return (
           <div>

@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
+/* eslint-disable global-require */
 import { expect } from 'chai';
 
-import h from './h';
+import { resetDOM } from './';
 
-describe('frint-react › h', function () {
+describe('frint-test-utils › resetDOM', function () {
   it('is a function', function () {
-    expect(h).to.be.a('function');
+    expect(resetDOM).to.be.a('function');
   });
 });

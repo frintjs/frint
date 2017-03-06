@@ -1,8 +1,7 @@
 {
   "name": "frint",
-  "version": "0.14.0",
   "description": "Framework for building front-end apps",
-  "main": "./lib/index.js",
+  "private": true,
   "scripts": {
     "transpile": "babel src --out-dir lib",
     "lint": "eslint --color '{src,test}/**/*.js'",

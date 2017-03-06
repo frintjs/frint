@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import React, { PropTypes } from 'react';
 
-import h from '../h';
 import getMountableComponent from './getMountableComponent';
 
 export default React.createClass({

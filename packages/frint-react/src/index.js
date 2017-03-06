@@ -13,21 +13,17 @@ import Provider from './components/Provider';
 import RegionService from './services/Region';
 
 export default {
-  install(Frint) {
-    Frint.createComponent = createComponent;
-    Frint.h = h;
-    Frint.PropTypes = PropTypes;
-    Frint.render = render;
-    Frint.streamProps = streamProps;
-    Frint.isObservable = isObservable;
-
-    Frint.getMountableComponent = getMountableComponent;
-    Frint.observe = observe;
-    Frint.Region = Region;
-    Frint.Provider = Provider;
-
-    Frint.RegionService = RegionService;
-  },
+  createComponent,
+  h,
+  PropTypes,
+  render,
+  streamProps,
+  isObservable,
 
   getMountableComponent,
+  observe,
+  Region,
+  Provider,
+
+  RegionService,
 };

@@ -1,10 +1,10 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 
-import h from './h';
-import ReactPlugin from './';
+import FrintReact from './';
 
 export default function render(app, node) {
-  const MountableComponent = ReactPlugin.getMountableComponent(app);
+  const MountableComponent = FrintReact.getMountableComponent(app);
 
   return ReactDOM.render(<MountableComponent />, node);
 }

@@ -2,15 +2,15 @@
 /* global describe, it, document, before, after, resetDOM */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import observe from './observe';
 import Provider from './Provider';
 import createComponent from '../createComponent';
 import render from '../render';
-import h from '../h';
 
-describe('react › components › observe', function () {
+describe('frint-react › components › observe', function () {
   before(function () {
     resetDOM();
   });

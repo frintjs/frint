@@ -15,7 +15,7 @@ const FakeComponent = React.createClass({
 });
 const sandbox = sinon.sandbox.create();
 
-describe('react › render', function () {
+describe('frint-react › render', function () {
   const appStub = {
     afterMount: sandbox.stub(),
     beforeMount: sandbox.stub(),

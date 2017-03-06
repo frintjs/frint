@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import isObservable from './isObservable';
 
-describe('react › isObservable', function () {
+describe('frint-react › isObservable', function () {
   it('returns true when an Observable is given', function () {
     const observable = Observable.of('foo', 'bar');
 

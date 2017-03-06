@@ -1,17 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global afterEach, beforeEach, describe, it */
 import chai, { expect } from 'chai';
-import { Children, Component, PropTypes } from 'react';
+import React, { Children, Component, PropTypes } from 'react';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import h from '../h';
 import Provider from './Provider';
 
 const sandbox = sinon.sandbox.create();
 chai.use(sinonChai);
 
-describe('react › components › Provider', function () {
+describe('frint-react › components › Provider', function () {
   const fakeApp = {};
   const fakeChildren = (<div id="myFakeChildren"/>);
   let myProviderInstance;

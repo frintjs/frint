@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it, document, before, after */
 import { expect } from 'chai';
+import React from 'react';
 import ReactDOM from 'react-dom';
 
 import createComponent from './createComponent';
-import h from './h';
 
-describe('react › createComponent', function () {
+describe('frint-react › createComponent', function () {
   it('is a function', function () {
     expect(createComponent).to.be.a('function');
   });

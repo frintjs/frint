@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import streamProps from './streamProps';
 
-describe('react › streamProps', function () {
+describe('frint-react › streamProps', function () {
   it('is a function', function () {
     expect(streamProps).to.be.a('function');
   });

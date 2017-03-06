@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import PropTypes from './PropTypes';
 
-describe('react › PropTypes', () => {
+describe('frint-react › PropTypes', () => {
   it('checks for existence of various types', () => {
     expect(PropTypes.string).to.be.a('function');
     expect(PropTypes.string.isRequired).to.be.a('function');

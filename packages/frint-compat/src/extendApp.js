@@ -1,14 +1,12 @@
 /* global window */
 /* eslint-disable no-console */
 import _ from 'lodash';
+import React from 'react';
 
-export default function extendApp(Frint) {
-  const {
-    App,
-    createStore,
-    h,
-    getMountableComponent,
-  } = Frint;
+export default function extendApp(Frint, FrintStore, FrintReact) {
+  const { App } = Frint;
+  const { createStore } = FrintStore;
+  const { getMountableComponent } = FrintReact;
 
   const previousGetRootApp = App.prototype.getRootApp;
   App.prototype.getRootApp = function getRootApp() {

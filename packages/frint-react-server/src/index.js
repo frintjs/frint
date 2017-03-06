@@ -1,15 +1,5 @@
-import {
-  renderToString as reactRenderToString
-} from 'react-dom/server';
+import renderToString from './renderToString';
 
 export default {
-  install(Frint) {
-    const { h, getMountableComponent } = Frint;
-
-    Frint.renderToString = function renderToString(app) {
-      const Component = getMountableComponent(app);
-
-      return reactRenderToString(<Component />);
-    };
-  }
+  renderToString,
 };

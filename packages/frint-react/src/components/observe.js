@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Observable } from 'rxjs';
 
-import h from '../h';
-
 export default function observe(fn) {
   return (Component) => {
     const WrappedComponent = React.createClass({

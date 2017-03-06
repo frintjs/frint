@@ -3,7 +3,7 @@
 /* eslint-disable global-require */
 import { expect } from 'chai';
 
-import Frint from '../';
+import Frint from './';
 
 describe('frint', function () {
   it('can install plugins', function () {

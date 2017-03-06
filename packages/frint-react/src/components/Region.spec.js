@@ -2,12 +2,12 @@
 /* global describe, it, before, beforeEach, afterEach, window, document, resetDOM */
 import { expect } from 'chai';
 import _ from 'lodash';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Subject } from 'rxjs';
 import sinon from 'sinon';
 
 import { createCore, createWidget } from '../../'; // Frint with plugins applied
-import h from '../h';
 import render from '../render';
 import createComponent from '../createComponent';
 import observe from './observe';
@@ -15,7 +15,7 @@ import Region from './Region';
 import RegionService from '../services/Region';
 import streamProps from '../streamProps';
 
-describe('react › components › Region', function () {
+describe('frint-react › components › Region', function () {
   it('is a function', function () {
     expect(Region).to.be.a('function');
   });

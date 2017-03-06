@@ -13,6 +13,7 @@
 - [API](#api)
   - [use](#use)
   - [App](#app)
+  - [createApp](#createapp)
   - [createCore](#createcore)
   - [createWidget](#createwidget)
   - [createClass](#createclass)
@@ -292,9 +293,9 @@ The base App class.
 
 Core and Widget extend this class.
 
-## createCore
+## createApp
 
-> createCore(options)
+> createApp(options)
 
 ### Arguments
 
@@ -305,13 +306,19 @@ Core and Widget extend this class.
 
 ### Returns
 
-`App`: The generated App class based on `options`.
+`App`: App class.
+
+## createCore
+
+> createCore(options)
+
+Same as `createApp`, but intended for creating Core Apps.
 
 ## createWidget
 
 > createWidget(options)
 
-Same as `createCore`, but intended for creating Widgets, that get registered to Core apps.
+Same as `createApp`, but intended for creating Widgets, that get registered to Core apps.
 
 ## createClass
 

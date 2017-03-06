@@ -44,15 +44,15 @@
 We start by importing the necessary functions from the library:
 
 ```js
-const Frint = require('frint');
-const { h, createCore, createComponent, render } = Frint;
+import React from 'react';
+import { createCore } from 'frint';
+import { render } from 'frint-react';
 ```
 
 Now let's create our first Component:
 
 ```js
-/** @jsx h */
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     return (
       <div>
@@ -104,10 +104,10 @@ We use the concept of regions for defining areas in our Components (either in a 
 For example, imagine the Root component of our Core App above, we can define a Region named `sidebar` as follows:
 
 ```js
-/** @jsx h */
-const { Region } = Frint;
+import React from 'react';
+import { Region } from 'frint-react';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     return (
       <div>
@@ -124,10 +124,9 @@ That's just defining the Region only. Let's now create a Widget, and assign it t
 
 
 ```js
-/** @jsx h */
-const { createWidget } = Frint;
+import { createWidget } from 'frint';
 
-const WidgetComponent = createComponent({
+const WidgetComponent = React.createClass({
   render() {
     return <p>I am Widget</p>;
   }
@@ -162,8 +161,7 @@ It is possible that when defining the Region with a name, you would also want to
 From the above example of `sidebar` Region, imagine us passing some data too via props:
 
 ```js
-/** @jsx h */
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     const data = {
       foo: 'bar'
@@ -229,10 +227,7 @@ Enter `observe`. This is a function that we ship with the library for making you
 A very simple example would be:
 
 ```js
-/** @jsx h */
-const { createComponent, h } = Frint;
-
-const MyComponent = createComponent({
+const MyComponent = React.createClass({
   render() {
     return <p>Interval: {this.props.interval}</p>;
   }
@@ -242,12 +237,11 @@ const MyComponent = createComponent({
 We just created a component, that prints out a prop called `interval`. Nothing fancy there. But we wish the interval to update itself every second. Instead of handling it from within the Component, we can do it with `observe` as follows:
 
 ```js
-/** @jsx h */
-const Rx = require('rxjs');
-const { observe } = Frint;
+import { Observable } from 'rxjs';
+import { observe } from 'frint-react';
 
 const MyObservedComponent = observe(function () {
-  return Rx.Observable
+  return Observable
     .interval(1000) // emits an integer every 1 second
     .map(x => ({ interval: x })); // map the integer to a props-compatible object
 })(MyComponent);
@@ -264,7 +258,7 @@ const ObservedWidgetComponent = observe(function (app) {
   // `app` is your Widget instance
 
   // let's keep our first interval Observable too
-  const interval$ = Rx.Observable
+  const interval$ = Observable
     .interval(1000)
     .map(x => ({ interval: x }));
 
@@ -304,13 +298,13 @@ When your Widget's component renders, latest props will be passed to it in this 
 As the number of observables grow, it might be difficult to maintain your `observe` implementation. That's why we are also shipping a `streamProps` function in the library to make it easier for you:
 
 ```js
-const { streamProps } = Frint;
+import { streamProps } from 'frint-react';
 
 const MyObservedComponent = observe(function (app) {
   return streamProps({}) // start streaming with a default plain object
     // interval
     .set(
-      Rx.Observable.interval(1000),
+      Observable.interval(1000),
       x => ({ interval: x }),
     )
 
@@ -351,8 +345,7 @@ This is a use case where you have multiple instances of Region with the same nam
 Think of a scenario where you have a TodoList, and you want a Region defined for each Todo item:
 
 ```js
-/** @jsx h */
-const MyComponent = createComponent({
+const MyComponent = React.createClass({
   render() {
     const todos = [
       { id: '1', title: 'First todo' },
@@ -386,16 +379,11 @@ Now we may have a Widget that we want to be rendered in `todo-item` Regions.
 Let's create a Widget, that will receive the `todo` object, and render the title in UPPERCASE format.
 
 ```js
-/** @jsx h */
-const {
-  createComponent,
-  createWidget,
-  h,
-  observe,
-  RegionService
-} = Frint;
+import React from 'react';
+import { createWidget } from 'frint';
+import { observe, RegionService } from 'frint-react';
 
-const WidgetComponent = createComponent({
+const WidgetComponent = React.createClass({
   render () {
     const { todo } = this.props;
 

@@ -5,7 +5,6 @@
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)
-  - [Installation](#installation)
   - [Usage](#usage)
 - [API](#api)
   - [renderToString](#rendertostring)
@@ -16,28 +15,15 @@
 
 # Guide
 
-## Installation
-
-This plugin is not set up in the library by default, since we don't want it to be available in the browser.
-
-To load it up:
-
-```js
-const Frint = require('frint');
-const FrintReactServer = require('frint/lib/react-server');
-
-Frint.use(FrintReactServer);
-```
-
 ## Usage
 
 ```js
-const { renderToString } = Frint; // `renderToString` is available via the plugin
+import { renderToString } from 'frint-react-server';
 
 // import your App
-const App = require('./path/to/core');
-const app = new App();
+import App from './path/to/core';
 
+const app = new App();
 const htmlOutput = renderToString(app);
 ```
 

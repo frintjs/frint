@@ -15,6 +15,7 @@ Everything that you see here has been deprecated and should not be intentionally
   - [createApp](#createapp)
   - [app](#app)
   - [mapToProps](#maptoprops)
+  - [Store](#store)
 
 <!-- /MarkdownTOC -->
 
@@ -258,3 +259,19 @@ Maps data coming from various sources into Component's props.
 ### Returns
 
 `Function`: That can be alled with the target Component.
+
+## Store
+
+> new Store()
+
+### store.subscribe
+
+> store.subscribe(fn)
+
+#### Arguments
+
+1. `fn` (`Function`): Listener function, that accepts the latest state as argument.
+
+#### Returns
+
+`Function`: Call the returned function to unsubscribe from the listener.

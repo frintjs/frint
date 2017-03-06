@@ -14,7 +14,7 @@ import {
   createModel,
   Region,
   mapToProps,
-} from '../';
+} from './';
 
 describe('compat › components › mapToProps', function () {
   it('is a function', function () {

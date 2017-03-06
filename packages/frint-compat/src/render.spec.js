@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
-import { render } from '../';
+import { render } from './';
 
 chai.use(sinonChai);
 

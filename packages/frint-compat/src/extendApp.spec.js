@@ -3,8 +3,8 @@
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import Frint from 'frint';
 
-import Frint from '../';
 import extendApp from './extendApp';
 
 chai.use(chaiEnzyme());
@@ -16,8 +16,8 @@ describe('compat › extendApp', function () {
     expect(extendApp).to.be.a('function');
   });
 
-  it('expects one argument: componentProps', () => {
-    expect(extendApp.length).to.be.equal(1);
+  it('expects one argument', () => {
+    expect(extendApp.length).to.be.equal(3);
   });
 
   it('App must be a function', () => {

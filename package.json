@@ -3,17 +3,11 @@
   "description": "Framework for building front-end apps",
   "private": true,
   "scripts": {
-    "transpile": "babel src --out-dir lib",
-    "lint": "eslint --color '{src,test}/**/*.js'",
-    "cover": "nyc --reporter=lcov --require babel-register mocha 'src/**/*.spec.js' && npm run cover:report",
-    "cover:report": "nyc report",
-    "test": "npm run cover",
-    "test:plugin:core": "nyc --require babel-register mocha './src/core/**/*.spec.js'",
-    "test:plugin:model": "nyc --require babel-register mocha './src/model/**/*.spec.js'",
-    "test:plugin:store": "nyc --require babel-register mocha './src/store/**/*.spec.js'",
-    "test:plugin:react": "nyc --require babel-register mocha './src/react/**/*.spec.js'",
-    "test:plugin:react-server": "nyc --require babel-register mocha './src/react-server/**/*.spec.js'",
-    "test:plugin:compat": "nyc --require babel-register mocha './src/compat/**/*.spec.js'",
+    "bootstrap": "lerna bootstrap",
+    "transpile": "lerna run transpile",
+    "lint": "lerna run lint",
+    "cover": "lerna run cover",
+    "test": "lerna run test",
     "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
     "alex": "alex",
     "dist:lib": "webpack --config ./dist/webpack.config.js",
@@ -56,13 +50,6 @@
     "url": "https://github.com/Travix-International/frint/issues"
   },
   "homepage": "https://github.com/Travix-International/frint#readme",
-  "dependencies": {
-    "diyai": "^0.6.3",
-    "lodash": "^4.13.1",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
-    "rxjs": "^5.2.0"
-  },
   "devDependencies": {
     "alex": "^4.0.1",
     "babel-cli": "^6.10.1",

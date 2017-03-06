@@ -11,7 +11,7 @@ import {
   render,
   Region,
   mapToProps,
-} from '../';
+} from './';
 
 describe('compat › components › Region', function () {
   function generateCoreAppTemplate(appOptions = {}, regionName) {

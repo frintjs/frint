@@ -27,6 +27,9 @@ Frint.h = FrintReact.h;
 Frint.PropTypes = FrintReact.PropTypes;
 Frint.render = FrintReact.render;
 Frint.Region = FrintReact.Region;
+Frint.observe = FrintReact.observe;
+Frint.streamProps = FrintReact.streamProps;
+Frint.getMountableComponent = FrintReact.getMountableComponent;
 
 // backwards compatibility
 Frint.createFactory = createFactory;
@@ -39,10 +42,5 @@ extendStore(FrintStore);
 Frint.getMountableComponent = makeGetMountableComponent(Frint);
 FrintReact.getMountableComponent = Frint.getMountableComponent;
 
-// export (not really required)
-export default {
-  createFactory,
-  createService,
-  mapToProps: Frint.mapToProps,
-  getMountableComponent: FrintReact.getMountableComponent
-};
+// export
+export default Frint;

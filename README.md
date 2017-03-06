@@ -6,14 +6,6 @@
 
 For documentation, visit [https://frint.js.org](https://frint.js.org).
 
-## Installation
-
-With **npm**:
-
-```
-$ npm install --save frint
-```
-
 ## Packages
 
 The framework is a collection of these packages, which can be composed together on demand:

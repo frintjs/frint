@@ -4,11 +4,13 @@ node_js:
   - 'lts/*'
 
 script:
+  - 'npm run bootstrap'
   - 'npm run lint'
-  - 'npm test'
+  - 'npm run test'
+  # - 'npm run cover'
   - 'npm run alex'
 
-after_success: 'npm run coverage:coveralls'
+# after_success: 'npm run coverage:coveralls'
 
 notifications:
   email: false

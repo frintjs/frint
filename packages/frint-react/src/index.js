@@ -1,6 +1,3 @@
-import createComponent from './createComponent';
-import h from './h';
-import PropTypes from './PropTypes';
 import render from './render';
 import streamProps from './streamProps';
 import isObservable from './isObservable';
@@ -13,9 +10,6 @@ import Provider from './components/Provider';
 import RegionService from './services/Region';
 
 export default {
-  createComponent,
-  h,
-  PropTypes,
   render,
   streamProps,
   isObservable,

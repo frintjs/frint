@@ -12,9 +12,6 @@
   - [Observing components](#observing-components)
   - [Multi-instance Widgets](#multi-instance-widgets)
 - [API](#api)
-  - [createComponent](#createcomponent)
-  - [h](#h)
-  - [PropTypes](#proptypes)
   - [render](#render)
   - [observe](#observe)
   - [Region](#region)
@@ -444,36 +441,6 @@ window.app.registerWidget(Widget, {
 ---
 
 # API
-
-## createComponent
-
-> createComponent(options)
-
-Creates a new Component, using React internally.
-
-### Arguments
-
-1. `options` (`Object`):
-    * `render` (`Function` [required]): Function returning JSX.
-    * `beforeMount` (`Function`): Called before mounting the Component.
-    * `afterMount` (`Function`): Called after mounting the Component.
-    * `beforeUnmount` (`Function`): Called right before unmounting the Component.
-
-### Returns
-
-`Component`: React Component.
-
-## h
-
-> h(type, props, children)
-
-The hyperscript wrapping React's [`React.createElement`](https://facebook.github.io/react/docs/react-api.html#createelement). This function is expected to be in the scope wherever JSX is used.
-
-## PropTypes
-
-> PropTypes
-
-For [typechecking](https://facebook.github.io/react/docs/typechecking-with-proptypes.html) Component's props.
 
 ## render
 

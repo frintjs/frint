@@ -7,6 +7,9 @@ import FrintReact from 'frint-react';
 import extendApp from './extendApp';
 import extendStore from './extendStore';
 
+import createComponent from './createComponent';
+import PropTypes from './PropTypes';
+import h from './h';
 import createFactory from './createFactory';
 import createService from './createService';
 import makeMapToProps from './mapToProps';
@@ -22,9 +25,9 @@ Frint.createModel = FrintModel.createModel;
 Frint.Model = FrintModel.Model;
 
 // react
-Frint.createComponent = FrintReact.createComponent;
-Frint.h = FrintReact.h;
-Frint.PropTypes = FrintReact.PropTypes;
+Frint.createComponent = createComponent;
+Frint.h = h;
+Frint.PropTypes = PropTypes;
 Frint.render = FrintReact.render;
 Frint.Region = FrintReact.Region;
 Frint.observe = FrintReact.observe;

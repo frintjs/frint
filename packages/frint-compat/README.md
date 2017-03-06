@@ -7,6 +7,9 @@ Everything that you see here has been deprecated and should not be intentionally
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [API](#api)
+  - [createComponent](#createcomponent)
+  - [h](#h)
+  - [PropTypes](#proptypes)
   - [createService](#createservice)
   - [createFactory](#createfactory)
   - [createApp](#createapp)
@@ -18,6 +21,36 @@ Everything that you see here has been deprecated and should not be intentionally
 ---
 
 # API
+
+## createComponent
+
+> createComponent(options)
+
+Creates a new Component, using React internally.
+
+### Arguments
+
+1. `options` (`Object`):
+    * `render` (`Function` [required]): Function returning JSX.
+    * `beforeMount` (`Function`): Called before mounting the Component.
+    * `afterMount` (`Function`): Called after mounting the Component.
+    * `beforeUnmount` (`Function`): Called right before unmounting the Component.
+
+### Returns
+
+`Component`: React Component.
+
+## h
+
+> h(type, props, children)
+
+The hyperscript wrapping React's [`React.createElement`](https://facebook.github.io/react/docs/react-api.html#createelement). This function is expected to be in the scope wherever JSX is used.
+
+## PropTypes
+
+> PropTypes
+
+For [typechecking](https://facebook.github.io/react/docs/typechecking-with-proptypes.html) Component's props.
 
 ## createService
 

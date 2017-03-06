@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
+/* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it, before, beforeEach, afterEach, window, document, resetDOM */
 import { expect } from 'chai';
 import _ from 'lodash';
@@ -10,7 +10,6 @@ import sinon from 'sinon';
 import { createCore, createWidget } from 'frint';
 
 import render from '../render';
-import createComponent from '../createComponent';
 import observe from './observe';
 import Region from './Region';
 import RegionService from '../services/Region';
@@ -22,7 +21,7 @@ describe('frint-react › components › Region', function () {
   });
 
   it('renders empty region when no root app available', function () {
-    const MyComponent = createComponent({
+    const MyComponent = React.createClass({
       render() {
         return (
           <div id="my-component">
@@ -46,7 +45,7 @@ describe('frint-react › components › Region', function () {
     resetDOM();
 
     // core
-    const CoreComponent = createComponent({
+    const CoreComponent = React.createClass({
       render() {
         return (
           <div>
@@ -63,7 +62,7 @@ describe('frint-react › components › Region', function () {
     });
 
     // widgets
-    const Widget1Component = createComponent({
+    const Widget1Component = React.createClass({
       render() {
         return <p>Widget 1</p>;
       }
@@ -75,7 +74,7 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
-    const Widget2Component = createComponent({
+    const Widget2Component = React.createClass({
       render() {
         return <p>Widget 2</p>;
       }
@@ -112,7 +111,7 @@ describe('frint-react › components › Region', function () {
 
   it('warns when widgets subscription emits an error', function () {
     // core
-    const CoreComponent = createComponent({
+    const CoreComponent = React.createClass({
       render() {
         return (
           <div>
@@ -157,7 +156,7 @@ describe('frint-react › components › Region', function () {
       { id: '3', title: 'Third todo' },
     ];
     let coreComponentInstance; // @TODO: hack
-    const CoreComponent = createComponent({
+    const CoreComponent = React.createClass({
       render() {
         coreComponentInstance = this;
 
@@ -194,7 +193,7 @@ describe('frint-react › components › Region', function () {
     });
 
     // widgets
-    const Widget1Component = createComponent({
+    const Widget1Component = React.createClass({
       render() {
         return <p id="widget1-text">Hello World from Widget1</p>;
       }
@@ -212,7 +211,7 @@ describe('frint-react › components › Region', function () {
           data => ({ todo: data.todo })
         )
         .get$();
-    })(createComponent({
+    })(React.createClass({
       render() {
         return <p className="widget2-text">Hello World from Widget2 - {this.props.todo.title}</p>;
       }

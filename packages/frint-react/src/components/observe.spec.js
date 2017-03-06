@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
+/* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it, document, before, after, resetDOM */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
 
 import observe from './observe';
 import Provider from './Provider';
-import createComponent from '../createComponent';
 import render from '../render';
 
 describe('frint-react › components › observe', function () {
@@ -20,7 +19,7 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component bound to observable for props, without app in context', function () {
-    const Component = createComponent({
+    const Component = React.createClass({
       render() {
         return (
           <p id="counter">{this.props.counter}</p>
@@ -43,7 +42,7 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component with no additional impact, if no function is given', function () {
-    const Component = createComponent({
+    const Component = React.createClass({
       render() {
         return (
           <p id="text">Hello World</p>
@@ -62,7 +61,7 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component bound to observable for props, with app in context', function () {
-    const Component = createComponent({
+    const Component = React.createClass({
       render() {
         return (
           <p id="name">{this.props.name}</p>

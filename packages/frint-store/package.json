@@ -13,7 +13,8 @@
     "cover": "npm run cover:run && npm run cover:report",
     "dist:lib": "echo \"Nothing to build\"",
     "dist:min": "echo \"Nothing to minify\"",
-    "dist": "npm run dist:lib && npm run dist:min"
+    "dist": "npm run dist:lib && npm run dist:min",
+    "prepublish": "npm run transpile"
   },
   "repository": {
     "type": "git",

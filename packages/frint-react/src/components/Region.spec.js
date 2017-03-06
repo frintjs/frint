@@ -7,7 +7,8 @@ import ReactDOM from 'react-dom';
 import { Subject } from 'rxjs';
 import sinon from 'sinon';
 
-import { createCore, createWidget } from '../../'; // Frint with plugins applied
+import { createCore, createWidget } from 'frint';
+
 import render from '../render';
 import createComponent from '../createComponent';
 import observe from './observe';

@@ -1,5 +1,7 @@
 # frint-react
 
+[![npm](https://img.shields.io/npm/v/frint-react.svg)](https://www.npmjs.com/package/frint-react)
+
 > React plugin of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->

@@ -1,5 +1,7 @@
 # frint
 
+[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint)
+
 > The base of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->

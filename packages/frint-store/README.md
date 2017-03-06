@@ -1,5 +1,7 @@
 # frint-store
 
+[![npm](https://img.shields.io/npm/v/frint-store.svg)](https://www.npmjs.com/package/frint-store)
+
 > Store plugin of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->

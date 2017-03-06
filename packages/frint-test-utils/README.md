@@ -1,5 +1,7 @@
 # frint-test-utils
 
+[![npm](https://img.shields.io/npm/v/frint-test-utils.svg)](https://www.npmjs.com/package/frint-test-utils)
+
 > Test utilities for Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->

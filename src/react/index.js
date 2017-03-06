@@ -12,7 +12,6 @@ import Provider from './components/Provider';
 
 import RegionService from './services/Region';
 
-
 export default {
   install(Frint) {
     Frint.createComponent = createComponent;
@@ -28,5 +27,7 @@ export default {
     Frint.Provider = Provider;
 
     Frint.RegionService = RegionService;
-  }
+  },
+
+  getMountableComponent,
 };

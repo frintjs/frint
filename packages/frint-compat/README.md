@@ -1,4 +1,4 @@
-# compat
+# frint-compat
 
 > Backwards compatibility plugin
 
@@ -6,6 +6,9 @@ Everything that you see here has been deprecated and should not be intentionally
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
+- [Guide](#guide)
+  - [Installation](#installation)
+  - [Usage](#usage)
 - [API](#api)
   - [createComponent](#createcomponent)
   - [h](#h)
@@ -20,6 +23,24 @@ Everything that you see here has been deprecated and should not be intentionally
 <!-- /MarkdownTOC -->
 
 ---
+
+# Guide
+
+## Installation
+
+```
+$ npm install --save frint-compat
+```
+
+## Usage
+
+Load it after you have loaded all other packages:
+
+```
+require('frint-compat');
+```
+
+Doing so would mutate other packages to keep them backwards compatible.
 
 # API
 

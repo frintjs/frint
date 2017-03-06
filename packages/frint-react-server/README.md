@@ -1,10 +1,11 @@
-# react-server
+# frint-react-server
 
 > Server-side React plugin for Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)
+  - [Installation](#installation)
   - [Usage](#usage)
 - [API](#api)
   - [renderToString](#rendertostring)
@@ -14,6 +15,12 @@
 ---
 
 # Guide
+
+## Installation
+
+```
+$ npm install --save react react-dom frint-react frint-react-server
+```
 
 ## Usage
 

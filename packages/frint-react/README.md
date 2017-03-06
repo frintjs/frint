@@ -1,10 +1,11 @@
-# react
+# frint-react
 
 > React plugin of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)
+  - [Installation](#installation)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
   - [Regions](#regions)
@@ -21,6 +22,12 @@
 <!-- /MarkdownTOC -->
 
 # Guide
+
+## Installation
+
+```
+$ npm install --save react react-dom frint-react
+```
 
 ## Terminologies
 

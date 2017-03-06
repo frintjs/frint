@@ -1,10 +1,11 @@
-# core
+# frint
 
 > The base of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)
+  - [Installation](#installation)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
   - [Creating and registering widgets](#creating-and-registering-widgets)
@@ -24,6 +25,12 @@
 ---
 
 # Guide
+
+## Installation
+
+```
+$ npm install --save frint
+```
 
 ## Terminologies
 

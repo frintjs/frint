@@ -1,10 +1,11 @@
-# store
+# frint-store
 
 > Store plugin of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)
+  - [Installation](#installation)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
   - [Async actions](#async-actions)
@@ -19,6 +20,12 @@
 ---
 
 # Guide
+
+## Installation
+
+```
+$ npm install --save frint-store
+```
 
 ## Terminologies
 

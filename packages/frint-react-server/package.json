@@ -28,14 +28,12 @@
     "frint",
     "frint-plugin"
   ],
-  "dependencies": {
-    "frint-react": "^0.14.0",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8"
-  },
   "devDependencies": {
     "frint": "^0.14.0",
-    "frint-test-utils": "^0.14.0"
+    "frint-react": "^0.14.0",
+    "frint-test-utils": "^0.14.0",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

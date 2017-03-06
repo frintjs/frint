@@ -60,6 +60,9 @@ Everything that you see here has been deprecated and should not be intentionally
     * `options.store` (`Object`): The Store instance.
     * `options.reducer` (`Function`): Root reducer for your Store.
     * `options.initialState` (`Object`): Initial state for your Store.
+    * `beforeMount` (`Function`): Called before mounting the App.
+    * `afterMount` (`Function`): Called after mounting the App.
+    * `beforeUnmount` (`Function`): Called right before unmounting the App.
 
 ### Returns
 

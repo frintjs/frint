@@ -124,7 +124,9 @@ export default React.createClass({
   },
 
   componentWillUnmount() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
 
     // @TODO: clear instances
   },

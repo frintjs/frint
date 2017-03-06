@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom';
 
 import h from './h';
-import getMountableComponent from './components/getMountableComponent';
+import ReactPlugin from './';
 
 export default function render(app, node) {
-  const MountableComponent = getMountableComponent(app);
+  const MountableComponent = ReactPlugin.getMountableComponent(app);
 
   return ReactDOM.render(<MountableComponent />, node);
 }

@@ -263,12 +263,13 @@ export default function extendApp(Frint) {
 
   ['beforeMount', 'afterMount', 'beforeUnmount'].forEach((hookName) => {
     App.prototype[hookName] = function lifecycleHook(...args) {
-      const { [hookName]: hook = function noop() {} } = this.options;
-      try {
-        return hook.apply(this, args);
-      } finally {
-        this[hookName] = hook;
-      }
+      const providedHook = this.options[hookName];
+      const hook = typeof providedHook === 'function'
+        ? providedHook
+        : function noop() { };
+      this[hookName] = hook.bind(this);
+
+      return this[hookName](...args);
     };
   });
 }

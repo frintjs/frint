@@ -1,0 +1,26 @@
+{
+  "name": "frint-store",
+  "version": "0.14.0",
+  "description": "Store plugin for Frint",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-store",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Travix-International/frint.git"
+  },
+  "author": {
+    "name": "Travix International B.V.",
+    "url": "https://travix.com"
+  },
+  "keywords": [
+    "frint",
+    "frint-plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/Travix-International/frint/issues"
+  },
+  "license": "MIT"
+}

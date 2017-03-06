@@ -12,3 +12,4 @@ _book
 coverage
 .nyc_output/
 examples/
+.changelog/

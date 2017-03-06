@@ -30,7 +30,6 @@ describe('react › render', function () {
     sandbox.spy(React, 'createClass');
     sandbox.spy(ReactDOM, 'render');
     targetElement = document.getElementById('root');
-    console.log('about to render');
     renderedComponent = render(appStub, targetElement);
   });
 

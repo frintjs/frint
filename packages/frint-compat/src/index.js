@@ -45,4 +45,4 @@ export default {
   createService,
   mapToProps: Frint.mapToProps,
   getMountableComponent: FrintReact.getMountableComponent
-}
+};

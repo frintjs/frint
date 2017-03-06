@@ -5,10 +5,5 @@
   "parser": "babel-eslint",
   "rules": {
     "no-underscore-dangle": 0
-  },
-  "settings": {
-    "react": {
-      "pragma": "h"
-    }
   }
 }

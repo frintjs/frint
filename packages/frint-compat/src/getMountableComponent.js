@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactPlugin from '../react';
+import FrintReact from 'frint-react';
 
 export default function makeGetMountableComponent(Frint) {
   const previousGetMountableComponent = Frint.getMountableComponent;
-  const { h } = Frint;
 
   function getMountableComponent(app) {
     const ComponentInProvider = previousGetMountableComponent(app);
@@ -27,7 +26,7 @@ export default function makeGetMountableComponent(Frint) {
     return WrapperComponent;
   }
 
-  ReactPlugin.getMountableComponent = getMountableComponent;
+  FrintReact.getMountableComponent = getMountableComponent;
   Frint.getMountableComponent = getMountableComponent;
 
   return getMountableComponent;

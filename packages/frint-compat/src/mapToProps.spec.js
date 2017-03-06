@@ -2,6 +2,7 @@
 /* global describe, it, beforeEach, afterEach, window, document */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
+import React from 'react';
 
 import {
   createApp,
@@ -13,7 +14,6 @@ import {
   createModel,
   Region,
   mapToProps,
-  h,
 } from '../';
 
 describe('compat › components › mapToProps', function () {

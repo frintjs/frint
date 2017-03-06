@@ -11,7 +11,6 @@ import {
   render,
   Region,
   mapToProps,
-  h
 } from '../';
 
 describe('compat › components › Region', function () {

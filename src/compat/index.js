@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import CorePlugin from '../core';
+import ReactPlugin from '../react';
 
 import extendApp from './extendApp';
 import extendStore from './extendStore';
@@ -7,6 +8,7 @@ import extendStore from './extendStore';
 import createFactory from './createFactory';
 import createService from './createService';
 import makeMapToProps from './mapToProps';
+import makeGetMountableComponent from './getMountableComponent';
 
 export default {
   install(Frint) {
@@ -22,5 +24,8 @@ export default {
     Frint.createFactory = createFactory;
     Frint.createService = createService;
     Frint.mapToProps = makeMapToProps(Frint);
+
+    Frint.getMountableComponent = makeGetMountableComponent(Frint);
+    ReactPlugin.getMountableComponent = Frint.getMountableComponent;
   }
 };

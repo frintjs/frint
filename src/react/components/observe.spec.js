@@ -77,6 +77,17 @@ describe('react › components › observe', function () {
     })(Component);
 
     const fakeApp = {
+      get(key) {
+        if (key !== 'component') {
+          return null;
+        }
+
+        return (...props) => (
+          <Provider app={fakeApp}>
+            <ObservedComponent {...props} />
+          </Provider>
+        );
+      },
       beforeMount() {},
       afterMount() {},
       beforeUnmount() {},
@@ -84,14 +95,6 @@ describe('react › components › observe', function () {
         const options = { name: 'FakeApp' };
         return options[key];
       }
-    };
-
-    fakeApp.getComponent = function getComponent(...props) {
-      return () => (
-        <Provider app={fakeApp}>
-          <ObservedComponent {...props} />
-        </Provider>
-      );
     };
 
     render(

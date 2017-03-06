@@ -3,6 +3,7 @@ npm-debug.log
 yarn.lock
 _book
 lib
+.changelog/
 
 # Ignore vim temporary files
 *~

@@ -23,6 +23,7 @@ The framework is a collection of these packages, which can be composed together 
 * [frint-model](./packages/frint-model): For creating models for data structures.
 * [frint-react](./packages/frint-react): For creating React-compatible reactive components.
 * [frint-react-server](./packages/frint-react-server): Server-side rendering for Apps.
+* [frint-test-utils](./packages/frint-test-utils): Test utilities.
 * [frint-compat](./packages/frint-compat): Backwards compatibility plugin for supporting `v0.x` users.
 
 ## Development

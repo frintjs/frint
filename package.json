@@ -10,9 +10,7 @@
     "test": "lerna run test",
     "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
     "alex": "alex",
-    "dist:lib": "webpack --config ./dist/webpack.config.js",
-    "dist:min": "uglifyjs dist/frint.js --output dist/frint.min.js",
-    "dist": "npm run dist:lib && npm run dist:min",
+    "dist": "lerna run dist",
     "docs:prepare": "gitbook install",
     "docs:clean": "rimraf _book",
     "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
@@ -79,7 +77,6 @@
     "rimraf": "^2.5.2",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
-    "uglify-js": "^2.7.5",
     "webpack": "^2.2.0"
   },
   "greenkeeper": {

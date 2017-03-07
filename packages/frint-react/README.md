@@ -42,7 +42,7 @@ Via [unpkg](https://unpkg.com) CDN:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js"></script>
 
 <script src="https://unpkg.com/frint@latest/dist/frint.min.js"></script>
-<script src="https://unpkg.com/frint-store@latest/dist/frint-react.min.js"></script>
+<script src="https://unpkg.com/frint-react@latest/dist/frint-react.min.js"></script>
 
 <script>
   // available as `window.FrintReact`

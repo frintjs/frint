@@ -5,7 +5,13 @@
   </head>
 
   <body>
+    <nav class="nav">
+      <%= renderPartial('navLinks') %>
+    </nav>
+
     <%= contents %>
+
+    <%= renderPartial('footer') %>
 
     <%= renderPartial('assets') %>
   </body>

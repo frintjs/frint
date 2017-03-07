@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+
+  <body>
+    <section class="hero is-primary is-large">
+      <!-- Hero header: will stick at the top -->
+      <div class="hero-head">
+        <header class="nav">
+          <div class="container">
+            <%= renderPartial('navLinks') %>
+          </div>
+        </header>
+      </div>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">
+            Frint
+          </h1>
+          <h2 class="subtitle">
+            The Modular JavaScript Framework
+          </h2>
+
+          <div>
+            <a href="/docs" class="button is-transparent is-large">Learn more</a>
+            <a href="http://github.com/Travix-International/frint" class="button is-dark is-large">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%= contents %>
+
+    <%= renderPartial('footer') %>
+    <%= renderPartial('assets') %>
+  </body>
+</html>

@@ -1,1 +1,26 @@
-@import "bulma/bulma.sass"
+@import "bulma/bulma.sass";
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: whitesmoke;
+}
+
+nav {
+  border-bottom: 1px solid #eee;
+}
+
+.is-transparent {
+  background: transparent;
+}
+
+.button.is-transparent:hover {
+  border-color: #fff;
+}

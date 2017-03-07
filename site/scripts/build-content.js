@@ -4,20 +4,24 @@ const _ = require('lodash');
 const Metalsmith = require('metalsmith');
 const marked = require('marked');
 
-const layouts = {};
-const partials = {};
+const views = {
+  layouts: {},
+  partials: {},
+};
 
 function loadLayout(name) {
-  layouts[name] = _.template(fs.readFileSync(__dirname + '/../layouts/' + name + '.html'));
+  views.layouts[name] = _.template(fs.readFileSync(__dirname + '/../layouts/' + name + '.html'));
 }
 
 function loadPartial(name) {
-  partials[name] = _.template(fs.readFileSync(__dirname + '/../partials/' + name + '.html'));
+  views.partials[name] = _.template(fs.readFileSync(__dirname + '/../partials/' + name + '.html'));
 }
 
 loadLayout('default');
 loadLayout('home');
 loadPartial('assets');
+loadPartial('navLinks');
+loadPartial('footer');
 
 Metalsmith(__dirname)
   .source(__dirname + '/../content')
@@ -43,9 +47,9 @@ Metalsmith(__dirname)
   .use(function applyLayout(files, metalsmith, done) {
     _.each(files, function (obj, file) {
       const layoutName = obj.layout || 'default';
-      files[file].contents = layouts[layoutName](Object.assign({}, obj, {
+      files[file].contents = views.layouts[layoutName](Object.assign({}, obj, {
         renderPartial: function (partialName) {
-          return partials[partialName]();
+          return views.partials[partialName]();
         }
       }));
     });
@@ -55,10 +59,11 @@ Metalsmith(__dirname)
   // url - filepath
   .use(function urls(files, metalsmith, done) {
     Object.keys(files).forEach(function (file) {
-      console.log('file', file);
-
       const content = files[file];
-      files[file.replace('.md', '.html')] = content;
+      const newKey = file
+        .replace('README.md', 'index.md')
+        .replace('.md', '.html')
+      files[newKey] = content;
       delete files[file];
     });
 

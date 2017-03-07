@@ -83,7 +83,7 @@
     "rimraf": "^2.5.2",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
-    "uglify-js": "^2.7.5",
+    "uglify-js": "2.8.7",
     "webpack": "^2.2.0"
   },
   "greenkeeper": {

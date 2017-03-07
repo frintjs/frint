@@ -16,7 +16,7 @@ import {
   mapToProps,
 } from './';
 
-describe('compat › components › mapToProps', function () {
+describe('frint-compat › components › mapToProps', function () {
   it('is a function', function () {
     expect(mapToProps).to.be.a('function');
   });

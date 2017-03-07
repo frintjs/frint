@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import App from './App';
 import createApp from './createApp';
 
-describe('core  › App', function () {
+describe('frint  › App', function () {
   it('throws error when creating new instance without name', function () {
     expect(() => {
       new App();

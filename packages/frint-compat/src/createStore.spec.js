@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 import { createStore } from './';
 
-describe('compat › createStore', function () {
+describe('frint-compat › createStore', function () {
   it('subscribes with callback function', function () {
     const Store = createStore({
       enableLogger: false,

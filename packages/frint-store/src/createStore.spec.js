@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import createStore from './createStore';
 import combineReducers from './combineReducers';
 
-describe('store › createStore', function () {
+describe('frint-store › createStore', function () {
   it('returns function', function () {
     const Store = createStore();
     expect(Store).to.be.a('function');

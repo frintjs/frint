@@ -10,7 +10,7 @@ import {
   createModel,
 } from './';
 
-describe('compat › createApp', function () {
+describe('frint-compat › createApp', function () {
   const TestFooService = createService({
     getName() {
       return 'TestService';

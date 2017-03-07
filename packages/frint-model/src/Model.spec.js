@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 import Model from './Model';
 
-describe('model › Model', () => {
+describe('frint-model › Model', () => {
   const myAttributes = {
     attribute1: 'value1',
     attribute2: 'value2',

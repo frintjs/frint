@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 import h from './h';
 
-describe('frint-react › h', function () {
+describe('frint-compat › h', function () {
   it('is a function', function () {
     expect(h).to.be.a('function');
   });

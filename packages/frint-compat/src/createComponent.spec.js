@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 import createComponent from './createComponent';
 
-describe('frint-react › createComponent', function () {
+describe('frint-compat › createComponent', function () {
   it('is a function', function () {
     expect(createComponent).to.be.a('function');
   });

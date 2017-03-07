@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import BaseModel from './Model';
 import createModel from './createModel';
 
-describe('model › createModel', () => {
+describe('frint-model › createModel', () => {
   const mySpec = {
     getAttribute1() { return this.attributes.attribute1; },
     getAttribute2() { return this.attributes.attribute2; }

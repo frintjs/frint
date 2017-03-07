@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import App from './App';
 import createWidget from './createWidget';
 
-describe('core › createWidget', function () {
+describe('frint › createWidget', function () {
   it('is a function', function () {
     expect(createWidget).to.be.a('function');
   });

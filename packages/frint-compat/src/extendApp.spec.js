@@ -9,7 +9,7 @@ import extendApp from './extendApp';
 
 chai.use(chaiEnzyme());
 
-describe('compat › extendApp', function () {
+describe('frint-compat › extendApp', function () {
   const { App } = Frint;
 
   it('is a function', () => {

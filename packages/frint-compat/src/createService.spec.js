@@ -8,7 +8,7 @@ import { createService } from './';
 
 chai.use(sinonChai);
 
-describe('compat › createService', () => {
+describe('frint-compat › createService', () => {
   const mySpec = {
     initialize: sinon.stub(),
     customFunction1() { return 'value1'; },

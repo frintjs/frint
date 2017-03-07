@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { renderToString as reactRenderToString } from 'react-dom/server';
 

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Component, PropTypes, Children } from 'react';
 
 export default class Provider extends Component {

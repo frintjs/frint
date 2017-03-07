@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-underscore-dangle */
+/* eslint-disable no-console, no-underscore-dangle, import/no-extraneous-dependencies */
 /* globals window */
 import _ from 'lodash';
 import React, { PropTypes } from 'react';

@@ -1,8 +1,9 @@
-import { createApp, RegionService } from 'frint';
+import { createWidget } from 'frint';
+import { RegionService } from 'frint-react';
 
 import RootComponent from '../components/Root';
 
-export default createApp({
+export default createWidget({
   name: 'WidgetReversed',
   providers: [
     {

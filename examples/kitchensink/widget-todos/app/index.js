@@ -1,10 +1,12 @@
 import _ from 'lodash';
-import { createApp, createStore, RegionService } from 'frint';
+import { createWidget } from 'frint';
+import { createStore } from 'frint-store';
+import { RegionService } from 'frint-react';
 
 import RootComponent from '../components/Root';
 import rootReducer from '../reducers';
 
-export default createApp({
+export default createWidget({
   name: 'WidgetTodos',
   providers: [
     {

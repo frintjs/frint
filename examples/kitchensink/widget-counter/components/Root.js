@@ -1,4 +1,5 @@
-import { createComponent, mapToProps, observe, streamProps } from 'frint';
+import React from 'react';
+import  { observe, streamProps } from 'frint-react';
 import { Observable } from 'rxjs';
 
 import {
@@ -6,7 +7,7 @@ import {
   decrementCounter
 } from '../actions/counter';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     const codeStyle = {
       color: this.props.color,

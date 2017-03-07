@@ -1,4 +1,4 @@
-import { combineReducers } from 'frint';
+import { combineReducers } from 'frint-store';
 
 import todos from './todos';
 

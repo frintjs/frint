@@ -1,6 +1,7 @@
-import { h, createComponent, observe } from 'frint';
+import React from 'react';
+import { observe } from 'frint-react';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     return (
       <div>

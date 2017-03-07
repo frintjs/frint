@@ -1,10 +1,11 @@
-import { h, createComponent, observe, Region } from 'frint';
+import React from 'react';
+import { observe, Region } from 'frint-react';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { addTodo } from '../actions/todos';
 import Item from './Item';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     return (
       <div>

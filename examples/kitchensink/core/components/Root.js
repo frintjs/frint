@@ -1,7 +1,8 @@
-import { createComponent, Region, observe } from 'frint';
+import React from 'react';
+import { Region, observe } from 'frint-react';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     return (
       <div className="container">

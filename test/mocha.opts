@@ -1,4 +1,0 @@
---colors
---compilers js:babel-register
---require ./test/setup.js
---recursive

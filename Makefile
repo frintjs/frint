@@ -3,9 +3,11 @@ TO_TAG := ""
 GITHUB_API_TOKEN := ""
 
 release:
+	npm run dist
 	./node_modules/.bin/lerna publish
 
 release-canary:
+	npm run dist
 	./node_modules/.bin/lerna publish --canary
 
 changelog:

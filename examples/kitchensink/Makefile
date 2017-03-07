@@ -1,3 +1,5 @@
+PORT=5002
+
 bundle:
 	make bundle-frint
 	(cd ./core && npm run build)
@@ -11,7 +13,7 @@ bundle-frint:
 	(cp ../../dist/frint.js ./build/js/frint.js)
 
 serve-only:
-	(cd ./build && ../../../node_modules/.bin/http-server -p 5002)
+	(cd ./build && ../../../node_modules/.bin/http-server -p $(PORT))
 
 serve:
 	make bundle

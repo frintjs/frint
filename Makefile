@@ -19,3 +19,9 @@ push-changelog:
 	git add CHANGELOG.md
 	git commit -m 'changelog updated.'
 	git push origin master
+
+list-packages:
+	./node_modules/.bin/lerna ls
+
+list-updated:
+	./node_modules/.bin/lerna updated

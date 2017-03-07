@@ -12,6 +12,9 @@
 - [Changelogs](#changelogs)
   - [GitHub API Token](#github-api-token)
   - [Pushing `CHANGELOG.md`](#pushing-changelogmd)
+- [Packages](#packages)
+  - [List packages](#list-packages)
+  - [List updated packages](#list-updated-packages)
 
 <!-- /MarkdownTOC -->
 
@@ -64,7 +67,7 @@ $ ./node_modules/.bin/lerna run --scope frint-react test
 
 We keep all the `devDependencies` at root `package.json` for avoiding unnecessary duplication.
 
-To install dependencies at individual package level, just updated their `package.json` (even if the dependency is a package from this repo itself), and run this from root:
+To install dependencies at individual package level, just update their `package.json` (even if the dependency is a package from this repo itself), and run this from root:
 
 ```
 $ npm run bootstrap
@@ -126,4 +129,22 @@ There is a handy command available:
 
 ```
 $ make push-changelog
+```
+
+## Packages
+
+### List packages
+
+Show all the packages with their versions in the repository:
+
+```
+$ make list-packages
+```
+
+### List updated packages
+
+Show packages that have been updated locally, and needs publishing:
+
+```
+$ make list-updated
 ```

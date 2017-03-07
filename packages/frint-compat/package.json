@@ -11,8 +11,8 @@
     "cover:run": "../../node_modules/.bin/nyc --reporter=lcov --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --require frint-test-utils/register --recursive './src/**/*.spec.js'",
     "cover:report": "../../node_modules/.bin/nyc report",
     "cover": "npm run cover:run && npm run cover:report",
-    "dist:lib": "echo \"Nothing to build\"",
-    "dist:min": "echo \"Nothing to minify\"",
+    "dist:lib": "../../node_modules/.bin/webpack --config ./webpack.config.js",
+    "dist:min": "DIST_MIN=1 ../../node_modules/.bin/webpack --config ./webpack.config.js",
     "dist": "npm run dist:lib && npm run dist:min",
     "prepublish": "npm run transpile"
   },

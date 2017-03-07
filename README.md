@@ -18,33 +18,6 @@ The framework is a collection of these packages, which can be composed together 
 * [frint-test-utils](./packages/frint-test-utils): Test utilities.
 * [frint-compat](./packages/frint-compat): Backwards compatibility plugin for supporting `v0.x` users.
 
-## Development
-
-We use [Lerna](https://github.com/lerna/lerna/) for managing our monorepo. All our packages can be found in [packages](./packages) directory.
-
-To start developing the framework itself:
-
-```
-$ npm install
-$ npm bootstrap
-```
-
-Now you can run:
-
-```
-$ npm run lint
-$ npm run test
-$ npm run cover
-```
-
-Which are shortcuts for:
-
-```
-$ ./node_modules/.bin/lerna run lint
-$ ./node_modules/.bin/lerna run test
-$ ./node_modules/.bin/lerna run cover
-```
-
 ## License
 
 MIT © [Travix International](http://travix.com)

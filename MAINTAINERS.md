@@ -1,41 +1,116 @@
 # Maintainers
 
+<!-- MarkdownTOC autolink=true bracket=round -->
+
+- [Pull Requests](#pull-requests)
+- [Development](#development)
+  - [Setup](#setup)
+  - [Scripts](#scripts)
+  - [Dependencies](#dependencies)
+- [Releases](#releases)
+  - [Canary releases](#canary-releases)
+- [Changelogs](#changelogs)
+  - [GitHub API Token](#github-api-token)
+  - [Pushing `CHANGELOG.md`](#pushing-changelogmd)
+
+<!-- /MarkdownTOC -->
+
 ## Pull Requests
 
 When merging Pull Requests on GitHub, use the [squash and merge](https://github.com/blog/2141-squash-your-commits) button, so that our timeline of master branch is linear.
+
+## Development
+
+We use [Lerna](https://github.com/lerna/lerna/) for managing our monorepo. All our packages can be found in [packages](./packages) directory.
+
+To start developing the packages:
+
+### Setup
+
+Clone the repository, and run:
+
+```
+$ npm install
+$ npm run bootstrap
+```
+
+### Scripts
+
+Now you can run the `npm` scripts:
+
+```
+$ npm run lint
+$ npm run test
+$ npm run cover
+```
+
+Which are shortcuts for:
+
+```
+$ ./node_modules/.bin/lerna run lint
+$ ./node_modules/.bin/lerna run test
+$ ./node_modules/.bin/lerna run cover
+```
+
+#### Runnings scripts for individual packages
+
+To run npm scripts at individual package level:
+
+```
+$ ./node_modules/.bin/lerna run --scope frint-react test
+```
+
+### Dependencies
+
+We keep all the `devDependencies` at root `package.json` for avoiding unnecessary duplication.
+
+To install dependencies at individual package level, just updated their `package.json` (even if the dependency is a package from this repo itself), and run this from root:
+
+```
+$ npm run bootstrap
+```
+
+The `bootstrap` script takes care of installing and linking the dependencies in your packages.
 
 ## Releases
 
 To publish a new release:
 
 ```
-$ make release VERSION=patch
+$ make release
 ```
+
+You will be prompted to select a semver (patch/minor/major), and once chosen, all your packages (that have changed) will be published to `npm`.
+
+### Canary releases
+
+If you wish to release your packages as canary versions:
+
+```
+$ make release-canary
+```
+
+Doing so would only publish your packages to `npm`, without affecting your git repository in any way.
+
+And the versions on `npm` would look like `1.0.0-alpha.12345678`, where the last part is your commit hash.
+
+Canary releases are useful if you want to publish nightly releases for example.
 
 ## Changelogs
 
-Changelogs are generated using the `github_changelog_generator` gem.
+Since we use [lerna](https://github.com/lerna/lerna/) for managing our monorepo, we are using [lerna-changelog](https://github.com/lerna/lerna-changelog) for generating our changelogs.
 
-Make sure you have Ruby v2.2+:
-
-```
-$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-$ curl -sSL https://get.rvm.io | bash -s stable
-
-$ rvm install 2.2.2
-```
-
-Then install the gem:
+Changelog for a particular version can be generated as follows:
 
 ```
-$ gem install github_changelog_generator
+$ GITHUB_AUTH="TOKEN" ./node_modules/.bin/lerna-changelog --tag-from v1.0.0 --tag-to v2.0.0
 ```
 
-Now you can generate `CHANGELOG.md` file automatically by running:
+```
+$ GITHUB_API_TOKEN="TOKEN" FROM_TAG="v1.0.0" TO_TAG="v2.0.0" make changelog
+```
 
-```
-$ make changelog GITHUB_API_TOKEN="YOUR_GITHUB_TOKEN"
-```
+Doing so would output the changelog in your Terminal, which you can later add to the `CHANGELOG.md` file.
 
 ### GitHub API Token
 
@@ -45,7 +120,7 @@ Since this is a public repository, you only need `public_repo` access for the to
 
 ### Pushing `CHANGELOG.md`
 
-Once the `CHANGELOG.md` file is generated, it is up to you to commit and push it to GitHub.
+Once the `CHANGELOG.md` file is updated, it is up to you to commit and push it to GitHub.
 
 There is a handy command available:
 

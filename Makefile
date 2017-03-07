@@ -1,21 +1,17 @@
-VERSION := patch
+FROM_TAG := ""
+TO_TAG := ""
 GITHUB_API_TOKEN := ""
 
 release:
-	echo "Releasing version: $(VERSION)"
-	git checkout master
-	git pull origin master
-	npm run transpile
-	npm run dist
-	npm version $(VERSION)
-	npm publish
-	git push --follow-tags
-	npm run docs:publish
+	./node_modules/.bin/lerna publish
+
+release-canary:
+	./node_modules/.bin/lerna publish --canary
 
 changelog:
 	git checkout master
 	git pull origin master
-	github_changelog_generator -t $(GITHUB_API_TOKEN)
+	GITHUB_AUTH=$(GITHUB_API_TOKEN) ./node_modules/.bin/lerna-change --tag-from $(FROM_TAG) --tag-to $(TO_TAG)
 
 push-changelog:
 	git checkout master

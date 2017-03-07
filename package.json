@@ -69,7 +69,7 @@
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.12",
-    "eslint": "^3.3.1",
+    "eslint": "3.17.0",
     "eslint-config-travix": "^2.2.0",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.0.1",

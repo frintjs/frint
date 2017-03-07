@@ -36,3 +36,7 @@ site-build:
 	./node_modules/.bin/babel ./site/assets/js --out-dir ./_site/js
 
 	node ./site/scripts/build-content.js
+
+site-serve:
+	echo "Starting server at http://localhost:6001"
+	(cd ./_site && ../node_modules/.bin/http-server -p 6001)

@@ -1,25 +1,16 @@
 {
   "name": "frint",
-  "version": "0.14.0",
   "description": "Framework for building front-end apps",
-  "main": "./lib/index.js",
+  "private": true,
   "scripts": {
-    "transpile": "babel src --out-dir lib",
-    "lint": "eslint --color '{src,test}/**/*.js'",
-    "cover": "nyc --reporter=lcov --require babel-register mocha 'src/**/*.spec.js' && npm run cover:report",
-    "cover:report": "nyc report",
-    "test": "npm run cover",
-    "test:plugin:core": "nyc --require babel-register mocha './src/core/**/*.spec.js'",
-    "test:plugin:model": "nyc --require babel-register mocha './src/model/**/*.spec.js'",
-    "test:plugin:store": "nyc --require babel-register mocha './src/store/**/*.spec.js'",
-    "test:plugin:react": "nyc --require babel-register mocha './src/react/**/*.spec.js'",
-    "test:plugin:react-server": "nyc --require babel-register mocha './src/react-server/**/*.spec.js'",
-    "test:plugin:compat": "nyc --require babel-register mocha './src/compat/**/*.spec.js'",
+    "bootstrap": "lerna bootstrap",
+    "transpile": "lerna run transpile",
+    "lint": "lerna run lint",
+    "cover": "lerna run cover",
+    "test": "lerna run test",
     "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
     "alex": "alex",
-    "dist:lib": "webpack --config ./dist/webpack.config.js",
-    "dist:min": "uglifyjs dist/frint.js --output dist/frint.min.js",
-    "dist": "npm run dist:lib && npm run dist:min",
+    "dist": "lerna run dist",
     "docs:prepare": "gitbook install",
     "docs:clean": "rimraf _book",
     "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
@@ -31,8 +22,8 @@
     "url": "git+https://github.com/Travix-International/frint.git"
   },
   "author": {
-    "name": "Travix International",
-    "url": "http://travix.com"
+    "name": "Travix International B.V.",
+    "url": "https://travix.com"
   },
   "contributors": [
     {
@@ -57,13 +48,6 @@
     "url": "https://github.com/Travix-International/frint/issues"
   },
   "homepage": "https://github.com/Travix-International/frint#readme",
-  "dependencies": {
-    "diyai": "^0.6.3",
-    "lodash": "^4.13.1",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
-    "rxjs": "^5.2.0"
-  },
   "devDependencies": {
     "alex": "^4.0.1",
     "babel-cli": "^6.10.1",
@@ -85,13 +69,16 @@
     "http-server": "^0.9.0",
     "istanbul": "^1.1.0-alpha.1",
     "jsdom": "9.11.0",
+    "lerna": "^2.0.0-beta.38",
+    "lerna-changelog": "^0.3.0",
     "mocha": "^3.1.2",
     "nyc": "^10.1.0",
+    "react": "^0.14.8",
     "react-addons-test-utils": "^0.14.8",
+    "react-dom": "^0.14.8",
     "rimraf": "^2.5.2",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
-    "uglify-js": "^2.7.5",
     "webpack": "^2.2.0"
   },
   "greenkeeper": {

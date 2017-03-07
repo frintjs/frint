@@ -1,4 +1,4 @@
-import { render } from 'frint';
+import { render } from 'frint-react';
 
 import App from './app';
 

@@ -1,9 +1,10 @@
-import { h, createComponent, observe, streamProps, Region } from 'frint';
+import React from 'react';
+import { observe, streamProps, Region } from 'frint-react';
 import { BehaviorSubject } from 'rxjs';
 
 import { removeTodo, updateTodo } from '../actions/todos';
 
-const Item = createComponent({
+const Item = React.createClass({
   render() {
     const { todo } = this.props;
 

@@ -1,4 +1,5 @@
-import { createComponent, observe } from 'frint';
+import React from 'react';
+import { observe } from 'frint-react';
 import { Observable } from 'rxjs';
 
 import {
@@ -9,7 +10,7 @@ import {
   RED_COLOR
 } from '../constants';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     const codeStyle = {
       color: this.props.color,

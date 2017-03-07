@@ -25,8 +25,23 @@
 
 ## Installation
 
+With [npm](https://www.npmjs.com/):
+
 ```
 $ npm install --save frint-store
+```
+
+Via [unpkg](https://unpkg.com) CDN:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
+
+<script src="https://unpkg.com/frint-store@latest/dist/frint-store.min.js"></script>
+
+<script>
+  // available as `window.FrintStore`
+</script>
 ```
 
 ## Terminologies

@@ -27,8 +27,26 @@
 
 ## Installation
 
+With [npm](https://www.npmjs.com/):
+
 ```
-$ npm install --save react react-dom frint-react
+$ npm install --save frint-react
+```
+
+Via [unpkg](https://unpkg.com) CDN:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js"></script>
+
+<script src="https://unpkg.com/frint@latest/dist/frint.min.js"></script>
+<script src="https://unpkg.com/frint-store@latest/dist/frint-react.min.js"></script>
+
+<script>
+  // available as `window.FrintReact`
+</script>
 ```
 
 ## Terminologies

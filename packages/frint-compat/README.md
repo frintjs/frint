@@ -30,15 +30,36 @@ Everything that you see here has been deprecated and should not be intentionally
 
 ## Installation
 
+With [npm](https://www.npmjs.com/):
+
 ```
 $ npm install --save frint-compat
+```
+
+Via [unpkg](https://unpkg.com) CDN:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js"></script>
+
+<script src="https://unpkg.com/frint@latest/dist/frint.min.js"></script>
+<script src="https://unpkg.com/frint-model@latest/dist/frint-model.min.js"></script>
+<script src="https://unpkg.com/frint-react@latest/dist/frint-react.min.js"></script>
+<script src="https://unpkg.com/frint-store@latest/dist/frint-store.min.js"></script>
+
+<script src="https://unpkg.com/frint-compat@latest/dist/frint-compat.min.js"></script>
+<script>
+  // available as `window.Frint` (now backwards compatible)
+</script>
 ```
 
 ## Usage
 
 Load it after you have loaded all other packages:
 
-```
+```js
 require('frint-compat');
 ```
 

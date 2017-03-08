@@ -43,6 +43,25 @@ Metalsmith(__dirname)
     done();
   })
 
+  // importContentFromPackage
+  .use(function (files, metalsmith, done) {
+    _.each(files, function (obj, file) {
+      if (typeof obj.importContentFromPackage === 'undefined') {
+        return;
+      }
+
+      const packageName = obj.importContentFromPackage;
+
+      try {
+        const packageReadme = fs.readFileSync(__dirname + '/../../packages/' + packageName + '/README.md');
+        files[file].contents = files[file].contents + packageReadme;
+      } catch (e) {
+        console.log('Could not import content from: ' + packageName);
+      }
+    });
+    done();
+  })
+
   // markdown
   .use(function convertMarkdown(files, metalsmith, done) {
     _.each(files, function (obj, file) {
@@ -70,8 +89,15 @@ Metalsmith(__dirname)
       const content = files[file];
       const newKey = file
         .replace('README.md', 'index.md')
-        .replace('.md', '.html')
-      files[newKey] = content;
+        .replace('/index.md', '/index.html')
+        .replace('.md', '.html');
+
+      if (newKey.indexOf('/index.html') > -1) {
+        files[newKey] = content;
+      } else {
+        files[newKey.replace('.html', '/index.html')] = content;
+      }
+
       delete files[file];
     });
 

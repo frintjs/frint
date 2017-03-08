@@ -2,6 +2,8 @@ FROM_TAG := ""
 TO_TAG := ""
 GITHUB_API_TOKEN := ""
 
+##
+# Releases
 release:
 	npm run dist
 	./node_modules/.bin/lerna publish
@@ -10,6 +12,8 @@ release-canary:
 	npm run dist
 	./node_modules/.bin/lerna publish --canary
 
+##
+# Changelog
 changelog:
 	git checkout master
 	git pull origin master
@@ -22,12 +26,16 @@ push-changelog:
 	git commit -m 'changelog updated.'
 	git push origin master
 
+##
+# Packages
 list-packages:
 	./node_modules/.bin/lerna ls
 
 list-updated:
 	./node_modules/.bin/lerna updated
 
+##
+# Site
 site-build:
 	node ./site/scripts/build-content.js
 
@@ -37,6 +45,9 @@ site-build:
 	mkdir -p ./_site/js
 	./node_modules/.bin/babel ./site/assets/js --out-dir ./_site/js
 
+site-watch:
+	fswatch -or './site' | xargs -I{} make site-build
+
 site-serve:
 	echo "Starting server at http://localhost:6001"
-	(cd ./_site && ../node_modules/.bin/http-server -p 6001)
+	./node_modules/.bin/live-server --port=6001 ./_site/

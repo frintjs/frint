@@ -35,6 +35,20 @@ footer {
   }
 }
 
+.menu.docs {
+  .menu-list {
+    li {
+      ul {
+        border-left: 1px solid #eee;
+
+        li a {
+          font-size: 90%;
+        }
+      }
+    }
+  }
+}
+
 // resetting bulma for prism themes
 pre,
 pre[class*="language-"] {

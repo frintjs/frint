@@ -1,12 +1,19 @@
 // @TODO: can we do it without jQuery? :D
 (function () {
-  const currentPath = window.location.pathname
-    .replace(/\/$/, '');
+  function endUrlWithSlash(url) {
+    if (url.endsWith('/')) {
+      return url;
+    }
+
+    return url + '/';
+  }
+
+  const currentPath = endUrlWithSlash(window.location.pathname);
 
   // active top nav links
   const $topNavLinks = $('nav .nav-left a');
   $topNavLinks.each(function () {
-    const url = $(this).attr('href');
+    const url = endUrlWithSlash($(this).attr('href'));
 
     if (currentPath.indexOf(url) > -1) {
       $topNavLinks.removeClass('is-active');
@@ -15,13 +22,24 @@
   });
 
   // active sidebar links
-  const $asideLinks = $('aside.menu > ul > li > a');
+  const $asideLinks = $('aside.menu.docs > ul > li > a');
   $asideLinks.each(function () {
-    const url = $(this).attr('href');
+    const url = endUrlWithSlash($(this).attr('href'));
 
     if (currentPath.indexOf(url) > -1) {
       $asideLinks.removeClass('is-active');
       $(this).addClass('is-active');
+
+      // mount TOC in sidebar from content area
+      const $lists = $('.content ul');
+
+      if ($lists.length === 0) {
+        return;
+      }
+
+      const $toc = $($lists[0]);
+      $toc.hide();
+      $(this).after('<ul>' + $toc.html() + '</ul>');
     }
   });
 

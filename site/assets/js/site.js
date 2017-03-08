@@ -34,6 +34,12 @@
       const $lists = $('.content ul');
 
       if ($lists.length === 0) {
+        // is not TOC
+        return;
+      }
+
+      if (!$($lists[0]).find('li:first-child').html().startsWith('<a')) {
+        // is not TOC
         return;
       }
 

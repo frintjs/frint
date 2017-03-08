@@ -46,8 +46,13 @@ site-build:
 	./node_modules/.bin/babel ./site/assets/js --out-dir ./_site/js
 
 site-watch:
+	make site-build
 	fswatch -or './site' | xargs -I{} make site-build
 
-site-serve:
+site-serve-only:
 	echo "Starting server at http://localhost:6001"
 	./node_modules/.bin/live-server --port=6001 ./_site/
+
+site-serve:
+	make site-build
+	make site-serve-only

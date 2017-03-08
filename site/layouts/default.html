@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= title %> | Frint</title>
   </head>
 
   <body>
     <nav class="nav">
-      <%= renderPartial('navLinks') %>
+      <div class="container">
+        <%= renderPartial('navLinks') %>
+      </div>
     </nav>
 
-    <%= contents %>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <%= renderPartial(sidebarPartial) %>
+          </div>
+
+          <div class="column content">
+            <%= contents %>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <%= renderPartial('footer') %>
 

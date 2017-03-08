@@ -4,6 +4,9 @@ const _ = require('lodash');
 const Metalsmith = require('metalsmith');
 const marked = require('marked');
 
+/**
+ * Views
+ */
 const views = {
   layouts: {},
   partials: {},
@@ -17,12 +20,17 @@ function loadPartial(name) {
   views.partials[name] = _.template(fs.readFileSync(__dirname + '/../partials/' + name + '.html'));
 }
 
-loadLayout('default');
-loadLayout('home');
-loadPartial('assets');
-loadPartial('navLinks');
-loadPartial('footer');
+fs.readdirSync(__dirname + '/../layouts').forEach(function (file) {
+  loadLayout(file.replace('.html', ''));
+});
 
+fs.readdirSync(__dirname + '/../partials').forEach(function (file) {
+  loadPartial(file.replace('.html', ''));
+});
+
+/**
+ * Build
+ */
 Metalsmith(__dirname)
   .source(__dirname + '/../content')
   .destination(__dirname + '/../../_site')

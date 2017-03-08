@@ -66,8 +66,20 @@ footer {
 }
 
 .content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+  }
+
   a.permalink {
     color: inherit;
+    padding-top: 65px;
+    margin-top: -65px;
+    display: block;
   }
 }
 

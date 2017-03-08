@@ -29,6 +29,12 @@ footer {
   border-top: 1px solid #eee;
 }
 
+.content {
+  a.permalink {
+    color: inherit;
+  }
+}
+
 // resetting bulma for prism themes
 pre,
 pre[class*="language-"] {

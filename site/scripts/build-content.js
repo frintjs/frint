@@ -94,13 +94,13 @@ Metalsmith(__dirname)
     done();
   })
 
-  // url - filepath
+  // url
   .use(function urls(files, metalsmith, done) {
     Object.keys(files).forEach(function (file) {
       const content = files[file];
       const newKey = file
         .replace('README.md', 'index.md')
-        .replace('/index.md', '/index.html')
+        .replace('index.md', 'index.html')
         .replace('.md', '.html');
 
       if (newKey.indexOf('/index.html') > -1) {
@@ -118,7 +118,15 @@ Metalsmith(__dirname)
   // string to buffer - please don't judge me
   .use(function (files, metalsmith, done) {
     _.each(files, function (obj, file) {
-      files[file].contents = new Buffer(obj.contents);
+      // bug fix with index.html
+      let newFile = file;
+      if (file.indexOf('index/index.html') > -1) {
+        newFile = file.replace('index/index.html', 'index.html')
+        files[newFile] = obj;
+        delete files[file];
+      }
+
+      files[newFile].contents = new Buffer(obj.contents);
     });
     done();
   })

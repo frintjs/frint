@@ -43,20 +43,31 @@ Metalsmith(__dirname)
     done();
   })
 
-  // importContentFromPackage
+  // importContent
   .use(function (files, metalsmith, done) {
     _.each(files, function (obj, file) {
-      if (typeof obj.importContentFromPackage === 'undefined') {
-        return;
+      // from package
+      if (typeof obj.importContentFromPackage !== 'undefined') {
+        const packageName = obj.importContentFromPackage;
+
+        try {
+          const packageReadme = fs.readFileSync(__dirname + '/../../packages/' + packageName + '/README.md');
+          files[file].contents = files[file].contents + packageReadme;
+        } catch (e) {
+          console.log('Could not import content from: ' + packageName);
+        }
       }
 
-      const packageName = obj.importContentFromPackage;
+      // from root
+      if (typeof obj.importContentFromRoot !== 'undefined') {
+        const rootFile = obj.importContentFromRoot;
 
-      try {
-        const packageReadme = fs.readFileSync(__dirname + '/../../packages/' + packageName + '/README.md');
-        files[file].contents = files[file].contents + packageReadme;
-      } catch (e) {
-        console.log('Could not import content from: ' + packageName);
+        try {
+          const rootFileContent = fs.readFileSync(__dirname + '/../../' + rootFile);
+          files[file].contents = files[file].contents + rootFileContent;
+        } catch (e) {
+          console.log('Could not import content from root: ' + rootFile);
+        }
       }
     });
     done();

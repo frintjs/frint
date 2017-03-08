@@ -17,23 +17,26 @@ nav {
   border-bottom: 1px solid #eee;
 }
 
-.is-transparent {
-  background: transparent;
+body > .nav {
+  position: fixed;
+  width: 100%;
 }
 
-.button.is-transparent:hover {
-  border-color: #fff;
+body > .nav + section {
+  position: relative;
+  top: 50px;
+  margin-bottom: 50px;
 }
 
-footer {
-  border-top: 1px solid #eee;
-}
+// .menu-container.docs {
+//   position: relative;
+//   margin-top: 50px;
+//   height: 100%;
 
-.content {
-  a.permalink {
-    color: inherit;
-  }
-}
+//   .menu {
+//     position: fixed;
+//   }
+// }
 
 .menu.docs {
   .menu-list {
@@ -46,6 +49,25 @@ footer {
         }
       }
     }
+  }
+}
+
+.is-transparent {
+  background: transparent;
+}
+
+.button.is-transparent:hover {
+  border-color: #fff;
+}
+
+footer {
+  position: relative;
+  border-top: 1px solid #eee;
+}
+
+.content {
+  a.permalink {
+    color: inherit;
   }
 }
 

@@ -15,6 +15,9 @@
 - [Packages](#packages)
   - [List packages](#list-packages)
   - [List updated packages](#list-updated-packages)
+- [Site](#site)
+  - [Developing the site](#developing-the-site)
+  - [Publishing the site](#publishing-the-site)
 
 <!-- /MarkdownTOC -->
 
@@ -148,3 +151,26 @@ Show packages that have been updated locally, and needs publishing:
 ```
 $ make list-updated
 ```
+
+## Site
+
+The documentation site at [http://frint.js.org](http://frint.js.org) is also managed in this repository.
+
+### Developing the site
+
+For development:
+
+```
+$ make site-build
+$ make site-serve
+```
+
+Once the local server is up and running, you can run a separate watcher to refresh the site as you work on the documentation:
+
+```
+$ make site-watch
+```
+
+### Publishing the site
+
+Coming soon...

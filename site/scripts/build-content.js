@@ -35,6 +35,17 @@ Metalsmith(__dirname)
   .source(__dirname + '/../content')
   .destination(__dirname + '/../../_site')
 
+  // ignore files
+  .use(function (files, metalsmith, done) {
+    _.each(files, function (obj, file) {
+      if (!file.endsWith('.md')) {
+        delete files[file];
+      }
+    });
+
+    done();
+  })
+
   // buffer to string - please don't judge me
   .use(function (files, metalsmith, done) {
     _.each(files, function (obj, file) {
@@ -84,6 +95,8 @@ Metalsmith(__dirname)
   // layout
   .use(function applyLayout(files, metalsmith, done) {
     _.each(files, function (obj, file) {
+      console.log('Rendering:', file);
+
       const layoutName = obj.layout || 'default';
       files[file].contents = views.layouts[layoutName](Object.assign({}, obj, {
         renderPartial: function (partialName) {

@@ -1,9 +1,9 @@
 ---
-title: Create a new App
-sidebarPartial: docsSidebar
+title: Hello World
+sidebarPartial: guidesSidebar
 ---
 
-# Create a new App
+# Hello World
 
 <!-- MarkdownTOC depth=1 autolink=true bracket=round -->
 

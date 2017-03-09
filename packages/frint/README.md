@@ -323,9 +323,10 @@ Core and Widget extend this class.
 ### Arguments
 
 1. `options` (`Object`)
-    * `options.name`: (`String` [required]): Name of your App
-    * `options.initialize`: (`Function` [optional]): Called when App is constructed
-    * `options.providers`: (`Array` [optional]): Array of provider objects
+    * `options.name`: (`String` [required]): Name of your App.
+    * `options.initialize`: (`Function` [optional]): Called when App is constructed.
+    * `options.beforeDestroy`: (`Function` [optional]): Called when App is about to be destroyed.
+    * `options.providers`: (`Array` [optional]): Array of provider objects.
 
 ### Returns
 
@@ -519,6 +520,22 @@ Instantiates the registered Widget class, (for the targetted region/regionKey if
 1. `region` (`String` [optional]): If you want the Widget of a specific region
 1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
 
-### Returns
+#### Returns
 
 `Array`: The updated collection of widgets.
+
+### app.destroyWidget
+
+> app.destroyWidget(name, region = null, regionKey = null)
+
+Destroys Widget instance.
+
+#### Arguments
+
+1. `name` (`String`): The name of the Widget that you are looking for
+1. `region` (`String` [optional]): If you want the Widget of a specific region
+1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
+
+#### Returns
+
+`void`.

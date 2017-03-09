@@ -85,6 +85,23 @@ h6 {
   }
 }
 
+.section.about {
+  text-align: center;
+
+  img {
+    width: 100px;
+  }
+
+  h3 {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  p {
+    margin-top: 15px;
+  }
+}
+
 // .menu-container.docs {
 //   position: relative;
 //   margin-top: 50px;

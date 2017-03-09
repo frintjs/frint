@@ -221,6 +221,21 @@ describe('frint  › App', function () {
     expect(called).to.equal(true);
   });
 
+  it('calls beforeDestroy, as passed in options', function () {
+    let called = false;
+
+    const app = new App({
+      name: 'MyApp',
+      beforeDestroy() {
+        called = true;
+      }
+    });
+    app.beforeDestroy();
+
+    expect(app.getOption('name')).to.equal('MyApp');
+    expect(called).to.equal(true);
+  });
+
   it('registers widgets', function () {
     const Core = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });

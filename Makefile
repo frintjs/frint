@@ -45,6 +45,8 @@ site-build:
 	mkdir -p ./_site/js
 	./node_modules/.bin/babel ./site/assets/js --out-dir ./_site/js
 
+	cp -rf ./site/assets/img ./_site/img
+
 site-watch:
 	make site-build
 	fswatch -or './site' | xargs -I{} make site-build

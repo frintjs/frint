@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+
+  <body>
+    <section class="hero is-primary is-medium">
+      <!-- Hero header: will stick at the top -->
+      <div class="hero-head">
+        <header class="nav">
+          <div class="container">
+            <%= renderPartial('navLinks') %>
+          </div>
+        </header>
+      </div>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">
+            <img alt="Frint" src="/img/frint-logo-fff.png" />
+          </h1>
+
+          <h2 class="subtitle">
+            The Modular JavaScript Framework
+          </h2>
+
+          <div>
+            <a href="/docs" class="button is-transparent is-medium">Learn more</a>
+            <a href="http://github.com/Travix-International/frint" class="button is-dark is-medium">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <img alt="Modular" src="/img/react-logo.svg" />
+
+            <h3>Modular & Extensible</h3>
+
+            <p>
+              The whole framework is split into multiple independent packages.
+              You get to compose your Apps with only the packages your need.
+            </p>
+          </div>
+
+          <div class="column">
+            <img alt="Component" src="/img/react-logo.svg" />
+
+            <h3>Component based</h3>
+
+            <p>
+              You can roll your own Component based view libraries with Frint.
+              We have official support for React.
+            </p>
+          </div>
+
+          <div class="column">
+            <img alt="Reactive" src="/img/rxjs-logo.png" />
+
+            <h3>Reactive development</h3>
+
+            <p>
+              We embraced the power of reactive programming everywhere.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    <section class="section">
+      <div class="container">
+        <p>Content here...</p>
+
+        <%= contents %>
+      </div>
+    </section>
+    -->
+
+    <%= renderPartial('footer') %>
+    <%= renderPartial('assets') %>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %> | Frint</title>
+  </head>
+
+  <body>
+    <nav class="nav">
+      <div class="container">
+        <%= renderPartial('navLinks') %>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <%= renderPartial(sidebarPartial) %>
+          </div>
+
+          <div class="column content">
+            <%= contents %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%= renderPartial('footer') %>
+
+    <%= renderPartial('assets') %>
+  </body>
+</html>

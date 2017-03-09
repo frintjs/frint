@@ -1,0 +1,199 @@
+@import "bulma/bulma.sass";
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:600,800");
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: whitesmoke;
+}
+
+nav {
+  border-bottom: 1px solid #eee;
+}
+
+body > .nav {
+  position: fixed;
+  width: 100%;
+}
+
+body > .nav + section {
+  position: relative;
+  top: 50px;
+  margin-bottom: 50px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+.nav {
+  .brand {
+    .dark {
+      display: inline-block;
+    }
+
+    .light {
+      display: none;
+    }
+  }
+}
+
+.hero {
+  .title {
+    margin-bottom: 30px;
+  }
+
+  .subtitle {
+    font-size: 24px;
+  }
+
+  .brand {
+    .dark {
+      display: none;
+    }
+
+    .light {
+      display: inline-block;
+    }
+  }
+}
+
+.section.about {
+  text-align: center;
+
+  img {
+    width: 100px;
+  }
+
+  h3 {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  p {
+    margin-top: 15px;
+  }
+}
+
+// .menu-container.docs {
+//   position: relative;
+//   margin-top: 50px;
+//   height: 100%;
+
+//   .menu {
+//     position: fixed;
+//   }
+// }
+
+.menu.docs {
+  .menu-list {
+    li {
+      ul {
+        border-left: 1px solid #eee;
+
+        li a {
+          font-size: 90%;
+        }
+      }
+    }
+  }
+}
+
+.is-transparent {
+  background: transparent;
+}
+
+.button.is-transparent:hover {
+  border-color: #fff;
+}
+
+footer {
+  position: relative;
+  border-top: 1px solid #eee;
+}
+
+.content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+  }
+
+  a.permalink {
+    color: inherit;
+    padding-top: 65px;
+    margin-top: -65px;
+    display: block;
+  }
+}
+
+// resetting bulma for prism themes
+pre,
+pre[class*="language-"] {
+  padding: 0;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+
+  .tag {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 0;
+    color: auto;
+    display: inline-block;
+    font-size: 100%;
+    height: auto;
+    justify-content: center;
+    line-height: 1.5;
+    padding-left: 0;
+    padding-right: 0;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .number {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 0;
+    display: inline-block;
+    font-size: 100%;
+    height: auto;
+    justify-content: center;
+    margin-right: 0;
+    min-width: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+  }
+}

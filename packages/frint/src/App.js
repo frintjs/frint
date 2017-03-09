@@ -40,6 +40,7 @@ function App(opts = {}) {
 
     // lifecycle callbacks
     initialize: () => {},
+    beforeDestroy: () => {},
 
     // override
     ...opts,
@@ -52,8 +53,8 @@ function App(opts = {}) {
 
   // container
   const Container = createContainer([
-    { name: this.options.providerNames.app, useValue: this },
-    { name: this.options.providerNames.rootApp, useValue: this.options.rootApp },
+    { name: this.options.providerNames.app, useDefinedValue: this },
+    { name: this.options.providerNames.rootApp, useDefinedValue: this.options.rootApp },
   ], {
     containerKey: this.options.providerNames.container,
   });
@@ -71,7 +72,7 @@ function App(opts = {}) {
   this._widgetsCollection = [];
   this._widgets$ = new BehaviorSubject(this._widgetsCollection);
 
-  this.options.initialize();
+  this.options.initialize.bind(this)();
 }
 
 App.prototype._registerRootProviders = function _registerRootProviders() {
@@ -292,6 +293,30 @@ App.prototype.instantiateWidget = function instantiateWidget(name, region = null
   });
 
   return this._widgetsCollection[index].instances[key];
+};
+
+App.prototype.destroyWidget = function destroyWidget(name, region = null, regionKey = null) {
+  const index = _.findIndex(this._widgetsCollection, (w) => {
+    return w.App.frintAppName === name;
+  });
+
+  if (index === -1) {
+    throw new Error(`No widget found with name '${name}'.`);
+  }
+
+  const w = this._widgetsCollection[index];
+  const key = makeInstanceKey(region, regionKey, w.multi);
+
+  if (typeof this._widgetsCollection[index].instances[key] === 'undefined') {
+    throw new Error(`No instance with key '${key}' found for widget with name '${name}'.`);
+  }
+
+  this._widgetsCollection[index].instances[key].beforeDestroy();
+  delete this._widgetsCollection[index].instances[key];
+};
+
+App.prototype.beforeDestroy = function beforeDestroy() {
+  return this.options.beforeDestroy.bind(this)();
 };
 
 // unregisterWidget(name, region = null, regionKey = null) {

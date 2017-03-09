@@ -264,4 +264,108 @@ describe('frint-react › components › Region', function () {
     ReactDOM.unmountComponentAtNode(document.getElementById('root'));
     expect(_.toArray(document.getElementsByClassName('widget2-text')).length).to.equal(0);
   });
+
+  it('calls beforeDestroy when unmounting multi-instance widgets', function () {
+    // core
+    const todos = [
+      { id: '1', title: 'First todo' },
+    ];
+    let coreComponentInstance; // @TODO: hack
+    const CoreComponent = React.createClass({
+      render() {
+        coreComponentInstance = this;
+
+        return (
+          <div>
+            <p id="core-text">Hello World from Core</p>
+
+            <Region name="sidebar" />
+
+            <ul classNames="todos">
+              {todos.map((todo) => {
+                return (
+                  <li key={`todo-item-${todo.id}`}>
+                    {todo.title}
+
+                    <Region
+                      data={{ todo }}
+                      name="todo-item"
+                      uniqueKey={`todo-item-${todo.id}`}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
+    });
+    const Core = createCore({
+      name: 'CoreApp',
+      providers: [
+        { name: 'component', useValue: CoreComponent },
+      ],
+    });
+
+    // widget
+    const WidgetComponent = observe(function (app) {
+      return streamProps()
+        .set(
+          app.get('region').getData$(),
+          data => ({ todo: data.todo })
+        )
+        .get$();
+    })(React.createClass({
+      render() {
+        return <p className="widget-text">Hello World from Widget - {this.props.todo.title}</p>;
+      }
+    }));
+    let beforeDestroyCalled = false;
+    const Widget = createWidget({
+      name: 'Widget',
+      beforeDestroy: function () {
+        beforeDestroyCalled = true;
+      },
+      providers: [
+        { name: 'component', useValue: WidgetComponent },
+        { name: 'region', useClass: RegionService },
+      ],
+    });
+
+    // render
+    window.app = new Core();
+    render(
+      window.app,
+      document.getElementById('root')
+    );
+    expect(document.getElementById('core-text').innerHTML).to.equal('Hello World from Core');
+
+    // register widget
+    window.app.registerWidget(Widget, {
+      regions: ['todo-item'],
+      multi: true,
+    });
+
+    // verify multi instance widget
+    const elements = _.toArray(document.getElementsByClassName('widget-text'));
+    elements.forEach((el, index) => {
+      expect(el.innerHTML).to.contain('Hello World from Widget - ');
+      expect(el.innerHTML).to.contain(todos[index].title);
+    });
+
+    // rootApp should have the instance
+    expect(window.app.getWidgetInstance('Widget', 'todo-item', 'todo-item-1')).to.not.equal(null);
+
+    // change in props
+    todos.pop(); // empty the list
+    coreComponentInstance.forceUpdate();
+    const updatedElements = _.toArray(document.getElementsByClassName('widget-text'));
+    expect(updatedElements.length).to.equal(0);
+
+    // check if beforeDestroy was called
+    expect(beforeDestroyCalled).to.equal(true);
+
+    // rootApp should not have the instance any more
+    expect(window.app.getWidgetInstance('Widget', 'todo-item', 'todo-item-1')).to.equal(null);
+  });
 });

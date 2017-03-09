@@ -49,6 +49,7 @@ export default React.createClass({
       return;
     }
 
+    this.rootApp = rootApp;
     const widgets$ = rootApp.getWidgets$(this.props.name, this.props.uniqueKey);
 
     this.subscription = widgets$.subscribe({
@@ -127,7 +128,16 @@ export default React.createClass({
       this.subscription.unsubscribe();
     }
 
-    // @TODO: clear instances
+    if (this.rootApp) {
+      this.state.listForRendering
+        .forEach((item) => {
+          this.rootApp.destroyWidget(
+            item.name,
+            this.props.name,
+            this.props.uniqueKey
+          );
+        });
+    }
   },
 
   render() {

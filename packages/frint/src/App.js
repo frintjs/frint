@@ -297,6 +297,10 @@ App.prototype.instantiateWidget = function instantiateWidget(name, region = null
 
 App.prototype.destroyWidget = function destroyWidget(name, region = null, regionKey = null) {
   const index = _.findIndex(this._widgetsCollection, (w) => {
+    if (!w || !w.App) {
+      return false;
+    }
+
     return w.App.frintAppName === name;
   });
 

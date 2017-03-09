@@ -60,6 +60,7 @@ export default React.createClass({
           this.state.list.forEach((item) => {
             const widgetName = item.name;
             const widgetWeight = item.weight;
+            const widgetMulti = item.multi;
             const existsInState = this.state.listForRendering.some((w) => {
               return w.name === widgetName;
             });
@@ -92,6 +93,7 @@ export default React.createClass({
                   name: widgetName,
                   weight: widgetWeight,
                   instance: widgetInstance,
+                  multi: widgetMulti,
                   Component: getMountableComponent(widgetInstance),
                 })
                 .sort((a, b) => {
@@ -130,6 +132,7 @@ export default React.createClass({
 
     if (this.rootApp) {
       this.state.listForRendering
+        .filter(item => item.multi === true)
         .forEach((item) => {
           this.rootApp.destroyWidget(
             item.name,

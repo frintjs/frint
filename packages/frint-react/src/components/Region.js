@@ -132,7 +132,7 @@ export default React.createClass({
 
     if (this.rootApp) {
       this.state.listForRendering
-        .filter(item => item.multi === true)
+        .filter(item => item.multi)
         .forEach((item) => {
           this.rootApp.destroyWidget(
             item.name,

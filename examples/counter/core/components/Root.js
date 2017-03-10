@@ -1,50 +1,44 @@
-import { createComponent, mapToProps } from 'frint';
+import { observe, streamProps } from 'frint-react';
 
 import {
   incrementCounter,
-  decrementCounter
+  decrementCounter,
 } from '../actions/counter';
 
-const Root = createComponent({
-  render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="eight columns">
-            <h3>Counter App</h3>
+const Root = function ({ counter, incrementCounter, decrementCounter }) {
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="eight columns">
+          <h3>Counter App</h3>
 
-            <p>Counter value: <code>{this.props.counter}</code></p>
+          <p>Counter value: <code>{counter}</code></p>
 
-            <div>
-              <button
-                className="button button-primary"
-                onClick={() => this.props.incrementCounter()}
-              >
-                +
-              </button>
+          <div>
+            <button
+              className="button button-primary"
+              onClick={() => incrementCounter()}
+            >
+              +
+            </button>
 
-              <button
-                className="button"
-                onClick={() => this.props.decrementCounter()}
-              >
-                -
-              </button>
-            </div>
+            <button
+              className="button"
+              onClick={() => decrementCounter()}
+            >
+              -
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
-});
+    </div>
+  );
+};
 
-export default mapToProps({
-  dispatch: {
-    incrementCounter,
-    decrementCounter,
-  },
-  state(state) {
-    return {
-      counter: state.counter.value
-    };
-  }
+export default observe(function (app) {
+  const store = app.get('store');
+  return streamProps({})
+    .setDispatch({ incrementCounter, decrementCounter }, store)
+    .set(store.getState$())
+    .get$();
 })(Root);

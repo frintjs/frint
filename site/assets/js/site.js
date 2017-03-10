@@ -67,6 +67,11 @@
   // hyperlink headers
   $('.content h1, .content h2, .content h3, .content h4').each(function () {
     const $h = $(this);
+
+    if ($h.hasClass('no-permalink')) {
+      return;
+    }
+
     const id = $h.attr('id');
     const title = $h.text();
     const html = $h.html();

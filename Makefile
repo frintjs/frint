@@ -36,6 +36,9 @@ list-updated:
 
 ##
 # Site
+site-fetch-contributors:
+	GITHUB_API_TOKEN=$(GITHUB_API_TOKEN) node ./site/scripts/fetch-contributors.js
+
 site-build:
 	node ./site/scripts/build-content.js
 

@@ -1,9 +1,13 @@
+const fs = require('fs');
+
+const _ = require('lodash');
 const request = require('request');
 const yaml = require('js-yaml');
 
 const ORG = 'Travix-International';
 const REPO = 'frint';
 const TOKEN = process.env.GITHUB_API_TOKEN;
+const FILEPATH = __dirname + '/../data/contributors.yml';
 
 function fetchContributors() {
   return new Promise(function (resolve, reject) {
@@ -49,18 +53,37 @@ function fetchUser(username) {
 
 fetchContributors()
   .then(function (contributors) {
-    console.log(JSON.stringify(contributors, null, 2));
-
     const userPromises = [];
+
     contributors.forEach(function (contributor) {
       const username = contributor.login;
-      userPromises.push(fetchUser(username));
+      userPromises.push(
+        fetchUser(username)
+          .then(function (u) {
+            return Object.assign({}, contributor, u);
+          })
+      );
     });
 
     return Promise.all(userPromises);
   })
   .then(function (users) {
-    console.log(users.map(function (u) { return u.name }));
+    return users.map(function (u) {
+      return _.pick(u, [
+        'id',
+        'login',
+        'html_url',
+        'contributions',
+        'name',
+        'avatar_url',
+      ]);
+    });
+  })
+  .then(function (users) {
+    const yamlContent = yaml.safeDump(users);
+    fs.writeFileSync(FILEPATH, yamlContent);
+
+    console.log('file written at: ' + FILEPATH);
   })
   .catch(function (error) {
     console.log(error);

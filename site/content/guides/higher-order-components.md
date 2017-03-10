@@ -5,10 +5,15 @@ sidebarPartial: guidesSidebar
 
 # Higher Order Components (HOCs)
 
-<!-- MarkdownTOC depth=1 autolink=true bracket=round -->
+<!-- MarkdownTOC depth=2 autolink=true bracket=round -->
 
 - [What is an HOC?](#what-is-an-hoc)
 - [How does it work with Frint?](#how-does-it-work-with-frint)
+  - [Dependencies](#dependencies)
+  - [Base component](#base-component)
+  - [App](#app)
+  - [Observed component](#observed-component)
+  - [Render](#render)
 
 <!-- /MarkdownTOC -->
 

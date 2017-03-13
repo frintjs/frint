@@ -9,6 +9,9 @@ const REPO = 'frint';
 const TOKEN = process.env.GITHUB_API_TOKEN;
 const FILEPATH = __dirname + '/../data/contributors.yml';
 
+const config = require('./config');
+const contributorsOptedIn = config.contributorsOptedIn;
+
 function fetchContributors() {
   return new Promise(function (resolve, reject) {
     const url = 'https://api.github.com/repos/' + ORG + '/' + REPO + '/contributors';
@@ -55,15 +58,19 @@ fetchContributors()
   .then(function (contributors) {
     const userPromises = [];
 
-    contributors.forEach(function (contributor) {
-      const username = contributor.login;
-      userPromises.push(
-        fetchUser(username)
-          .then(function (u) {
-            return Object.assign({}, contributor, u);
-          })
-      );
-    });
+    contributors
+      .filter(function (contributor) {
+        return contributorsOptedIn.indexOf(contributor.login) > -1;
+      })
+      .forEach(function (contributor) {
+        const username = contributor.login;
+        userPromises.push(
+          fetchUser(username)
+            .then(function (u) {
+              return Object.assign({}, contributor, u);
+            })
+        );
+      });
 
     return Promise.all(userPromises);
   })

@@ -47,10 +47,7 @@ site-build:
 
 	cp -rf ./site/assets/img ./_site/img
 
-	cp -rf ./packages/frint/dist ./_site/js
-	cp -rf ./packages/frint-model/dist ./_site/js
-	cp -rf ./packages/frint-store/dist ./_site/js
-	cp -rf ./packages/frint-react/dist ./_site/js
+	cp -rf ./packages/frint*/dist ./_site/js
 
 site-watch:
 	make site-build

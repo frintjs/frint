@@ -28,20 +28,28 @@ render(app, document.getElementById('root'));`;
 const editor = ace.edit('editor');
 editor.setTheme('ace/theme/chrome');
 editor.getSession().setMode('ace/mode/javascript');
+editor.getSession().setTabSize(4);
+editor.getSession().setUseSoftTabs(true);
+editor.setShowPrintMargin(false);
 
 function renderToRoot() {
   ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 
   const input = editor.getValue();
-  const output = Babel.transform(input, {
-    presets: [
-      'es2015',
-      'react',
-    ]
-  }).code;
 
-  eval(output);
-  updateUrlHash(input);
+  try {
+    const output = Babel.transform(input, {
+      presets: [
+        'es2015',
+        'react',
+      ]
+    }).code;
+
+    eval(output);
+    updateUrlHash(input);
+  } catch (error) {
+    throw error;
+  }
 }
 
 function parseHashParams(hash) {
@@ -91,9 +99,9 @@ function updateUrlHash(code = null) {
   }
 
   // re-render on changes
-  editor.getSession().on('change', function (e) {
+  editor.getSession().on('change', _.debounce(function (e) {
     renderToRoot();
-  });
+  }, 300));
 
   // initial render
   renderToRoot();

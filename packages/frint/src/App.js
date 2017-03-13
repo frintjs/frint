@@ -1,6 +1,6 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import _ from 'lodash';
-import { createContainer, resolveContainer } from 'diyai';
+import { createContainer, resolveContainer } from 'travix-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
   if (

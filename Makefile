@@ -47,6 +47,8 @@ site-build:
 
 	cp -rf ./site/assets/img ./_site/img
 
+	cp -rf ./packages/frint*/dist ./_site/js
+
 site-watch:
 	make site-build
 	fswatch -or './site' | xargs -I{} make site-build

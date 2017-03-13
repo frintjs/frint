@@ -10,6 +10,7 @@ sidebarPartial: guidesSidebar
 - [What is a Region?](#what-is-a-region)
 - [Register Widgets with region name](#register-widgets-with-region-name)
 - [Defining a Region](#defining-a-region)
+- [Diagram](#diagram)
 
 <!-- /MarkdownTOC -->
 
@@ -71,3 +72,10 @@ class RootComponentOfCoreApp extends Component {
 All we did from our Core App is just to define a Region, and give it a name `sidebar`.
 
 Now whenever a Widget becomes available, and it happens to have a target region of the same name, it would get rendered within that specific Region.
+
+
+## Diagram
+
+![region diagram](/img/frint-region-diagram.png)
+
+Illustration of a root app, defining a region, where multiple widgets get loaded.

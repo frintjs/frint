@@ -29,9 +29,9 @@
     "frint-plugin"
   ],
   "dependencies": {
-    "diyai": "^1.0.0",
     "lodash": "^4.13.1",
-    "rxjs": "^5.2.0"
+    "rxjs": "^5.2.0",
+    "travix-di": "^1.0.0"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

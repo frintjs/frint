@@ -49,11 +49,27 @@
     }
   });
 
+  // hashed links
+  $('a[href^="#"]').click(function () {
+    const href = $(this).attr('href');
+
+    if (history.pushState) {
+      history.pushState(null, null, href);
+    }
+
+    $('html, body').animate({
+      scrollTop: $(href).offset().top - 65
+    }, 300);
+
+    return false;
+  });
+
   // hyperlink headers
   $('.content h1, .content h2, .content h3, .content h4').each(function () {
-    const id = $(this).attr('id');
-    const title = $(this).text();
-    const html = $(this).html();
+    const $h = $(this);
+    const id = $h.attr('id');
+    const title = $h.text();
+    const html = $h.html();
 
     if (html.indexOf('<a') > -1) {
       return;
@@ -61,7 +77,18 @@
 
     const newHtml = $('<a>' + title + '</a>')
       .attr('href', '#' + id)
-      .addClass('permalink');
+      .addClass('permalink')
+      .click(function (e) {
+        if (history.pushState) {
+          history.pushState(null, null, '#' + id);
+        }
+
+        $('html, body').animate({
+          scrollTop: $h.offset().top - 65
+        }, 300);
+
+        return false;
+      });
 
     $(this).html(newHtml);
   });

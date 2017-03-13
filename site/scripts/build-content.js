@@ -3,6 +3,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const Metalsmith = require('metalsmith');
 const marked = require('marked');
+const yaml = require('js-yaml');
 
 /**
  * Views
@@ -26,6 +27,19 @@ fs.readdirSync(__dirname + '/../layouts').forEach(function (file) {
 
 fs.readdirSync(__dirname + '/../partials').forEach(function (file) {
   loadPartial(file.replace('.html', ''));
+});
+
+/**
+ * Data
+ */
+const data = {};
+
+fs.readdirSync(__dirname + '/../data').forEach(function (file) {
+  const yamlContent = fs.readFileSync(__dirname + '/../data/' + file);
+  const parsedYaml = yaml.safeLoad(yamlContent);
+  const key = file.split('/').pop().replace('.yml', '');
+
+  data[key] = parsedYaml;
 });
 
 /**
@@ -87,7 +101,17 @@ Metalsmith(__dirname)
   // markdown
   .use(function convertMarkdown(files, metalsmith, done) {
     _.each(files, function (obj, file) {
-      files[file].contents = marked(obj.contents);
+      console.log('Markdown: ' + file);
+
+      const contents = obj.processTemplate
+        ? _.template(obj.contents)(Object.assign(
+          {},
+          obj,
+          { data: data }
+        ))
+        : obj.contents;
+
+      files[file].contents = marked(contents);
     });
     done();
   })
@@ -99,8 +123,11 @@ Metalsmith(__dirname)
 
       const layoutName = obj.layout || 'default';
       files[file].contents = views.layouts[layoutName](Object.assign({}, obj, {
+        data: data,
         renderPartial: function (partialName) {
-          return views.partials[partialName]();
+          return views.partials[partialName]({
+            data: data
+          });
         }
       }));
     });

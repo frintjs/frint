@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const _ = require('lodash');
 const request = require('request');
@@ -7,7 +8,7 @@ const yaml = require('js-yaml');
 const ORG = 'Travix-International';
 const REPO = 'frint';
 const TOKEN = process.env.GITHUB_API_TOKEN;
-const FILEPATH = __dirname + '/../data/contributors.yml';
+const FILEPATH = path.join(__dirname, '/../data/contributors.yml');
 
 const config = require('./config');
 const contributorsOptedIn = config.contributorsOptedIn;

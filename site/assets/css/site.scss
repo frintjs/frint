@@ -144,6 +144,29 @@ footer {
   }
 }
 
+.contributors {
+  .column {
+    text-align: center;
+  }
+
+  .contributor {
+    background: whitesmoke;
+    padding: 10px 0 10px 0;
+    border-radius: 4px;
+    border: 2px solid #eee;
+
+    &:hover {
+      background: #eee;
+    }
+  }
+
+  img {
+    width: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
 // resetting bulma for prism themes
 pre,
 pre[class*="language-"] {

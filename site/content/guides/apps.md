@@ -8,6 +8,7 @@ sidebarPartial: guidesSidebar
 <!-- MarkdownTOC depth=1 autolink=true bracket=round -->
 
 - [What is an App?](#what-is-an-app)
+- [Illustration](#illustration)
 - [How to create an App?](#how-to-create-an-app)
 - [Root Apps](#root-apps)
 - [Widgets](#widgets)
@@ -22,6 +23,14 @@ An App can be of two types:
 
 * **Root App**: The root app.
 * **Widget**: Apps that get registered to the root app.
+
+## Illustration
+
+![apps diagram](/img/frint-apps.png)
+
+Illustration of a root app, and multiple widgets registering themselves with region name.
+
+We will see some code examples below.
 
 ## How to create an App?
 

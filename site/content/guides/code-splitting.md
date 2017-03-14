@@ -9,6 +9,7 @@ sidebarPartial: guidesSidebar
 
 - [What is code splitting](#what-is-code-splitting)
 - [The bundles](#the-bundles)
+- [Illustration](#illustration)
 - [Install dependencies](#install-dependencies)
 - [Vendors bundle](#vendors-bundle)
 - [Externals](#externals)
@@ -34,6 +35,14 @@ We can divide our bundles like this:
 * etc...
 
 We also want to make sure that our root and widget bundles would not duplicate any of the libraries that we already have in `vendors.js`.
+
+## Illustration
+
+![code splitting](/img/frint-code-splitting.png)
+
+Illustration of a multiple bundles loading themselves in the browser, and then rendering the final output.
+
+We will see some code examples below.
 
 ## Install dependencies
 

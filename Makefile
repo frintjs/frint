@@ -63,3 +63,23 @@ site-serve-only:
 site-serve:
 	make site-build
 	make site-serve-only
+
+site-publish:
+	npm run bootstrap
+	npm run dist
+	rm -rf ./_site
+	make site-build
+	make site-publish-only
+
+site-publish-only:
+	rm -rf ./_site/.git
+
+	cp -f CNAME ./_site/CNAME
+
+	(cd ./_site && git init)
+	(cd ./_site && git commit --allow-empty -m 'update site')
+	(cd ./_site && git checkout -b gh-pages)
+	(cd ./_site && touch .nojekyll)
+	(cd ./_site && git add .)
+	(cd ./_site && git commit -am 'update site')
+	(cd ./_site && git push git@github.com:Travix-International/frint gh-pages --force)

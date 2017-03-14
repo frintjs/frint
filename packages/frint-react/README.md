@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/frint-react.svg)](https://www.npmjs.com/package/frint-react)
 
-> React plugin of Frint
+> React package for Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 

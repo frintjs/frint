@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/frint-store.svg)](https://www.npmjs.com/package/frint-store)
 
-> Store plugin of Frint
+> Store package of Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->
 

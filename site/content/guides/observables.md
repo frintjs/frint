@@ -46,7 +46,7 @@ Frint uses RxJS, which is widely adopted by the JavaScript community. Our exampl
 
 ## Conventions
 
-It is common practive to end your variable names with a `$` sign if it represents an Observable.
+It is common practice to end your variable names with a `$` sign if it represents an Observable.
 
 ```js
 const name$ = Rx.Observable.of('Frint');
@@ -57,7 +57,6 @@ const name$ = Rx.Observable.of('Frint');
 Create an Observable:
 
 ```js
-const colors$ = Rx.Observable.of('red', 'blue', 'green');
 const colors$ = Rx.Observable.create(function (observer) {
   observer.next('red');
   observer.next('green');
@@ -74,7 +73,7 @@ Subscribe to it:
 ```js
 const subscription = colors$.subscribe({
   next: function (color) {
-    console.log(color); // `red`, `blue`, `green`
+    console.log(color); // `red`, `green`, `blue`
   },
   error: function (error) {
     console.log(error); // never fires
@@ -164,7 +163,7 @@ interval$
 We can even map emitted values to something else:
 
 ```js
-const houses$ = Rx.Observable.of('gryffindor', 'slytherin', 'ravenclaw', 'slytherin');
+const houses$ = Rx.Observable.of('gryffindor', 'slytherin', 'ravenclaw', 'hufflepuff');
 
 houses$
   .map(x => x.toUpperCase()) // uppercasing the house names
@@ -177,8 +176,8 @@ Merging two Observables:
 
 ```js
 const numbers$ = Rx.Observable.of(1, 2, 3);
-const colors$ = Rx.Observable.of('red', 'blue', 'green');
-const houses$ = Rx.Observable.of('gryffindor', 'slytherin', 'ravenclaw', 'slytherin');
+const colors$ = Rx.Observable.of('red', 'green', 'blue');
+const houses$ = Rx.Observable.of('gryffindor', 'slytherin', 'ravenclaw', 'hufflepuff');
 
 numbers$
   .merge(colors$)
@@ -203,8 +202,8 @@ Let's say we want to merge all the three observables from above example, and gen
 ```js
 {
   number: 3,
-  color: 'green',
-  house: 'slytherin'
+  color: 'blue',
+  house: 'hufflepuff'
 }
 ```
 

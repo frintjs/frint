@@ -8,9 +8,9 @@ sidebarPartial: guidesSidebar
 <!-- MarkdownTOC depth=1 autolink=true bracket=round -->
 
 - [What is a Region?](#what-is-a-region)
+- [Illustration](#illustration)
 - [Register Widgets with region name](#register-widgets-with-region-name)
 - [Defining a Region](#defining-a-region)
-- [Diagram](#diagram)
 
 <!-- /MarkdownTOC -->
 
@@ -18,20 +18,29 @@ sidebarPartial: guidesSidebar
 
 By now, we have discussed how:
 
-* Core Apps are created
+* Root Apps are created
 * Creating and registering Widgets
-* Rendering Core Apps
+* Rendering Root Apps
 
 But we didn't talk about rendering the Widgets yet.
 
 We do that via `Region` component, that is shipped with `frint-react` package.
+
+
+## Illustration
+
+![region diagram](/img/frint-region-diagram.png)
+
+Illustration of a root app, defining a region, where multiple widgets get loaded.
+
+We will see some code examples below.
 
 ## Register Widgets with region name
 
 When registering widgets, you can pass extra information like the Region where you want it to be mounted on to:
 
 ```js
-window.app = new CoreApp();
+window.app = new App(); // root app
 
 window.app.registerWidget(Widget, {
   regions: [
@@ -40,19 +49,19 @@ window.app.registerWidget(Widget, {
 });
 ```
 
-We just registered a Widget in our Core App, and provided enough information to let it know that we want our Widget to be mounted in a region somewhere which happens to have a name `sidebar`.
+We just registered a Widget in our Root App, and provided enough information to let it know that we want our Widget to be mounted in a region somewhere which happens to have a name `sidebar`.
 
 But the `sidebar` Region does not exist yet. Let's define it next.
 
 ## Defining a Region
 
-Since `Region` is a component itself, we can implement it in the root component of our Core App:
+Since `Region` is a component itself, we can implement it in the root component of our Root App:
 
 ```js
 import React, { Component } from 'react';
 import { Region } from 'frint-react';
 
-class RootComponentOfCoreApp extends Component {
+class RootComponentOfRootApp extends Component {
   render() {
     return (
       <div>
@@ -69,13 +78,6 @@ class RootComponentOfCoreApp extends Component {
 }
 ```
 
-All we did from our Core App is just to define a Region, and give it a name `sidebar`.
+All we did from our Root App is just to define a Region, and give it a name `sidebar`.
 
 Now whenever a Widget becomes available, and it happens to have a target region of the same name, it would get rendered within that specific Region.
-
-
-## Diagram
-
-![region diagram](/img/frint-region-diagram.png)
-
-Illustration of a root app, defining a region, where multiple widgets get loaded.

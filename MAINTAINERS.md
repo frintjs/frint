@@ -161,7 +161,6 @@ The documentation site at [http://frint.js.org](http://frint.js.org) is also man
 For development:
 
 ```
-$ make site-build
 $ make site-serve
 ```
 
@@ -173,4 +172,8 @@ $ make site-watch
 
 ### Publishing the site
 
-Coming soon...
+Builds and deploys the site to GitHub Pages.
+
+```
+$ make site-publish
+```

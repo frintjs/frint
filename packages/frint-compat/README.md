@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/frint-compat.svg)](https://www.npmjs.com/package/frint-compat)
 
-> Backwards compatibility plugin
+> Backwards compatibility package for Frint
 
 Everything that you see here has been deprecated and should not be intentionally used.
 

@@ -59,7 +59,7 @@ describe('frint-react-server › renderToString', function () {
     })(TestComponent);
 
     const TestApp = createCore({
-      name: 'TestAppname',
+      name: 'TestAppName',
       providers: [
         {
           name: 'component',

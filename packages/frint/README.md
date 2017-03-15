@@ -15,9 +15,6 @@
 - [API](#api)
   - [App](#app)
   - [createApp](#createapp)
-  - [createCore](#createcore)
-  - [createWidget](#createwidget)
-  - [createClass](#createclass)
   - [app](#app-1)
 
 <!-- /MarkdownTOC -->
@@ -48,10 +45,10 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ## Terminologies
 
-* `App`: The base for Core and Widgets.
-* `Core`: The root app, that renders to DOM directly.
-* `Widget`: Apps that register themselves to Core.
-* `Provider`: Dependency for your apps (Core and Widgets).
+* `App`: The base for Root App and Widgets.
+* `Root App`: The top-most parent App, where Widgets get registered to.
+* `Widget`: Apps that register themselves to Root App.
+* `Provider`: Dependency for your apps (Root App and Widgets).
 
 ## Usage
 
@@ -59,21 +56,21 @@ Let's import the necessary functions from the library first:
 
 ```js
 const Frint = require('frint');
-const { createCore } = Frint;
+const { createApp } = Frint;
 ```
 
 Now we can create our App:
 
 ```js
-const CoreApp = createCore({ name: 'MyAppName' });
+const RootApp = createApp({ name: 'MyAppName' });
 ```
 
-Instantiate the Core app:
+Instantiate the Root app:
 
 ```js
-const app = new CoreApp(); // now you have the Core app's instance
+const app = new RootApp(); // now you have the Root app's instance
 
-// usually we set the core app to `window.app`,
+// usually we set the root app to `window.app`,
 // so Widgets coming in from separate bundles can register themselves
 window.app = app;
 ```
@@ -81,12 +78,12 @@ window.app = app;
 ## Creating and registering widgets
 
 ```js
-const { createWidget } = Frint;
+const { createApp } = Frint;
 
-const MyWidget = createWidget({ name: 'MyWidgetName' });
+const MyWidget = createApp({ name: 'MyWidgetName' });
 ```
 
-To register the Widget in your Core App:
+To register the Widget in your Root App:
 
 ```js
 window.app.registerWidget(MyWidget);
@@ -96,14 +93,14 @@ window.app.registerWidget(MyWidget);
 
 Providers are dependencies for your Frint application (not to be confused with `npm` packages).
 
-They can be set at Core app level, at Widget level, or even only at Core app level but cascade them to the Widgets.
+They can be set at Root app level, at Widget level, or even only at Root app level but cascade them to the Widgets.
 
 ### Direct values
 
 For values that are already known:
 
 ```js
-const CoreApp = createCore({
+const RootApp = createApp({
   name: 'MyAppName',
   providers: [
     {
@@ -113,7 +110,7 @@ const CoreApp = createCore({
   ]
 });
 
-const app = new CoreApp();
+const app = new RootApp();
 app.get('foo') === 'foo value here';
 ```
 
@@ -122,7 +119,7 @@ app.get('foo') === 'foo value here';
 If you want to get the value from a function (will be called only once during App construction):
 
 ```js
-const CoreApp = createCore({
+const RootApp = createApp({
   name: 'MyAppName',
   providers: [
     {
@@ -134,7 +131,7 @@ const CoreApp = createCore({
   ]
 });
 
-const app = new CoreApp();
+const app = new RootApp();
 app.get('bar') === 'bar value';
 ```
 
@@ -149,7 +146,7 @@ class Baz {
   }
 }
 
-const CoreApp = createCore({
+const RootApp = createApp({
   name: 'MyAppName',
   providers: [
     {
@@ -159,17 +156,17 @@ const CoreApp = createCore({
   ]
 });
 
-const app = new CoreApp();
+const app = new RootApp();
 app.get('baz').getValue() === 'baz value';
 ```
 
 ### Cascading
 
-If you wish to cascade a provider from Core App to your Widgets, you can:
+If you wish to cascade a provider from Root App to your Widgets, you can:
 
 ```js
-const CoreApp = createCore({
-  name: 'MyCoreApp',
+const RootApp = createApp({
+  name: 'MyRootApp',
   providers: [
     {
       name: 'window',
@@ -179,11 +176,11 @@ const CoreApp = createCore({
   ]
 });
 
-const MyWidget = createWidget({
+const MyWidget = createApp({
   name: 'MyWidget'
 });
 
-const app = new CoreApp();
+const app = new RootApp();
 app.registerWidget(MyWidget);
 
 app.get('window') === window;
@@ -192,8 +189,8 @@ app.getWidgetInstance('MyWidget').get('window') === window;
 
 ### Reserved provider names
 
-* `app`: The current App in scope (Core or Widget)
-* `rootApp`: Always refers to the top-most App (which is Core)
+* `app`: The current App in scope (Root or Widget)
+* `rootApp`: Always refers to the top-most App (which is Root)
 
 ### Dependencies
 
@@ -207,8 +204,8 @@ class Baz {
   }
 }
 
-const CoreApp = createCore({
-  name: 'MyCoreApp',
+const RootApp = createApp({
+  name: 'MyRootApp',
   providers: [
     {
       name: 'foo',
@@ -232,11 +229,11 @@ const CoreApp = createCore({
 
 ### Scoped
 
-When cascading providers from Core to Widgets, it is likely you may want to scope those values by the Widget they are targeting. It is applicable in only `useFactory` and `useClass` usage, since they generate values.
+When cascading providers from Root to Widgets, it is likely you may want to scope those values by the Widget they are targeting. It is applicable in only `useFactory` and `useClass` usage, since they generate values.
 
 ```js
-const CoreApp = createCore({
-  name: 'MyCoreApp',
+const RootApp = createApp({
+  name: 'MyRootApp',
   providers: [
     {
       name: 'theNameOfTheApp',
@@ -249,14 +246,14 @@ const CoreApp = createCore({
     }
   ]
 });
-const MyWidget = createWidget({
+const MyWidget = createApp({
   name: 'MyWidget'
 });
 
-const app = new CoreApp();
+const app = new RootApp();
 app.registerWidget(MyWidget);
 
-app.get('theNameOfTheApp') === 'MyCoreApp';
+app.get('theNameOfTheApp') === 'MyRootApp';
 app.getWidgetInstance('MyWidget').get('theNameOfTheApp') === 'MyWidget';
 ```
 
@@ -270,7 +267,7 @@ app.getWidgetInstance('MyWidget').get('theNameOfTheApp') === 'MyWidget';
 
 The base App class.
 
-Core and Widget extend this class.
+Root App and Widget extend this class.
 
 ## createApp
 
@@ -288,40 +285,11 @@ Core and Widget extend this class.
 
 `App`: App class.
 
-## createCore
-
-> createCore(options)
-
-Same as `createApp`, but intended for creating Core Apps.
-
-## createWidget
-
-> createWidget(options)
-
-Same as `createApp`, but intended for creating Widgets, that get registered to Core apps.
-
-## createClass
-
-> createClass(methods)
-
-Creates and returns a ES6 compatible class.
-
-Useful in non-ES6 compatible environments.
-
-### Arguments
-
-1. `options` (`Object`)
-    * `initialize` (`Function`): To be used as a regular class constructor.
-
-### Returns
-
-`Function`: ES6 compatible class.
-
 ## app
 
 > const app = new App();
 
-The `App` instance (either Core or Widget):
+The `App` instance (either Root App or Widget):
 
 ### app.getOption
 
@@ -345,7 +313,7 @@ The `App` instance (either Core or Widget):
 
 #### Returns
 
-Gives you the Core App instance.
+Gives you the Root App instance.
 
 ### app.getProviders
 
@@ -403,11 +371,11 @@ Gives you the computed value of the provider.
 
 > app.registerWidget(Widget, options = {})
 
-Register Widget class to Core app.
+Register Widget class to Root app.
 
 #### Arguments
 
-1. `Widget` (`App`): The widget class created via `createWidget`.
+1. `Widget` (`App`): The widget class.
 1. `options` (`Object` [optional])
     * `name` (`String` [optional]): If the Widget's name needs to be overridden.
     * `multi` (`Boolean` [optional]): If the Widget is a multi-instance widget (defaults to `false`)

@@ -160,7 +160,7 @@ Extends the native `getRootApp()`, and looks for `window.app` first, and then re
 
 #### Returns
 
-`App`: The core app's instance.
+`App`: The root app's instance.
 
 ### app.getState$
 

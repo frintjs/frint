@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 import { Subject } from 'rxjs';
 import sinon from 'sinon';
 
-import { createCore, createWidget } from 'frint';
+import { createApp } from 'frint';
 
 import render from '../render';
 import observe from './observe';
@@ -44,8 +44,8 @@ describe('frint-react › components › Region', function () {
   it('renders widgets with weighted ordering', function () {
     resetDOM();
 
-    // core
-    const CoreComponent = React.createClass({
+    // root
+    const RootComponent = React.createClass({
       render() {
         return (
           <div>
@@ -54,10 +54,10 @@ describe('frint-react › components › Region', function () {
         );
       }
     });
-    const Core = createCore({
-      name: 'CoreApp',
+    const RootApp = createApp({
+      name: 'RootApp',
       providers: [
-        { name: 'component', useValue: CoreComponent },
+        { name: 'component', useValue: RootComponent },
       ],
     });
 
@@ -67,7 +67,7 @@ describe('frint-react › components › Region', function () {
         return <p>Widget 1</p>;
       }
     });
-    const Widget1 = createWidget({
+    const Widget1 = createApp({
       name: 'Widget1',
       providers: [
         { name: 'component', useValue: Widget1Component },
@@ -79,7 +79,7 @@ describe('frint-react › components › Region', function () {
         return <p>Widget 2</p>;
       }
     });
-    const Widget2 = createWidget({
+    const Widget2 = createApp({
       name: 'Widget2',
       providers: [
         { name: 'component', useValue: Widget2Component },
@@ -87,7 +87,7 @@ describe('frint-react › components › Region', function () {
     });
 
     // render
-    window.app = new Core();
+    window.app = new RootApp();
     render(
       window.app,
       document.getElementById('root')
@@ -110,8 +110,8 @@ describe('frint-react › components › Region', function () {
   });
 
   it('warns when widgets subscription emits an error', function () {
-    // core
-    const CoreComponent = React.createClass({
+    // root
+    const RootComponent = React.createClass({
       render() {
         return (
           <div>
@@ -121,15 +121,15 @@ describe('frint-react › components › Region', function () {
         );
       }
     });
-    const Core = createCore({
-      name: 'CoreApp',
+    const RootApp = createApp({
+      name: 'RootApp',
       providers: [
-        { name: 'component', useValue: CoreComponent },
+        { name: 'component', useValue: RootComponent },
       ],
     });
 
     // fake an error
-    window.app = new Core();
+    window.app = new RootApp();
     const subject$ = new Subject();
     window.app.getWidgets$ = function getWidgets$() {
       return subject$;
@@ -149,20 +149,20 @@ describe('frint-react › components › Region', function () {
   });
 
   it('renders single and multi-instance widgets', function () {
-    // core
+    // root
     const todos = [
       { id: '1', title: 'First todo' },
       { id: '2', title: 'Second todo' },
       { id: '3', title: 'Third todo' },
     ];
-    let coreComponentInstance; // @TODO: hack
-    const CoreComponent = React.createClass({
+    let rootComponentInstance; // @TODO: hack
+    const RootComponent = React.createClass({
       render() {
-        coreComponentInstance = this;
+        rootComponentInstance = this;
 
         return (
           <div>
-            <p id="core-text">Hello World from Core</p>
+            <p id="root-text">Hello World from Root</p>
 
             <Region name="sidebar" />
 
@@ -185,10 +185,10 @@ describe('frint-react › components › Region', function () {
         );
       }
     });
-    const Core = createCore({
-      name: 'CoreApp',
+    const RootApp = createApp({
+      name: 'RootApp',
       providers: [
-        { name: 'component', useValue: CoreComponent },
+        { name: 'component', useValue: RootComponent },
       ],
     });
 
@@ -198,7 +198,7 @@ describe('frint-react › components › Region', function () {
         return <p id="widget1-text">Hello World from Widget1</p>;
       }
     });
-    const Widget1 = createWidget({
+    const Widget1 = createApp({
       name: 'Widget1',
       providers: [
         { name: 'component', useValue: Widget1Component },
@@ -216,7 +216,7 @@ describe('frint-react › components › Region', function () {
         return <p className="widget2-text">Hello World from Widget2 - {this.props.todo.title}</p>;
       }
     }));
-    const Widget2 = createWidget({
+    const Widget2 = createApp({
       name: 'Widget2',
       providers: [
         { name: 'component', useValue: Widget2Component },
@@ -225,12 +225,12 @@ describe('frint-react › components › Region', function () {
     });
 
     // render
-    window.app = new Core();
+    window.app = new RootApp();
     render(
       window.app,
       document.getElementById('root')
     );
-    expect(document.getElementById('core-text').innerHTML).to.equal('Hello World from Core');
+    expect(document.getElementById('root-text').innerHTML).to.equal('Hello World from Root');
 
     // register widget
     window.app.registerWidget(Widget1, {
@@ -255,7 +255,7 @@ describe('frint-react › components › Region', function () {
 
     // change in props
     todos[1].title = 'Second todo [updated]';
-    coreComponentInstance.forceUpdate();
+    rootComponentInstance.forceUpdate();
     elements.forEach((el, index) => {
       expect(el.innerHTML).to.contain(todos[index].title);
     });
@@ -266,18 +266,18 @@ describe('frint-react › components › Region', function () {
   });
 
   it('calls beforeDestroy when unmounting multi-instance widgets', function () {
-    // core
+    // root
     const todos = [
       { id: '1', title: 'First todo' },
     ];
-    let coreComponentInstance; // @TODO: hack
-    const CoreComponent = React.createClass({
+    let rootComponentInstance; // @TODO: hack
+    const RootComponent = React.createClass({
       render() {
-        coreComponentInstance = this;
+        rootComponentInstance = this;
 
         return (
           <div>
-            <p id="core-text">Hello World from Core</p>
+            <p id="root-text">Hello World from Root</p>
 
             <Region name="sidebar" />
 
@@ -300,10 +300,10 @@ describe('frint-react › components › Region', function () {
         );
       }
     });
-    const Core = createCore({
-      name: 'CoreApp',
+    const RootApp = createApp({
+      name: 'RootApp',
       providers: [
-        { name: 'component', useValue: CoreComponent },
+        { name: 'component', useValue: RootComponent },
       ],
     });
 
@@ -321,7 +321,7 @@ describe('frint-react › components › Region', function () {
       }
     }));
     let beforeDestroyCalled = false;
-    const Widget = createWidget({
+    const Widget = createApp({
       name: 'Widget',
       beforeDestroy: function () {
         beforeDestroyCalled = true;
@@ -333,12 +333,12 @@ describe('frint-react › components › Region', function () {
     });
 
     // render
-    window.app = new Core();
+    window.app = new RootApp();
     render(
       window.app,
       document.getElementById('root')
     );
-    expect(document.getElementById('core-text').innerHTML).to.equal('Hello World from Core');
+    expect(document.getElementById('root-text').innerHTML).to.equal('Hello World from Root');
 
     // register widget
     window.app.registerWidget(Widget, {
@@ -358,7 +358,7 @@ describe('frint-react › components › Region', function () {
 
     // change in props
     todos.pop(); // empty the list
-    coreComponentInstance.forceUpdate();
+    rootComponentInstance.forceUpdate();
     const updatedElements = _.toArray(document.getElementsByClassName('widget-text'));
     expect(updatedElements.length).to.equal(0);
 

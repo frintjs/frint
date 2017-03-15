@@ -4,7 +4,7 @@ import React from 'react';
 import { Observable } from 'rxjs';
 import { expect } from 'chai';
 
-import { createCore } from 'frint';
+import { createApp } from 'frint';
 import { observe } from 'frint-react';
 
 import renderToString from './renderToString';
@@ -25,7 +25,7 @@ describe('frint-react-server › renderToString', function () {
       }
     });
 
-    const TestApp = createCore({
+    const TestApp = createApp({
       name: 'TestAppname',
       providers: [
         {
@@ -58,7 +58,7 @@ describe('frint-react-server › renderToString', function () {
       });
     })(TestComponent);
 
-    const TestApp = createCore({
+    const TestApp = createApp({
       name: 'TestAppName',
       providers: [
         {

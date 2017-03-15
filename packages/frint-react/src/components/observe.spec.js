@@ -108,7 +108,7 @@ describe('frint-react › components › observe', function () {
   it('can be tested with enzyme', function () {
     const ChildComponent = React.createClass({
       render() {
-        return <p>I am a child.</p>
+        return <p>I am a child.</p>;
       }
     });
 

@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
+/* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it */
 import React from 'react';
 import { Observable } from 'rxjs';

@@ -72,7 +72,7 @@ We start by importing the necessary functions from the library:
 
 ```js
 import React from 'react';
-import { createCore } from 'frint';
+import { createApp } from 'frint';
 import { render } from 'frint-react';
 ```
 
@@ -90,11 +90,11 @@ const Root = React.createClass({
 });
 ```
 
-Now we need to create our Core App, and assign the previously defined Component as our root component for the App:
+Now we need to create our Root App, and assign the previously defined Component as our root component for the App:
 
 ```js
-const CoreApp = createCore({
-  name: 'MyCoreApp',
+const RootApp = createApp({
+  name: 'MyRootApp',
   providers: [
     {
       name: 'component',
@@ -107,7 +107,7 @@ const CoreApp = createCore({
 Now that we have everything ready, we can instantiate our app, and render it:
 
 ```js
-window.app = new CoreApp();
+window.app = new RootApp();
 render(window.app, document.getElementById('root'));
 ```
 
@@ -126,9 +126,9 @@ The code above asumes your page has an element with an id `root`:
 
 The library already ships with a `Region` component, and a `RegionService`.
 
-We use the concept of regions for defining areas in our Components (either in a Core App or a Widget), where other Widgets can load themselves in.
+We use the concept of regions for defining areas in our Components (either in a Root App or a Widget), where other Widgets can load themselves in.
 
-For example, imagine the Root component of our Core App above, we can define a Region named `sidebar` as follows:
+For example, imagine the Root component of our Root App above, we can define a Region named `sidebar` as follows:
 
 ```js
 import React from 'react';
@@ -138,7 +138,7 @@ const Root = React.createClass({
   render() {
     return (
       <div>
-        <p>Hello World from Core App!</p>
+        <p>Hello World from Root App!</p>
 
         <Region name="sidebar" />
       </div>
@@ -151,7 +151,7 @@ That's just defining the Region only. Let's now create a Widget, and assign it t
 
 
 ```js
-import { createWidget } from 'frint';
+import { createApp } from 'frint';
 
 const WidgetComponent = React.createClass({
   render() {
@@ -159,7 +159,7 @@ const WidgetComponent = React.createClass({
   }
 });
 
-const Widget = createWidget({
+const Widget = createApp({
   name: 'MyWidget',
   providers: [
     {
@@ -170,7 +170,7 @@ const Widget = createWidget({
 });
 ```
 
-Now that we have our Widget defined, we can register it to our Core App:
+Now that we have our Widget defined, we can register it to our Root App:
 
 ```js
 window.app.registerWidget(Widget, {
@@ -196,7 +196,7 @@ const Root = React.createClass({
 
     return (
       <div>
-        <p>Hello World from Core App!</p>
+        <p>Hello World from Root App!</p>
 
         <Region name="sidebar" data={data} />
       </div>
@@ -212,7 +212,7 @@ Enter `RegionService`. This is a Service that we can pass in our Widget's provid
 ```js
 const { RegionService } = Frint;
 
-const Widget = createWidget({
+const Widget = createApp({
   name: 'MyWidget',
   providers: [
     {
@@ -407,7 +407,7 @@ Let's create a Widget, that will receive the `todo` object, and render the title
 
 ```js
 import React from 'react';
-import { createWidget } from 'frint';
+import { createApp } from 'frint';
 import { observe, RegionService } from 'frint-react';
 
 const WidgetComponent = React.createClass({
@@ -427,7 +427,7 @@ const ObservedWidgetComponent = observe(function (app) {
     .get$();
 })(WidgetComponent);
 
-const Widget = createWidget({
+const Widget = createApp({
   name: 'MyWidget',
   providers: [
     {
@@ -448,7 +448,7 @@ Now comes the part of registering our Widget as a multi-instance widget:
 window.app.registerWidget(Widget, {
   regions: ['todo-item'],
 
-  // this tells Core App to treat this widget as a multi-instance one
+  // this tells Root App to treat this widget as a multi-instance one
   multi: true
 });
 ```
@@ -461,11 +461,11 @@ window.app.registerWidget(Widget, {
 
 > render(app, node)
 
-Renders a Core App in target DOM node.
+Renders a Root App in target DOM node.
 
 ### Arguments
 
-1. `app` (`App`): The Core App instance.
+1. `app` (`App`): The Root App instance.
 1. `node` (`Element`): The DOM Element where you want your App to render.
 
 ## observe
@@ -475,7 +475,7 @@ Renders a Core App in target DOM node.
 ### Arguments
 
 1. `fn` (`Function`): The function returning an Observable.
-    * The `fn` accepts `app` as an argument, which is the instance of your Core App or Widget in the scope
+    * The `fn` accepts `app` as an argument, which is the instance of your Root App or Widget in the scope
     * It should return an `Observable`
 
 ### Returns

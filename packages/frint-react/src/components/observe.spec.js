@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import { Observable } from 'rxjs';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { mount } from 'enzyme';
 
 import observe from './observe';
 import Provider from './Provider';
@@ -102,5 +103,54 @@ describe('frint-react › components › observe', function () {
     );
 
     expect(document.getElementById('name').innerHTML).to.equal('FakeApp');
+  });
+
+  it('can be tested with enzyme', function () {
+    const ChildComponent = React.createClass({
+      render() {
+        return <p>I am a child.</p>
+      }
+    });
+
+    const Component = React.createClass({
+      render() {
+        return (
+          <div>
+            <p id="name">{this.props.name}</p>
+
+            <ChildComponent />
+          </div>
+        );
+      }
+    });
+
+    const ObservedComponent = observe(function (app) {
+      return Observable
+        .of(app.getOption('name'))
+        .map(name => ({ name }));
+    })(Component);
+
+    const fakeApp = {
+      getOption() {
+        return 'ShallowApp';
+      }
+    };
+
+    const ComponentToRender = React.createClass({
+      render() {
+        return (
+          <Provider app={fakeApp}>
+            <ObservedComponent {...this.props} />
+          </Provider>
+        );
+      }
+    });
+
+    const wrapper = mount(<ComponentToRender />);
+    expect(wrapper.find(ObservedComponent)).to.have.length(1);
+    expect(wrapper.find(ObservedComponent)).to.have.length(1);
+    expect(wrapper.find(ChildComponent)).to.have.length(1);
+    expect(wrapper.find('#name')).to.have.length(1);
+    expect(wrapper.text()).to.contain('I am a child');
   });
 });

@@ -78,6 +78,7 @@
     "react-dom": "^0.14.8",
     "request": "^2.81.0",
     "rimraf": "^2.5.2",
+    "rxjs": "^5.2.0",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
     "webpack": "^2.2.0"

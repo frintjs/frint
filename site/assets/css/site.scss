@@ -102,6 +102,38 @@ h6 {
   }
 }
 
+.section.apps,
+.section.regions {
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding: 0 60px 30px 60px;
+    margin-bottom: 30px;
+    display: inline-block;
+  }
+
+  p {
+    margin-top: 30px;
+
+    a {
+      font-weight: 600;
+    }
+  }
+}
+
+.section.apps {
+  background: whitesmoke;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+
+  img {
+    width: 60%;
+  }
+}
+
 .menu.docs {
   .menu-list {
     li {

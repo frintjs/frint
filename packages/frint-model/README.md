@@ -7,7 +7,6 @@
 - [Guide](#guide)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
-  - [```](#)
 - [API](#api)
   - [Model](#model)
   - [createModel](#createmodel)

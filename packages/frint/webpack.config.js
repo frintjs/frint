@@ -21,7 +21,7 @@ module.exports = {
     path: __dirname + '/dist',
     filename: filename,
     libraryTarget: 'this',
-    library: 'FrintModel',
+    library: 'Frint',
   },
   externals: {
     'lodash': '_',

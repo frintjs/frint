@@ -8,8 +8,8 @@ var plugins = !minify
       compress: {
         warnings: false,
         drop_console: false
-      }
-    })
+      },
+    }),
   ];
 var filename = !minify
   ? 'frint.js'
@@ -21,7 +21,7 @@ module.exports = {
     path: __dirname + '/dist',
     filename: filename,
     libraryTarget: 'this',
-    library: 'Frint'
+    library: 'FrintModel',
   },
   externals: {
     'lodash': '_',
@@ -38,9 +38,9 @@ module.exports = {
         query: {
           presets: [
             'travix'
-          ]
-        }
-      }
-    ]
-  }
+          ],
+        },
+      },
+    ],
+  },
 };

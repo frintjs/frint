@@ -17,6 +17,26 @@
 
 # Guide
 
+## Installation
+
+With [npm](https://www.npmjs.com/):
+
+```
+$ npm install --save frint-model
+```
+
+Via [unpkg](https://unpkg.com) CDN:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+<script src="https://unpkg.com/frint-model@latest/dist/frint-model.min.js"></script>
+
+<script>
+  // available as `window.FrintModel`
+</script>
+```
+
 ## Terminologies
 
 * `Model`: An object class that holds data, e.g. configuration, customer information, etc.

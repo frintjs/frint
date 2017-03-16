@@ -1,5 +1,7 @@
 # frint
 
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/25393e811f0b4d6184ccff5381a0d2a6)](https://www.codacy.com/app/rmachado/frint?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Travix-International/frint&amp;utm_campaign=badger)
 [![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/Travix-International/frint/master.svg)](http://travis-ci.org/Travix-International/frint) [![Coverage](https://img.shields.io/coveralls/Travix-International/frint.svg)](https://coveralls.io/github/Travix-International/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c)
 
 > The modular JavaScript framework

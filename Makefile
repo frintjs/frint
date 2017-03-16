@@ -17,7 +17,7 @@ release-canary:
 changelog:
 	git checkout master
 	git pull origin master
-	GITHUB_AUTH=$(GITHUB_API_TOKEN) ./node_modules/.bin/lerna-change --tag-from $(FROM_TAG) --tag-to $(TO_TAG)
+	GITHUB_AUTH=$(GITHUB_API_TOKEN) ./node_modules/.bin/lerna-changelog --tag-from $(FROM_TAG) --tag-to $(TO_TAG)
 
 push-changelog:
 	git checkout master

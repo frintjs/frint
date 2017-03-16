@@ -7,7 +7,8 @@
   "changelog": {
     "repo": "Travix-International/frint",
     "labels": {
-      "bug": "Bug fix"
+      "bug": "Bug fix",
+      "PR": "Pull Requests"
     },
     "cacheDir": ".changelog"
   }

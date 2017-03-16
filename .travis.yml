@@ -7,10 +7,12 @@ script:
   - 'npm run bootstrap'
   - 'npm run lint'
   - 'npm run test'
-  # - 'npm run cover'
   - 'npm run alex'
 
-# after_success: 'npm run coverage:coveralls'
+after_success:
+  - 'npm run cover'
+  - './node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/frint*/coverage/coverage*.json'
+  - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
 
 notifications:
   email: false

@@ -3,9 +3,7 @@
     "travix"
   ],
   "parser": "babel-eslint",
-  "settings": {
-    "react": {
-      "pragma": "h"
-    }
+  "rules": {
+    "no-underscore-dangle": 0
   }
 }

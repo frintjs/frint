@@ -1,6 +1,8 @@
+PORT=5001
+
 bundle:
 	(cd ./core && npm run build)
 
 serve:
 	make bundle
-	(cd ./build && ../../../node_modules/.bin/http-server -p 5001)
+	(cd ./build && ../../../node_modules/.bin/http-server -p $(PORT))

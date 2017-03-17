@@ -1,5 +1,57 @@
 # Change Log
 
+## v1.0.0 (2017-03-16)
+
+#### Pull Requests
+
+* `frint-model`
+  * [#101](https://github.com/Travix-International/frint/pull/101) README for frint-model package. ([@alexmiranda](https://github.com/alexmiranda))
+* Other
+  * [#133](https://github.com/Travix-International/frint/pull/133) Site: remove dead links.. ([@fahad19](https://github.com/fahad19))
+  * [#126](https://github.com/Travix-International/frint/pull/126) Site: Homepage. ([@fahad19](https://github.com/fahad19))
+  * [#125](https://github.com/Travix-International/frint/pull/125) Guides: Observables. ([@fahad19](https://github.com/fahad19))
+  * [#124](https://github.com/Travix-International/frint/pull/124) Drop Gitbook. ([@fahad19](https://github.com/fahad19))
+  * [#123](https://github.com/Travix-International/frint/pull/123) Site: command for publishing site.. ([@fahad19](https://github.com/fahad19))
+  * [#121](https://github.com/Travix-International/frint/pull/121) Guides: illustrations. ([@fahad19](https://github.com/fahad19))
+  * [#120](https://github.com/Travix-International/frint/pull/120) Site: analytics. ([@fahad19](https://github.com/fahad19))
+  * [#119](https://github.com/Travix-International/frint/pull/119) Guides: Region illustration. ([@fahad19](https://github.com/fahad19))
+  * [#117](https://github.com/Travix-International/frint/pull/117) Migration guide updated to reflect monorepo. ([@fahad19](https://github.com/fahad19))
+  * [#111](https://github.com/Travix-International/frint/pull/111) Site: About page. ([@fahad19](https://github.com/fahad19))
+  * [#113](https://github.com/Travix-International/frint/pull/113) REPL. ([@fahad19](https://github.com/fahad19))
+  * [#112](https://github.com/Travix-International/frint/pull/112) Docs: Guides for State Management and Code Splitting. ([@fahad19](https://github.com/fahad19))
+  * [#110](https://github.com/Travix-International/frint/pull/110) Guides: Concepts of App, Provider, Component, Region. ([@fahad19](https://github.com/fahad19))
+  * [#108](https://github.com/Travix-International/frint/pull/108) Documentation site. ([@fahad19](https://github.com/fahad19))
+  * [#107](https://github.com/Travix-International/frint/pull/107) Allow port number to be changed with make args. ([@alexmiranda](https://github.com/alexmiranda))
+  * [#99](https://github.com/Travix-International/frint/pull/99) Remove requirement for extending `App` from react plugin. ([@fahad19](https://github.com/fahad19))
+  * [#97](https://github.com/Travix-International/frint/pull/97) Remove jsdom-global package.. ([@fahad19](https://github.com/fahad19))
+  * [#96](https://github.com/Travix-International/frint/pull/96) Fix unit tests. ([@alexmiranda](https://github.com/alexmiranda))
+  * [#95](https://github.com/Travix-International/frint/pull/95) Fix import. ([@alexmiranda](https://github.com/alexmiranda))
+  * [#94](https://github.com/Travix-International/frint/pull/94) Organisation of `spec` files. ([@alexmiranda](https://github.com/alexmiranda))
+  * [#93](https://github.com/Travix-International/frint/pull/93) Memory leak. ([@jackTheRipper](https://github.com/jackTheRipper))
+  * [#92](https://github.com/Travix-International/frint/pull/92) Documentation for Model `get` method. ([@alexmiranda](https://github.com/alexmiranda))
+  * [#91](https://github.com/Travix-International/frint/pull/91) Extract lifecycle hooks to react package. ([@alexmiranda](https://github.com/alexmiranda))
+* `frint-compat`, `frint-model`, `frint-react-server`, `frint-react`, `frint-store`, `frint-test-utils`, `frint`
+  * [#132](https://github.com/Travix-International/frint/pull/132) Coveralls integration for monorepo. ([@fahad19](https://github.com/fahad19))
+  * [#122](https://github.com/Travix-International/frint/pull/122) Drop plugin concept. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react-server`, `frint-react`, `frint`
+  * [#130](https://github.com/Travix-International/frint/pull/130) Drop aliased functions. ([@fahad19](https://github.com/fahad19))
+* `frint-react`
+  * [#129](https://github.com/Travix-International/frint/pull/129) Test observed components with enzyme. ([@fahad19](https://github.com/fahad19))
+* `frint-react-server`
+  * [#128](https://github.com/Travix-International/frint/pull/128) Test: Server-side rendering with props coming from Observable. ([@fahad19](https://github.com/fahad19))
+* `frint`
+  * [#118](https://github.com/Travix-International/frint/pull/118) Use forked `travix-di`, instead of `diyai`.. ([@fahad19](https://github.com/fahad19))
+* `frint-react`, `frint`
+  * [#109](https://github.com/Travix-International/frint/pull/109) App lifecycle (destroy). ([@fahad19](https://github.com/fahad19))
+* `MIGRATION.md`, `frint-compat`, `frint-model`, `frint-react-server`, `frint-react`, `frint-store`, `frint-test-utils`, `frint`
+  * [#104](https://github.com/Travix-International/frint/pull/104) Monorepo with Lerna. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 5
+- Alex Miranda ([alexmiranda](https://github.com/alexmiranda))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jean Baudin ([jackTheRipper](https://github.com/jackTheRipper))
+- Uladzimir Dziomin ([spzm](https://github.com/spzm))
+
 ## [v0.14.0](https://github.com/Travix-International/frint/tree/v0.14.0) (2017-01-20)
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.13.0...v0.14.0)
 
@@ -246,6 +298,3 @@
 [Full Changelog](https://github.com/Travix-International/frint/compare/v0.2.0...v0.2.1)
 
 ## [v0.2.0](https://github.com/Travix-International/frint/tree/v0.2.0) (2016-07-07)
-
-
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*

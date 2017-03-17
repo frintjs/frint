@@ -1,7 +1,10 @@
 node_modules
 npm-debug.log
-_book
+lerna-debug.log
+yarn.lock
 lib
+.changelog/
+_site
 
 # Ignore vim temporary files
 *~

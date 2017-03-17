@@ -1,34 +1,23 @@
 {
   "name": "frint",
-  "version": "0.14.0",
   "description": "Framework for building front-end apps",
-  "main": "./lib/index.js",
+  "private": true,
   "scripts": {
-    "transpile": "babel src --out-dir lib",
-    "lint": "eslint --color '{src,test}/**/*.js'",
-    "cover": "nyc --reporter=lcov --require babel-register mocha && npm run cover:report",
-    "cover:report": "nyc report",
-    "test": "npm run cover",
-    "coverage:coveralls": "cat ./coverage/lcov.info | coveralls",
-    "alex:docs": "alex",
-    "alex:code": "alex 'src/**/*.js'",
-    "alex": "npm run alex:docs && npm run alex:code",
-    "dist:lib": "webpack --config ./dist/webpack.config.js",
-    "dist:min": "uglifyjs dist/frint.js --output dist/frint.min.js",
-    "dist": "npm run dist:lib && npm run dist:min",
-    "docs:prepare": "gitbook install",
-    "docs:clean": "rimraf _book",
-    "docs:build": "npm run docs:prepare && gitbook build -g Travix-International/frint",
-    "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME ./_book/CNAME && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:Travix-International/frint gh-pages --force"
+    "bootstrap": "lerna bootstrap",
+    "transpile": "lerna run transpile",
+    "lint": "lerna run lint",
+    "cover": "lerna run cover",
+    "test": "lerna run test",
+    "alex": "alex",
+    "dist": "lerna run dist"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Travix-International/frint.git"
   },
   "author": {
-    "name": "Travix International",
-    "url": "http://travix.com"
+    "name": "Travix International B.V.",
+    "url": "https://travix.com"
   },
   "contributors": [
     {
@@ -53,12 +42,6 @@
     "url": "https://github.com/Travix-International/frint/issues"
   },
   "homepage": "https://github.com/Travix-International/frint#readme",
-  "dependencies": {
-    "lodash": "^4.13.1",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
-    "rxjs": "^5.0.1"
-  },
   "devDependencies": {
     "alex": "^4.0.1",
     "babel-cli": "^6.10.1",
@@ -67,23 +50,37 @@
     "babel-loader": "^6.2.9",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
+    "bulma": "^0.3.2",
     "chai": "^3.5.0",
+    "chai-enzyme": "^0.6.1",
     "coveralls": "^2.11.12",
+    "enzyme": "^2.7.1",
     "eslint": "^3.3.1",
     "eslint-config-travix": "^2.2.0",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-react": "^6.6.0",
-    "gitbook-cli": "^2.3.0",
     "http-server": "^0.9.0",
     "istanbul": "^1.1.0-alpha.1",
-    "jsdom": "^9.4.1",
+    "istanbul-combine": "^0.3.0",
+    "js-yaml": "^3.8.2",
+    "jsdom": "9.11.0",
+    "lerna": "^2.0.0-beta.38",
+    "lerna-changelog": "^0.3.0",
+    "live-server": "^1.2.0",
+    "marked": "^0.3.6",
+    "metalsmith": "^2.3.0",
     "mocha": "^3.1.2",
+    "node-sass": "^4.5.0",
     "nyc": "^10.1.0",
+    "react": "^0.14.8",
+    "react-addons-test-utils": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "request": "^2.81.0",
     "rimraf": "^2.5.2",
+    "rxjs": "^5.2.0",
     "sinon": "^2.0.0",
     "sinon-chai": "^2.8.0",
-    "uglify-js": "^2.7.5",
     "webpack": "^2.2.0"
   },
   "greenkeeper": {

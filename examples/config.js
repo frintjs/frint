@@ -5,5 +5,8 @@ module.exports = {
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx',
     'frint': 'Frint',
+    'frint-model': 'FrintModel',
+    'frint-store': 'FrintStore',
+    'frint-react': 'FrintReact',
   }
 };

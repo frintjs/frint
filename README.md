@@ -1,5 +1,7 @@
 # frint
 
+[![Join the chat at https://gitter.im/frintjs/Lobby](https://badges.gitter.im/frintjs/Lobby.svg)](https://gitter.im/frintjs/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/Travix-International/frint/master.svg)](http://travis-ci.org/Travix-International/frint) [![Coverage](https://img.shields.io/coveralls/Travix-International/frint.svg)](https://coveralls.io/github/Travix-International/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c)
 
 > The modular JavaScript framework

@@ -1,5 +1,22 @@
 # Change Log
 
+## v1.0.1 (2017-03-21)
+
+#### Pull Requests
+* `frint-compat`
+  * [#147](https://github.com/Travix-International/frint/pull/147) frint-compat: register models before services and factories.. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#137](https://github.com/Travix-International/frint/pull/137) Fix typo in guides sidebar. ([@alexmiranda](https://github.com/alexmiranda))
+* `frint-model`, `frint`
+  * [#136](https://github.com/Travix-International/frint/pull/136) Add install section to frint-model docs. ([@alexmiranda](https://github.com/alexmiranda))
+* `frint-model`
+  * [#135](https://github.com/Travix-International/frint/pull/135) Fix TOC. ([@alexmiranda](https://github.com/alexmiranda))
+  * [#134](https://github.com/Travix-International/frint/pull/134) Fix for bad merge with frint-model's README, introduced in #101. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Alex Miranda ([alexmiranda](https://github.com/alexmiranda))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.0.0 (2017-03-16)
 
 #### Pull Requests

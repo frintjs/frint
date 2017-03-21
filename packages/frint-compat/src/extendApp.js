@@ -29,6 +29,9 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
 
   App.prototype._backwardsCompatibility = function _backwardsCompatibility() {
     this.readableAppNames = [];
+    const enableLogger = typeof this.options.enableLogger !== 'undefined'
+      ? this.options.enableLogger
+      : true;
 
     // backwards compatibility: component
     if (typeof this.options.component !== 'undefined') {
@@ -59,7 +62,7 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
               : {},
             reducer: this.options.reducer,
             thunkArgument: deps,
-            enableLogger: this.options.enableLogger,
+            enableLogger,
           });
 
           return new Store();
@@ -77,13 +80,29 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
               ? this.options.initialState
               : {},
             thunkArgument: deps,
-            enableLogger: this.options.enableLogger,
+            enableLogger,
           });
 
           return new Store();
         },
         cascade: false,
         deps: ['app'],
+      });
+    }
+
+    // backwards compatibility: models
+    if (typeof this.options.models !== 'undefined') {
+      console.warn('[DEPRECATED] `options.models` has been deprecated. Use `providers` instead.');
+      _.each(this.options.models, (ModelClass, modelName) => {
+        if (typeof ModelClass !== 'function') {
+          throw new Error(`Expected model class '${modelName}' to be a valid Model class`);
+        }
+
+        this.options.providers.push({
+          name: modelName,
+          useValue: new ModelClass(this.options.modelAttributes[modelName]),
+          cascade: true,
+        });
       });
     }
 
@@ -110,22 +129,6 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
           deps: ['app'],
           cascade: true,
           scoped: true,
-        });
-      });
-    }
-
-    // backwards compatibility: models
-    if (typeof this.options.models !== 'undefined') {
-      console.warn('[DEPRECATED] `options.models` has been deprecated. Use `providers` instead.');
-      _.each(this.options.models, (ModelClass, modelName) => {
-        if (typeof ModelClass !== 'function') {
-          throw new Error(`Expected model class '${modelName}' to be a valid Model class`);
-        }
-
-        this.options.providers.push({
-          name: modelName,
-          useValue: new ModelClass(this.options.modelAttributes[modelName]),
-          cascade: true,
         });
       });
     }

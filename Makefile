@@ -43,7 +43,7 @@ site-build:
 	node ./site/scripts/build-content.js
 
 	mkdir -p ./_site/css
-	./node_modules/.bin/node-sass --include-path ./node_modules ./site/assets/css/site.scss ./_site/css/site.css
+	./node_modules/.bin/node-sass --include-path ./node_modules ./site/assets/css/main.scss ./_site/css/site.css
 
 	mkdir -p ./_site/js
 	./node_modules/.bin/babel ./site/assets/js --out-dir ./_site/js

@@ -1,0 +1,115 @@
+.content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+  }
+
+  a.permalink {
+    color: inherit;
+  }
+}
+
+.contributors {
+  .column {
+    text-align: center;
+  }
+
+  .contributor {
+    background: whitesmoke;
+    padding: 10px 0 10px 0;
+    border-radius: 4px;
+    border: 2px solid #eee;
+
+    &:hover {
+      background: #eee;
+    }
+  }
+
+  img {
+    width: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+}
+
+// resetting bulma for prism themes
+pre,
+pre[class*="language-"] {
+  padding: 0;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+
+  .tag {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 0;
+    color: auto;
+    display: inline-block;
+    font-size: 100%;
+    height: auto;
+    justify-content: center;
+    line-height: 1.5;
+    padding-left: 0;
+    padding-right: 0;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .number {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 0;
+    display: inline-block;
+    font-size: 100%;
+    height: auto;
+    justify-content: center;
+    margin-right: 0;
+    min-width: 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+  }
+}
+
+/**
+ * REPL
+ */
+.page-repl {
+  & > .nav {
+    position: relative;
+  }
+
+  .editor-section {
+    top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .editor-section,
+  .editor-section .columns,
+  .editor-column {
+    position: relative;
+    height: 100%;
+  }
+
+  .editor-column {
+    border-right: 1px solid #eee;
+  }
+
+  .root-column {
+    background: #fff;
+  }
+
+  #editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

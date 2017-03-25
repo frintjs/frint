@@ -313,7 +313,23 @@ The `App` instance (either Root App or Widget):
 
 #### Returns
 
-Gives you the Root App instance.
+`App`: Gives you the Root App instance.
+
+### app.getParentApp
+
+> app.getParentApp()
+
+#### Returns
+
+`App`: Gives you the immediate Parent App instance.
+
+### app.getParentApps
+
+> app.getParentApps()
+
+### Returns
+
+`Array`: Array of parent apps, with immediate parent app as first element and the root app being the last.
 
 ### app.getProviders
 

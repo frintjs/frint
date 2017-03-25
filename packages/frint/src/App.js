@@ -55,8 +55,8 @@ function App(opts = {}) {
   // container
   const Container = createContainer([
     { name: this.options.providerNames.app, useDefinedValue: this },
-    { name: this.options.providerNames.parentApp, useDefinedValue: this.options.parentApp },
-    { name: this.options.providerNames.rootApp, useDefinedValue: this.options.rootApp },
+    { name: this.options.providerNames.parentApp, useDefinedValue: this.getParentApp() },
+    { name: this.options.providerNames.rootApp, useDefinedValue: this.getRootApp() },
   ], {
     containerKey: this.options.providerNames.container,
   });
@@ -78,63 +78,65 @@ function App(opts = {}) {
 }
 
 App.prototype._registerRootProviders = function _registerRootProviders() {
-  const rootApp = this.getRootApp();
+  const parentApps = this.getParentApps();
 
-  if (!rootApp || rootApp === this) {
+  if (parentApps.length === 0) {
     return;
   }
 
-  rootApp.getProviders().forEach((rootProvider) => {
-    // do not cascade
-    if (!rootProvider.cascade) {
-      return;
-    }
+  parentApps.reverse().forEach((parentApp) => {
+    parentApp.getProviders().forEach((parentProvider) => {
+      // do not cascade
+      if (!parentProvider.cascade) {
+        return;
+      }
 
-    const definedProvider = Object.assign(
-      {},
-      _.omit(rootProvider, [
-        'useClass',
-        'useValue',
-        'useFactory'
-      ])
-    );
+      const definedProvider = Object.assign(
+        {},
+        _.omit(parentProvider, [
+          'useClass',
+          'useValue',
+          'useFactory'
+        ])
+      );
 
-    // non-scoped
-    if (!rootProvider.scoped) {
-      this.container.register({
-        ...definedProvider,
-        useValue: rootApp.get(rootProvider.name),
-      });
+      // non-scoped
+      if (!parentProvider.scoped) {
+        this.container.register({
+          ...definedProvider,
+          useValue: parentApp.get(parentProvider.name),
+        });
 
-      return;
-    }
+        return;
+      }
 
-    // scoped
-    if ('useValue' in rootProvider) {
-      // `useValue` providers have no impact with scoping
-      this.container.register({
-        ...definedProvider,
-        useValue: rootApp.get(rootProvider.name)
-      });
+      // scoped
+      if ('useValue' in parentProvider) {
+        // `useValue` providers have no impact with scoping
+        this.container.register({
+          ...definedProvider,
+          useValue: parentApp.get(parentProvider.name)
+        });
 
-      return;
-    }
+        return;
+      }
 
-    if ('useClass' in rootProvider) {
-      this.container.register({
-        ...definedProvider,
-        useClass: rootProvider.useClass,
-      });
+      if ('useClass' in parentProvider) {
+        this.container.register({
+          ...definedProvider,
+          useClass: parentProvider.useClass,
+        });
 
-      return;
-    }
+        return;
+      }
 
-    if ('useFactory' in rootProvider) {
-      this.container.register({
-        ...definedProvider,
-        useFactory: rootProvider.useFactory
-      });
-    }
+      if ('useFactory' in parentProvider) {
+        this.container.register({
+          ...definedProvider,
+          useFactory: parentProvider.useFactory
+        });
+      }
+    });
   });
 };
 
@@ -143,27 +145,37 @@ App.prototype.getContainer = function getContainer() {
 };
 
 App.prototype.getRootApp = function getRootApp() {
-  function findRoot(app) {
-    const parentApp = app.getParentApp();
+  const parents = this.getParentApps();
 
-    if (!parentApp) {
-      return app;
-    }
-
-    return findRoot(parentApp);
+  if (parents.length === 0) {
+    return this;
   }
 
-  return findRoot(this);
+  return parents.pop();
 };
 
 App.prototype.getParentApp = function getParentApp() {
-  return this.options.parentApp || null;
+  return this.options[this.options.providerNames.parentApp] || null;
+};
+
+App.prototype.getParentApps = function getParentApps() {
+  function findParents(app, parents = []) {
+    const parentApp = app.getParentApp();
+
+    if (!parentApp) {
+      return parents;
+    }
+
+    parents.push(parentApp);
+    return findParents(parentApp, parents);
+  }
+
+  return findParents(this);
 };
 
 App.prototype.getOption = function getOption(key) {
   return _.get(this.options, key);
 };
-
 
 App.prototype.getProviders = function getProviders() {
   return this.options.providers;
@@ -299,7 +311,7 @@ App.prototype.instantiateWidget = function instantiateWidget(name, region = null
   this._widgetsCollection[index].instances[key] = new w.App({
     ..._.omit(w, ['App', 'instances']),
     name: w.App.frintAppName,
-    rootApp: this,
+    parentApp: this,
   });
 
   return this._widgetsCollection[index].instances[key];

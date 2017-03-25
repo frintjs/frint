@@ -26,7 +26,7 @@ function makeInstanceKey(region = null, regionKey = null, multi = false) {
 function App(opts = {}) {
   this.options = {
     name: null,
-    rootApp: null,
+    parentApp: null,
     providers: [],
 
     providerNames: {
@@ -34,6 +34,7 @@ function App(opts = {}) {
       container: 'container',
       store: 'store',
       app: 'app',
+      parentApp: 'parentApp',
       rootApp: 'rootApp',
       region: 'region',
     },
@@ -54,6 +55,7 @@ function App(opts = {}) {
   // container
   const Container = createContainer([
     { name: this.options.providerNames.app, useDefinedValue: this },
+    { name: this.options.providerNames.parentApp, useDefinedValue: this.options.parentApp },
     { name: this.options.providerNames.rootApp, useDefinedValue: this.options.rootApp },
   ], {
     containerKey: this.options.providerNames.container,
@@ -141,13 +143,21 @@ App.prototype.getContainer = function getContainer() {
 };
 
 App.prototype.getRootApp = function getRootApp() {
-  const rootApp = this.get(this.getOption('providerNames.rootApp'));
+  function findRoot(app) {
+    const parentApp = app.getParentApp();
 
-  if (rootApp) {
-    return rootApp;
+    if (!parentApp) {
+      return app;
+    }
+
+    return findRoot(parentApp);
   }
 
-  return this;
+  return findRoot(this);
+};
+
+App.prototype.getParentApp = function getParentApp() {
+  return this.options.parentApp || null;
 };
 
 App.prototype.getOption = function getOption(key) {

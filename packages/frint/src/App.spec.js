@@ -20,6 +20,31 @@ describe('frint  › App', function () {
     expect(app.getOption('name')).to.equal('MyApp');
   });
 
+  it('gets parent and root app', function () {
+    const rootApp = new App({
+      name: 'RootApp',
+    });
+
+    const childApp = new App({
+      name: 'ChildApp',
+      parentApp: rootApp,
+    });
+
+    const grandchildApp = new App({
+      name: 'GrandchildApp',
+      parentApp: childApp,
+    });
+
+    expect(rootApp.getOption('name')).to.equal('RootApp');
+    expect(childApp.getOption('name')).to.equal('ChildApp');
+
+    expect(childApp.getParentApp()).to.deep.equal(rootApp);
+    expect(childApp.getRootApp()).to.deep.equal(rootApp);
+
+    expect(grandchildApp.getParentApp()).to.deep.equal(childApp);
+    expect(grandchildApp.getRootApp()).to.deep.equal(rootApp);
+  });
+
   it('registers providers with direct values', function () {
     const app = new App({
       name: 'MyApp',

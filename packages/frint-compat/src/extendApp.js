@@ -200,7 +200,7 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
       return null;
     }
 
-    return w.instances.default.getStore();
+    return w.getStore();
   };
 
   App.prototype.getModel = function getModel(name) {
@@ -259,7 +259,7 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
 
   App.prototype.readStateFrom = function readStateFrom(appNames = []) {
     console.log('[DEPRECATED] `readStateFrom` has been deprecated.');
-    this.readableApps = appNames;
+    this.options.readableApps = appNames;
   };
 
   ['beforeMount', 'afterMount', 'beforeUnmount'].forEach((hookName) => {

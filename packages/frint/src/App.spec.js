@@ -20,6 +20,47 @@ describe('frint  › App', function () {
     expect(app.getOption('name')).to.equal('MyApp');
   });
 
+  it('gets parent and root app', function () {
+    const rootApp = new App({
+      name: 'RootApp',
+    });
+
+    const childApp = new App({
+      name: 'ChildApp',
+      parentApp: rootApp,
+    });
+
+    const grandchildApp = new App({
+      name: 'GrandchildApp',
+      parentApp: childApp,
+    });
+
+    expect(rootApp.getOption('name')).to.equal('RootApp');
+    expect(childApp.getOption('name')).to.equal('ChildApp');
+    expect(rootApp.getParentApps()).to.deep.equal([]);
+
+    expect(childApp.getParentApp()).to.deep.equal(rootApp);
+    expect(childApp.getRootApp()).to.deep.equal(rootApp);
+    expect(
+      childApp
+        .getParentApps()
+        .map(x => x.options.name)
+    ).to.deep.equal([
+      'RootApp'
+    ]);
+
+    expect(grandchildApp.getParentApp()).to.deep.equal(childApp);
+    expect(grandchildApp.getRootApp()).to.deep.equal(rootApp);
+    expect(
+      grandchildApp
+        .getParentApps()
+        .map(x => x.options.name)
+    ).to.deep.equal([
+      'ChildApp',
+      'RootApp',
+    ]);
+  });
+
   it('registers providers with direct values', function () {
     const app = new App({
       name: 'MyApp',
@@ -99,14 +140,14 @@ describe('frint  › App', function () {
     expect(app.get('baz').getValue()).to.equal('bazValue, fooValue, barValue, fooValue');
   });
 
-  it('returns services from Core that are cascaded', function () {
+  it('returns services from Root that are cascaded', function () {
     class ServiceC {
       getValue() {
         return 'serviceC';
       }
     }
 
-    const Core = createApp({
+    const Root = createApp({
       name: 'MyApp',
       providers: [
         {
@@ -145,9 +186,10 @@ describe('frint  › App', function () {
         }
       ],
     });
+
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
     app.registerWidget(Widget1);
 
     const widget = app.getWidgetInstance('Widget1');
@@ -161,11 +203,11 @@ describe('frint  › App', function () {
     expect(app.get('serviceF')).to.equal(null);
   });
 
-  it('returns null when service is non-existent in both Widget and Core', function () {
-    const Core = createApp({ name: 'MyApp' });
+  it('returns null when service is non-existent in both Widget and Root', function () {
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
     app.registerWidget(Widget1);
 
     const serviceA = app
@@ -237,10 +279,10 @@ describe('frint  › App', function () {
   });
 
   it('registers widgets', function () {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
 
     app.registerWidget(Widget1, {
       regions: ['sidebar'],
@@ -251,10 +293,10 @@ describe('frint  › App', function () {
   });
 
   it('registers widgets, by overriding options', function () {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
 
     app.registerWidget(Widget1, {
       name: 'WidgetOne',
@@ -266,10 +308,10 @@ describe('frint  › App', function () {
   });
 
   it('registers widgets', function () {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
 
     app.registerWidget(Widget1, {
       regions: ['sidebar'],
@@ -280,10 +322,10 @@ describe('frint  › App', function () {
   });
 
   it('streams registered widgets as a collection', function (done) {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
 
     app.registerWidget(Widget1, {
       regions: ['sidebar'],
@@ -300,10 +342,10 @@ describe('frint  › App', function () {
   });
 
   it('streams registered widgets as a collection, with region filtering', function (done) {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
 
     app.registerWidget(Widget1, {
       regions: ['sidebar'],
@@ -320,10 +362,10 @@ describe('frint  › App', function () {
   });
 
   it('gets widget once available (that will be available in future)', function (done) {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
 
     app.getWidgetOnceAvailable$('Widget1')
       .subscribe(function (widget) {
@@ -336,10 +378,10 @@ describe('frint  › App', function () {
   });
 
   it('gets widget once available (that is already available)', function (done) {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
     app.registerWidget(Widget1);
 
     app.getWidgetOnceAvailable$('Widget1')
@@ -351,11 +393,11 @@ describe('frint  › App', function () {
   });
 
   it('gets widget scoped by region', function () {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
     const Widget2 = createApp({ name: 'Widget2' });
 
-    const app = new Core();
+    const app = new Root();
     app.registerWidget(Widget1, {
       regions: ['sidebar'],
     });
@@ -375,10 +417,10 @@ describe('frint  › App', function () {
   });
 
   it('throws error when registering same Widget twice', function () {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
     app.registerWidget(Widget1);
 
     expect(() => {
@@ -387,10 +429,10 @@ describe('frint  › App', function () {
   });
 
   it('checks for widget instance availability', function () {
-    const Core = createApp({ name: 'MyApp' });
+    const Root = createApp({ name: 'MyApp' });
     const Widget1 = createApp({ name: 'Widget1' });
 
-    const app = new Core();
+    const app = new Root();
     expect(app.hasWidgetInstance('blah')).to.equal(false);
 
     app.registerWidget(Widget1);
@@ -398,8 +440,8 @@ describe('frint  › App', function () {
   });
 
   it('throws error when trying to instantiate non-existent Widget', function () {
-    const Core = createApp({ name: 'MyApp' });
-    const app = new Core();
+    const Root = createApp({ name: 'MyApp' });
+    const app = new Root();
 
     expect(() => {
       app.instantiateWidget('blah');

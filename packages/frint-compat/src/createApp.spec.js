@@ -103,7 +103,9 @@ describe('frint-compat › createApp', function () {
       }
     });
 
-    const widget = new WidgetApp();
+    const widget = new WidgetApp({
+      parentApp: window.app,
+    });
 
     expect(widget.getModel('baz').getName()).to.equal('Baz');
   });
@@ -131,7 +133,9 @@ describe('frint-compat › createApp', function () {
       }
     });
 
-    const widget = new WidgetApp();
+    const widget = new WidgetApp({
+      parentApp: window.app,
+    });
 
     expect(widget.getFactory('bar').getName()).to.equal('TestFactory');
   });
@@ -166,7 +170,9 @@ describe('frint-compat › createApp', function () {
       }
     });
 
-    const widget = new WidgetApp();
+    const widget = new WidgetApp({
+      parentApp: window.app,
+    });
 
     expect(widget.getService('foo').getName()).to.equal('TestService');
   });
@@ -317,11 +323,12 @@ describe('frint-compat › createApp', function () {
     expect(foo).to.equal('bar');
   });
 
-  it('throws error if setRegion is called without a root app', function () {
-    const widget = new WidgetApp();
+  // NOTE: setRegion will never be called in v1.x
+  // it('throws error if setRegion is called without a root app', function () {
+  //   const widget = new WidgetApp();
 
-    expect(() => widget.setRegion('sidebar')).to.throw(/No root app instance available/);
-  });
+  //   expect(() => widget.setRegion('sidebar')).to.throw(/No root app instance available/);
+  // });
 
   it('throws error if wrong Model class is given', function () {
     expect(function () {

@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.1.0 (2017-03-28)
+
+#### Pull Requests
+* `frint-compat`, `frint`
+  * [#152](https://github.com/Travix-International/frint/pull/152) App hierarchy. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#148](https://github.com/Travix-International/frint/pull/148) Updated styles. ([@AlexDudar](https://github.com/AlexDudar))
+
+#### Committers: 2
+- Alexandr Dudar ([AlexDudar](https://github.com/AlexDudar))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.0.1 (2017-03-21)
 
 #### Pull Requests

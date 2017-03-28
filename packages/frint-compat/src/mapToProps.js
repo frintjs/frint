@@ -45,8 +45,9 @@ export default function makeMapToProps({ observe, streamProps }) {
           props.set(options.shared({}));
 
           const sharedStateObservables = [];
+          const readableApps = app.options.readableApps || [];
 
-          app.readableApps.forEach((readableAppName) => {
+          readableApps.forEach((readableAppName) => {
             sharedStateObservables.push(
               app.getWidgetOnceAvailable$(readableAppName)
                 .concatMap((readableApp) => {

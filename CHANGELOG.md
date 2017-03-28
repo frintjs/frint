@@ -3,6 +3,8 @@
 ## v1.1.0 (2017-03-28)
 
 #### Pull Requests
+* `frint-compat`
+  * [#154](https://github.com/Travix-International/frint/pull/154) frint-compat: fixes for readableApps. ([@fahad19](https://github.com/fahad19))
 * `frint-compat`, `frint`
   * [#152](https://github.com/Travix-International/frint/pull/152) App hierarchy. ([@fahad19](https://github.com/fahad19))
 * Other

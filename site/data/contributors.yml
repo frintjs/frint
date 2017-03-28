@@ -1,13 +1,13 @@
 - id: 20046
   login: fahad19
   html_url: 'https://github.com/fahad19'
-  contributions: 195
+  contributions: 201
   name: Fahad Ibnay Heylaal
   avatar_url: 'https://avatars1.githubusercontent.com/u/20046?v=3'
 - id: 1031418
   login: alexmiranda
   html_url: 'https://github.com/alexmiranda'
-  contributions: 19
+  contributions: 24
   name: Alex Miranda
   avatar_url: 'https://avatars0.githubusercontent.com/u/1031418?v=3'
 - id: 1002056
@@ -16,6 +16,12 @@
   contributions: 15
   name: Ricardo Machado
   avatar_url: 'https://avatars2.githubusercontent.com/u/1002056?v=3'
+- id: 3122478
+  login: AlexDudar
+  html_url: 'https://github.com/AlexDudar'
+  contributions: 1
+  name: Alexandr Dudar
+  avatar_url: 'https://avatars2.githubusercontent.com/u/3122478?v=3'
 - id: 367236
   login: jackTheRipper
   html_url: 'https://github.com/jackTheRipper'

@@ -8,5 +8,6 @@ module.exports = {
     'frint-model': 'FrintModel',
     'frint-store': 'FrintStore',
     'frint-react': 'FrintReact',
+    'frint-react-router': 'FrintReactRouter',
   }
 };

@@ -71,8 +71,8 @@ function App(opts = {}) {
   });
 
   // children - create Observable if root
-  this._widgetsCollection = [];
-  this._widgets$ = new BehaviorSubject(this._widgetsCollection);
+  this._appsCollection = [];
+  this._apps$ = new BehaviorSubject(this._appsCollection);
 
   this.options.initialize.bind(this)();
 }
@@ -197,12 +197,12 @@ App.prototype.get = function get(providerName) {
   return null;
 };
 
-App.prototype.getWidgets$ = function getWidgets$(regionName = null) {
+App.prototype.getApps$ = function getApps$(regionName = null) {
   if (!regionName) {
-    return this._widgets$;
+    return this._apps$;
   }
 
-  return this._widgets$
+  return this._apps$
     .map((collection) => {
       return collection
         .filter((w) => {
@@ -211,44 +211,44 @@ App.prototype.getWidgets$ = function getWidgets$(regionName = null) {
     });
 };
 
-App.prototype.registerWidget = function registerWidget(Widget, opts = {}) {
+App.prototype.registerApp = function registerApp(App, opts = {}) {
   const options = {
     multi: false,
     ...opts,
   };
 
   if (typeof options.name !== 'undefined') {
-    Object.defineProperty(Widget, 'frintAppName', {
+    Object.defineProperty(App, 'frintAppName', {
       value: options.name,
       configurable: true,
     });
   }
 
-  const existingIndex = _.findIndex(this._widgetsCollection, (w) => {
-    return w.name === Widget.frintAppName;
+  const existingIndex = _.findIndex(this._appsCollection, (w) => {
+    return w.name === App.frintAppName;
   });
 
   if (existingIndex !== -1) {
-    throw new Error(`Widget '${Widget.frintAppName}' has been already registered before.`);
+    throw new Error(`App '${App.frintAppName}' has been already registered before.`);
   }
 
-  this._widgetsCollection.push({
+  this._appsCollection.push({
     ...options,
-    name: Widget.frintAppName,
-    App: Widget,
+    name: App.frintAppName,
+    App: App,
     regions: options.regions || [],
     instances: {},
   });
 
   if (options.multi === false) {
-    this.instantiateWidget(Widget.frintAppName);
+    this.instantiateApp(App.frintAppName);
   }
 
-  this._widgets$.next(this._widgetsCollection);
+  this._apps$.next(this._appsCollection);
 };
 
-App.prototype.hasWidgetInstance = function hasWidgetInstance(name, region = null, regionKey = null) {
-  const instance = this.getWidgetInstance(name, region, regionKey);
+App.prototype.hasAppInstance = function hasAppInstance(name, region = null, regionKey = null) {
+  const instance = this.getAppInstance(name, region, regionKey);
 
   if (instance && typeof instance !== 'undefined') {
     return true;
@@ -257,8 +257,8 @@ App.prototype.hasWidgetInstance = function hasWidgetInstance(name, region = null
   return false;
 };
 
-App.prototype.getWidgetInstance = function getWidgetInstance(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._widgetsCollection, (w) => {
+App.prototype.getAppInstance = function getAppInstance(name, region = null, regionKey = null) {
+  const index = _.findIndex(this._appsCollection, (w) => {
     return w.name === name;
   });
 
@@ -266,7 +266,7 @@ App.prototype.getWidgetInstance = function getWidgetInstance(name, region = null
     return null;
   }
 
-  const w = this._widgetsCollection[index];
+  const w = this._appsCollection[index];
   const instanceKey = makeInstanceKey(region, regionKey, w.multi);
   const instance = w.instances[instanceKey];
 
@@ -277,18 +277,18 @@ App.prototype.getWidgetInstance = function getWidgetInstance(name, region = null
   return instance;
 };
 
-App.prototype.getWidgetOnceAvailable$ = function getWidgetOnceAvailable$(name, region = null, regionKey = null) {
+App.prototype.getAppOnceAvailable$ = function getAppOnceAvailable$(name, region = null, regionKey = null) {
   const rootApp = this.getRootApp();
 
-  const w = rootApp.getWidgetInstance(name, region, regionKey);
+  const w = rootApp.getAppInstance(name, region, regionKey);
 
   if (w) {
     return Observable.of(w);
   }
 
-  return rootApp._widgets$
+  return rootApp._apps$
     .concatMap(y => y)
-    .find(widget => widget.name === name)
+    .find(app => app.name === name)
     .map((x) => {
       const instanceKey = makeInstanceKey(region, regionKey, x.multi);
       return x.instances[instanceKey];
@@ -296,29 +296,29 @@ App.prototype.getWidgetOnceAvailable$ = function getWidgetOnceAvailable$(name, r
     .first(y => y);
 };
 
-App.prototype.instantiateWidget = function instantiateWidget(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._widgetsCollection, (w) => {
+App.prototype.instantiateApp = function instantiateApp(name, region = null, regionKey = null) {
+  const index = _.findIndex(this._appsCollection, (w) => {
     return w.App.frintAppName === name;
   });
 
   if (index === -1) {
-    throw new Error(`No widget found with name '${name}'.`);
+    throw new Error(`No app found with name '${name}'.`);
   }
 
-  const w = this._widgetsCollection[index];
+  const w = this._appsCollection[index];
   const key = makeInstanceKey(region, regionKey, w.multi);
 
-  this._widgetsCollection[index].instances[key] = new w.App({
+  this._appsCollection[index].instances[key] = new w.App({
     ..._.omit(w, ['App', 'instances']),
     name: w.App.frintAppName,
     parentApp: this,
   });
 
-  return this._widgetsCollection[index].instances[key];
+  return this._appsCollection[index].instances[key];
 };
 
-App.prototype.destroyWidget = function destroyWidget(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._widgetsCollection, (w) => {
+App.prototype.destroyApp = function destroyApp(name, region = null, regionKey = null) {
+  const index = _.findIndex(this._appsCollection, (w) => {
     if (!w || !w.App) {
       return false;
     }
@@ -327,25 +327,34 @@ App.prototype.destroyWidget = function destroyWidget(name, region = null, region
   });
 
   if (index === -1) {
-    throw new Error(`No widget found with name '${name}'.`);
+    throw new Error(`No app found with name '${name}'.`);
   }
 
-  const w = this._widgetsCollection[index];
+  const w = this._appsCollection[index];
   const key = makeInstanceKey(region, regionKey, w.multi);
 
-  if (typeof this._widgetsCollection[index].instances[key] === 'undefined') {
-    throw new Error(`No instance with key '${key}' found for widget with name '${name}'.`);
+  if (typeof this._appsCollection[index].instances[key] === 'undefined') {
+    throw new Error(`No instance with key '${key}' found for app with name '${name}'.`);
   }
 
-  this._widgetsCollection[index].instances[key].beforeDestroy();
-  delete this._widgetsCollection[index].instances[key];
+  this._appsCollection[index].instances[key].beforeDestroy();
+  delete this._appsCollection[index].instances[key];
 };
 
 App.prototype.beforeDestroy = function beforeDestroy() {
   return this.options.beforeDestroy.bind(this)();
 };
 
-// unregisterWidget(name, region = null, regionKey = null) {
+// @TODO: Get rid of *Widget* aliases
+App.prototype.getWidgets$ = App.prototype.getApps$;
+App.prototype.registerWidget = App.prototype.registerApp;
+App.prototype.hasWidgetInstance = App.prototype.hasAppInstance;
+App.prototype.getWidgetInstance = App.prototype.getAppInstance;
+App.prototype.getWidgetOnceAvailable$ = App.prototype.getAppOnceAvailable$;
+App.prototype.instantiateWidget = App.prototype.instantiateApp;
+App.prototype.destroyWidget = App.prototype.destroyApp;
+
+// unregisterApp(name, region = null, regionKey = null) {
 //   // @TODO
 // }
 

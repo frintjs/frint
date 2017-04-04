@@ -1,10 +1,10 @@
-# Multiple widgets
+# Multiple apps
 
 Example demonstating:
 
 * A Core app
-* Loading multiple Widgets
-* Widgets sharing each other's state
+* Loading multiple apps
+* Apps sharing each other's state
 
 ## Usage
 

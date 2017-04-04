@@ -86,7 +86,7 @@ describe('frint-compat › components › Region', function () {
     expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName2');
   });
 
-  describe('Multiple widgets', function () {
+  describe('Multiple apps', function () {
     // Core App
     const CORE_SET_SIDEBAR_VISIBILITY = 'CORE_SET_SIDEBAR_VISIBILITY';
 

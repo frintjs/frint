@@ -1,7 +1,7 @@
 {
-  "name": "frint-multiple-apps-core",
+  "name": "frint-multiple-apps-foo-app",
   "version": "0.0.1",
-  "description": "Multiple apps core example in Frint",
+  "description": "Foo App example in Frint multiple apps example",
   "main": "index.js",
   "scripts": {
     "build": "../../../node_modules/.bin/webpack"

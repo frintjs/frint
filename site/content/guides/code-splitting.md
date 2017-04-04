@@ -14,13 +14,13 @@ sidebarPartial: guidesSidebar
 - [Vendors bundle](#vendors-bundle)
 - [Externals](#externals)
 - [App bundles](#app-bundles)
-- [Widgets](#widgets)
+- [Apps](#apps)
 
 <!-- /MarkdownTOC -->
 
 ## What is code splitting
 
-Imagine you have a very large application. And you have your application divided into multiple widgets. And not all widgets need to be served to the browser at the same time since they target different pages.
+Imagine you have a very large application. And you have your application divided into multiple apps. And not all apps need to be served to the browser at the same time since they target different pages.
 
 To serve them individually, we can bundle them separately and load them independently via `<script>` tags.
 
@@ -30,11 +30,11 @@ We can divide our bundles like this:
 
 * `vendors.js`: contains Lodash, RxJS, Frint, etc
 * `root.js`: our Root app's bundle
-* `widget-foo.js`: Widget Foo's bundle
-* `widget-bar.js`: Widget Bar's bundle
+* `app-foo.js`: App Foo's bundle
+* `app-bar.js`: App Bar's bundle
 * etc...
 
-We also want to make sure that our root and widget bundles would not duplicate any of the libraries that we already have in `vendors.js`.
+We also want to make sure that our root and app bundles would not duplicate any of the libraries that we already have in `vendors.js`.
 
 ## Illustration
 
@@ -169,16 +169,16 @@ window.app = new App();
 render(window.app, document.getElementById('root'));
 ```
 
-## Widgets
+## Apps
 
-Widget bundling can follow the same approach as root app bundling like above.
+Apps bundling can follow the same approach as root app bundling like above.
 
-The entry file of a Widget may look like this:
+The entry file of an App may look like this:
 
 ```js
 import App from './app';
 
-window.app.registerWidget(App, {
+window.app.registerApp(App, {
   regions: ['sidebar']
 });
 ```

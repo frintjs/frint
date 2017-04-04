@@ -339,7 +339,7 @@ Gives you an array of provider definitions as passed while creating the App clas
 
 #### Returns
 
-`Array`.
+`Array`: Array of provider definitions as passed while creating the App class.
 
 ### app.getProvider
 

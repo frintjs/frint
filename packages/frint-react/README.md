@@ -13,7 +13,7 @@
   - [Regions](#regions)
   - [Region and data](#region-and-data)
   - [Observing components](#observing-components)
-  - [Multi-instance Widgets](#multi-instance-widgets)
+  - [Multi-instance Apps](#multi-instance-apps)
 - [API](#api)
   - [render](#render)
   - [observe](#observe)
@@ -126,7 +126,7 @@ The code above asumes your page has an element with an id `root`:
 
 The library already ships with a `Region` component, and a `RegionService`.
 
-We use the concept of regions for defining areas in our Components (either in a Root App or a Widget), where other Widgets can load themselves in.
+We use the concept of regions for defining areas in our Components, where other Apps can load themselves in.
 
 For example, imagine the Root component of our Root App above, we can define a Region named `sidebar` as follows:
 
@@ -147,43 +147,43 @@ const Root = React.createClass({
 });
 ```
 
-That's just defining the Region only. Let's now create a Widget, and assign it to the `sidebar` region:
+That's just defining the Region only. Let's now create an App, and assign it to the `sidebar` region:
 
 
 ```js
 import { createApp } from 'frint';
 
-const WidgetComponent = React.createClass({
+const AppComponent = React.createClass({
   render() {
-    return <p>I am Widget</p>;
+    return <p>I am App</p>;
   }
 });
 
-const Widget = createApp({
-  name: 'MyWidget',
+const App = createApp({
+  name: 'MyApp',
   providers: [
     {
       name: 'component',
-      useValue: WidgetComponent,
+      useValue: AppComponent,
     }
   ],
 });
 ```
 
-Now that we have our Widget defined, we can register it to our Root App:
+Now that we have our App defined, we can register it to our Root App:
 
 ```js
-window.app.registerWidget(Widget, {
+window.app.registerApp(App, {
   regions: ['sidebar'], // name of regions to target
   weight: 10, // the lower the number, the higher they would appear
 });
 ```
 
-Now when you refresh your browser, you would notice your Widget being rendered inside the Region `sidebar`.
+Now when you refresh your browser, you would notice your App being rendered inside the Region `sidebar`.
 
 ## Region and data
 
-It is possible that when defining the Region with a name, you would also want to pass some data to it, so that whenever a Widget gets rendered inside it, the Widget would be able to access that data.
+It is possible that when defining the Region with a name, you would also want to pass some data to it, so that whenever an App gets rendered inside it, the App would be able to access that data.
 
 From the above example of `sidebar` Region, imagine us passing some data too via props:
 
@@ -205,33 +205,33 @@ const Root = React.createClass({
 });
 ```
 
-That's only the `Region` component's implementation part. How do we access it from our Widget now?
+That's only the `Region` component's implementation part. How do we access it from our App now?
 
-Enter `RegionService`. This is a Service that we can pass in our Widget's providers list, allowing us to later have access to Region's props.
+Enter `RegionService`. This is a Service that we can pass in our App's providers list, allowing us to later have access to Region's props.
 
 ```js
 const { RegionService } = Frint;
 
-const Widget = createApp({
-  name: 'MyWidget',
+const App = createApp({
+  name: 'MyApp',
   providers: [
     {
       name: 'component',
-      useValue: WidgetComponent
+      useValue: AppComponent,
     },
     {
       name: 'region',
       useClass: RegionService, // `useClass` because `RegionService` will be instantiated
-    }
+    },
   ],
 });
 ```
 
-Once your Widget is registered and rendered, you can get access to your Widget instance, which can then allow you to deal with Region's props:
+Once your App is registered and rendered, you can get access to your App instance, which can then allow you to deal with Region's props:
 
 ```js
-const myWidget = window.app.getWidgetInstance('MyWidget');
-const region = myWidget.get('region');
+const myApp = window.app.getAppInstance('MyApp');
+const region = myApp.get('region');
 
 // Region's data as an Observable
 const regionData$ = region.getData$();
@@ -241,7 +241,7 @@ regionData$.subscribe((data) => {
 });
 ```
 
-We will dicuss more in details how to get Region's props in your Widget's components via `observe` in the next section.
+We will discuss more in details how to get Region's props in your App's components via `observe` in the next section.
 
 ## Observing components
 
@@ -278,11 +278,11 @@ We have just made our simple Component reactive, by wrapping it with `observe`. 
 
 ### Observing Region's data
 
-In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your Widget's component too:
+In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your App's component too:
 
 ```js
-const ObservedWidgetComponent = observe(function (app) {
-  // `app` is your Widget instance
+const ObservedAppComponent = observe(function (app) {
+  // `app` is your App instance
 
   // let's keep our first interval Observable too
   const interval$ = Observable
@@ -303,10 +303,10 @@ const ObservedWidgetComponent = observe(function (app) {
         ...emitted,
       };
     }, {});
-})(WidgetComponent);
+})(AppComponent);
 ```
 
-When your Widget's component renders, latest props will be passed to it in this structure:
+When your App's component renders, latest props will be passed to it in this structure:
 
 ```js
 {
@@ -351,7 +351,7 @@ const MyObservedComponent = observe(function (app) {
 
     // return everything as a single merged Observable
     .get$();
-})(WidgetComponent);
+})(AppComponent);
 ```
 
 The props available inside your Component would then be in this format:
@@ -365,9 +365,9 @@ The props available inside your Component would then be in this format:
 }
 ```
 
-## Multi-instance Widgets
+## Multi-instance Apps
 
-This is a use case where you have multiple instances of Region with the same name mounted in the DOM. And the widgets rendered in them should have their own independent scoped instances too.
+This is a use case where you have multiple instances of Region with the same name mounted in the DOM. And the apps rendered in them should have their own independent scoped instances too.
 
 Think of a scenario where you have a TodoList, and you want a Region defined for each Todo item:
 
@@ -401,16 +401,16 @@ const MyComponent = React.createClass({
 });
 ```
 
-Now we may have a Widget that we want to be rendered in `todo-item` Regions.
+Now we may have an App that we want to be rendered in `todo-item` Regions.
 
-Let's create a Widget, that will receive the `todo` object, and render the title in UPPERCASE format.
+Let's create an App, that will receive the `todo` object, and render the title in UPPERCASE format.
 
 ```js
 import React from 'react';
 import { createApp } from 'frint';
 import { observe, RegionService } from 'frint-react';
 
-const WidgetComponent = React.createClass({
+const AppComponent = React.createClass({
   render () {
     const { todo } = this.props;
 
@@ -418,21 +418,21 @@ const WidgetComponent = React.createClass({
   }
 });
 
-const ObservedWidgetComponent = observe(function (app) {
+const ObservedAppComponent = observe(function (app) {
   return streamProps()
     .set(
       app.get('region').getData$(),
       data => ({ todo: data.todo })
     )
     .get$();
-})(WidgetComponent);
+})(AppComponent);
 
-const Widget = createApp({
-  name: 'MyWidget',
+const App = createApp({
+  name: 'MyApp',
   providers: [
     {
       name: 'component',
-      useValue: ObservedWidgetComponent
+      useValue: ObservedAppComponent
     },
     {
       name: 'region',
@@ -442,14 +442,14 @@ const Widget = createApp({
 });
 ```
 
-Now comes the part of registering our Widget as a multi-instance widget:
+Now comes the part of registering our App as a multi-instance app:
 
 ```js
-window.app.registerWidget(Widget, {
+window.app.registerApp(App, {
   regions: ['todo-item'],
 
-  // this tells Root App to treat this widget as a multi-instance one
-  multi: true
+  // this tells Root App to treat this app as a multi-instance one
+  multi: true,
 });
 ```
 
@@ -475,7 +475,7 @@ Renders a Root App in target DOM node.
 ### Arguments
 
 1. `fn` (`Function`): The function returning an Observable.
-    * The `fn` accepts `app` as an argument, which is the instance of your Root App or Widget in the scope
+    * The `fn` accepts `app` as an argument, which is the instance of your Root App or the App in scope
     * It should return an `Observable`
 
 ### Returns
@@ -491,14 +491,14 @@ The Region component.
 ### Props
 
 1. `name` (`String`): The name of the Region
-1. `data` (`Object`): Data to be made available to rendered Widgets
-1. `uniqueKey` (`String` [optional]): Used when there are multiple Regions of the same `name`. It prop must be unique and fixed thoughout the whole app.
+1. `data` (`Object`): Data to be made available to rendered App
+1. `uniqueKey` (`String` [optional]): Used when there are multiple Regions of the same `name`. It prop must be unique and fixed throughout the whole app.
 
 ## RegionService
 
 > RegionService
 
-If your Widget wishes to receive data coming from the Region component it rendered in, RegionService is your way to access it.
+If your App wishes to receive data coming from the Region component it rendered in, RegionService is your way to access it.
 
 Methods exposed by the instance:
 

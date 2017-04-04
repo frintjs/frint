@@ -46,7 +46,7 @@ const htmlOutput = renderToString(app);
 
 ### Arguments
 
-1. `app` (`App`): The Root App or Widget's instance
+1. `app` (`App`): The Root App or Child App instance
 
 ### Returns
 

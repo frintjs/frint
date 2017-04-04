@@ -9,7 +9,7 @@ sidebarPartial: guidesSidebar
 
 - [What is a Region?](#what-is-a-region)
 - [Illustration](#illustration)
-- [Register Widgets with region name](#register-widgets-with-region-name)
+- [Register Apps with region name](#register-apps-with-region-name)
 - [Defining a Region](#defining-a-region)
 
 <!-- /MarkdownTOC -->
@@ -19,10 +19,10 @@ sidebarPartial: guidesSidebar
 By now, we have discussed how:
 
 * Root Apps are created
-* Creating and registering Widgets
+* Creating and registering Apps
 * Rendering Root Apps
 
-But we didn't talk about rendering the Widgets yet.
+But we didn't talk about rendering the Apps yet.
 
 We do that via `Region` component, that is shipped with `frint-react` package.
 
@@ -31,25 +31,25 @@ We do that via `Region` component, that is shipped with `frint-react` package.
 
 ![region diagram](/img/frint-region-diagram.png)
 
-Illustration of a root app, defining a region, where multiple widgets get loaded.
+Illustration of a root app, defining a region, where multiple apps get loaded.
 
 We will see some code examples below.
 
-## Register Widgets with region name
+## Register Apps with region name
 
-When registering widgets, you can pass extra information like the Region where you want it to be mounted on to:
+When registering apps, you can pass extra information like the Region where you want it to be mounted on to:
 
 ```js
 window.app = new App(); // root app
 
-window.app.registerWidget(Widget, {
+window.app.registerApp(App, {
   regions: [
     'sidebar'
   ]
 });
 ```
 
-We just registered a Widget in our Root App, and provided enough information to let it know that we want our Widget to be mounted in a region somewhere which happens to have a name `sidebar`.
+We just registered an App in our Root App, and provided enough information to let it know that we want our App to be mounted in a region somewhere which happens to have a name `sidebar`.
 
 But the `sidebar` Region does not exist yet. Let's define it next.
 
@@ -80,4 +80,4 @@ class RootComponentOfRootApp extends Component {
 
 All we did from our Root App is just to define a Region, and give it a name `sidebar`.
 
-Now whenever a Widget becomes available, and it happens to have a target region of the same name, it would get rendered within that specific Region.
+Now whenever an App becomes available, and it happens to have a target region of the same name, it would get rendered within that specific Region.

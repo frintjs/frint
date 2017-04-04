@@ -189,18 +189,18 @@ describe('frint  › App', function () {
 
     const App1 = createApp({ name: 'App1' });
 
-    const app = new Root();
-    app.registerApp(App1);
+    const root = new Root();
+    root.registerApp(App1);
 
-    const widget = app.getAppInstance('App1');
-    expect(widget.get('serviceA')).to.equal('serviceA');
-    expect(widget.get('serviceB')).to.equal('serviceB');
-    expect(widget.get('serviceC').getValue()).to.equal('serviceC');
-    expect(widget.get('serviceD')).to.equal(null);
-    expect(widget.get('serviceE')).to.equal('serviceE');
+    const app = root.getAppInstance('App1');
+    expect(app.get('serviceA')).to.equal('serviceA');
+    expect(app.get('serviceB')).to.equal('serviceB');
+    expect(app.get('serviceC').getValue()).to.equal('serviceC');
+    expect(app.get('serviceD')).to.equal(null);
+    expect(app.get('serviceE')).to.equal('serviceE');
 
-    expect(widget.get('serviceF')).to.equal(null);
     expect(app.get('serviceF')).to.equal(null);
+    expect(root.get('serviceF')).to.equal(null);
   });
 
   it('returns null when service is non-existent in both Child App and Root', function () {
@@ -211,7 +211,7 @@ describe('frint  › App', function () {
     app.registerApp(App1);
 
     const serviceA = app
-      .getWidgetInstance('App1')
+      .getAppInstance('App1')
       .get('serviceA');
 
     expect(serviceA).to.equal(null);
@@ -278,7 +278,7 @@ describe('frint  › App', function () {
     expect(called).to.equal(true);
   });
 
-  it('registers widgets', function () {
+  it('registers apps', function () {
     const Root = createApp({ name: 'MyApp' });
     const App1 = createApp({ name: 'App1' });
 
@@ -292,7 +292,7 @@ describe('frint  › App', function () {
     expect(app.getAppInstance('App1').getOption('name')).to.equal('App1');
   });
 
-  it('registers widgets, by overriding options', function () {
+  it('registers apps, by overriding options', function () {
     const Root = createApp({ name: 'MyApp' });
     const App1 = createApp({ name: 'App1' });
 
@@ -327,7 +327,7 @@ describe('frint  › App', function () {
 
     const app = new Root();
 
-    app.registerWidget(App1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
     const apps$ = app.getApps$();
@@ -347,7 +347,7 @@ describe('frint  › App', function () {
 
     const app = new Root();
 
-    app.registerWidget(App1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
     const apps$ = app.getApps$('sidebar');

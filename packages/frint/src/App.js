@@ -346,13 +346,19 @@ App.prototype.beforeDestroy = function beforeDestroy() {
 };
 
 // @TODO: Get rid of *Widget* aliases
-App.prototype.getWidgets$ = App.prototype.getApps$;
-App.prototype.registerWidget = App.prototype.registerApp;
-App.prototype.hasWidgetInstance = App.prototype.hasAppInstance;
-App.prototype.getWidgetInstance = App.prototype.getAppInstance;
-App.prototype.getWidgetOnceAvailable$ = App.prototype.getAppOnceAvailable$;
-App.prototype.instantiateWidget = App.prototype.instantiateApp;
-App.prototype.destroyWidget = App.prototype.destroyApp;
+[
+  { alias: 'getWidgets$', fn: 'getApps$' },
+  { alias: 'registerWidget', fn: 'registerApp' },
+  { alias: 'hasWidgetInstance', fn: 'hasWidgetInstance' },
+  { alias: 'getWidgetInstance', fn: 'getAppInstance' },
+  { alias: 'getWidgetOnceAvailable$', fn: 'getAppOnceAvailable$' },
+  { alias: 'destroyWidget', fn: 'destroyApp' },
+].forEach(({ alias, fn }) => {
+	App.prototype[alias] = function (...args) {
+    console.warn('[DEPRECATED] `' + alias + '` has been deprecated. Use `' + fn + '` instead');
+		this[fn](...args);
+	};
+});
 
 // unregisterApp(name, region = null, regionKey = null) {
 //   // @TODO

@@ -1,9 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this*/
 /* global describe, it */
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import App from './App';
 import createApp from './createApp';
+
+chai.use(sinonChai);
 
 describe('frint  › App', function () {
   it('throws error when creating new instance without name', function () {
@@ -446,5 +450,26 @@ describe('frint  › App', function () {
     expect(() => {
       app.instantiateApp('blah');
     }).to.throw(/No app found with name 'blah'/);
+  });
+
+  describe.only('aliases', () => {
+    const app = new App({ name: 'MyApp' });
+
+    [
+      { alias: 'getWidgets$', fn: 'getApps$' },
+      { alias: 'registerWidget', fn: 'registerApp' },
+      { alias: 'hasWidgetInstance', fn: 'hasWidgetInstance' },
+      { alias: 'getWidgetInstance', fn: 'getAppInstance' },
+      { alias: 'getWidgetOnceAvailable$', fn: 'getAppOnceAvailable$' },
+      { alias: 'destroyWidget', fn: 'destroyApp' },
+    ].forEach(({ alias, fn }) => {
+      it(`"${alias}" should call "${fn}"`, () => {
+        const stub = sinon.stub(app, fn);
+        const args = [ 1, 2, 3 ];
+        app[alias](...args);
+        expect(stub).to.have.been.calledWith(...args);
+      });
+    });
+
   });
 });

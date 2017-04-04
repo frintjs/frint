@@ -35,14 +35,14 @@ describe('frint-compat › createApp', function () {
     enableLogger: false,
   });
 
-  const WidgetApp = createApp({
-    name: 'WidgetAppName',
+  const ChildApp = createApp({
+    name: 'ChildAppName',
     component: true,
     enableLogger: false,
   });
 
-  const SecondWidgetApp = createApp({
-    name: 'SecondWidgetAppName',
+  const SecondChildApp = createApp({
+    name: 'SecondChildAppName',
     component: true,
     enableLogger: false,
   });
@@ -69,11 +69,11 @@ describe('frint-compat › createApp', function () {
   //   expect(() => new App()).to.throw(/Must provide `component`/);
   // });
 
-  it('gets root app instance from widget', function () {
+  it('gets root app instance from app', function () {
     window.app = new CoreApp();
-    const widget = new WidgetApp();
+    const childApp = new ChildApp();
 
-    expect(widget.getRootApp()).to.deep.equal(window.app);
+    expect(childApp.getRootApp()).to.deep.equal(window.app);
   });
 
   it('gets model from self', function () {
@@ -91,7 +91,7 @@ describe('frint-compat › createApp', function () {
     expect(app.getModel('baz').getName()).to.equal('Baz');
   });
 
-  it('gets model from root app, when called in widget', function () {
+  it('gets model from root app, when called in child app', function () {
     window.app = new CoreApp({
       models: {
         baz: TestBazModel
@@ -103,11 +103,11 @@ describe('frint-compat › createApp', function () {
       }
     });
 
-    const widget = new WidgetApp({
+    const childApp = new ChildApp({
       parentApp: window.app,
     });
 
-    expect(widget.getModel('baz').getName()).to.equal('Baz');
+    expect(childApp.getModel('baz').getName()).to.equal('Baz');
   });
 
   it('fails to get non-existent model', function () {
@@ -126,31 +126,31 @@ describe('frint-compat › createApp', function () {
     expect(app.getFactory('bar').getName()).to.equal('TestFactory');
   });
 
-  it('gets factory from root app, when called in widget', function () {
+  it('gets factory from root app, when called in child app', function () {
     window.app = new CoreApp({
       factories: {
         bar: TestBarFactory
       }
     });
 
-    const widget = new WidgetApp({
+    const childApp = new ChildApp({
       parentApp: window.app,
     });
 
-    expect(widget.getFactory('bar').getName()).to.equal('TestFactory');
+    expect(childApp.getFactory('bar').getName()).to.equal('TestFactory');
   });
 
-  it('fails to get factory from non-existent root app, when called in widget', function () {
-    const widget = new WidgetApp();
+  it('fails to get factory from non-existent root app, when called in child app', function () {
+    const childApp = new ChildApp();
 
-    expect(widget.getFactory('blah')).to.equal(null);
+    expect(childApp.getFactory('blah')).to.equal(null);
   });
 
-  it('fails to get non-existent factory in both widget and root, when called in widget', function () {
+  it('fails to get non-existent factory in both child app and root, when called in child app', function () {
     window.app = new CoreApp();
-    const widget = new WidgetApp();
+    const childApp = new ChildApp();
 
-    expect(widget.getFactory('hello')).to.equal(null);
+    expect(childApp.getFactory('hello')).to.equal(null);
   });
 
   it('gets service from self', function () {
@@ -163,26 +163,26 @@ describe('frint-compat › createApp', function () {
     expect(app.getService('foo').getName()).to.equal('TestService');
   });
 
-  it('gets service from root app, when called in widget', function () {
+  it('gets service from root app, when called in child app', function () {
     window.app = new CoreApp({
       services: {
         foo: TestFooService
       }
     });
 
-    const widget = new WidgetApp({
+    const childApp = new ChildApp({
       parentApp: window.app,
     });
 
-    expect(widget.getService('foo').getName()).to.equal('TestService');
+    expect(childApp.getService('foo').getName()).to.equal('TestService');
   });
 
-  it('fails to get service from non-existent root app, when called in widget', function () {
+  it('fails to get service from non-existent root app, when called in child app', function () {
     window.app = new CoreApp();
 
-    const widget = new WidgetApp();
+    const childApp = new ChildApp();
 
-    expect(widget.getService('blah')).to.equal(null);
+    expect(childApp.getService('blah')).to.equal(null);
   });
 
   // NOTE: previously deprecated in 0.x, hence removed
@@ -246,48 +246,48 @@ describe('frint-compat › createApp', function () {
       });
   });
 
-  it('gets state of another widget, from root', function (done) {
+  it('gets state of another app, from root', function (done) {
     window.app = new CoreApp();
 
-    const widget = new WidgetApp({
+    const childApp = new ChildApp({
       initialState: {
-        widget1: 'widget1'
-      }
+        childApp1: 'childApp1',
+      },
     });
 
-    widget.setRegion('sidebar');
+    childApp.setRegion('sidebar');
 
-    window.app.getState$('WidgetAppName')
+    window.app.getState$('ChildAppName')
       .subscribe(function (state) {
-        expect(state).to.deep.equal({ widget1: 'widget1' });
+        expect(state).to.deep.equal({ childApp1: 'childApp1' });
 
         done();
       });
   });
 
-  it('gets state of another widget, from a widget', function (done) {
+  it('gets state of another app, from a child app', function (done) {
     window.app = new CoreApp();
 
-    const widget = new WidgetApp({
+    const childApp = new ChildApp({
       initialState: {
-        widget1: 'widget1'
+        childApp1: 'childApp1'
       }
     });
 
-    widget.setRegion('sidebar');
+    childApp.setRegion('sidebar');
 
-    const secondWidget = new SecondWidgetApp({
+    const secondApp = new SecondChildApp({
       initialState: {
-        widget2: 'widget2'
+        childApp2: 'childApp2'
       }
     });
 
-    secondWidget.setRegion('footer');
+    secondApp.setRegion('footer');
 
-    // Widget1 reading state of Widget2
-    widget.getState$('SecondWidgetAppName')
+    // ChildApp1 reading state of ChildApp2
+    childApp.getState$('SecondChildAppName')
       .subscribe(function (state) {
-        expect(state).to.deep.equal({ widget2: 'widget2' });
+        expect(state).to.deep.equal({ childApp2: 'childApp2' });
 
         done();
       });
@@ -299,15 +299,15 @@ describe('frint-compat › createApp', function () {
     expect(window.app.getState$('blah')).to.equal(null);
   });
 
-  it('sets multiple regions for a widget', function () {
+  it('sets multiple regions for an app', function () {
     window.app = new CoreApp();
 
-    const widget = new WidgetApp();
+    const childApp = new ChildApp();
 
-    widget.setRegions(['header', 'footer']);
+    childApp.setRegions(['header', 'footer']);
 
-    expect(window.app.getWidgets('header')).to.deep.equal([widget]);
-    expect(window.app.getWidgets('footer')).to.deep.equal([widget]);
+    expect(window.app.getWidgets('header')).to.deep.equal([childApp]);
+    expect(window.app.getWidgets('footer')).to.deep.equal([childApp]);
   });
 
   it('triggers beforeUnmount as passed in option', function () {

@@ -264,11 +264,11 @@ Extends the native `getRootApp()`, and looks for `window.app` first, and then re
 
 #### Arguments
 
-1. `regionName` (`String` [optional]): Optionally filter widgets by their region.
+1. `regionName` (`String` [optional]): Optionally filter apps by their region.
 
 #### Returns
 
-`Array`: of widget instances.
+`Array`: of app instances.
 
 ### app.readStateFrom
 

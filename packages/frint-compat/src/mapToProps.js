@@ -49,7 +49,7 @@ export default function makeMapToProps({ observe, streamProps }) {
 
           readableApps.forEach((readableAppName) => {
             sharedStateObservables.push(
-              app.getWidgetOnceAvailable$(readableAppName)
+              app.getAppOnceAvailable$(readableAppName)
                 .concatMap((readableApp) => {
                   return readableApp
                     .get('store')

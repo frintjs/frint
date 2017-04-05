@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/react-in-jsx-scope */
-/* globals BehaviorSubject, describe, document, it, sinon, expect, mount */
+/* globals describe, document, it, sinon, expect, mount */
 import { createApp } from 'frint';
 import {
   getMountableComponent,
@@ -62,6 +62,7 @@ describe('app-counter -> root component', function () {
             });
             return new Store();
           },
+          deps: ['app'],
         },
         {
           name: 'region',

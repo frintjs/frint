@@ -1,11 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/react-in-jsx-scope */
-/* globals describe, document, it, sinon, expect, mount */
+/* globals describe, document, it, sinon, expect */
+import React from 'react';
 import { createApp } from 'frint';
 import {
   getMountableComponent,
   RegionService,
 } from 'frint-react';
 import { createStore } from 'frint-store';
+import { mount } from 'enzyme';
 
 import Root from '../../components/Root';
 import rootReducer from '../../reducers';

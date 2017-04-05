@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.2.0 (2017-04-05)
+
+#### Pull Requests
+* `frint-compat`, `frint-react-server`, `frint-react`, `frint`
+  * [#160](https://github.com/Travix-International/frint/pull/160) Deprecate *Widget* methods. ([@alexmiranda](https://github.com/alexmiranda))
+* Other
+  * [#155](https://github.com/Travix-International/frint/pull/155) Add search functionality with Algolia. ([@markvincze](https://github.com/markvincze))
+
+#### Committers: 2
+- Alex Miranda ([alexmiranda](https://github.com/alexmiranda))
+- Mark Vincze ([markvincze](https://github.com/markvincze))
+
 ## v1.1.0 (2017-03-28)
 
 #### Pull Requests

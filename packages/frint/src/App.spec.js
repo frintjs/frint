@@ -452,7 +452,7 @@ describe('frint  › App', function () {
     }).to.throw(/No app found with name 'blah'/);
   });
 
-  describe.only('aliases', () => {
+  describe('aliases', () => {
     const testApp = new App({ name: 'MyApp' });
 
     [

@@ -211,37 +211,37 @@ App.prototype.getApps$ = function getApps$(regionName = null) {
     });
 };
 
-App.prototype.registerApp = function registerApp(App, opts = {}) {
+App.prototype.registerApp = function registerApp(AppClass, opts = {}) {
   const options = {
     multi: false,
     ...opts,
   };
 
   if (typeof options.name !== 'undefined') {
-    Object.defineProperty(App, 'frintAppName', {
+    Object.defineProperty(AppClass, 'frintAppName', {
       value: options.name,
       configurable: true,
     });
   }
 
   const existingIndex = _.findIndex(this._appsCollection, (w) => {
-    return w.name === App.frintAppName;
+    return w.name === AppClass.frintAppName;
   });
 
   if (existingIndex !== -1) {
-    throw new Error(`App '${App.frintAppName}' has been already registered before.`);
+    throw new Error(`App '${AppClass.frintAppName}' has been already registered before.`);
   }
 
   this._appsCollection.push({
     ...options,
-    name: App.frintAppName,
-    App: App,
+    name: AppClass.frintAppName,
+    App: AppClass,
     regions: options.regions || [],
     instances: {},
   });
 
   if (options.multi === false) {
-    this.instantiateApp(App.frintAppName);
+    this.instantiateApp(AppClass.frintAppName);
   }
 
   this._apps$.next(this._appsCollection);
@@ -354,10 +354,11 @@ App.prototype.beforeDestroy = function beforeDestroy() {
   { alias: 'getWidgetOnceAvailable$', fn: 'getAppOnceAvailable$' },
   { alias: 'destroyWidget', fn: 'destroyApp' },
 ].forEach(({ alias, fn }) => {
-	App.prototype[alias] = function (...args) {
-    console.warn('[DEPRECATED] `' + alias + '` has been deprecated. Use `' + fn + '` instead');
-		this[fn](...args);
-	};
+  App.prototype[alias] = function deprecatedAlias(...args) {
+    // eslint-disable-next-line no-console
+    console.warn(`[DEPRECATED] ``${alias}`` has been deprecated. Use ``${fn}`` instead`);
+    this[fn](...args);
+  };
 });
 
 // unregisterApp(name, region = null, regionKey = null) {

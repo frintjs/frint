@@ -369,26 +369,26 @@ describe('frint  › App', function () {
     const Root = createApp({ name: 'MyApp' });
     const App1 = createApp({ name: 'App1' });
 
-    const app = new Root();
+    const root = new Root();
 
-    app.getAppOnceAvailable$('App1')
+    root.getAppOnceAvailable$('App1')
       .subscribe(function (app) {
         expect(app.getOption('name')).to.equal('App1');
 
         done();
       });
 
-    app.registerApp(App1);
+    root.registerApp(App1);
   });
 
   it('gets app once available (that is already available)', function (done) {
     const Root = createApp({ name: 'MyApp' });
     const App1 = createApp({ name: 'App1' });
 
-    const app = new Root();
-    app.registerApp(App1);
+    const root = new Root();
+    root.registerApp(App1);
 
-    app.getAppOnceAvailable$('App1')
+    root.getAppOnceAvailable$('App1')
       .subscribe(function (app) {
         expect(app.getOption('name')).to.equal('App1');
 
@@ -453,7 +453,7 @@ describe('frint  › App', function () {
   });
 
   describe.only('aliases', () => {
-    const app = new App({ name: 'MyApp' });
+    const testApp = new App({ name: 'MyApp' });
 
     [
       { alias: 'getWidgets$', fn: 'getApps$' },
@@ -464,12 +464,11 @@ describe('frint  › App', function () {
       { alias: 'destroyWidget', fn: 'destroyApp' },
     ].forEach(({ alias, fn }) => {
       it(`"${alias}" should call "${fn}"`, () => {
-        const stub = sinon.stub(app, fn);
-        const args = [ 1, 2, 3 ];
-        app[alias](...args);
+        const stub = sinon.stub(testApp, fn);
+        const args = [1, 2, 3];
+        testApp[alias](...args);
         expect(stub).to.have.been.calledWith(...args);
       });
     });
-
   });
 });

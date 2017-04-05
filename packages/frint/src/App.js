@@ -355,8 +355,8 @@ App.prototype.beforeDestroy = function beforeDestroy() {
   { alias: 'destroyWidget', fn: 'destroyApp' },
 ].forEach(({ alias, fn }) => {
   App.prototype[alias] = function deprecatedAlias(...args) {
-    // eslint-disable-next-line no-console
-    console.warn(`[DEPRECATED] ``${alias}`` has been deprecated. Use ``${fn}`` instead`);
+    // eslint-disable-next-line no-console, prefer-template
+    console.warn('[DEPRECATED] `' + alias + '` has been deprecated. Use `' + fn + '` instead');
     this[fn](...args);
   };
 });

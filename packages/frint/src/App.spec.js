@@ -1,9 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this*/
 /* global describe, it */
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 
 import App from './App';
 import createApp from './createApp';
+
+chai.use(sinonChai);
 
 describe('frint  › App', function () {
   it('throws error when creating new instance without name', function () {
@@ -187,31 +191,31 @@ describe('frint  › App', function () {
       ],
     });
 
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
-    const app = new Root();
-    app.registerWidget(Widget1);
+    const root = new Root();
+    root.registerApp(App1);
 
-    const widget = app.getWidgetInstance('Widget1');
-    expect(widget.get('serviceA')).to.equal('serviceA');
-    expect(widget.get('serviceB')).to.equal('serviceB');
-    expect(widget.get('serviceC').getValue()).to.equal('serviceC');
-    expect(widget.get('serviceD')).to.equal(null);
-    expect(widget.get('serviceE')).to.equal('serviceE');
+    const app = root.getAppInstance('App1');
+    expect(app.get('serviceA')).to.equal('serviceA');
+    expect(app.get('serviceB')).to.equal('serviceB');
+    expect(app.get('serviceC').getValue()).to.equal('serviceC');
+    expect(app.get('serviceD')).to.equal(null);
+    expect(app.get('serviceE')).to.equal('serviceE');
 
-    expect(widget.get('serviceF')).to.equal(null);
     expect(app.get('serviceF')).to.equal(null);
+    expect(root.get('serviceF')).to.equal(null);
   });
 
-  it('returns null when service is non-existent in both Widget and Root', function () {
+  it('returns null when service is non-existent in both Child App and Root', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
-    app.registerWidget(Widget1);
+    app.registerApp(App1);
 
     const serviceA = app
-      .getWidgetInstance('Widget1')
+      .getAppInstance('App1')
       .get('serviceA');
 
     expect(serviceA).to.equal(null);
@@ -278,173 +282,193 @@ describe('frint  › App', function () {
     expect(called).to.equal(true);
   });
 
-  it('registers widgets', function () {
+  it('registers apps', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
 
-    app.registerWidget(Widget1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
 
-    expect(app.hasWidgetInstance('Widget1')).to.equal(true);
-    expect(app.getWidgetInstance('Widget1').getOption('name')).to.equal('Widget1');
+    expect(app.hasAppInstance('App1')).to.equal(true);
+    expect(app.getAppInstance('App1').getOption('name')).to.equal('App1');
   });
 
-  it('registers widgets, by overriding options', function () {
+  it('registers apps, by overriding options', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
 
-    app.registerWidget(Widget1, {
-      name: 'WidgetOne',
+    app.registerApp(App1, {
+      name: 'AppOne',
       regions: ['sidebar'],
     });
 
-    expect(app.hasWidgetInstance('WidgetOne')).to.equal(true);
-    expect(app.getWidgetInstance('WidgetOne').getOption('name')).to.equal('WidgetOne');
+    expect(app.hasAppInstance('AppOne')).to.equal(true);
+    expect(app.getAppInstance('AppOne').getOption('name')).to.equal('AppOne');
   });
 
-  it('registers widgets', function () {
+  it('registers apps', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
 
-    app.registerWidget(Widget1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
 
-    expect(app.hasWidgetInstance('Widget1')).to.equal(true);
-    expect(app.getWidgetInstance('Widget1').getOption('name')).to.equal('Widget1');
+    expect(app.hasAppInstance('App1')).to.equal(true);
+    expect(app.getAppInstance('App1').getOption('name')).to.equal('App1');
   });
 
-  it('streams registered widgets as a collection', function (done) {
+  it('streams registered apps as a collection', function (done) {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
 
-    app.registerWidget(Widget1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
-    const widgets$ = app.getWidgets$();
+    const apps$ = app.getApps$();
 
-    widgets$.subscribe(function (widgets) {
-      expect(Array.isArray(widgets)).to.equal(true);
-      expect(widgets.length).to.equal(1);
-      expect(widgets[0].name).to.equal('Widget1');
+    apps$.subscribe(function (apps) {
+      expect(Array.isArray(apps)).to.equal(true);
+      expect(apps.length).to.equal(1);
+      expect(apps[0].name).to.equal('App1');
 
       done();
     });
   });
 
-  it('streams registered widgets as a collection, with region filtering', function (done) {
+  it('streams registered apps as a collection, with region filtering', function (done) {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
 
-    app.registerWidget(Widget1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
-    const widgets$ = app.getWidgets$('sidebar');
+    const apps$ = app.getApps$('sidebar');
 
-    widgets$.subscribe(function (widgets) {
-      expect(Array.isArray(widgets)).to.equal(true);
-      expect(widgets.length).to.equal(1);
-      expect(widgets[0].name).to.equal('Widget1');
+    apps$.subscribe(function (apps) {
+      expect(Array.isArray(apps)).to.equal(true);
+      expect(apps.length).to.equal(1);
+      expect(apps[0].name).to.equal('App1');
 
       done();
     });
   });
 
-  it('gets widget once available (that will be available in future)', function (done) {
+  it('gets app once available (that will be available in future)', function (done) {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
-    const app = new Root();
+    const root = new Root();
 
-    app.getWidgetOnceAvailable$('Widget1')
-      .subscribe(function (widget) {
-        expect(widget.getOption('name')).to.equal('Widget1');
+    root.getAppOnceAvailable$('App1')
+      .subscribe(function (app) {
+        expect(app.getOption('name')).to.equal('App1');
 
         done();
       });
 
-    app.registerWidget(Widget1);
+    root.registerApp(App1);
   });
 
-  it('gets widget once available (that is already available)', function (done) {
+  it('gets app once available (that is already available)', function (done) {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
-    const app = new Root();
-    app.registerWidget(Widget1);
+    const root = new Root();
+    root.registerApp(App1);
 
-    app.getWidgetOnceAvailable$('Widget1')
-      .subscribe(function (widget) {
-        expect(widget.getOption('name')).to.equal('Widget1');
+    root.getAppOnceAvailable$('App1')
+      .subscribe(function (app) {
+        expect(app.getOption('name')).to.equal('App1');
 
         done();
       });
   });
 
-  it('gets widget scoped by region', function () {
+  it('gets app scoped by region', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
-    const Widget2 = createApp({ name: 'Widget2' });
+    const App1 = createApp({ name: 'App1' });
+    const App2 = createApp({ name: 'App2' });
 
     const app = new Root();
-    app.registerWidget(Widget1, {
+    app.registerApp(App1, {
       regions: ['sidebar'],
     });
-    app.registerWidget(Widget2, {
+    app.registerApp(App2, {
       regions: ['footer'],
       multi: true,
     });
 
-    expect(app.getWidgetInstance('Widget1')).to.be.an('object');
-    expect(app.getWidgetInstance('Widget1', 'sidebar')).to.be.an('object');
+    expect(app.getAppInstance('App1')).to.be.an('object');
+    expect(app.getAppInstance('App1', 'sidebar')).to.be.an('object');
 
-    expect(app.getWidgetInstance('Widget2')).to.equal(null);
-    expect(app.getWidgetInstance('Widget2', 'footer')).to.equal(null);
+    expect(app.getAppInstance('App2')).to.equal(null);
+    expect(app.getAppInstance('App2', 'footer')).to.equal(null);
 
-    app.instantiateWidget('Widget2', 'footer', 'footer-123');
-    expect(app.getWidgetInstance('Widget2', 'footer', 'footer-123')).to.be.an('object');
+    app.instantiateApp('App2', 'footer', 'footer-123');
+    expect(app.getAppInstance('App2', 'footer', 'footer-123')).to.be.an('object');
   });
 
-  it('throws error when registering same Widget twice', function () {
+  it('throws error when registering same App twice', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
-    app.registerWidget(Widget1);
+    app.registerApp(App1);
 
     expect(() => {
-      app.registerWidget(Widget1);
-    }).to.throw(/Widget 'Widget1' has been already registered before/);
+      app.registerApp(App1);
+    }).to.throw(/App 'App1' has been already registered before/);
   });
 
-  it('checks for widget instance availability', function () {
+  it('checks for app instance availability', function () {
     const Root = createApp({ name: 'MyApp' });
-    const Widget1 = createApp({ name: 'Widget1' });
+    const App1 = createApp({ name: 'App1' });
 
     const app = new Root();
-    expect(app.hasWidgetInstance('blah')).to.equal(false);
+    expect(app.hasAppInstance('blah')).to.equal(false);
 
-    app.registerWidget(Widget1);
-    expect(app.hasWidgetInstance('Widget1')).to.equal(true);
+    app.registerApp(App1);
+    expect(app.hasAppInstance('App1')).to.equal(true);
   });
 
-  it('throws error when trying to instantiate non-existent Widget', function () {
+  it('throws error when trying to instantiate non-existent App', function () {
     const Root = createApp({ name: 'MyApp' });
     const app = new Root();
 
     expect(() => {
-      app.instantiateWidget('blah');
-    }).to.throw(/No widget found with name 'blah'/);
+      app.instantiateApp('blah');
+    }).to.throw(/No app found with name 'blah'/);
+  });
+
+  describe('aliases', () => {
+    const testApp = new App({ name: 'MyApp' });
+
+    [
+      { alias: 'getWidgets$', fn: 'getApps$' },
+      { alias: 'registerWidget', fn: 'registerApp' },
+      { alias: 'hasWidgetInstance', fn: 'hasWidgetInstance' },
+      { alias: 'getWidgetInstance', fn: 'getAppInstance' },
+      { alias: 'getWidgetOnceAvailable$', fn: 'getAppOnceAvailable$' },
+      { alias: 'destroyWidget', fn: 'destroyApp' },
+    ].forEach(({ alias, fn }) => {
+      it(`"${alias}" should call "${fn}"`, () => {
+        const stub = sinon.stub(testApp, fn);
+        const args = [1, 2, 3];
+        testApp[alias](...args);
+        expect(stub).to.have.been.calledWith(...args);
+      });
+    });
   });
 });

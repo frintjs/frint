@@ -320,7 +320,7 @@ describe('frint-compat › components › mapToProps', function () {
       enableLogger: false,
     });
 
-    // Widget #1: Foo
+    // App #1: Foo
     const FOO_INCREMENT_COUNTER = 'FOO_INCREMENT_COUNTER';
 
     function fooIncrementCounter() {
@@ -377,7 +377,7 @@ describe('frint-compat › components › mapToProps', function () {
       enableLogger: false
     });
 
-    // Widget #2: Bar
+    // App #2: Bar
     const BarComponent = createComponent({
       render() {
         return (
@@ -409,7 +409,7 @@ describe('frint-compat › components › mapToProps', function () {
       enableLogger: false,
     });
 
-    it('renders Widget Bar, with Foo\'s initial state', function () {
+    it('renders Bar App, with Foo\'s initial state', function () {
       window.app = new CoreApp();
       render(window.app, document.getElementById('root'));
 
@@ -427,7 +427,7 @@ describe('frint-compat › components › mapToProps', function () {
       expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('10');
     });
 
-    it('re-renders Widget Bar, with Foo\'s updated state', function () {
+    it('re-renders Bar App, with Foo\'s updated state', function () {
       window.app = new CoreApp();
       render(window.app, document.getElementById('root'));
 
@@ -449,7 +449,7 @@ describe('frint-compat › components › mapToProps', function () {
       expect(document.querySelector('#root .bar .counter').innerHTML).to.equal('12');
     });
 
-    it('re-renders Widget Bar, once Foo is loaded', function (done) {
+    it('re-renders Bar App, once Foo is loaded', function (done) {
       window.app = new CoreApp();
       render(window.app, document.getElementById('root'));
 
@@ -462,7 +462,7 @@ describe('frint-compat › components › mapToProps', function () {
 
       Promise.resolve(true) // eslint-disable-line
         .then(function () {
-          // load Widget, after X ms
+          // load App, after X ms
           return new Promise(function (resolve) {
             setTimeout(function () {
               const fooApp = new FooApp();

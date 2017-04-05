@@ -41,7 +41,7 @@ describe('frint-react › components › Region', function () {
     expect(element.innerHTML.endsWith('</noscript>')).to.equal(true);
   });
 
-  it('renders widgets with weighted ordering', function () {
+  it('renders apps with weighted ordering', function () {
     resetDOM();
 
     // root
@@ -61,28 +61,28 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
-    // widgets
-    const Widget1Component = React.createClass({
+    // apps
+    const App1Component = React.createClass({
       render() {
-        return <p>Widget 1</p>;
+        return <p>App 1</p>;
       }
     });
-    const Widget1 = createApp({
-      name: 'Widget1',
+    const App1 = createApp({
+      name: 'App1',
       providers: [
-        { name: 'component', useValue: Widget1Component },
+        { name: 'component', useValue: App1Component },
       ],
     });
 
-    const Widget2Component = React.createClass({
+    const App2Component = React.createClass({
       render() {
-        return <p>Widget 2</p>;
+        return <p>App 2</p>;
       }
     });
-    const Widget2 = createApp({
-      name: 'Widget2',
+    const App2 = createApp({
+      name: 'App2',
       providers: [
-        { name: 'component', useValue: Widget2Component },
+        { name: 'component', useValue: App2Component },
       ],
     });
 
@@ -93,23 +93,23 @@ describe('frint-react › components › Region', function () {
       document.getElementById('root')
     );
 
-    // register widgets
-    window.app.registerWidget(Widget1, {
+    // register apps
+    window.app.registerApp(App1, {
       regions: ['sidebar'],
       weight: 10,
     });
-    window.app.registerWidget(Widget2, {
+    window.app.registerApp(App2, {
       regions: ['sidebar'],
       weight: 5,
     });
 
     // verify
     const paragraphs = document.querySelectorAll('p'); // @TODO: enzyme can be used?
-    expect(paragraphs[0].innerHTML).to.equal('Widget 2');
-    expect(paragraphs[1].innerHTML).to.equal('Widget 1');
+    expect(paragraphs[0].innerHTML).to.equal('App 2');
+    expect(paragraphs[1].innerHTML).to.equal('App 1');
   });
 
-  it('warns when widgets subscription emits an error', function () {
+  it('warns when apps subscription emits an error', function () {
     // root
     const RootComponent = React.createClass({
       render() {
@@ -131,7 +131,7 @@ describe('frint-react › components › Region', function () {
     // fake an error
     window.app = new RootApp();
     const subject$ = new Subject();
-    window.app.getWidgets$ = function getWidgets$() {
+    window.app.getApps$ = function getApps$() {
       return subject$;
     };
 
@@ -148,7 +148,7 @@ describe('frint-react › components › Region', function () {
     sinon.assert.calledTwice(stub); // two Regions
   });
 
-  it('renders single and multi-instance widgets', function () {
+  it('renders single and multi-instance apps', function () {
     // root
     const todos = [
       { id: '1', title: 'First todo' },
@@ -192,19 +192,19 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
-    // widgets
-    const Widget1Component = React.createClass({
+    // apps
+    const App1Component = React.createClass({
       render() {
-        return <p id="widget1-text">Hello World from Widget1</p>;
+        return <p id="app1-text">Hello World from App1</p>;
       }
     });
-    const Widget1 = createApp({
-      name: 'Widget1',
+    const App1 = createApp({
+      name: 'App1',
       providers: [
-        { name: 'component', useValue: Widget1Component },
+        { name: 'component', useValue: App1Component },
       ],
     });
-    const Widget2Component = observe(function (app) {
+    const App2Component = observe(function (app) {
       return streamProps()
         .set(
           app.get('region').getData$(),
@@ -213,13 +213,13 @@ describe('frint-react › components › Region', function () {
         .get$();
     })(React.createClass({
       render() {
-        return <p className="widget2-text">Hello World from Widget2 - {this.props.todo.title}</p>;
+        return <p className="app2-text">Hello World from App2 - {this.props.todo.title}</p>;
       }
     }));
-    const Widget2 = createApp({
-      name: 'Widget2',
+    const App2 = createApp({
+      name: 'App2',
       providers: [
-        { name: 'component', useValue: Widget2Component },
+        { name: 'component', useValue: App2Component },
         { name: 'region', useClass: RegionService },
       ],
     });
@@ -232,24 +232,24 @@ describe('frint-react › components › Region', function () {
     );
     expect(document.getElementById('root-text').innerHTML).to.equal('Hello World from Root');
 
-    // register widget
-    window.app.registerWidget(Widget1, {
+    // register apps
+    window.app.registerApp(App1, {
       regions: ['sidebar'],
       weight: 0,
     });
-    window.app.registerWidget(Widget2, {
+    window.app.registerApp(App2, {
       regions: ['todo-item'],
       weight: 1,
       multi: true,
     });
 
-    // verify single instance widget
-    expect(document.getElementById('widget1-text').innerHTML).to.equal('Hello World from Widget1');
+    // verify single instance app
+    expect(document.getElementById('app1-text').innerHTML).to.equal('Hello World from App1');
 
-    // verify multi instance widget
-    const elements = _.toArray(document.getElementsByClassName('widget2-text'));
+    // verify multi instance app
+    const elements = _.toArray(document.getElementsByClassName('app2-text'));
     elements.forEach((el, index) => {
-      expect(el.innerHTML).to.contain('Hello World from Widget2 - ');
+      expect(el.innerHTML).to.contain('Hello World from App2 - ');
       expect(el.innerHTML).to.contain(todos[index].title);
     });
 
@@ -262,10 +262,10 @@ describe('frint-react › components › Region', function () {
 
     // unmount
     ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-    expect(_.toArray(document.getElementsByClassName('widget2-text')).length).to.equal(0);
+    expect(_.toArray(document.getElementsByClassName('app2-text')).length).to.equal(0);
   });
 
-  it('calls beforeDestroy when unmounting multi-instance widgets', function () {
+  it('calls beforeDestroy when unmounting multi-instance apps', function () {
     // root
     const todos = [
       { id: '1', title: 'First todo' },
@@ -307,8 +307,8 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
-    // widget
-    const WidgetComponent = observe(function (app) {
+    // app
+    const AppComponent = observe(function (app) {
       return streamProps()
         .set(
           app.get('region').getData$(),
@@ -317,17 +317,17 @@ describe('frint-react › components › Region', function () {
         .get$();
     })(React.createClass({
       render() {
-        return <p className="widget-text">Hello World from Widget - {this.props.todo.title}</p>;
+        return <p className="app-text">Hello World from App - {this.props.todo.title}</p>;
       }
     }));
     let beforeDestroyCalled = false;
-    const Widget = createApp({
-      name: 'Widget',
+    const App = createApp({
+      name: 'App',
       beforeDestroy: function () {
         beforeDestroyCalled = true;
       },
       providers: [
-        { name: 'component', useValue: WidgetComponent },
+        { name: 'component', useValue: AppComponent },
         { name: 'region', useClass: RegionService },
       ],
     });
@@ -340,32 +340,32 @@ describe('frint-react › components › Region', function () {
     );
     expect(document.getElementById('root-text').innerHTML).to.equal('Hello World from Root');
 
-    // register widget
-    window.app.registerWidget(Widget, {
+    // register app
+    window.app.registerApp(App, {
       regions: ['todo-item'],
       multi: true,
     });
 
-    // verify multi instance widget
-    const elements = _.toArray(document.getElementsByClassName('widget-text'));
+    // verify multi instance app
+    const elements = _.toArray(document.getElementsByClassName('app-text'));
     elements.forEach((el, index) => {
-      expect(el.innerHTML).to.contain('Hello World from Widget - ');
+      expect(el.innerHTML).to.contain('Hello World from App - ');
       expect(el.innerHTML).to.contain(todos[index].title);
     });
 
     // rootApp should have the instance
-    expect(window.app.getWidgetInstance('Widget', 'todo-item', 'todo-item-1')).to.not.equal(null);
+    expect(window.app.getAppInstance('App', 'todo-item', 'todo-item-1')).to.not.equal(null);
 
     // change in props
     todos.pop(); // empty the list
     rootComponentInstance.forceUpdate();
-    const updatedElements = _.toArray(document.getElementsByClassName('widget-text'));
+    const updatedElements = _.toArray(document.getElementsByClassName('app-text'));
     expect(updatedElements.length).to.equal(0);
 
     // check if beforeDestroy was called
     expect(beforeDestroyCalled).to.equal(true);
 
     // rootApp should not have the instance any more
-    expect(window.app.getWidgetInstance('Widget', 'todo-item', 'todo-item-1')).to.equal(null);
+    expect(window.app.getAppInstance('App', 'todo-item', 'todo-item-1')).to.equal(null);
   });
 });

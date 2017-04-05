@@ -178,15 +178,15 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
       return null;
     }
 
-    const foundWidget = _.find(rootApp._widgetsCollection, (w) => {
+    const foundApp = _.find(rootApp._appsCollection, (w) => {
       return w.name === appName;
     });
 
-    if (!foundWidget) {
+    if (!foundApp) {
       return null;
     }
 
-    return foundWidget.instances.default;
+    return foundApp.instances.default;
   };
 
   App.prototype.getStore = function getStore(appName = null) {
@@ -219,19 +219,19 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
   };
 
   App.prototype.setRegion = function setRegion(region) {
-    console.warn('[DEPRECATED] `setRegion` has been deprecated. Use `registerWidget` instead.');
+    console.warn('[DEPRECATED] `setRegion` has been deprecated. Use `registerApp` instead.');
     return this.setRegions([region]);
   };
 
   App.prototype.setRegions = function setRegions(regions = []) {
-    console.warn('[DEPRECATED] `setRegions` has been deprecated. Use `registerWidget` instead.');
+    console.warn('[DEPRECATED] `setRegions` has been deprecated. Use `registerApp` instead.');
     const rootApp = this.getRootApp();
 
     if (!rootApp || this === rootApp) {
       throw new Error('No root app instance available');
     }
 
-    rootApp._widgetsCollection.push({
+    rootApp._appsCollection.push({
       name: this.options.name,
       regions,
       instances: {
@@ -239,12 +239,12 @@ export default function extendApp(Frint, FrintStore, FrintReact) {
       },
     });
 
-    rootApp._widgets$.next(rootApp._widgetsCollection);
+    rootApp._apps$.next(rootApp._appsCollection);
   };
 
   App.prototype.getWidgets = function getWidgets(regionName = null) {
-    console.warn('[DEPRECATED] `getWidgets` has been deprecated. Use `getWidgets$` instead.');
-    return this.getRootApp()._widgetsCollection
+    console.warn('[DEPRECATED] `getWidgets` has been deprecated. Use `getApps$` instead.');
+    return this.getRootApp()._appsCollection
       .filter((w) => {
         if (!regionName) {
           return true;

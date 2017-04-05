@@ -10,12 +10,11 @@
   - [Installation](#installation)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
-  - [Creating and registering widgets](#creating-and-registering-widgets)
+  - [Creating and registering apps](#creating-and-registering-apps)
   - [Understanding Providers](#understanding-providers)
 - [API](#api)
   - [App](#app)
   - [createApp](#createapp)
-  - [app](#app-1)
 
 <!-- /MarkdownTOC -->
 
@@ -45,10 +44,9 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ## Terminologies
 
-* `App`: The base for Root App and Widgets.
-* `Root App`: The top-most parent App, where Widgets get registered to.
-* `Widget`: Apps that register themselves to Root App.
-* `Provider`: Dependency for your apps (Root App and Widgets).
+* `Root App`: The top-most parent App, where other Apps get registered to.
+* `App`: Apps that register themselves to Root App.
+* `Provider`: Dependency for your apps.
 
 ## Usage
 
@@ -71,29 +69,29 @@ Instantiate the Root app:
 const app = new RootApp(); // now you have the Root app's instance
 
 // usually we set the root app to `window.app`,
-// so Widgets coming in from separate bundles can register themselves
+// so apps coming in from separate bundles can register themselves
 window.app = app;
 ```
 
-## Creating and registering widgets
+## Creating and registering apps
 
 ```js
 const { createApp } = Frint;
 
-const MyWidget = createApp({ name: 'MyWidgetName' });
+const MyApp = createApp({ name: 'MyAppName' });
 ```
 
-To register the Widget in your Root App:
+To register the App in your Root App:
 
 ```js
-window.app.registerWidget(MyWidget);
+window.app.registerApp(MyApp);
 ```
 
 ## Understanding Providers
 
 Providers are dependencies for your Frint application (not to be confused with `npm` packages).
 
-They can be set at Root app level, at Widget level, or even only at Root app level but cascade them to the Widgets.
+They can be set at Root app level, at App level, or even only at Root app level but cascade them to other Apps.
 
 ### Direct values
 
@@ -162,7 +160,7 @@ app.get('baz').getValue() === 'baz value';
 
 ### Cascading
 
-If you wish to cascade a provider from Root App to your Widgets, you can:
+If you wish to cascade a provider from Root App to other Apps, you can:
 
 ```js
 const RootApp = createApp({
@@ -176,20 +174,20 @@ const RootApp = createApp({
   ]
 });
 
-const MyWidget = createApp({
-  name: 'MyWidget'
+const MyApp = createApp({
+  name: 'MyApp'
 });
 
 const app = new RootApp();
-app.registerWidget(MyWidget);
+app.registerApp(MyApp);
 
 app.get('window') === window;
-app.getWidgetInstance('MyWidget').get('window') === window;
+app.getAppInstance('MyApp').get('window') === window;
 ```
 
 ### Reserved provider names
 
-* `app`: The current App in scope (Root or Widget)
+* `app`: The current App in scope
 * `rootApp`: Always refers to the top-most App (which is Root)
 
 ### Dependencies
@@ -229,7 +227,7 @@ const RootApp = createApp({
 
 ### Scoped
 
-When cascading providers from Root to Widgets, it is likely you may want to scope those values by the Widget they are targeting. It is applicable in only `useFactory` and `useClass` usage, since they generate values.
+When cascading providers from Root to other Apps, it is likely you may want to scope those values by the App they are targeting. It is applicable in only `useFactory` and `useClass` usage, since they generate values.
 
 ```js
 const RootApp = createApp({
@@ -246,15 +244,16 @@ const RootApp = createApp({
     }
   ]
 });
-const MyWidget = createApp({
-  name: 'MyWidget'
+
+const MyApp = createApp({
+  name: 'MyApp'
 });
 
 const app = new RootApp();
-app.registerWidget(MyWidget);
+app.registerApp(MyApp);
 
 app.get('theNameOfTheApp') === 'MyRootApp';
-app.getWidgetInstance('MyWidget').get('theNameOfTheApp') === 'MyWidget';
+app.getAppInstance('MyApp').get('theNameOfTheApp') === 'MyApp';
 ```
 
 ---
@@ -266,8 +265,6 @@ app.getWidgetInstance('MyWidget').get('theNameOfTheApp') === 'MyWidget';
 > App
 
 The base App class.
-
-Root App and Widget extend this class.
 
 ## createApp
 
@@ -289,7 +286,7 @@ Root App and Widget extend this class.
 
 > const app = new App();
 
-The `App` instance (either Root App or Widget):
+The `App` instance
 
 ### app.getOption
 
@@ -371,111 +368,153 @@ Gives you the computed value of the provider.
 
 `Any`: The computed value of the provider.
 
-### app.getWidgets$
+### app.getApps$
 
-> app.getWidgets$(regionName = null)
+> app.getApps$(regionName = null)
 
 #### Arguments
 
-1. `regionName` (`String` [optional]): Filter the list of widgets by region names if needed
+1. `regionName` (`String` [optional]): Filter the list of apps by region names if needed
 
 #### Returns
 
-`Observable`: That emits an array of most recent available Widgets.
+`Observable`: That emits an array of most recent available Apps.
 
-### app.registerWidget
+### app.getWidgets$ [deprecated]
 
-> app.registerWidget(Widget, options = {})
+> app.getWidgets$(regionName = null)
 
-Register Widget class to Root app.
+Alias to [`app.getApps$`](#app-getapps-)
+
+### app.registerApp
+
+> app.registerApp(App, options = {})
+
+Register App class to Root app.
 
 #### Arguments
 
-1. `Widget` (`App`): The widget class.
+1. `App` (`App`): The App class.
 1. `options` (`Object` [optional])
-    * `name` (`String` [optional]): If the Widget's name needs to be overridden.
-    * `multi` (`Boolean` [optional]): If the Widget is a multi-instance widget (defaults to `false`)
+    * `name` (`String` [optional]): If the App's name needs to be overridden.
+    * `multi` (`Boolean` [optional]): If the App is a multi-instance app (defaults to `false`)
 
 #### Returns
 
 `void`
 
-### app.hasWidgetInstance
+### app.registerWidget [deprecated]
+
+> app.registerWidget(App, options = {})
+
+Alias to [`app.registerApp`](#app-registerapp)
+
+### app.hasAppInstance
+
+> app.hasAppInstance(name, region = null, regionKey = null)
+
+Check if App instance is available or not.
+
+#### Arguments
+
+1. `name` (`String`): The name of the App that you are looking for
+1. `region` (`String` [optional]): If you want the App of a specific region
+1. `regionKey` (`String` [optional]): If it is a multi-instance App, then the lookup can be scoped by region's keys.
+
+#### Returns
+
+`Boolean`: A flag indicating whether an App instance whose name matches the provided `name` parameter is available or not
+
+### app.hasWidgetInstance [deprecated]
 
 > app.hasWidgetInstance(name, region = null, regionKey = null)
 
-Check if Widget instance is available or not.
+Alias to [`app.hasAppInstance`](#app-hasappinstance)
+
+### app.getAppInstance
+
+> app.getAppInstance(name, region = null, regionKey = null)
+
+Gets the App instance if available.
 
 #### Arguments
 
-1. `name` (`String`): The name of the Widget that you are looking for
-1. `region` (`String` [optional]): If you want the Widget of a specific region
-1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
+1. `name` (`String`): The name of the App that you are looking for
+1. `region` (`String` [optional]): If you want the App of a specific region
+1. `regionKey` (`String` [optional]): If it is a multi-instance App, then the lookup can be scoped by region's keys.
 
 #### Returns
 
-`Boolean`.
+`App|Boolean`: The app instance, or false if not availble.
 
-### app.getWidgetInstance
+### app.getWidgetInstance [deprecated]
 
 > app.getWidgetInstance(name, region = null, regionKey = null)
 
-Gets the Widget instance if available.
+Alias to [`app.getAppInstance`](#app-getappinstance)
+
+### app.getAppOnceAvailable$
+
+> app.getAppOnceAvailable$(name, region = null, regionKey = null)
+
+Returns an Observable, which emits with the App's instance once it is available.
 
 #### Arguments
 
-1. `name` (`String`): The name of the Widget that you are looking for
-1. `region` (`String` [optional]): If you want the Widget of a specific region
-1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
+1. `name` (`String`): The name of the App that you are looking for
+1. `region` (`String` [optional]): If you want the App of a specific region
+1. `regionKey` (`String` [optional]): If it is a multi-instance App, then the lookup can be scoped by region's keys.
 
 #### Returns
 
-`App|Boolean`: The widget instance, or false if not availble.
+`Observable`: Emits the App instance once found, only once.
 
-### app.getWidgetOnceAvailable$
+### app.getWidgetOnceAvailable$ [deprecated]
 
 > app.getWidgetOnceAvailable$(name, region = null, regionKey = null)
 
-Returns an Observable, which emits with the Widget's instance once it is available.
+Alias to [`app.getAppOnceAvailable$`](#app-getapponceavailable-)
+
+### app.instantiateApp
+
+> app.instantiateApp(name, region = null, regionKey = null)
+
+Instantiates the registered App class, (for the targetted region/regionKey if it is a multi-instance App).
 
 #### Arguments
 
-1. `name` (`String`): The name of the Widget that you are looking for
-1. `region` (`String` [optional]): If you want the Widget of a specific region
-1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
+1. `name` (`String`): The name of the App that you are looking for
+1. `region` (`String` [optional]): If you want the App of a specific region
+1. `regionKey` (`String` [optional]): If it is a multi-instance App, then the lookup can be scoped by region's keys.
 
 #### Returns
 
-`Observable`: Emits the Widget instance once found, only once.
+`Array`: The updated collection of apps.
 
-### app.instantiateWidget
+### app.instantiateWidget [deprecated]
 
 > app.instantiateWidget(name, region = null, regionKey = null)
 
-Instantiates the registered Widget class, (for the targetted region/regionKey if it is a multi-instance Widget).
+Alias to [`app.instantiateApp`](#app-instantiateapp)
+
+### app.destroyApp
+
+> app.destroyApp(name, region = null, regionKey = null)
+
+Destroys App instance.
 
 #### Arguments
 
-1. `name` (`String`): The name of the Widget that you are looking for
-1. `region` (`String` [optional]): If you want the Widget of a specific region
-1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
-
-#### Returns
-
-`Array`: The updated collection of widgets.
-
-### app.destroyWidget
-
-> app.destroyWidget(name, region = null, regionKey = null)
-
-Destroys Widget instance.
-
-#### Arguments
-
-1. `name` (`String`): The name of the Widget that you are looking for
-1. `region` (`String` [optional]): If you want the Widget of a specific region
-1. `regionKey` (`String` [optional]): If it is a multi-instance Widget, then the lookup can be scoped by region's keys.
+1. `name` (`String`): The name of the App that you are looking for
+1. `region` (`String` [optional]): If you want the App of a specific region
+1. `regionKey` (`String` [optional]): If it is a multi-instance App, then the lookup can be scoped by region's keys.
 
 #### Returns
 
 `void`.
+
+### app.destroyWidget [deprecated]
+
+> app.destroyWidget(name, region = null, regionKey = null)
+
+Alias to [`app.destroyApp`](#app-destroyapp)

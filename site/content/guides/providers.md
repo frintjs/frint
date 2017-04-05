@@ -15,7 +15,7 @@ sidebarPartial: guidesSidebar
 
 ## The need for Providers
 
-[Previously](../apps), we discussed how Apps work in Frint. We were only assigning a name, and then registering Widgets. Simple.
+[Previously](../apps), we discussed how Apps work in Frint. We were only assigning a name, and then registering Apps. Simple.
 
 But how do we put more things inside our Apps? Like:
 

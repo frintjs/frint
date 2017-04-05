@@ -28,23 +28,23 @@ describe('frint-compat › components › Region', function () {
     return new MyCoreApp(appOptions);
   }
 
-  function generateWidgetAppTemplate(appName, widgetName, regionToSetTo) {
-    const MyWidgetComponent = createComponent({
-      render() { return (<div className="myWidgetComponent">{appName} - {widgetName}</div>); }
+  function generateChildAppTemplate(appName, name, regionToSetTo) {
+    const MyAppComponent = createComponent({
+      render() { return (<div className="myAppComponent">{appName} - {name}</div>); }
     });
 
-    const MyWidgetApp = createApp({
+    const MyApp = createApp({
       appName: appName,
-      name: widgetName,
-      component: MyWidgetComponent,
+      name: name,
+      component: MyAppComponent,
       enableLogger: false,
     });
 
-    const myWidgetAppInstance = new MyWidgetApp();
+    const myAppInstance = new MyApp();
 
-    myWidgetAppInstance.setRegion(regionToSetTo);
+    myAppInstance.setRegion(regionToSetTo);
 
-    return myWidgetAppInstance;
+    return myAppInstance;
   }
 
   // NOTE: not relevant in v1.x any more
@@ -53,40 +53,40 @@ describe('frint-compat › components › Region', function () {
   //   expect(() => render(window.app, document.getElementById('root'))).to.throw(TypeError);
   // });
 
-  it('renders properly the region and renders a widget on it', () => {
+  it('renders properly the region and renders an app on it', () => {
     window.app = generateCoreAppTemplate(undefined, 'myRegionName');
     render(window.app, document.getElementById('root'));
 
-    generateWidgetAppTemplate('app1', 'myWidgetName', 'myRegionName');
-    expect(document.querySelectorAll('#root .myWidgetComponent').length).to.be.eql(1);
-    expect(document.querySelector('#root .myWidgetComponent').textContent).to.be.eql('app1 - myWidgetName');
+    generateChildAppTemplate('app1', 'myAppName', 'myRegionName');
+    expect(document.querySelectorAll('#root .myAppComponent').length).to.be.eql(1);
+    expect(document.querySelector('#root .myAppComponent').textContent).to.be.eql('app1 - myAppName');
   });
 
-  it('renders properly the region and renders two widgets on it', () => {
+  it('renders properly the region and renders two apps on it', () => {
     window.app = generateCoreAppTemplate(undefined, 'myRegionName');
     render(window.app, document.getElementById('root'));
 
-    generateWidgetAppTemplate('app1', 'myWidgetName1', 'myRegionName');
-    generateWidgetAppTemplate('app2', 'myWidgetName2', 'myRegionName');
+    generateChildAppTemplate('app1', 'myAppName1', 'myRegionName');
+    generateChildAppTemplate('app2', 'myAppName2', 'myRegionName');
 
-    expect(document.querySelectorAll('#root .myWidgetComponent').length).to.be.eql(2);
-    expect(document.querySelectorAll('#root .myWidgetComponent')[0].textContent).to.be.eql('app1 - myWidgetName1');
-    expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName2');
+    expect(document.querySelectorAll('#root .myAppComponent').length).to.be.eql(2);
+    expect(document.querySelectorAll('#root .myAppComponent')[0].textContent).to.be.eql('app1 - myAppName1');
+    expect(document.querySelectorAll('#root .myAppComponent')[1].textContent).to.be.eql('app2 - myAppName2');
   });
 
-  it('renders properly the region and renders two widgets on it', () => {
+  it('renders properly the region and renders two apps on it', () => {
     window.app = generateCoreAppTemplate(undefined, 'myRegionName');
     render(window.app, document.getElementById('root'));
 
-    generateWidgetAppTemplate('app1', 'myWidgetName1', 'myRegionName');
-    generateWidgetAppTemplate('app2', 'myWidgetName2', 'myRegionName');
+    generateChildAppTemplate('app1', 'myAppName1', 'myRegionName');
+    generateChildAppTemplate('app2', 'myAppName2', 'myRegionName');
 
-    expect(document.querySelectorAll('#root .myWidgetComponent').length).to.be.eql(2);
-    expect(document.querySelectorAll('#root .myWidgetComponent')[0].textContent).to.be.eql('app1 - myWidgetName1');
-    expect(document.querySelectorAll('#root .myWidgetComponent')[1].textContent).to.be.eql('app2 - myWidgetName2');
+    expect(document.querySelectorAll('#root .myAppComponent').length).to.be.eql(2);
+    expect(document.querySelectorAll('#root .myAppComponent')[0].textContent).to.be.eql('app1 - myAppName1');
+    expect(document.querySelectorAll('#root .myAppComponent')[1].textContent).to.be.eql('app2 - myAppName2');
   });
 
-  describe('Multiple widgets', function () {
+  describe('Multiple apps', function () {
     // Core App
     const CORE_SET_SIDEBAR_VISIBILITY = 'CORE_SET_SIDEBAR_VISIBILITY';
 
@@ -143,7 +143,7 @@ describe('frint-compat › components › Region', function () {
       enableLogger: false,
     });
 
-    // Widget #1: Foo
+    // App #1: Foo
     const FOO_INCREMENT_COUNTER = 'FOO_INCREMENT_COUNTER';
 
     function fooIncrementCounter() {
@@ -200,7 +200,7 @@ describe('frint-compat › components › Region', function () {
       enableLogger: false
     });
 
-    // Widget #2: Bar
+    // App #2: Bar
     const BarComponent = createComponent({
       beforeUnmount() {
         return true;
@@ -236,7 +236,7 @@ describe('frint-compat › components › Region', function () {
       enableLogger: false,
     });
 
-    it('unmounts widget if Region is removed', function () {
+    it('unmounts app if Region is removed', function () {
       window.app = new CoreApp();
       render(window.app, document.getElementById('root'));
 

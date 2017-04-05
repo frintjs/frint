@@ -1,7 +1,7 @@
 {
-  "name": "frint-multiple-widgets-counter",
+  "name": "frint-multiple-apps-core",
   "version": "0.0.1",
-  "description": "Multiple widgets example in frint",
+  "description": "Multiple apps core example in Frint",
   "main": "index.js",
   "scripts": {
     "build": "../../../node_modules/.bin/webpack"

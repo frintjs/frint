@@ -14,7 +14,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      list: [], // array of widgets ==> { name, instance }
+      list: [], // array of apps ==> { name, instance }
       listForRendering: [] // array of {name, Component} objects
     };
   },
@@ -22,7 +22,7 @@ export default React.createClass({
   /**
    * Determines if the the component should be updated or not.
    * Since we are calling setState multiple times, we need to make sure that only when
-   * the list of widgets to render, i.e. this.state.listForRendering, is changed should
+   * the list of apps to render, i.e. this.state.listForRendering, is changed should
    * trigger a re-render of the region component.
    * @param  {Object}  nextProps  the next set of props
    * @param  {Object}  nextState  the next component state to be set
@@ -50,19 +50,17 @@ export default React.createClass({
     }
 
     this.rootApp = rootApp;
-    const widgets$ = rootApp.getWidgets$(this.props.name, this.props.uniqueKey);
+    const apps$ = rootApp.getApps$(this.props.name, this.props.uniqueKey);
 
-    this.subscription = widgets$.subscribe({
+    this.subscription = apps$.subscribe({
       next: (list) => {
         this.setState({
           list,
         }, () => {
           this.state.list.forEach((item) => {
-            const widgetName = item.name;
-            const widgetWeight = item.weight;
-            const widgetMulti = item.multi;
+            const { name: appName, weight: appWeight, multi } = item;
             const existsInState = this.state.listForRendering.some((w) => {
-              return w.name === widgetName;
+              return w.name === appName;
             });
 
             // @TODO: take care of removal in streamed list too?
@@ -77,24 +75,24 @@ export default React.createClass({
 
             if (
               this.props.uniqueKey &&
-              !rootApp.hasWidgetInstance(widgetName, ...regionArgs)
+              !rootApp.hasAppInstance(appName, ...regionArgs)
             ) {
-              rootApp.instantiateWidget(widgetName, ...regionArgs);
+              rootApp.instantiateApp(appName, ...regionArgs);
             }
 
-            const widgetInstance = rootApp.getWidgetInstance(widgetName, ...regionArgs);
-            if (widgetInstance) {
-              this.sendProps(widgetInstance, this.props);
+            const appInstance = rootApp.getAppInstance(appName, ...regionArgs);
+            if (appInstance) {
+              this.sendProps(appInstance, this.props);
             }
 
             this.setState({
               listForRendering: this.state.listForRendering
                 .concat({
-                  name: widgetName,
-                  weight: widgetWeight,
-                  instance: widgetInstance,
-                  multi: widgetMulti,
-                  Component: getMountableComponent(widgetInstance),
+                  name: appName,
+                  weight: appWeight,
+                  instance: appInstance,
+                  multi: multi,
+                  Component: getMountableComponent(appInstance),
                 })
                 .sort((a, b) => {
                   return a.weight - b.weight;
@@ -109,8 +107,8 @@ export default React.createClass({
     });
   },
 
-  sendProps(widgetInstance, props) {
-    const regionService = widgetInstance.get(widgetInstance.options.providerNames.region);
+  sendProps(appInstance, props) {
+    const regionService = appInstance.get(appInstance.options.providerNames.region);
 
     if (!regionService) {
       return;
@@ -134,7 +132,7 @@ export default React.createClass({
       this.state.listForRendering
         .filter(item => item.multi)
         .forEach((item) => {
-          this.rootApp.destroyWidget(
+          this.rootApp.destroyApp(
             item.name,
             this.props.name,
             this.props.uniqueKey
@@ -156,7 +154,7 @@ export default React.createClass({
           const { Component, name } = item;
 
           return (
-            <Component key={`widget-${name}`} />
+            <Component key={`app-${name}`} />
           );
         })}
       </div>

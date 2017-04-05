@@ -6,10 +6,10 @@ bundle:
 
 bundle-example:
 	(cd ./core && npm run build)
-	(cd ./widget-counter && npm run build)
-	(cd ./widget-color && npm run build)
-	(cd ./widget-todos && npm run build)
-	(cd ./widget-reversed && npm run build)
+	(cd ./app-counter && npm run build)
+	(cd ./app-color && npm run build)
+	(cd ./app-todos && npm run build)
+	(cd ./app-reversed && npm run build)
 
 bundle-frint:
 	(cd ../../ && npm run dist)

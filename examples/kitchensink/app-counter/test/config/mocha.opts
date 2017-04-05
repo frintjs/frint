@@ -1,0 +1,4 @@
+--colors
+--compilers js:babel-register
+--require ./test/config/bootstrap.js
+--recursive

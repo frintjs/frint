@@ -109,11 +109,7 @@ Since we use [lerna](https://github.com/lerna/lerna/) for managing our monorepo,
 Changelog for a particular version can be generated as follows:
 
 ```
-$ GITHUB_AUTH="TOKEN" ./node_modules/.bin/lerna-changelog --tag-from v1.0.0 --tag-to v2.0.0
-```
-
-```
-$ GITHUB_API_TOKEN="TOKEN" FROM_TAG="v1.0.0" TO_TAG="v2.0.0" make changelog
+$ make changelog GITHUB_API_TOKEN="..." FROM_TAG="v1.0.0" TO_TAG="v2.0.0"
 ```
 
 Doing so would output the changelog in your Terminal, which you can later add to the `CHANGELOG.md` file.

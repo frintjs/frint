@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.2.1 (2017-04-13)
+
+#### Pull Requests
+* `frint-preset-travix`
+  * [#164](https://github.com/Travix-International/frint/pull/164) Preset for Travix. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#161](https://github.com/Travix-International/frint/pull/161) Unit tests for example. ([@jackTheRipper](https://github.com/jackTheRipper))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jean Baudin ([jackTheRipper](https://github.com/jackTheRipper))
+
 ## v1.2.0 (2017-04-05)
 
 #### Pull Requests

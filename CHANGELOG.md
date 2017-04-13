@@ -1,5 +1,14 @@
 # Change Log
 
+## v1.2.2 (2017-04-13)
+
+#### Pull Requests
+* `frint-preset-travix`
+  * [#165](https://github.com/Travix-International/frint/pull/165) Pin package versions in Travix preset. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.2.1 (2017-04-13)
 
 #### Pull Requests

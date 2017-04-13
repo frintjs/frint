@@ -28,13 +28,13 @@
     "frint-preset"
   ],
   "dependencies": {
-    "frint": "^1.2.1",
-    "frint-model": "^1.0.1",
-    "frint-store": "^1.0.0",
-    "frint-react": "^1.2.1",
-    "frint-react-server": "^1.2.1",
-    "frint-test-utils": "^1.0.0",
-    "frint-compat": "^1.2.1"
+    "frint": "1.2.1",
+    "frint-model": "1.0.1",
+    "frint-store": "1.0.0",
+    "frint-react": "1.2.1",
+    "frint-react-server": "1.2.1",
+    "frint-test-utils": "1.0.0",
+    "frint-compat": "1.2.1"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

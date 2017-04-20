@@ -82,11 +82,11 @@ The model instance can also be observed for changes:
 
 ```js
 shirt.get$().subscribe(function (shirtAttributes) {
-  // triggerred when the model had any change
+  // triggered when the model had any change
 });
 
 shirt.get$('size').subscribe(function (color) {
-  // triggerred when the model's `color` key changes
+  // triggered when the model's `color` key changes
 });
 ```
 

@@ -39,7 +39,6 @@ describe('frint-model › Model', () => {
   });
 
   it('must return an undefined using .get() method if attribute doesn\'t exist', () => {
-    expect(myModelInstance.get()).to.be.deep.equal(undefined);
     expect(myModelInstance.get('attributeNotExist')).to.be.deep.equal(undefined);
   });
 });

@@ -56,4 +56,44 @@ describe('frint-model › createModel', () => {
       foo: 'bar'
     });
   });
+
+  describe('streams model attributes', function () {
+    const Person = createModel();
+
+    it('does not start observing until needed', function () {
+      const person = new Person({ name: 'Rowena Revenclaw' });
+      expect(person.$).to.equal(null);
+    });
+
+    it('streams all attributes', function (done) {
+      const person = new Person({ name: 'Helga Hufflepuff' });
+      person.get$().subscribe(function (personAttributes) {
+        expect(personAttributes).to.deep.equal({
+          name: 'Helga Hufflepuff',
+        });
+
+        done();
+      });
+    });
+
+    it('streams initial value for key', function (done) {
+      const person = new Person({ name: 'Salazar Slytherin' });
+      person.get$('name').subscribe(function (name) {
+        expect(name).to.equal('Salazar Slytherin');
+
+        done();
+      });
+    });
+
+    it('streams updated value for key', function (done) {
+      const person = new Person({ name: 'Salazar Slytherin' });
+      person.set('name', 'Godric Gryffindor');
+
+      person.get$('name').subscribe(function (name) {
+        expect(name).to.equal('Godric Gryffindor');
+
+        done();
+      });
+    });
+  });
 });

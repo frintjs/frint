@@ -85,7 +85,7 @@ shirt.get$().subscribe(function (shirtAttributes) {
   // triggered when the model had any change
 });
 
-shirt.get$('size').subscribe(function (color) {
+shirt.get$('color').subscribe(function (color) {
   // triggered when the model's `color` key changes
 });
 ```

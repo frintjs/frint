@@ -28,7 +28,8 @@
     "frint"
   ],
   "dependencies": {
-    "lodash": "^4.13.1"
+    "lodash": "^4.13.1",
+    "rxjs": "^5.3.0"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

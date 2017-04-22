@@ -57,6 +57,12 @@ describe('frint-model › createModel', () => {
     });
   });
 
+  it('returns undefined when non-string key is given', () => {
+    expect(myModelInstance.get(1)).to.be.equal(undefined);
+    expect(myModelInstance.get(true)).to.be.equal(undefined);
+    expect(myModelInstance.get(() => true)).to.be.equal(undefined);
+  });
+
   describe('streams model attributes', function () {
     const Person = createModel();
 
@@ -85,15 +91,21 @@ describe('frint-model › createModel', () => {
       });
     });
 
-    it('streams updated value for key', function (done) {
+    it('streams updated value for key', function () {
       const person = new Person({ name: 'Salazar Slytherin' });
+      person.set('name', 'Rowena Revenclaw');
+
+      const names = [];
+      person.get$('name').subscribe(function (name) {
+        names.push(name);
+      });
+
       person.set('name', 'Godric Gryffindor');
 
-      person.get$('name').subscribe(function (name) {
-        expect(name).to.equal('Godric Gryffindor');
-
-        done();
-      });
+      expect(names).to.deep.equal([
+        'Rowena Revenclaw',
+        'Godric Gryffindor',
+      ]);
     });
   });
 });

@@ -5,11 +5,13 @@
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)
+  - [Installation](#installation)
   - [Terminologies](#terminologies)
   - [Usage](#usage)
 - [API](#api)
   - [Model](#model)
   - [createModel](#createmodel)
+  - [model](#model-1)
 
 <!-- /MarkdownTOC -->
 
@@ -29,6 +31,7 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
 
 <script src="https://unpkg.com/frint-model@latest/dist/frint-model.min.js"></script>
 
@@ -39,7 +42,8 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ## Terminologies
 
-* `Model`: An object class that holds data, e.g. configuration, customer information, etc.
+* `Model`: An object that holds data, e.g. configuration, customer information, etc.
+* `attributes`: The actual data in plain object, which is fed to the Model during construction.
 
 ## Usage
 
@@ -73,6 +77,19 @@ const shirt = new Shirt({
 const color = shirt.getColor(); // blue
 const size = shirt.getSize();   // medium
 ```
+
+The model instance can also be observed for changes:
+
+```js
+shirt.get$().subscribe(function (shirtAttributes) {
+  // triggered when the model had any change
+});
+
+shirt.get$('color').subscribe(function (color) {
+  // triggered when the model's `color` key changes
+});
+```
+
 ---
 
 # API
@@ -125,3 +142,50 @@ const Shirt = createModel({
   },
 });
 ```
+
+## model
+
+> const model = new Model();
+
+The `Model` instance
+
+### model.get
+
+> model.get(key)
+
+#### Arguments
+
+1. `key` (`String`): Can be dot separated, like `deep.nested.path`. If empty, it returns all the attributes.
+
+#### Returns
+
+`Any`: The key's value.
+
+### model.set
+
+> model.set(key, value)
+
+Sets the `value` for given `key` in the model.
+
+#### Arguments
+
+1. `key` (`String`)
+1. `value` (`Any`)
+
+#### Returns
+
+`void`.
+
+### get$
+
+> get$(key)
+
+Streams the model for given key.
+
+#### Arguments
+
+1. `key` (`String`)
+
+#### Returns
+
+`Observable`.

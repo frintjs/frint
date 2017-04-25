@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class Streamer {
   constructor(...args: any[]);
 
-  set(value: any, ...args: any[]) : Streamer;
+  set(value: any, ...args: any[]): Streamer;
 
   setKey(key: string, value: any): Streamer;
 
@@ -42,7 +42,7 @@ export class Provider extends React.Component<any, any> {
 
   constructor(props: PropTypes, context: any);
 
-  render() : React.ReactElement<any>;
+  render(): React.ReactElement<any>;
 }
 
 export function streamProps(...args: any[]): Streamer;

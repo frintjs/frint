@@ -1,4 +1,5 @@
 import { App } from 'frint';
+import React, { PropTypes } from 'react';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export class Streamer {
@@ -27,19 +28,19 @@ export class RegionService {
   getData$(): Observable<any>;
 }
 
-export class Provider extends React.Component {
-  propTypes: React.PropTypes = {
-    app: React.PropTypes.object.isRequired,
-    children: React.PropTypes.element.isRequired,
+export class Provider extends React.Component<any, any> {
+  propTypes: PropTypes = {
+    app: PropTypes.object.isRequired,
+    children: PropTypes.element.isRequired,
   };
 
-  childContextTypes: React.PropTypes = {
-    app: React.PropTypes.object.isRequired,
+  childContextTypes: PropTypes = {
+    app: PropTypes.object.isRequired,
   };
 
   getChildContext(): { app: App };
 
-  constructor(props: React.PropTypes, context: any);
+  constructor(props: PropTypes, context: any);
 
   render() : React.ReactElement<any>;
 }

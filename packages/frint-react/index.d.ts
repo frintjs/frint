@@ -1,5 +1,5 @@
 import { App } from 'frint';
-import { BehaviorSubject, Observale } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export class Streamer {
   constructor(...args: any[]);
@@ -10,7 +10,7 @@ export class Streamer {
 
   setPlainObject(obj: any): Streamer;
 
-  setObservable(obj$: Observale<any>, mapper: Array<(item: any, index?: number) => void>): Streamer;
+  setObservable(obj$: Observable<any>, mapper: Array<(item: any, index?: number) => void>): Streamer;
 
   setDispatch(actions: {[name: string]: (...args:any[]) => void}): Streamer;
 
@@ -24,7 +24,7 @@ export class RegionService {
 
   getProps$(): BehaviorSubject<any>;
 
-  getData$(): Observale<any>;
+  getData$(): Observable<any>;
 }
 
 export class Provider extends React.Component {
@@ -48,4 +48,4 @@ export function streamProps(...args: any[]): Streamer;
 export function isObservable(obj: any): boolean;
 export function render(app: App, node: Element): void | Element | React.Component<any, React.ComponentState>;
 export function getMountableComponent(app: App): () => React.Component | Element;
-export function observe(fn: (app: App) => Observale<any>): () => React.Component | Element;
+export function observe(fn: (app: App) => Observable<any>): () => React.Component | Element;

@@ -7,5 +7,7 @@ Lots of examples in one demo.
 Run:
 
 ```
+$ npm install
+$ npm run bootstrap
 $ make serve
 ```

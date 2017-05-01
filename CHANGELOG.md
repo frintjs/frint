@@ -1,5 +1,20 @@
 # Change Log
 
+## v1.3.0 (2017-05-01)
+
+#### Pull Requests
+* `frint-model`, `frint-react-server`, `frint-react`, `frint-store`, `frint-test-utils`, `frint`
+  * [#171](https://github.com/Travix-International/frint/pull/171) TR-13266 Typings for frint. ([@jackTheRipper](https://github.com/jackTheRipper))
+* Other
+  * [#168](https://github.com/Travix-International/frint/pull/168) Changed selection color (#146). ([@AlexDudar](https://github.com/AlexDudar))
+* `frint-model`
+  * [#166](https://github.com/Travix-International/frint/pull/166) Make models streamable. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 4
+- Alexandr Dudar ([AlexDudar](https://github.com/AlexDudar))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jean Baudin ([jackTheRipper](https://github.com/jackTheRipper))
+
 ## v1.2.2 (2017-04-13)
 
 #### Pull Requests

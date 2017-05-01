@@ -35,5 +35,6 @@
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "types": "index.d.ts"
 }

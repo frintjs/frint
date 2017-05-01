@@ -4,7 +4,7 @@
   "description": "Kitchensink counter app in Frint",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "../../../node_modules/.bin/webpack",
     "test": "mocha --opts ./test/config/mocha.opts ./test/**/*.spec.js"
   },
   "author": "Travix International B.V.",

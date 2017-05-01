@@ -77,6 +77,11 @@ pre[class*="language-"] {
   }
 }
 
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	background: #afd5fe;
+}
+
 /**
  * REPL
  */

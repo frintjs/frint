@@ -1,0 +1,36 @@
+{
+  "name": "frint-kitchensink",
+  "version": "0.0.1",
+  "description": "Kitchensink counter app in Frint",
+  "main": "index.js",
+  "scripts": {
+    "build": "make bundle-example"
+  },
+  "author": "Travix International B.V.",
+  "license": "MIT",
+  "dependencies": {
+    "frint": "^1.0.1",
+    "frint-model": "^1.0.1",
+    "frint-react": "^1.0.1",
+    "frint-store": "^1.0.0",
+    "frint-test-utils": "^1.0.0",
+    "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.13.2",
+    "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-travix": "^1.1.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "chai-enzyme": "^0.6.1",
+    "enzyme": "^2.8.0",
+    "jsdom": "^9.12.0",
+    "mocha": "^3.2.0",
+    "sinon": "^2.1.0",
+    "webpack": "^2.2.0"
+  }
+}

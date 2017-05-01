@@ -4,7 +4,7 @@
   "description": "Reversed example in frint",
   "main": "index.js",
   "scripts": {
-    "build": "../../../node_modules/.bin/webpack"
+    "build": "../node_modules/.bin/webpack"
   },
   "author": "Travix International B.V.",
   "license": "MIT",

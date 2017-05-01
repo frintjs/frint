@@ -1,7 +1,7 @@
 {
   "name": "frint-kitchensink",
   "version": "0.0.1",
-  "description": "Kitchensink counter app in Frint",
+  "description": "Kitchensink app in Frint",
   "main": "index.js",
   "scripts": {
     "build": "make bundle-example"

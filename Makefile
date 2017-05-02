@@ -90,7 +90,7 @@ site-publish-only:
 serve-counter-example:
 	(cd ./examples/counter && make serve)
 
-serve-kitckensink-example:
+serve-kitchensink-example:
 	(cd ./examples/kitchensink && make serve)
 
 serve-multiple-widgets-example:

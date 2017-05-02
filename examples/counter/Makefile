@@ -6,4 +6,4 @@ bundle:
 
 serve:
 	make bundle
-	(cd ./build && ../../../node_modules/.bin/http-server -p $(PORT))
+	(cd ./build && ../node_modules/.bin/http-server -p $(PORT))

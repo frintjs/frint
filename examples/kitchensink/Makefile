@@ -1,15 +1,12 @@
 PORT=5002
 
 bundle:
+	npm install
 	make bundle-frint
 	make bundle-example
 
 bundle-example:
-	(cd ./core && npm run build)
-	(cd ./app-counter && npm run build)
-	(cd ./app-color && npm run build)
-	(cd ./app-todos && npm run build)
-	(cd ./app-reversed && npm run build)
+	npm run build
 
 bundle-frint:
 	(cd ../../ && npm run dist)

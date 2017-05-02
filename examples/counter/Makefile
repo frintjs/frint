@@ -1,7 +1,8 @@
 PORT=5001
 
 bundle:
-	(cd ./core && npm run build)
+	npm install
+	npm run build
 
 serve:
 	make bundle

@@ -83,3 +83,15 @@ site-publish-only:
 	(cd ./_site && git add .)
 	(cd ./_site && git commit -am 'update site')
 	(cd ./_site && git push git@github.com:Travix-International/frint gh-pages --force)
+
+##
+# Examples
+
+serve-counter-example:
+	(cd ./examples/counter && make serve)
+
+serve-kitckensink-example:
+	(cd ./examples/kitchensink && make serve)
+
+serve-multiple-widgets-example:
+	(cd ./examples/multiple-widgets && make serve)

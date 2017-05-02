@@ -1,10 +1,10 @@
-var config = require('../../config');
+var config = require('../config');
 
 module.exports = {
-  entry: __dirname + '/index.js',
+  entry: __dirname + '/core/index.js',
   devtool: 'source-map',
   output: {
-    path: __dirname + '/../build/js',
+    path: __dirname + '/build/js',
     filename: 'core.js'
   },
   module: {

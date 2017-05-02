@@ -1,7 +1,7 @@
 {
-  "name": "frint-kitchensink",
+  "name": "frint-multiple-widgets",
   "version": "0.0.1",
-  "description": "Kitchensink app in Frint",
+  "description": "Multiple-widgets app in Frint",
   "main": "index.js",
   "scripts": {
     "build": "webpack"
@@ -13,20 +13,12 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
-    "frint-test-utils": "^1.0.0",
-    "react-addons-test-utils": "^15.4.2",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.9",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
-    "chai": "^3.5.0",
-    "chai-enzyme": "^0.6.1",
-    "enzyme": "^2.8.0",
-    "jsdom": "^9.12.0",
-    "mocha": "^3.2.0",
-    "sinon": "^2.1.0",
     "webpack": "^2.2.0"
   }
 }

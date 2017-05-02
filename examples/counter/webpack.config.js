@@ -1,7 +1,6 @@
 module.exports = {
   entry: {
-    core: __dirname + '/core/index.js',
-    vendor: ['frint', 'frint-react', 'react', 'react-dom', 'rxjs']
+    core: __dirname + '/core/index.js'
   },
   devtool: 'source-map',
   output: {
@@ -20,5 +19,12 @@ module.exports = {
         }
       }
     ]
+  },
+  externals: {
+    'frint': 'Frint',
+    'frint-react': 'FrintReact',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'rxjs': 'Rx'
   }
 };

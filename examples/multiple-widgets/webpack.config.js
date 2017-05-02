@@ -22,5 +22,14 @@ module.exports = {
         }
       }
     ]
+  },
+  externals: {
+    'frint': 'Frint',
+    'frint-model': 'FrintModel',
+    'frint-react': 'FrintReact',
+    'frint-store': 'FrintStore',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'rxjs': 'Rx'
   }
 };

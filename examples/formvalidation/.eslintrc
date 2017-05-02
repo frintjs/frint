@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "travix"
+  ],
+  "parser": "babel-eslint",
+  "globals": {
+    "describe": true,
+    "document": true,
+    "expect": true,
+    "fetch": true,
+    "Headers": true,
+    "it": true,
+    "window": true
+  }
+}

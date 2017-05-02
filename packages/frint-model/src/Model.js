@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 function Model(attributes) {
   this.attributes = Object.assign({}, attributes);
   this.$ = null;
+  this.instanceSchema = null;
 }
 
 function getFromAttributes(attributes, key) {
@@ -43,6 +44,19 @@ Model.prototype.get$ = function get$(key) {
 
 Model.prototype.toJS = function toJS() {
   return _.cloneDeep(this.attributes);
+};
+
+Model.prototype.attributes$ = function attributes$() {
+  if (!this.$) {
+    this.$ = new BehaviorSubject(this.attributes);
+  }
+  return this.$;
+};
+
+Model.prototype.applySchema = function applySchema(schema) {
+  // todo: don't allow changing the schema when called multiple times
+  this.instanceSchema = schema;
+  this.instanceSchema.applyToModelInstance(this);
 };
 
 export default Model;

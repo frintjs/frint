@@ -34,6 +34,10 @@ describe('frint-model › Model', () => {
     expect(myModelInstance.get('attribute3')).to.be.deep.equal(myAttributes.attribute3);
   });
 
+  it('must have get observable attributes in .attributes$()', () => {
+    expect(typeof (myModelInstance.attributes$().subscribe)).to.be.equal('function');
+  });
+
   it('must return nested attribut value for the key by get() method', () => {
     expect(myModelInstance.get('attribute3.attribute31')).to.be.deep.equal('value31');
   });

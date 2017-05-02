@@ -12,10 +12,10 @@
     "frint": "^1.0.1",
     "frint-react": "^1.0.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "http-server": "^0.9.0"
   },
   "devDependencies": {
-    "http-server": "^0.9.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.1.0",

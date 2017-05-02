@@ -9,12 +9,17 @@
   "author": "Travix International B.V.",
   "license": "MIT",
   "dependencies": {
+    "frint": "^1.0.1",
+    "frint-model": "^1.0.1",
+    "frint-react": "^1.0.1",
+    "frint-store": "^1.0.0",
+    "frint-test-utils": "^1.0.0",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-addons-test-utils": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "http-server": "^0.9.0"
   },
   "devDependencies": {
-    "frint-test-utils": "^1.0.0",
-    "react-addons-test-utils": "^15.4.2",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.1.0",

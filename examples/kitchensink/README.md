@@ -7,7 +7,5 @@ Lots of examples in one demo.
 Run:
 
 ```
-$ npm install
 $ make serve
 ```
-

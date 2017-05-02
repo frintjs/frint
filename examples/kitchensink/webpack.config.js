@@ -4,8 +4,7 @@ module.exports = {
     'app-color': __dirname + '/app-color/index.js',
     'app-counter': __dirname + '/app-counter/index.js',
     'app-reversed': __dirname + '/app-reversed/index.js',
-    'app-todos': __dirname + '/app-todos/index.js',
-    vendor: ['frint', 'frint-model', 'frint-react', 'frint-store', 'react', 'react-dom', 'rxjs']
+    'app-todos': __dirname + '/app-todos/index.js'
   },
   devtool: 'source-map',
   output: {
@@ -24,5 +23,14 @@ module.exports = {
         }
       }
     ]
+  },
+  externals: {
+    'frint': 'Frint',
+    'frint-model': 'FrintModel',
+    'frint-react': 'FrintReact',
+    'frint-store': 'FrintStore',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'rxjs': 'Rx'
   }
 };

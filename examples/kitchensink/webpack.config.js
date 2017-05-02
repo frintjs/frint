@@ -5,7 +5,7 @@ module.exports = {
     'app-counter': __dirname + '/app-counter/index.js',
     'app-reversed': __dirname + '/app-reversed/index.js',
     'app-todos': __dirname + '/app-todos/index.js',
-    vendor: ['frint', 'frint-model', 'frint-react', 'frint-store', 'react', 'react-dom']
+    vendor: ['frint', 'frint-model', 'frint-react', 'frint-store', 'react', 'react-dom', 'rxjs']
   },
   devtool: 'source-map',
   output: {

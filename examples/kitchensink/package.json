@@ -10,14 +10,16 @@
   "license": "MIT",
   "dependencies": {
     "frint": "^1.0.1",
-    "frint-model": "^1.0.1",
-    "frint-react": "^1.0.1",
-    "frint-store": "^1.0.0",
+    "frint-model": "^1.3.0",
+    "frint-react": "^1.3.0",
+    "frint-store": "^1.3.0",
     "frint-test-utils": "^1.0.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
-    "http-server": "^0.9.0"
+    "http-server": "^0.9.0",
+    "frint-preset-travix": "^1.3.0",
+    "rxjs": "^5.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

@@ -22,7 +22,7 @@ const Item = React.createClass({
         {this.props.showEditForm && (
           <p>
             <input
-              class="u-full-width"
+              className="u-full-width"
               type="text"
               placeholder="my todo title..."
               id="todoItemInput"

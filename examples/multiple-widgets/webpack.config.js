@@ -1,15 +1,14 @@
-var config = require('../config');
-
 module.exports = {
   entry: {
     core: __dirname + '/core/index.js',
     'app-bar': __dirname + '/app-bar/index.js',
-    'app-foo': __dirname + '/app-foo/index.js'
+    'app-foo': __dirname + '/app-foo/index.js',
+    vendor: ['frint', 'frint-model', 'frint-react', 'frint-store', 'react', 'react-dom']
   },
   devtool: 'source-map',
   output: {
     path: __dirname + '/build/js',
-    filename: '[id].js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -23,6 +22,5 @@ module.exports = {
         }
       }
     ]
-  },
-  externals: config.externals,
+  }
 };

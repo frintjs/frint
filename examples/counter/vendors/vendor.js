@@ -47,3 +47,13 @@
   }
   window['FrintReact'] = m;
 })();
+
+// frint-store
+(function () {
+  var m = require('frint-store');
+  if (typeof m.default !== 'undefined') {
+    window['FrintStore'] = m.default;
+    return;
+  }
+  window['FrintStore'] = m;
+})();

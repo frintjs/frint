@@ -5,7 +5,7 @@ bundle:
 	npm run build
 
 serve-only:
-	(cd ./build && ../../../node_modules/.bin/http-server -p $(PORT))
+	(cd ./build && ../node_modules/.bin/http-server -p $(PORT))
 
 serve:
 	make bundle

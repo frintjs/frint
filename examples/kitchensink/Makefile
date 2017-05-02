@@ -1,29 +1,15 @@
 PORT=5002
 
+bundle-vendor:
+	(cd vendors && ../node_modules/.bin/webpack)
+
 bundle:
-	make bundle-frint
-	make bundle-example
-
-bundle-example:
-	(cd ./core && npm run build)
-	(cd ./app-counter && npm run build)
-	(cd ./app-color && npm run build)
-	(cd ./app-todos && npm run build)
-	(cd ./app-reversed && npm run build)
-
-bundle-frint:
-	(cd ../../ && npm run dist)
-	make copy-frint
-
-copy-frint:
-	(cp ../../packages/frint/dist/frint.js ./build/js/frint.js)
-	(cp ../../packages/frint-model/dist/frint-model.js ./build/js/frint-model.js)
-	(cp ../../packages/frint-store/dist/frint-store.js ./build/js/frint-store.js)
-	(cp ../../packages/frint-react/dist/frint-react.js ./build/js/frint-react.js)
+	npm run build
 
 serve-only:
-	(cd ./build && ../../../node_modules/.bin/http-server -p $(PORT))
+	(cd ./build && ../node_modules/.bin/http-server -p $(PORT))
 
 serve:
+	make bundle-vendor
 	make bundle
 	make serve-only

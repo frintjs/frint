@@ -10,5 +10,6 @@ Example demonstrating:
 Run:
 
 ```
+$ npm install
 $ make serve
 ```

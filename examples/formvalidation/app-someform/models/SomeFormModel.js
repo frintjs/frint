@@ -65,6 +65,13 @@ const schema = {
   comment: {},  // Nobody cares about your comment (type string, no default, no validation)
   address: { type: Types.of(addressSchema) },
 
+  detailedInfo: {
+    type: Types.complex,    // Anonymous complex type that contains a nested schema
+    schema: {
+      field1: { default: 'YourDefault' },
+    },
+  },
+
   _validation: {  // Defining composite validation rules here
     rules: [
       {

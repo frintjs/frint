@@ -53,6 +53,10 @@ Model.prototype.attributes$ = function attributes$() {
   return this.$;
 };
 
+Model.prototype.has = function has(field) {
+  return _.has(this.attributes, field);
+};
+
 Model.prototype.applySchema = function applySchema(schema) {
   // todo: don't allow changing the schema when called multiple times
   this.instanceSchema = schema;

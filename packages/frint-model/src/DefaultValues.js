@@ -24,7 +24,9 @@ DefaultValues.prototype.initialize = function initialize(schemaDescription) {
 
 DefaultValues.prototype.applyToModelInstance = function applyToModelInstance(instance) {
   _.forEach(this.defaults, function setFieldValue(defaultValue, field) {
-    instance.set(field, defaultValue);
+    if (!instance.has(field)) {
+      instance.set(field, defaultValue);
+    }
   });
 };
 

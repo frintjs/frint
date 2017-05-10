@@ -10,7 +10,7 @@ export function incrementCounter() : CounterAction {
   };
 }
 
-export function decrementCounter() {
+export function decrementCounter() : CounterAction {
   return {
     type: CounterActionType.DECREMENT_COUNTER,
   };

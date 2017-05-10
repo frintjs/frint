@@ -1,4 +1,4 @@
-import { App } from 'frint';
+import { App } from "frint";
 
 declare global {
   interface Window {

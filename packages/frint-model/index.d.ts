@@ -15,4 +15,5 @@ export class Model {
 
 }
 
-export function createModel<T extends Model>(opts: {[name: string]: any}): Class<T>;
+type Constructor<T extends Model> = new (...args: any[]) => T;
+export function createModel<T extends Constructor<any>>(opts: {[name: string]: any}): T;

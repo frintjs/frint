@@ -1,24 +1,26 @@
 import {
   INCREMENT_COUNTER,
-  DECREMENT_COUNTER
+  DECREMENT_COUNTER,
 } from '../constants';
 
+export interface CounterInitialState {
+  value: number;
+}
+
 const INITIAL_STATE = {
-  value: 0
+  value: 0,
 };
 
-export default function counter(state = INITIAL_STATE, action) {
+export default function counter(state: CounterInitialState = INITIAL_STATE, action: { type: string }): any {
   switch (action.type) {
     case INCREMENT_COUNTER:
       return Object.assign({}, {
-        value: state.value + 1
+        value: state.value + 1,
       });
-
     case DECREMENT_COUNTER:
       return Object.assign({}, {
-        value: state.value - 1
+        value: state.value - 1,
       });
-
     default:
       return state;
   }

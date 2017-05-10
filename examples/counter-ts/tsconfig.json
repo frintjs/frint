@@ -1,0 +1,30 @@
+{
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "declaration": false,
+    "noResolve": false,
+    "jsx": "react",
+    "module": "commonjs",
+    "target": "es5",
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "outDir": "./build/",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "types": [
+      "node",
+      "react",
+      "react-dom"
+    ]
+  },
+  "include": [
+    "./core/**/*",
+    "./core/*"
+  ]
+}

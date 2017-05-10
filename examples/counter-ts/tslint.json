@@ -1,0 +1,14 @@
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "rules": {
+    // override tslint-react rules here
+    "jsx-wrap-multiline": false,
+    "quotemark": [
+      "jsx-single",
+      "single"
+    ],
+    "interface-name": [
+      "never-prefix"
+    ]
+  }
+}

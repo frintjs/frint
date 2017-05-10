@@ -1,13 +1,13 @@
 PORT=5003
 
 bundle:
-	npm run build
+	npm run build:apps
 
 bundle-vendor:
-	(cd vendors && ../node_modules/.bin/webpack)
+	npm run build:vendors
 
 serve-only:
-	(cd ./build && ../node_modules/.bin/http-server -p $(PORT))
+	npm run serve-only
 
 serve:
 	make bundle-vendor

@@ -4,5 +4,10 @@ import RootComponent from '../components/Root';
 
 export default createApp({
   name: 'MultipleAppsApp',
-  component: RootComponent,
+  providers: [
+    {
+      name: 'component',
+      useValue: RootComponent,
+    },
+  ],
 });

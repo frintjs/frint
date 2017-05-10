@@ -1,6 +1,7 @@
-import { createComponent, Region } from 'frint';
+import React from 'react';
+import { Region } from 'frint-react';
 
-export default createComponent({
+export default React.createClass({
   render() {
     return (
       <div className="container">

@@ -1,11 +1,12 @@
-import { createComponent, mapToProps } from 'frint';
+import React from 'react';
+import { observe, streamProps } from 'frint-react';
 
 import {
   incrementCounter,
   decrementCounter
 } from '../actions/counter';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     const codeStyle = {
       color: this.props.color,
@@ -40,21 +41,25 @@ const Root = createComponent({
   }
 });
 
-export default mapToProps({
-  dispatch: {
-    incrementCounter,
-    decrementCounter,
-  },
-  state(state) {
-    return {
-      counter: state.counter.value
-    };
-  },
-  shared(sharedState) {
-    return {
-      color: (typeof sharedState.BarApp !== 'undefined')
-        ? sharedState.BarApp.color.value
-        : 'n/a'
-    };
-  }
+export default observe(function (app) {
+  const store = app.get('store');
+
+  return streamProps()
+    .setDispatch({
+      incrementCounter,
+      decrementCounter,
+    }, store)
+
+    .set(
+      store.getState$(),
+      state => ({ counter: state.counter.value })
+    )
+
+    .set(
+      app.getAppOnceAvailable$('BarApp'),
+      barApp => barApp.get('store').getState$(),
+      barState => ({ color: barState.color.value })
+    )
+
+    .get$();
 })(Root);

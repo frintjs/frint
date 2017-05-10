@@ -1,4 +1,5 @@
-import { createComponent, mapToProps } from 'frint';
+import React from 'react';
+import { observe, streamProps } from 'frint-react';
 
 import {
   changeColor
@@ -8,7 +9,7 @@ import {
   RED_COLOR
 } from '../constants';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     const codeStyle = {
       color: this.props.color,
@@ -45,20 +46,25 @@ const Root = createComponent({
   }
 });
 
-export default mapToProps({
-  dispatch: {
-    changeColor,
-  },
-  state(state) {
-    return {
-      color: state.color.value
-    };
-  },
-  shared(sharedState) {
-    return {
-      counter: (typeof sharedState.FooApp !== 'undefined')
-        ? sharedState.FooApp.counter.value
-        : 'n/a'
-    };
-  }
+export default observe(function (app) {
+  const store = app.get('store');
+
+  return streamProps()
+    .setDispatch(
+      { changeColor },
+      store
+    )
+
+    .set(
+      store.getState$(),
+      state => ({ color: state.color.value })
+    )
+
+    .set(
+      app.getAppOnceAvailable$('FooApp'),
+      fooApp => fooApp.get('store').getState$(),
+      fooState => ({ counter: fooState.counter.value })
+    )
+
+    .get$();
 })(Root);

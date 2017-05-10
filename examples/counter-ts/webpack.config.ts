@@ -1,5 +1,5 @@
-import { join } from 'path';
-import * as webpack from 'webpack';
+import { join } from "path";
+import * as webpack from "webpack";
 
 const config: webpack.Configuration = {
     devServer: {
@@ -11,7 +11,7 @@ const config: webpack.Configuration = {
     entry: "./core/index.ts",
     module: {
         loaders: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            // All files with a ".ts" or ".tsx" extension will be handled by "awesome-typescript-loader".
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
         ],
     },
@@ -19,9 +19,9 @@ const config: webpack.Configuration = {
         filename: "bundle.js",
         path: join(__dirname, "build"),
     },
-    // Enable sourcemaps for debugging webpack's output.
+    // Enable sourcemaps for debugging webpack"s output.
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
+        // Add ".ts" and ".tsx" as resolvable extensions.
         extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
     },
 };

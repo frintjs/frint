@@ -1,10 +1,10 @@
-import { render } from 'frint-react';
+import { render } from "frint-react";
 
-import App from './app';
+import App from "./app";
 
-window['app'] = new App();
+window["app"] = new App(); // tslint:disable-line
 
 render(
-  window['app'],
-  document.getElementById('root'),
+  window["app"], // tslint:disable-line
+  document.getElementById("root"),
 );

@@ -1,16 +1,16 @@
 import {
+  DECREMENT_COUNTER,
   INCREMENT_COUNTER,
-  DECREMENT_COUNTER
-} from '../constants';
+} from "../constants";
 
 export function incrementCounter() {
   return {
-    type: INCREMENT_COUNTER
+    type: INCREMENT_COUNTER,
   };
 }
 
 export function decrementCounter() {
   return {
-    type: DECREMENT_COUNTER
+    type: DECREMENT_COUNTER,
   };
 }

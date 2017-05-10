@@ -1,7 +1,7 @@
 import {
-  INCREMENT_COUNTER,
   DECREMENT_COUNTER,
-} from '../constants';
+  INCREMENT_COUNTER,
+} from "../constants";
 
 export interface CounterInitialState {
   value: number;

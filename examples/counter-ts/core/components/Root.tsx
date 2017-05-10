@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { App } from 'frint';
-import { observe, streamProps, ProviderProps } from 'frint-react';
+import { App } from "frint";
+import { observe, ProviderProps, streamProps } from "frint-react";
+import * as React from "react";
 
 import {
+  decrementCounter,
   incrementCounter,
-  decrementCounter
-} from '../actions/counter';
+} from "../actions/counter";
 
 export interface RootProps extends ProviderProps {
   counter: number;
@@ -14,7 +14,7 @@ export interface RootProps extends ProviderProps {
 }
 
 export class Root extends React.Component<RootProps, {}> {
-  render() {
+  public render() {
     return (
       <div className="container">
         <div className="row">
@@ -45,16 +45,16 @@ export class Root extends React.Component<RootProps, {}> {
   }
 }
 
-const observeFunction = function (app: App) {
+const observeFunction = (app: App) => {
   return streamProps({}).set(
-    app.get('store').getState$(),
-    state => ({ counter: state.counter.value })
+    app.get("store").getState$(),
+    (state) => ({ counter: state.counter.value }),
   ).setDispatch(
     {
-      'incrementCounter': incrementCounter,
-      'decrementCounter': decrementCounter,
+      decrementCounter,
+      incrementCounter,
     },
-    app.get('store')
+    app.get("store"),
   ).get$();
 };
 

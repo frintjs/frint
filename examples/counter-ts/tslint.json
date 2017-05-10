@@ -3,12 +3,9 @@
   "rules": {
     // override tslint-react rules here
     "jsx-wrap-multiline": false,
-    "quotemark": [
-      "jsx-single",
-      "single"
-    ],
     "interface-name": [
       "never-prefix"
-    ]
+    ],
+    "jsx-no-lambda": false
   }
 }

@@ -1,25 +1,26 @@
-import { createApp } from 'frint';
-import { createStore } from 'frint-store';
-import { RegionService } from 'frint-react';
+import { createApp } from "frint";
+import { RegionService } from "frint-react";
+import { createStore } from "frint-store";
 
-import RootComponent from '../components/Root';
-import rootReducer from '../reducers';
+import RootComponent from "../components/Root";
+import rootReducer from "../reducers";
 
 export default createApp({
-  name: 'CounterApp',
+  name: "CounterApp",
   providers: [
     {
-      name: 'component',
+      name: "component",
       useValue: RootComponent,
     },
     {
-      name: 'store',
+      deps: ["app"],
+      name: "store",
       useFactory: ({ app }) => {
         const Store = createStore({
           initialState: {
             counter: {
               value: 5,
-            }
+            },
           },
           reducer: rootReducer,
           thunkArgument: { app },
@@ -27,11 +28,10 @@ export default createApp({
 
         return new Store();
       },
-      deps: ['app'],
     },
     {
-      name: 'region',
+      name: "region",
       useClass: RegionService,
-    }
+    },
   ],
 });

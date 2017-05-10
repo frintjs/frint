@@ -11,12 +11,12 @@ const Root = React.createClass({
       <div>
         <h5>App: Todos</h5>
 
-        <label for="todoInput">
+        <label htmlFor="todoInput">
           Create a new Todo item
         </label>
 
         <input
-          class="u-full-width"
+          className="u-full-width"
           type="text"
           placeholder="my todo title..."
           id="todoInput"

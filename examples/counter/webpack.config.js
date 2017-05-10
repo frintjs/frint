@@ -23,6 +23,7 @@ module.exports = {
   externals: {
     'frint': 'Frint',
     'frint-react': 'FrintReact',
+    'frint-store': 'FrintStore',
     'react': 'React',
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx'

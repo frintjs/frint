@@ -1,0 +1,39 @@
+{
+  "name": "counter-ts",
+  "version": "1.0.0",
+  "description": "A simple demo for using TS with Frint",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "frint",
+    "typescript",
+    "rxjs",
+    "react"
+  ],
+  "author": "jbaudin",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^7.0.18",
+    "@types/react": "^15.0.24",
+    "@types/react-dom": "^15.5.0",
+    "@types/webpack": "^2.2.15",
+    "awesome-typescript-loader": "^3.1.3",
+    "ts-node": "^3.0.4",
+    "tslint": "^5.2.0",
+    "tslint-react": "^3.0.0",
+    "webpack": "^2.5.1"
+  },
+  "dependencies": {
+    "frint": "^1.3.0",
+    "frint-react": "^1.3.0",
+    "frint-store": "^1.3.0",
+    "http-server": "^0.10.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "rxjs": "^5.3.1",
+    "typescript": "^2.3.2"
+  }
+}

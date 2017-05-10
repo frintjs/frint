@@ -1,6 +1,6 @@
-import { App } from 'frint';
-import React, { PropTypes } from 'react';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { App } from "frint";
+import * as React from "react";
+import { BehaviorSubject, Observable } from "rxjs";
 
 export class Streamer {
   constructor(...args: any[]);
@@ -13,7 +13,7 @@ export class Streamer {
 
   setObservable(obj$: Observable<any>, mapper: Array<(item: any, index?: number) => void>): Streamer;
 
-  setDispatch(actions: {[name: string]: (...args:any[]) => void}): Streamer;
+  setDispatch(actions: {[name: string]: (...args: any[]) => any}, dispatcher: any): Streamer;
 
   get$(): Observable<any>;
 }
@@ -28,19 +28,19 @@ export class RegionService {
   getData$(): Observable<any>;
 }
 
-export class Provider extends React.Component<any, any> {
-  propTypes: PropTypes = {
-    app: PropTypes.object.isRequired,
-    children: PropTypes.element.isRequired,
-  };
+export interface ProviderProps {
+  app: App;
+  children: any;
+}
 
-  childContextTypes: PropTypes = {
-    app: PropTypes.object.isRequired,
-  };
+export interface ProviderChildContextTypes {
+  app: App;
+}
+
+export class Provider extends React.Component<ProviderProps, any> {
+  static childContextTypes: ProviderChildContextTypes;
 
   getChildContext(): { app: App };
-
-  constructor(props: PropTypes, context: any);
 
   render(): React.ReactElement<any>;
 }
@@ -48,5 +48,6 @@ export class Provider extends React.Component<any, any> {
 export function streamProps(...args: any[]): Streamer;
 export function isObservable(obj: any): boolean;
 export function render(app: App, node: Element): void | Element | React.Component<any, React.ComponentState>;
-export function getMountableComponent(app: App): () => React.Component | Element;
-export function observe(fn: (app: App) => Observable<any>): () => React.Component | Element;
+export function getMountableComponent(app: App): () => React.Component<ProviderProps, undefined> | Element;
+type Constructor<T extends React.Component<any, any>> = new(...args: any[]) => T;
+export function observe<T extends Constructor<React.Component<any, any>>>(fn: (app: App) => Observable<any>): (comp: T) => any;

@@ -29,14 +29,18 @@ export interface RegisterAppOptions {
 }
 
 export class RegisteredApp extends App implements RegisterAppOptions {
-  App: Class<RegisteredApp>;
+  App: RegisteredApp;
   name: string;
   regions: any[];
   instances: { [name: string] : App };
+  weight: number;
+  multi: boolean;
 }
 
+type Constructor<T extends App> = new(...args: any[]) => T;
+
 export class App {
-    constructor(...args: AppOptions);
+    constructor(args: AppOptions);
 
     container: Container;
 
@@ -80,13 +84,12 @@ export class App {
 
     instantiateApp(name: string, region?: string, regionKey?: string): RegisteredApp;
 
-    registerApp(AppClass: Class<App>, options?: RegisterAppOptions): any;
+    registerApp<T extends Constructor<App>>(AppClass: T, options?: RegisterAppOptions): void;
 
-    registerWidget(AppClass: Class<App>, options?: RegisterAppOptions): void;
+    registerWidget<T extends Constructor<App>>(AppClass: T, options?: RegisterAppOptions): void;
 
     frintAppName: string;
 
 }
 
-export function createApp(...args: any[]): Class<App>;
-
+export function createApp<T extends Constructor<App>>(...args: any[]): T;

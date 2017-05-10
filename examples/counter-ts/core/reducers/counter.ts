@@ -11,9 +11,9 @@ const INITIAL_STATE = {
 export default function counter(state: CounterState = INITIAL_STATE, action: { type: CounterActionType }): CounterState {
   switch (action.type) {
     case CounterActionType.INCREMENT_COUNTER:
-      return { value: state.value += 1 }
+      return { value: state.value += 1 };
     case CounterActionType.DECREMENT_COUNTER:
-      return { value: state.value -= 1 }
+      return { value: state.value -= 1 };
     default:
       return state;
   }

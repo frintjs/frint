@@ -28,8 +28,6 @@
     "frint"
   ],
   "dependencies": {
-    "@types/react": "^15.0.24",
-    "@types/react-dom": "^15.5.0",
     "lodash": "^4.13.1",
     "rxjs": "^5.2.0"
   },

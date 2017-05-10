@@ -27,6 +27,6 @@ export class Store {
   destroy(): void;
 }
 
-export function combineReducers(reducers: { [key: string]: (previousState: any, action: any) => any}, options?:any): (state: any, action: string) => any;
+export function combineReducers(reducers: { [key: string]: (previousState: any, action: any) => any}, options?: any): (state: any, action: string) => any;
 type Constructor<T extends Store> = new(...args: any[]) => T;
 export function createStore<T extends Constructor<any>>(options: any): T;

@@ -1,6 +1,6 @@
-import { App } from 'frint';
-import * as React from 'react';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { App } from "frint";
+import * as React from "react";
+import { BehaviorSubject, Observable } from "rxjs";
 
 export class Streamer {
   constructor(...args: any[]);
@@ -13,7 +13,7 @@ export class Streamer {
 
   setObservable(obj$: Observable<any>, mapper: Array<(item: any, index?: number) => void>): Streamer;
 
-  setDispatch(actions: {[name: string]: (...args:any[]) => any}, dispatcher: any): Streamer;
+  setDispatch(actions: {[name: string]: (...args: any[]) => any}, dispatcher: any): Streamer;
 
   get$(): Observable<any>;
 }

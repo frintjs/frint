@@ -1,16 +1,17 @@
-import {
-  DECREMENT_COUNTER,
-  INCREMENT_COUNTER,
-} from "../constants";
+import { CounterActionType } from "../constants";
 
-export function incrementCounter() {
+export interface CounterAction {
+  type: CounterActionType;
+}
+
+export function incrementCounter() : CounterAction {
   return {
-    type: INCREMENT_COUNTER,
+    type: CounterActionType.INCREMENT_COUNTER,
   };
 }
 
 export function decrementCounter() {
   return {
-    type: DECREMENT_COUNTER,
+    type: CounterActionType.DECREMENT_COUNTER,
   };
 }

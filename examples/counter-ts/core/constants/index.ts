@@ -1,2 +1,4 @@
-export const INCREMENT_COUNTER: string = "INCREMENT_COUNTER";
-export const DECREMENT_COUNTER: string = "DECREMENT_COUNTER";
+export enum CounterActionType {
+  DECREMENT_COUNTER,
+  INCREMENT_COUNTER,
+};

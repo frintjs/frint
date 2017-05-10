@@ -3,14 +3,15 @@ import { observe, ProviderProps, streamProps } from "frint-react";
 import * as React from "react";
 
 import {
+  CounterAction,
   decrementCounter,
   incrementCounter,
 } from "../actions/counter";
 
 export interface RootProps extends ProviderProps {
   counter: number;
-  incrementCounter: () => void;
-  decrementCounter: () => void;
+  incrementCounter: () => CounterAction;
+  decrementCounter: () => CounterAction;
 }
 
 export class Root extends React.Component<RootProps, {}> {
@@ -26,14 +27,14 @@ export class Root extends React.Component<RootProps, {}> {
             <div>
               <button
                 className="button button-primary"
-                onClick={() => this.props.incrementCounter()}
+                onClick={this.props.incrementCounter}
               >
                 +
               </button>
 
               <button
                 className="button"
-                onClick={() => this.props.decrementCounter()}
+                onClick={this.props.decrementCounter}
               >
                 -
               </button>

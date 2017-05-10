@@ -2,9 +2,9 @@ import { render } from "frint-react";
 
 import App from "./app";
 
-window["app"] = new App(); // tslint:disable-line
+window.app = new App();
 
 render(
-  window["app"], // tslint:disable-line
+  window.app,
   document.getElementById("root"),
 );

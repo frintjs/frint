@@ -138,6 +138,8 @@ fabric.properties
 
 examples/**/build/js/*.js
 examples/**/build/js/*.map
+examples/**/build/*.js
+examples/**/build/*.map
 
 dist/frint.js
 dist/frint.min.js

@@ -8,7 +8,7 @@
     "lint": "lerna run lint",
     "cover": "lerna run cover",
     "test": "lerna run test",
-    "alex": "alex '*.md' 'packages/**/*.md' 'site/**/*.md'",
+    "alex": "alex .",
     "dist": "lerna run dist"
   },
   "repository": {

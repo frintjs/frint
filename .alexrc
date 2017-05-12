@@ -1,5 +1,9 @@
 {
   "allow": [
-    "destroy"
+    "destroy",
+    "color",
+    "dead",
+    "dumb",
+    "jacktheripper"
   ]
 }

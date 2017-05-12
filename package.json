@@ -8,7 +8,7 @@
     "lint": "lerna run lint",
     "cover": "lerna run cover",
     "test": "lerna run test",
-    "alex": "alex",
+    "alex": "alex .",
     "dist": "lerna run dist"
   },
   "repository": {
@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/Travix-International/frint#readme",
   "devDependencies": {
-    "alex": "~4.0.1",
+    "alex": "^4.1.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.1.0",

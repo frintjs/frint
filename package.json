@@ -70,7 +70,7 @@
     "live-server": "^1.2.0",
     "marked": "^0.3.6",
     "metalsmith": "^2.3.0",
-    "mocha": "^3.1.2",
+    "mocha": "3.3.0",
     "node-sass": "^4.5.0",
     "nyc": "^10.1.0",
     "react": "^0.14.8",

@@ -27,7 +27,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: __dirname + '/core/index.ejs',
+      template: __dirname + '/layouts/index.ejs',
       filename: __dirname + '/build/index.html'
     })
   ],

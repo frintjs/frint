@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "serve-only": "http-server -p 5002 build",
+    "serve-only": "http-server -p 5001 build",
     "start": "npm run build && npm run serve-only"
   },
   "author": "Travix International B.V.",

@@ -4,9 +4,7 @@
   "description": "Multiple-widgets app in Frint",
   "main": "index.js",
   "scripts": {
-    "build:apps": "webpack",
-    "build:vendors": "webpack --config ./vendors/webpack.config.js",
-    "build": "npm run build:vendors && npm run build:apps",
+    "build": "webpack",
     "serve-only": "live-server build",
     "start": "npm run build && npm run server-only"
   },

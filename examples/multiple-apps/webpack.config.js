@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: {
     core: __dirname + '/core/index.js',
@@ -23,6 +25,12 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + '/core/index.ejs',
+      filename: __dirname + '/build/index.html'
+    })
+  ],
   externals: {
     'frint': 'Frint',
     'frint-model': 'FrintModel',

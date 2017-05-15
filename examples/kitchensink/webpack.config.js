@@ -1,14 +1,29 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+
+const { CommonsChunkPlugin } = webpack.optimize;
+
 module.exports = {
   entry: {
-    core: __dirname + '/core/index.js',
-    'app-color': __dirname + '/app-color/index.js',
-    'app-counter': __dirname + '/app-counter/index.js',
-    'app-reversed': __dirname + '/app-reversed/index.js',
-    'app-todos': __dirname + '/app-todos/index.js'
+    vendors: [
+      'frint',
+      'frint-model',
+      'frint-react',
+      'frint-store',
+      'react',
+      'react-dom',
+      'rxjs'
+    ],
+    core: path.join(__dirname, '/core/index.js'),
+    'app-color': path.join(__dirname, '/app-color/index.js'),
+    'app-counter': path.join(__dirname, '/app-counter/index.js'),
+    'app-reversed': path.join(__dirname, '/app-reversed/index.js'),
+    'app-todos': path.join(__dirname, '/app-todos/index.js')
   },
   devtool: 'source-map',
   output: {
-    path: __dirname + '/build/js',
+    path: path.join(__dirname, '/build/js'),
     filename: '[name].js'
   },
   module: {
@@ -24,13 +39,17 @@ module.exports = {
       }
     ]
   },
-  externals: {
-    'frint': 'Frint',
-    'frint-model': 'FrintModel',
-    'frint-react': 'FrintReact',
-    'frint-store': 'FrintStore',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx'
-  }
+  plugins: [
+    new CommonsChunkPlugin({
+      name: 'vendors',
+      minChunks: Infinity,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '/layouts/index.ejs'),
+      filename: path.join(__dirname, '/build/index.html'),
+      chunksSortMode({ names }) {
+        return names[0] === 'vendors' ? -1 : 1;
+      }
+    })
+  ]
 };

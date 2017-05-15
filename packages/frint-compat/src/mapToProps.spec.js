@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it, beforeEach, afterEach, window, document */
+/* global describe, it, window, document */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
 import React from 'react';

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global before, afterEach, beforeEach, describe, it, window, document, resetDOM */
+/* global describe, it, window, document, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';

@@ -6,7 +6,7 @@
   "scripts": {
     "build:apps": "webpack",
     "build:vendors": "webpack --config ./vendors/webpack.config.js",
-    "build": "npm run build:vendors && npm run build:vendors",
+    "build": "npm run build:vendors && npm run build:apps",
     "serve-only": "live-server build",
     "start": "npm run build && npm run server-only"
   },
@@ -28,6 +28,7 @@
     "babel-loader": "^6.2.9",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
+    "html-webpack-plugin": "^2.28.0",
     "live-server": "^1.2.0",
     "webpack": "^2.2.0"
   }

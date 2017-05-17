@@ -1,11 +1,12 @@
-import { createComponent, mapToProps } from 'frint';
+import React from 'react';
+import { observe, streamProps } from 'frint-react';
 
 import {
   incrementCounter,
   decrementCounter
 } from '../actions/counter';
 
-const Root = createComponent({
+const Root = React.createClass({
   render() {
     return (
       <div className="container">
@@ -37,14 +38,18 @@ const Root = createComponent({
   }
 });
 
-export default mapToProps({
-  dispatch: {
-    incrementCounter,
-    decrementCounter,
-  },
-  state(state) {
-    return {
-      counter: state.counter.value
-    };
-  }
+export default observe(function (app) {
+  return streamProps({})
+    .set(
+      app.get('store').getState$(),
+      state => ({ counter: state.counter.value })
+    )
+    .setDispatch(
+      {
+        incrementCounter,
+        decrementCounter,
+      },
+      app.get('store')
+    )
+    .get$();
 })(Root);

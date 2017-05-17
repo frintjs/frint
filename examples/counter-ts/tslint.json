@@ -1,0 +1,10 @@
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "rules": {
+    "jsx-wrap-multiline": false,
+    "interface-name": [
+      "never-prefix"
+    ],
+    "jsx-no-lambda": false
+  }
+}

@@ -1,5 +1,36 @@
 # Change Log
 
+## v1.3.1 (2017-05-10)
+
+#### Pull Requests
+* `frint-model`, `frint-react`, `frint-store`, `frint`
+  * [#189](https://github.com/Travix-International/frint/pull/189) Typescript example. ([@jackTheRipper](https://github.com/jackTheRipper))
+* Other
+  * [#177](https://github.com/Travix-International/frint/pull/177) Fix examples. ([@jackTheRipper](https://github.com/jackTheRipper))
+  * [#188](https://github.com/Travix-International/frint/pull/188) Docs: migration guide for components. ([@fahad19](https://github.com/fahad19))
+  * [#187](https://github.com/Travix-International/frint/pull/187) Update copyright year in LICENSE file. ([@gtzio](https://github.com/gtzio))
+  * [#176](https://github.com/Travix-International/frint/pull/176) Make one package.json for Kitchensink example. ([@jackTheRipper](https://github.com/jackTheRipper))
+
+#### Committers: 3
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jean Baudin ([jackTheRipper](https://github.com/jackTheRipper))
+- [gtzio](https://github.com/gtzio)
+
+## v1.3.0 (2017-05-01)
+
+#### Pull Requests
+* `frint-model`, `frint-react-server`, `frint-react`, `frint-store`, `frint-test-utils`, `frint`
+  * [#171](https://github.com/Travix-International/frint/pull/171) TR-13266 Typings for frint. ([@jackTheRipper](https://github.com/jackTheRipper))
+* Other
+  * [#168](https://github.com/Travix-International/frint/pull/168) Changed selection color (#146). ([@AlexDudar](https://github.com/AlexDudar))
+* `frint-model`
+  * [#166](https://github.com/Travix-International/frint/pull/166) Make models streamable. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 4
+- Alexandr Dudar ([AlexDudar](https://github.com/AlexDudar))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jean Baudin ([jackTheRipper](https://github.com/jackTheRipper))
+
 ## v1.2.2 (2017-04-13)
 
 #### Pull Requests

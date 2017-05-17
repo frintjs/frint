@@ -1,6 +1,6 @@
 {
   "name": "frint-test-utils",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Test utilities for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-test-utils",
@@ -33,5 +33,6 @@
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "types": "index.d.ts"
 }

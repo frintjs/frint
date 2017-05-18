@@ -1,4 +1,4 @@
-# model
+# frint-cli
 
 > CLI for Frint
 
@@ -93,7 +93,7 @@ world
 
 Building a plugin for `frint-cli`, is just like developing a regular FrintJS app.
 
-```
+```js
 // frint-cli-hello/index.js
 const createApp = require('frint').createApp;
 

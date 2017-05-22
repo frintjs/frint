@@ -52,7 +52,7 @@
     "babel-register": "^6.9.0",
     "bulma": "^0.3.2",
     "chai": "^3.5.0",
-    "chai-enzyme": "^0.6.1",
+    "chai-enzyme": "^0.7.0",
     "coveralls": "^2.11.12",
     "enzyme": "^2.7.1",
     "eslint": "^3.3.1",

@@ -10,32 +10,36 @@ module.exports = createApp({
   providers: [
     {
       name: 'execute',
-      useFactory: function (deps) {
-        return function () {
+      useFactory: function useFactory(deps) {
+        return function execute() {
           const example = deps.params.example || 'counter';
           const dir = deps.pwd;
 
           const cmds = [
-            'mkdir -p ' + dir,
-            'curl https://codeload.github.com/Travix-International/frint/tar.gz/master | tar -xz -C ' + dir + ' --strip=3 frint-master/examples/' + example
+            `mkdir -p ${dir}`,
+            `curl https://codeload.github.com/Travix-International/frint/tar.gz/master | tar -xz -C ${dir} --strip=3 frint-master/examples/ ${example}`,
           ];
 
           deps.console.log('Initializing...');
-          const cmdPromises = cmds.map(function (cmd) {
+          const cmdPromises = cmds.map(function doMap(cmd) {
             return exec.shell(cmd);
           });
 
           Promise.all(cmdPromises)
-            .then(function () {
+            .then(function handlePromiseResolve() {
               deps.console.log('Done!');
             })
-            .catch(function (e) {
+            .catch(function handlePromiseRejection(e) {
               deps.console.log('Error:');
               deps.console.error(e);
             });
         };
       },
-      deps: ['console', 'params', 'pwd'],
+      deps: [
+        'console',
+        'params',
+        'pwd',
+      ],
     }
   ],
 });

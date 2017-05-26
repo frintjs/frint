@@ -113,6 +113,8 @@ module.exports = createApp({
 
 It is required that you have a provider called `execute`, which returns a function. This function will then be called when the subcommand is run.
 
+To register multiple commands from the same plugin, you can export an array of App classes.
+
 ### Providers available in plugins
 
 * `console` (`Console`): The same `console` available in NodeJS globally

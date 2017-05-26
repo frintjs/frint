@@ -14,18 +14,19 @@ const App = createApp({
     },
     {
       name: 'command',
-      useFactory: function () {
+      useFactory: function useFactory() {
         if (argv._[0] !== undefined) {
           return argv._[0];
         }
 
         // @TODO: default handler
+        return null;
       },
       cascade: true,
     },
     {
       name: 'params',
-      useFactory: function () {
+      useFactory: function useFactory() {
         // @TODO: make it better
         const clonedArgv = _.clone(argv);
         clonedArgv._.shift();
@@ -36,9 +37,9 @@ const App = createApp({
     },
     {
       name: 'config',
-      useFactory: function (deps) {
+      useFactory: function useFactory(deps) {
         try {
-          return JSON.parse(fs.readFileSync(deps.pwd + '/.frintrc', 'utf8'));
+          return JSON.parse(fs.readFileSync(`${deps.pwd}/.frintrc`, 'utf8'));
         } catch (e) {
           return {};
         }

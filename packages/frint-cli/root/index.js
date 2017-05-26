@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const _ = require('lodash');
 const createApp = require('frint').createApp;
@@ -6,6 +7,9 @@ const argv = require('yargs').argv;
 
 const App = createApp({
   name: 'FrintCLI',
+
+  helpText: `Welcome to frint-cli!`,
+
   providers: [
     {
       name: 'pwd',
@@ -38,11 +42,28 @@ const App = createApp({
     {
       name: 'config',
       useFactory: function useFactory(deps) {
+        let config = {};
+        const pwd = deps.pwd;
+
         try {
-          return JSON.parse(fs.readFileSync(`${deps.pwd}/.frintrc`, 'utf8'));
+          config = JSON.parse(fs.readFileSync(`${pwd}/.frintrc`, 'utf8'));
         } catch (e) {
-          return {};
+          // do nothing
         }
+
+        if (typeof config.plugins === 'undefined') {
+          config.plugins = [];
+        }
+
+        config.plugins = config.plugins.map(function doMap(plugin) {
+          if (plugin.startsWith('.')) {
+            return path.join(pwd, plugin);
+          }
+
+          return plugin;
+        });
+
+        return config;
       },
       deps: ['pwd'],
       cascade: true,

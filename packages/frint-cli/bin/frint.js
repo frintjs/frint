@@ -12,19 +12,33 @@ const command = app.get('command');
 
 function run() {
   if (!command) {
-    // @TODO: welcome
-    return console.log('welcome...');
+    console.log(app.getOption('helpText'));
+    console.log('\n');
+
+    console.log('These commands are currently available:\n');
+
+    return app.getApps$()
+      .map((registeredApps) => {
+        return registeredApps
+          .map(registeredApp => registeredApp.name)
+          .sort();
+      })
+      .take(1)
+      .map((registeredAppNames) => {
+        registeredAppNames
+          .map(appName => `  - ${appName}`)
+          .join('\n');
+      })
+      .subscribe(names => console.log(names));
   }
 
   return app.getApps$()
-    .map(function doMap(list) {
-      const filtered = list.filter(function doFilter(a) {
-        return a.name === command;
-      });
+    .map((list) => {
+      const filtered = list.filter(a => a.name === command);
 
       return filtered[filtered.length - 1];
     })
-    .do(function doDo(a) {
+    .do(a => {
       if (!a) {
         // @TODO: show better message
         return console.log('Command not available.');

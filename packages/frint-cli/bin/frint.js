@@ -25,7 +25,7 @@ function run() {
       })
       .take(1)
       .map((registeredAppNames) => {
-        registeredAppNames
+        return registeredAppNames
           .map(appName => `  - ${appName}`)
           .join('\n');
       })
@@ -38,7 +38,7 @@ function run() {
 
       return filtered[filtered.length - 1];
     })
-    .do(a => {
+    .do((a) => {
       if (!a) {
         // @TODO: show better message
         return console.log('Command not available.');

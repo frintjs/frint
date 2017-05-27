@@ -21,18 +21,11 @@ module.exports = createApp({
           ];
 
           deps.console.log('Initializing...');
-          const cmdPromises = cmds.map(function doMap(cmd) {
-            return exec.shell(cmd);
-          });
+          const cmdPromises = cmds.map(cmd => exec.shell(cmd));
 
           Promise.all(cmdPromises)
-            .then(function handlePromiseResolve() {
-              deps.console.log('Done!');
-            })
-            .catch(function handlePromiseRejection(e) {
-              deps.console.log('Error:');
-              deps.console.error(e);
-            });
+            .then(() => deps.console.log('Done!'))
+            .catch(e => deps.console.error(e));
         };
       },
       deps: [

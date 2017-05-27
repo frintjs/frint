@@ -12,41 +12,35 @@ const command = app.get('command');
 
 function run() {
   if (!command) {
-    console.log(app.getOption('helpText'));
+    console.log('Welcome to frint-cli!');
     console.log('\n');
-
     console.log('These commands are currently available:\n');
 
     return app.getApps$()
-      .map((registeredApps) => {
-        return registeredApps
+      .map(registeredApps => (
+        registeredApps
           .map(registeredApp => registeredApp.name)
-          .sort();
-      })
+          .sort()
+      ))
       .take(1)
-      .map((registeredAppNames) => {
-        return registeredAppNames
+      .map(registeredAppNames => (
+        registeredAppNames
           .map(appName => `  - ${appName}`)
-          .join('\n');
-      })
-      .subscribe(names => console.log(names));
+          .join('\n')
+      ))
+      .do(names => console.log(names))
+      .do(() => console.log('\n'))
+      .do(() => console.log('Type `frint help <commandName>` to learn more.'))
+      .subscribe();
   }
 
-  return app.getApps$()
-    .map((list) => {
-      const filtered = list.filter(a => a.name === command);
+  const commandApp = app.getAppInstance(command);
 
-      return filtered[filtered.length - 1];
-    })
-    .do((a) => {
-      if (!a) {
-        // @TODO: show better message
-        return console.log('Command not available.');
-      }
+  if (!commandApp) {
+    return console.log('Command not available.');
+  }
 
-      return a.instances.default.get('execute')();
-    })
-    .subscribe();
+  return commandApp.get('execute')();
 }
 
 run();

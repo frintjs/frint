@@ -8,8 +8,6 @@ const argv = require('yargs').argv;
 const App = createApp({
   name: 'FrintCLI',
 
-  helpText: `Welcome to frint-cli!`,
-
   providers: [
     {
       name: 'pwd',
@@ -55,7 +53,7 @@ const App = createApp({
           config.plugins = [];
         }
 
-        config.plugins = config.plugins.map(function doMap(plugin) {
+        config.plugins = config.plugins.map((plugin) => {
           if (plugin.startsWith('.')) {
             return path.join(pwd, plugin);
           }

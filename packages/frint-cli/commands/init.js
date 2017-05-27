@@ -2,12 +2,34 @@ const exec = require('execa');
 
 const createApp = require('frint').createApp;
 
+const descriptionText = `
+Usage:
+
+  $ frint init
+  $ frint init --example exampleName
+
+Example:
+
+  $ mkdir my-new-directory
+  $ cd my-new-directory
+
+  $ frint init --example kitchensink
+
+You can find list of all available examples here:
+https://github.com/Travix-International/frint/tree/master/examples
+`.trim();
+
 module.exports = createApp({
   name: 'init',
-
-  help: 'Help text here...',
-
   providers: [
+    {
+      name: 'summary',
+      useValue: 'Scaffolds a new Frint app in current working directory',
+    },
+    {
+      name: 'description',
+      useValue: descriptionText,
+    },
     {
       name: 'execute',
       useFactory: function useFactory(deps) {

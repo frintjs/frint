@@ -7,6 +7,7 @@ const app = new App();
 
 app.registerApp(require('../commands/version'));
 app.registerApp(require('../commands/init'));
+app.registerApp(require('../commands/help'));
 
 const command = app.get('command');
 

@@ -5,9 +5,11 @@ const createApp = require('frint').createApp;
 module.exports = createApp({
   name: 'version',
 
-  help: 'Help text here...',
-
   providers: [
+    {
+      name: 'summary',
+      useValue: 'Shows current version number of frint-cli',
+    },
     {
       name: 'execute',
       useFactory: function useFactory(deps) {

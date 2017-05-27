@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
+/* eslint-disable no-console, global-require, import/no-dynamic-require */
 
 const App = require('../root');
 
@@ -10,6 +10,20 @@ app.registerApp(require('../commands/init'));
 app.registerApp(require('../commands/help'));
 
 const command = app.get('command');
+const config = app.get('config');
+
+// register custom plugins
+if (Array.isArray(config.plugins)) {
+  config.plugins.forEach((plugin) => {
+    const CommandApp = require(plugin);
+
+    if (!Array.isArray(CommandApp)) {
+      return app.registerApp(CommandApp);
+    }
+
+    return CommandApp.forEach(PluginApp => app.registerApp(PluginApp));
+  });
+}
 
 function run() {
   if (!command) {

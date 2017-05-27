@@ -33,6 +33,8 @@ From your Terminal:
 $ frint
 ```
 
+Will list all the commands available to you.
+
 ## Built-in commands
 
 ### `init`
@@ -57,6 +59,15 @@ Shows the current version of `frint-cli`:
 
 ```
 $ frint version
+```
+
+### `help`
+
+Shows help text of commands:
+
+```
+$ frint help init
+$ frint help help
 ```
 
 ## Using plugins
@@ -101,12 +112,22 @@ module.exports = createApp({
   name: 'hello', // this is the subcommand name in `$ frint hello`
 
   providers: [
-    name: 'execute',
-    useFactory: function () {
-      return function () { // this returned function will be excuted
-        console.log('world!');
-      }
+    {
+      name: 'summary',
+      useValue: 'Short help text',
     },
+    {
+      name: 'description',
+      useValue: 'Long help text',
+    },
+    {
+      name: 'execute',
+      useFactory: function () {
+        return function () { // this returned function will be excuted
+          console.log('world!');
+        }
+      },
+    }
   ],
 });
 ```
@@ -114,6 +135,12 @@ module.exports = createApp({
 It is required that you have a provider called `execute`, which returns a function. This function will then be called when the subcommand is run.
 
 To register multiple commands from the same plugin, you can export an array of App classes.
+
+The `summary` and `description` is used when the user is trying to get help text by running:
+
+```
+$ frint help hello
+```
 
 ### Providers available in plugins
 

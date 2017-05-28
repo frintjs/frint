@@ -148,3 +148,4 @@ $ frint help hello
 * `pwd` (`String`): Current working directory
 * `config` (`Object`): As available in `.frintrc` file
 * `params` (`Object`): An [yargs](https://www.npmjs.com/package/yargs) compatible object after parsing CLI options
+* `fs` (`Object`): Node's `fs` module

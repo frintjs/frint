@@ -10,9 +10,9 @@
   "scripts": {
     "lint": "../../node_modules/.bin/eslint --color '{root,commands,bin}/**/*.js'",
     "transpile": "echo \"Nothing to transpile\"",
-    "test": "../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
-    "cover:run": "../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
-    "cover:report": "../../node_modules/.bin/nyc report",
+    "test": "../../node_modules/.bin/mocha --colors --recursive './commands/*.spec.js'",
+    "cover:run": "echo \"Nothing to cover\"",
+    "cover:report": "echo \"Nothing to report\"",
     "cover": "npm run cover:run && npm run cover:report",
     "dist:lib": "echo \"Nothing to build\"",
     "dist:min": "echo \"Nothing to minify\"",
@@ -41,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "memory-fs": "^0.4.1"
+  }
 }

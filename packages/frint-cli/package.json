@@ -1,6 +1,6 @@
 {
   "name": "frint-cli",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "CLI for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-cli",

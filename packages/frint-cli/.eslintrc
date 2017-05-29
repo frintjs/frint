@@ -1,0 +1,13 @@
+{
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "extends": [
+    "travix/rules/best-practices",
+    "travix/rules/es6",
+    "travix/rules/node"
+  ]
+}

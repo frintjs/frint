@@ -39,7 +39,7 @@ module.exports = createApp({
 
           const cmds = [
             `mkdir -p ${dir}`,
-            `curl https://codeload.github.com/Travix-International/frint/tar.gz/master | tar -xz -C ${dir} --strip=3 frint-master/examples/ ${example}`,
+            `curl https://codeload.github.com/Travix-International/frint/tar.gz/master | tar -xz -C ${dir} --strip=3 frint-master/examples/${example}`,
           ];
 
           deps.console.log('Initializing...');

@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 
 /**
  * Module that specifies the createComponent function for creating Components.
@@ -21,8 +23,22 @@ export default function createComponent(options = {}) {
     throw new Error(`Component ${options.name} missing required method: render`);
   }
 
-  return React.createClass({
-    ...options,
+  class GeneratedComponent extends React.Component {
+    static displayName = options.displayName
+      ? options.displayName
+      : options.name || 'GeneratedComponent';
+
+    constructor(...args) {
+      super(...args);
+
+      _.each(options, (v, k) => {
+        this[k] = v;
+
+        if (typeof this[k] === 'function') {
+          this[k].bind(this);
+        }
+      });
+    }
 
     componentWillMount() {
       if (typeof options.beforeMount === 'function') {
@@ -30,7 +46,7 @@ export default function createComponent(options = {}) {
       }
 
       return null;
-    },
+    }
 
     componentDidMount() {
       if (typeof options.afterMount === 'function') {
@@ -38,13 +54,13 @@ export default function createComponent(options = {}) {
       }
 
       return null;
-    },
+    }
 
     componentWillUnmount() {
       if (typeof options.beforeUnmount === 'function') {
         options.beforeUnmount.call(this);
       }
-    },
+    }
 
     /**
      * Returns the root HTML element of the component.
@@ -55,6 +71,8 @@ export default function createComponent(options = {}) {
      */
     getDOMElement() {
       return ReactDOM.findDOMNode(this);
-    },
-  });
+    }
+  }
+
+  return GeneratedComponent;
 }

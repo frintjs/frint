@@ -10,9 +10,9 @@ import { render } from './';
 
 chai.use(sinonChai);
 
-const FakeComponent = React.createClass({
-  render() { return null; }
-});
+function FakeComponent() {
+  return null;
+}
 const sandbox = sinon.sandbox.create();
 
 describe('frint-compat › render', function () {
@@ -45,16 +45,17 @@ describe('frint-compat › render', function () {
     expect(appStub.beforeMount).to.be.callCount(1);
   });
 
-  it('calls React.createClass to create a WrapperComponent with lifecyle methods', () => {
-    expect(React.createClass)
-      .to.be.callCount(1)
-      .and.to.be.calledWith({
-        componentDidMount: sinon.match.func,
-        componentWillUnmount: sinon.match.func,
-        displayName: 'WrapperComponent',
-        render: sinon.match.func
-      });
-  });
+  // NOTE: commented because of upgrade to React v15
+  // it('calls React.createClass to create a WrapperComponent with lifecyle methods', () => {
+  //   expect(React.createClass)
+  //     .to.be.callCount(1)
+  //     .and.to.be.calledWith({
+  //       componentDidMount: sinon.match.func,
+  //       componentWillUnmount: sinon.match.func,
+  //       displayName: 'WrapperComponent',
+  //       render: sinon.match.func
+  //     });
+  // });
 
   it('calls app\'s afterMount lifecyle method (on componentDidMount)', () => {
     expect(appStub.afterMount).to.be.callCount(1);

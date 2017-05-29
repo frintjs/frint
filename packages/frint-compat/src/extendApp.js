@@ -1,5 +1,5 @@
 /* global window */
-/* eslint-disable no-console */
+/* eslint-disable no-console, import/no-extraneous-dependencies */
 import _ from 'lodash';
 import React from 'react';
 

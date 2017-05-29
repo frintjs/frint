@@ -1,5 +1,24 @@
 # Change Log
 
+## v1.4.0 (2017-05-29)
+
+#### Pull Requests
+* `frint-cli`, `frint-model`
+  * [#211](https://github.com/Travix-International/frint/pull/211) Show `frint-cli` docs in site. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react-server`, `frint-react`
+  * [#210](https://github.com/Travix-International/frint/pull/210) Root dependencies cleaned up. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`
+  * [#209](https://github.com/Travix-International/frint/pull/209) Frint CLI. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#200](https://github.com/Travix-International/frint/pull/200) Examples: use Html webpack plugin. ([@asci](https://github.com/asci))
+  * [#190](https://github.com/Travix-International/frint/pull/190) Examples: `multiple-apps` upgraded to use Frint v1.x. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react`
+  * [#199](https://github.com/Travix-International/frint/pull/199) ESLint fixes in tests. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Artem Riasnianskyi ([asci](https://github.com/asci))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.3.1 (2017-05-10)
 
 #### Pull Requests

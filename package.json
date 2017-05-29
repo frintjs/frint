@@ -74,11 +74,5 @@
     "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
     "webpack": "^2.2.0"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "react",
-      "react-dom"
-    ]
   }
 }

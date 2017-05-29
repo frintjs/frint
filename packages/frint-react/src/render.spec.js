@@ -10,9 +10,9 @@ import render from './render';
 
 chai.use(sinonChai);
 
-const FakeComponent = React.createClass({
-  render() { return null; }
-});
+function FakeComponent() {
+  return null;
+}
 const sandbox = sinon.sandbox.create();
 
 describe('frint-react › render', function () {

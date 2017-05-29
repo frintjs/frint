@@ -15,15 +15,13 @@ describe('frint-react-server › renderToString', function () {
   });
 
   it('returns HTML output of an App instance', function () {
-    const TestComponent = React.createClass({
-      render() {
-        return (
-          <div>
-            <p>Hello World!</p>
-          </div>
-        );
-      }
-    });
+    function TestComponent() {
+      return (
+        <div>
+          <p>Hello World!</p>
+        </div>
+      );
+    }
 
     const TestApp = createApp({
       name: 'TestAppname',
@@ -42,15 +40,13 @@ describe('frint-react-server › renderToString', function () {
   });
 
   it('returns HTML output of an App instance, with observed props', function () {
-    const TestComponent = React.createClass({
-      render() {
-        return (
-          <div>
-            <p>{this.props.name}</p>
-          </div>
-        );
-      }
-    });
+    function TestComponent({ name }) {
+      return (
+        <div>
+          <p>{name}</p>
+        </div>
+      );
+    }
 
     const ObservedTestComponent = observe(function (app) {
       return Observable.of({

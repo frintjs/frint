@@ -1,5 +1,14 @@
 # Change Log
 
+## v1.4.1 (2017-05-29)
+
+#### Pull Requests
+* `frint-cli`
+  * [#212](https://github.com/Travix-International/frint/pull/212) frint-cli: fix for `init` by removing extra space from command. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.4.0 (2017-05-29)
 
 #### Pull Requests

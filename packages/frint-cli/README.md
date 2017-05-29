@@ -1,5 +1,7 @@
 # frint-cli
 
+[![npm](https://img.shields.io/npm/v/frint-cli.svg)](https://www.npmjs.com/package/frint-cli)
+
 > CLI for Frint
 
 <!-- MarkdownTOC autolink=true bracket=round -->

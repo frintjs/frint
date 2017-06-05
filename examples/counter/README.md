@@ -2,7 +2,7 @@
 
 Example demonstrating:
 
-* A Core app
+* A Root app
 * With a counter having increment/decrement buttons
 
 ## Usage
@@ -11,5 +11,5 @@ Run:
 
 ```
 $ npm install
-$ make serve
+$ npm start
 ```

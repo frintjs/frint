@@ -8,5 +8,5 @@ Run:
 
 ```
 $ npm install
-$ make serve
+$ npm start
 ```

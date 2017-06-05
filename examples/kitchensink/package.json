@@ -7,8 +7,8 @@
     "bundle:vendors": "webpack --config ./vendors/webpack.config.js",
     "bundle:apps": "webpack",
     "build": "npm run bundle:vendors && npm run bundle:apps",
-    "start:server": "",
-    "start": "npm run build && live-server ./build"
+    "start:server": "live-server build",
+    "start": "npm run build && npm run start:server"
   },
   "author": "Travix International B.V.",
   "license": "MIT",

@@ -3,7 +3,9 @@ module.exports = {
   contributorsOptedIn: [
     'AlexDudar',
     'alexmiranda',
+    'asci',
     'fahad19',
+    'gtzio',
     'jackTheRipper',
     'markvincze',
     'mAiNiNfEcTiOn',

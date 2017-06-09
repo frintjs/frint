@@ -35,7 +35,7 @@ Fill in the details, like your App's name, in the CLI prompts.
 Install the minimum dependencies required to get your App up and running, :
 
 ```
-$ npm install --save frint frint-react react react-dom
+$ npm install --save frint frint-react react react-dom prop-types
 ```
 
 And also the the build tools:
@@ -101,13 +101,11 @@ Previously, we saw that App requires a Component for rendering. We will write ou
 // components/Root.js
 import React from 'react';
 
-export default React.createClass({
-  render() {
-    return (
-      <p>Hello World!</p>
-    );
-  }
-});
+export default function Root() {
+  return (
+    <p>Hello World!</p>
+  );
+}
 ```
 
 Basically, you import the `createApp` function from our `frint` package, and define your App by giving it a name, and also the Component that it needs to render.

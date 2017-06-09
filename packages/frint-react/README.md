@@ -40,6 +40,7 @@ Via [unpkg](https://unpkg.com) CDN:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.0/Rx.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.5.10/prop-types.js"></script>
 
 <script src="https://unpkg.com/frint@latest/dist/frint.min.js"></script>
 <script src="https://unpkg.com/frint-react@latest/dist/frint-react.min.js"></script>

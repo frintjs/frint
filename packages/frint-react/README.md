@@ -30,16 +30,16 @@
 With [npm](https://www.npmjs.com/):
 
 ```
-$ npm install --save frint-react
+$ npm install --save react react-dom prop-types frint-react
 ```
 
 Via [unpkg](https://unpkg.com) CDN:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.0/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js"></script>
 
 <script src="https://unpkg.com/frint@latest/dist/frint.min.js"></script>
 <script src="https://unpkg.com/frint-react@latest/dist/frint-react.min.js"></script>
@@ -79,15 +79,13 @@ import { render } from 'frint-react';
 Now let's create our first Component:
 
 ```js
-const Root = React.createClass({
-  render() {
-    return (
-      <div>
-        Hello World
-      </div>
-    );
-  }
-});
+function Root() {
+  return (
+    <div>
+      <p>Hello World</p>
+    </div>
+  );
+}
 ```
 
 Now we need to create our Root App, and assign the previously defined Component as our root component for the App:
@@ -134,17 +132,15 @@ For example, imagine the Root component of our Root App above, we can define a R
 import React from 'react';
 import { Region } from 'frint-react';
 
-const Root = React.createClass({
-  render() {
-    return (
-      <div>
-        <p>Hello World from Root App!</p>
+function Root() {
+  return (
+    <div>
+      <p>Hello World from Root App!</p>
 
-        <Region name="sidebar" />
-      </div>
-    );
-  }
-});
+      <Region name="sidebar" />
+    </div>
+  );
+}
 ```
 
 That's just defining the Region only. Let's now create an App, and assign it to the `sidebar` region:
@@ -153,11 +149,11 @@ That's just defining the Region only. Let's now create an App, and assign it to 
 ```js
 import { createApp } from 'frint';
 
-const AppComponent = React.createClass({
-  render() {
-    return <p>I am App</p>;
-  }
-});
+function AppComponent() {
+  return (
+    <p>I am App</p>
+  );
+}
 
 const App = createApp({
   name: 'MyApp',
@@ -188,21 +184,19 @@ It is possible that when defining the Region with a name, you would also want to
 From the above example of `sidebar` Region, imagine us passing some data too via props:
 
 ```js
-const Root = React.createClass({
-  render() {
-    const data = {
-      foo: 'bar'
-    };
+function Root() {
+  const data = {
+    foo: 'bar'
+  };
 
-    return (
-      <div>
-        <p>Hello World from Root App!</p>
+  return (
+    <div>
+      <p>Hello World from Root App!</p>
 
-        <Region name="sidebar" data={data} />
-      </div>
-    );
-  }
-});
+      <Region name="sidebar" data={data} />
+    </div>
+  );
+}
 ```
 
 That's only the `Region` component's implementation part. How do we access it from our App now?
@@ -254,11 +248,11 @@ Enter `observe`. This is a function that we ship with the library for making you
 A very simple example would be:
 
 ```js
-const MyComponent = React.createClass({
-  render() {
-    return <p>Interval: {this.props.interval}</p>;
-  }
-});
+function MyComponent(props) {
+  return (
+    <p>Interval: {props.interval}</p>
+  );
+}
 ```
 
 We just created a component, that prints out a prop called `interval`. Nothing fancy there. But we wish the interval to update itself every second. Instead of handling it from within the Component, we can do it with `observe` as follows:
@@ -372,33 +366,31 @@ This is a use case where you have multiple instances of Region with the same nam
 Think of a scenario where you have a TodoList, and you want a Region defined for each Todo item:
 
 ```js
-const MyComponent = React.createClass({
-  render() {
-    const todos = [
-      { id: '1', title: 'First todo' },
-      { id: '2', title: 'Second todo' },
-      { id: '3', title: 'Third todo' },
-    ];
+function MyComponent() {
+  const todos = [
+    { id: '1', title: 'First todo' },
+    { id: '2', title: 'Second todo' },
+    { id: '3', title: 'Third todo' },
+  ];
 
-    return (
-      <ul>
-        {todos.map((todo) => {
-          return (
-            <li>
-              <h3>{todo.title}</h3>
+  return (
+    <ul>
+      {todos.map((todo) => {
+        return (
+          <li>
+            <h3>{todo.title}</h3>
 
-              <Region
-                name="todo-item"
-                data={{ todo }}
-                uniqueKey={`todo-item-${todo.id}`}
-              />
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-});
+            <Region
+              name="todo-item"
+              data={{ todo }}
+              uniqueKey={`todo-item-${todo.id}`}
+            />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 ```
 
 Now we may have an App that we want to be rendered in `todo-item` Regions.
@@ -410,13 +402,13 @@ import React from 'react';
 import { createApp } from 'frint';
 import { observe, RegionService } from 'frint-react';
 
-const AppComponent = React.createClass({
-  render () {
-    const { todo } = this.props;
+function AppComponent(props) {
+  const { todo } = props;
 
-    return <p>Todo in upper case: {todo.title.toUpperCase()}</p>
-  }
-});
+  return (
+    <p>Todo in upper case: {todo.title.toUpperCase()}</p>
+  );
+}
 
 const ObservedAppComponent = observe(function (app) {
   return streamProps()

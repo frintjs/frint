@@ -2,7 +2,7 @@
 
 Example demonstating:
 
-* A Core app
+* A Root app
 * Loading multiple apps
 * Apps sharing each other's state
 
@@ -12,5 +12,5 @@ Run:
 
 ```
 $ npm install
-$ make serve
+$ npm start
 ```

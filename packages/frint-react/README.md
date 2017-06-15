@@ -205,7 +205,7 @@ That's only the `Region` component's implementation part. How do we access it fr
 Enter `RegionService`. This is a Service that we can pass in our App's providers list, allowing us to later have access to Region's props.
 
 ```js
-const { RegionService } = Frint;
+import { RegionService } from 'frint-react';
 
 const App = createApp({
   name: 'MyApp',

@@ -1,9 +1,12 @@
 {
   "allow": [
+    "children",
     "destroy",
+    "destroys",
     "color",
     "dead",
     "dumb",
+    "hooks",
     "jacktheripper"
   ]
 }

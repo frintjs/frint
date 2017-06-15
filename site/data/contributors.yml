@@ -1,13 +1,13 @@
 - id: 20046
   login: fahad19
   html_url: 'https://github.com/fahad19'
-  contributions: 201
+  contributions: 227
   name: Fahad Ibnay Heylaal
   avatar_url: 'https://avatars1.githubusercontent.com/u/20046?v=3'
 - id: 1031418
   login: alexmiranda
   html_url: 'https://github.com/alexmiranda'
-  contributions: 24
+  contributions: 28
   name: Alex Miranda
   avatar_url: 'https://avatars0.githubusercontent.com/u/1031418?v=3'
 - id: 1002056
@@ -16,27 +16,39 @@
   contributions: 15
   name: Ricardo Machado
   avatar_url: 'https://avatars2.githubusercontent.com/u/1002056?v=3'
-- id: 3122478
-  login: AlexDudar
-  html_url: 'https://github.com/AlexDudar'
-  contributions: 1
-  name: Alexandr Dudar
-  avatar_url: 'https://avatars2.githubusercontent.com/u/3122478?v=3'
 - id: 367236
   login: jackTheRipper
   html_url: 'https://github.com/jackTheRipper'
-  contributions: 1
+  contributions: 6
   name: Jean Baudin
   avatar_url: 'https://avatars3.githubusercontent.com/u/367236?v=3'
+- id: 3122478
+  login: AlexDudar
+  html_url: 'https://github.com/AlexDudar'
+  contributions: 2
+  name: Alexandr Dudar
+  avatar_url: 'https://avatars2.githubusercontent.com/u/3122478?v=3'
 - id: 1122274
   login: markvincze
   html_url: 'https://github.com/markvincze'
-  contributions: 1
+  contributions: 2
   name: Mark Vincze
   avatar_url: 'https://avatars0.githubusercontent.com/u/1122274?v=3'
+- id: 778908
+  login: asci
+  html_url: 'https://github.com/asci'
+  contributions: 1
+  name: Artem Riasnianskyi
+  avatar_url: 'https://avatars3.githubusercontent.com/u/778908?v=3'
 - id: 145040
   login: spzm
   html_url: 'https://github.com/spzm'
   contributions: 1
   name: Uladzimir Dziomin
   avatar_url: 'https://avatars0.githubusercontent.com/u/145040?v=3'
+- id: 21044625
+  login: gtzio
+  html_url: 'https://github.com/gtzio'
+  contributions: 1
+  name: Georgia Tziola
+  avatar_url: 'https://avatars3.githubusercontent.com/u/21044625?v=3'

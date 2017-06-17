@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* globals after, before, describe, document, it */
 import chai, { expect } from 'chai';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -27,7 +26,6 @@ describe('frint-compat › render', function () {
   let targetElement;
 
   before(() => {
-    sandbox.spy(React, 'createClass');
     sandbox.spy(ReactDOM, 'render');
     targetElement = document.getElementById('root');
     renderedComponent = render(appStub, targetElement);

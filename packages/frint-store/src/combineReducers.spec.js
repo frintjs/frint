@@ -70,6 +70,23 @@ describe('frint-store › combineReducers', function () {
     ]);
   });
 
+  it('combines multiple reducers with no given initial state', function () {
+    const rootReducer = combineReducers({
+      counter: counterReducer,
+      color: colorReducer
+    });
+    const state = rootReducer(undefined, { type: 'DO_NOTHING' });
+
+    expect(state).to.deep.equal({
+      counter: {
+        value: 0,
+      },
+      color: {
+        value: 'blue',
+      },
+    });
+  });
+
   it('throws error with reducer key name, when individual reducer errors', function () {
     const consoleCalls = [];
     const fakeConsole = {

@@ -1,5 +1,9 @@
 # Change Log
 
+## v2.0.1 (2017-06-19)
+
+Maintenance release to force all package versions in the monorepo to be same.
+
 ## v2.0.0 (2017-06-19)
 
 #### Pull Requests

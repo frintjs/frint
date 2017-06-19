@@ -1,5 +1,24 @@
 # Change Log
 
+## v1.4.2 (2017-06-19)
+
+#### Pull Requests
+* `frint-store`
+  * [#225](https://github.com/Travix-International/frint/pull/225) Fix for initializing Stores with combined reducers. ([@fahad19](https://github.com/fahad19))
+* `frint-react`
+  * [#224](https://github.com/Travix-International/frint/pull/224) Minor fix for docs in frint-react. ([@yurist38](https://github.com/yurist38))
+* `frint-preset-travix`
+  * [#223](https://github.com/Travix-International/frint/pull/223) Removed `frint-preset-travix` from monorepo. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#214](https://github.com/Travix-International/frint/pull/214) Update lerna-changelog to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+  * [#218](https://github.com/Travix-International/frint/pull/218) Update nyc to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+  * [#222](https://github.com/Travix-International/frint/pull/222) Fixes for `alex`. ([@fahad19](https://github.com/fahad19))
+  * [#219](https://github.com/Travix-International/frint/pull/219) Quick start with `frint-cli`, and getting rid of Makefile in examples. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Yuri Drabik ([yurist38](https://github.com/yurist38))
+
 ## v1.4.1 (2017-05-29)
 
 #### Pull Requests

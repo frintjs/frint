@@ -1,5 +1,14 @@
 # Change Log
 
+## v2.0.0 (2017-06-19)
+
+#### Pull Requests
+* `frint-compat`, `frint-react-server`, `frint-react`
+  * [#213](https://github.com/Travix-International/frint/pull/213) Upgrade all packages to React v15+. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.4.2 (2017-06-19)
 
 #### Pull Requests

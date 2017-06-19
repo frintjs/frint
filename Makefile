@@ -6,7 +6,7 @@ GITHUB_API_TOKEN := ""
 # Releases
 release:
 	npm run dist
-	./node_modules/.bin/lerna publish
+	./node_modules/.bin/lerna publish --force-publish=*
 
 release-canary:
 	npm run dist

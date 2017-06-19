@@ -1,7 +1,7 @@
 import React from 'react';
 import { observe } from 'frint-react';
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     return (
       <div>
@@ -9,7 +9,7 @@ const Root = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   const region = app.get('region');

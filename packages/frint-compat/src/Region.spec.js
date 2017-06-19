@@ -262,22 +262,20 @@ describe('frint-compat › components › Region', function () {
     it('should not render Region without any available Core App', function () {
       resetDOM();
 
-      const SampleComponent = React.createClass({
-        render() {
-          return (
-            <div className="sample">
-              <p className="text">Hello</p>
+      function SampleComponent() {
+        return (
+          <div className="sample">
+            <p className="text">Hello</p>
 
-              <Region name="main" />
-            </div>
-          );
-        }
-      });
+            <Region name="main" />
+          </div>
+        );
+      }
 
       ReactDOM.render(<SampleComponent />, document.getElementById('root'));
 
       expect(document.querySelector('#root .sample .text').innerHTML).to.equal('Hello');
-      expect(document.querySelector('#root .sample').innerHTML).to.contain('Hello</p><noscript');
+      expect(document.querySelector('#root .sample').innerHTML).to.contain('Hello</p><!-- react-empty:');
     });
 
     // NOTE: removed because the method is dropped in v1.x

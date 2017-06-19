@@ -1,23 +1,26 @@
 /* eslint-disable no-console, no-underscore-dangle, import/no-extraneous-dependencies */
 /* globals window */
 import _ from 'lodash';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import getMountableComponent from './getMountableComponent';
 
-export default React.createClass({
-  propTypes: {
+export default class Region extends React.Component {
+  static propTypes = {
     name: PropTypes.string.isRequired,
     uniqueKey: PropTypes.string,
     data: PropTypes.any,
-  },
+  };
 
-  getInitialState() {
-    return {
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
       list: [], // array of apps ==> { name, instance }
       listForRendering: [] // array of {name, Component} objects
     };
-  },
+  }
 
   /**
    * Determines if the the component should be updated or not.
@@ -38,7 +41,7 @@ export default React.createClass({
           .some(value => !value);
     }
     return shouldUpdate;
-  },
+  }
 
   componentWillMount() {
     const rootApp = (!this.context || !this.context.app)
@@ -105,9 +108,9 @@ export default React.createClass({
         console.warn(`Subscription error for <Region name="${this.props.name}" />:`, err);
       }
     });
-  },
+  }
 
-  sendProps(appInstance, props) {
+  sendProps(appInstance, props) { // eslint-disable-line
     const regionService = appInstance.get(appInstance.options.providerNames.region);
 
     if (!regionService) {
@@ -115,13 +118,13 @@ export default React.createClass({
     }
 
     regionService.emit(props);
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.state.listForRendering
       .filter(item => item.instance)
       .forEach(item => this.sendProps(item.instance, nextProps));
-  },
+  }
 
   componentWillUnmount() {
     if (this.subscription) {
@@ -139,7 +142,7 @@ export default React.createClass({
           );
         });
     }
-  },
+  }
 
   render() {
     const { listForRendering } = this.state;
@@ -160,4 +163,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

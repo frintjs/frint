@@ -7,7 +7,7 @@ import {
   decrementCounter
 } from '../actions/counter';
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     const codeStyle = {
       color: this.props.color,
@@ -47,25 +47,29 @@ const Root = React.createClass({
           </a> to blue from here!
         </p>
 
-        <p>
-          <strong>Region Props:</strong>
+        <div>
+          <p>
+            <strong>Region Props:</strong>
+          </p>
 
           <pre><code>{JSON.stringify(this.props.regionProps, null, 2)}</code></pre>
-        </p>
+        </div>
 
-        <p>
-          <strong>Services:</strong>
+        <div>
+          <p>
+            <strong>Services:</strong>
+          </p>
 
           <ul>
             <li><strong>Foo</strong> (cascaded): is from <code>{this.props.foo.getAppName()}</code></li>
             <li><strong>Bar</strong> (cascaded and scoped): is from <code>{this.props.bar.getAppName()}</code></li>
             <li><strong>Baz</strong> (not cascaded): is unavaialble - <code>{this.props.baz}</code></li>
           </ul>
-        </p>
+        </div>
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   return streamProps({}) // start with defualt props

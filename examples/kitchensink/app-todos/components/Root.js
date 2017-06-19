@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { addTodo } from '../actions/todos';
 import Item from './Item';
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     return (
       <div>
@@ -33,14 +33,19 @@ const Root = React.createClass({
         </button>
 
         <div>
-        {this.props.todos.map((todo) => {
-          return <Item todo={todo} />
+        {this.props.todos.map((todo, index) => {
+          return (
+            <Item
+              key={`todo-${index}`}
+              todo={todo}
+            />
+          );
         })}
         </div>
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   const store = app.get('store');

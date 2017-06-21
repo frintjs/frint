@@ -2,7 +2,7 @@ import React from 'react';
 import { Region, observe } from 'frint-react';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     return (
       <div className="container">
@@ -33,15 +33,17 @@ const Root = React.createClass({
               </a>
             </p>
 
-            <p>
-              <strong>Services:</strong>
+            <div>
+              <p>
+                <strong>Services:</strong>
+              </p>
 
               <ul>
                 <li><strong>Foo</strong> (self): is from <code>{this.props.foo.getAppName()}</code></li>
                 <li><strong>Bar</strong> (self): is from <code>{this.props.bar.getAppName()}</code></li>
                 <li><strong>Baz</strong> (self): is from <code>{this.props.baz.getAppName()}</code></li>
               </ul>
-            </p>
+            </div>
           </div>
 
           {this.props.showSidebar && (
@@ -63,7 +65,7 @@ const Root = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   const sidebarToggle$ = (new BehaviorSubject(true))

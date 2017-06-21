@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { removeTodo, updateTodo } from '../actions/todos';
 
-const Item = React.createClass({
+class Item extends React.Component {
   render() {
     const { todo } = this.props;
 
@@ -52,7 +52,7 @@ const Item = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   const showEditForm$ = new BehaviorSubject(false); // start with hidden form

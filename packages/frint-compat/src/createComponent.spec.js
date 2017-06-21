@@ -18,13 +18,11 @@ describe('frint-compat › createComponent', function () {
   });
 
   it('returns Component that can be rendered to DOM', function () {
-    const MyComponent = createComponent({
-      render() {
-        return (
-          <p id="paragraph">Hello World</p>
-        );
-      }
-    });
+    function MyComponent() {
+      return (
+        <p id="paragraph">Hello World</p>
+      );
+    }
 
     ReactDOM.render(
       <MyComponent />,

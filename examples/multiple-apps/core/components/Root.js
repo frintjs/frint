@@ -1,7 +1,7 @@
 import React from 'react';
 import { Region } from 'frint-react';
 
-export default React.createClass({
+export default class Root extends React.Component {
   render() {
     return (
       <div className="container">
@@ -25,4 +25,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

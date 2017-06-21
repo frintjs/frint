@@ -6,7 +6,7 @@ import {
   decrementCounter
 } from '../actions/counter';
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     return (
       <div className="container">
@@ -36,7 +36,7 @@ const Root = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   return streamProps({})

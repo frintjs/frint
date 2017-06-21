@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Component, PropTypes, Children } from 'react';
+import { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 
 export default class Provider extends Component {
   static propTypes = {

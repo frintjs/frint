@@ -47,7 +47,7 @@
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.1.0",
-    "babel-loader": "^7.0.0",
+    "babel-loader": "^7.1.0",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
     "bulma": "^0.3.2",
@@ -73,12 +73,6 @@
     "rimraf": "^2.5.2",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
-    "webpack": "^2.2.0"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "react",
-      "react-dom"
-    ]
+    "webpack": "^3.0.0"
   }
 }

@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 function Store(options = {}) {
   this.options = {
-    initialState: null,
+    initialState: undefined,
     thunkArgument: null,
     appendAction: false,
     reducer: state => state,

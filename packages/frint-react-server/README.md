@@ -21,7 +21,7 @@
 ## Installation
 
 ```
-$ npm install --save react react-dom frint-react frint-react-server
+$ npm install --save react react-dom prop-types frint-react frint-react-server
 ```
 
 ## Usage

@@ -6,7 +6,7 @@ import {
   decrementCounter
 } from '../actions/counter';
 
-const Root = React.createClass({
+class Root extends React.Component {
   render() {
     const codeStyle = {
       color: this.props.color,
@@ -39,7 +39,7 @@ const Root = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default observe(function (app) {
   const store = app.get('store');

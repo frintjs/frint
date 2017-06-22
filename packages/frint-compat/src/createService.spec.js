@@ -35,7 +35,7 @@ describe('frint-compat › createService', () => {
     expect(mySpec.initialize).to.be.callCount(1);
   });
 
-  it.only('must contain the functions passed in the spec', () => {
+  it('must contain the functions passed in the spec', () => {
     expect(Object.keys(myServiceInstance)).to.include(
       'initialize',
       'customFunction1',

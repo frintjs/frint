@@ -53,7 +53,7 @@
     "bulma": "^0.3.2",
     "chai": "^4.0.2",
     "coveralls": "^2.11.12",
-    "eslint": "^3.3.1",
+    "eslint": "^4.1.0",
     "eslint-config-travix": "^2.2.0",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.0.1",

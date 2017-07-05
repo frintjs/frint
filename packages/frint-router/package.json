@@ -29,6 +29,8 @@
   ],
   "dependencies": {
     "history": "^4.6.3",
+    "lodash": "^4.17.4",
+    "path-to-regexp": "^1.7.0",
     "rxjs": "^5.4.2"
   },
   "bugs": {

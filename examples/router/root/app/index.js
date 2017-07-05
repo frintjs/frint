@@ -6,11 +6,11 @@ import Root from '../components/Root';
 import HomePage from '../components/HomePage';
 import AboutPage from '../components/AboutPage';
 
-import MessagesApp from '../../app-messages/app';
-import TodosApp from '../../app-todos/app';
+// import MessagesApp from '../../app-messages/app';
+// import TodosApp from '../../app-todos/app';
 
 export default createApp({
-  name: 'KitchensinkApp',
+  name: 'RouterApp',
   providers: [
     // root component
     {
@@ -36,7 +36,7 @@ export default createApp({
         {
           path: '/',
           component: HomePage,
-          full: true, // matches full path
+          exact: true, // matches full path
         },
 
         // async component
@@ -45,17 +45,17 @@ export default createApp({
           getComponent: cb => cb(null, AboutPage), // will bring its own dynamic child routes
         },
 
-        // sync app
-        {
-          path: '/messages',
-          App: MessagesApp, // will bring its own dynamic child routes
-        },
+        // // sync app
+        // {
+        //   path: '/messages',
+        //   App: MessagesApp, // will bring its own dynamic child routes
+        // },
 
-        // async app
-        {
-          path: '/todos',
-          getApp: cb => cb(null, TodosApp), // will brings own own dynamic child routes
-        }
+        // // async app
+        // {
+        //   path: '/todos',
+        //   getApp: cb => cb(null, TodosApp), // will brings own own dynamic child routes
+        // },
       ]
     }
   ],

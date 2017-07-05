@@ -1,17 +1,18 @@
 import React from 'react';
+import { Link } from 'frint-router-react';
 
 export default function TopNav() {
   return (
     <nav className="nav">
       <div className="container">
         <div className="nav-left">
-          <a href="/" className="nav-item brand">
+          <Link to="/" className="nav-item brand">
             Home
-          </a>
+          </Link>
 
-          <a href="/about" className="nav-item is-tab">
+          <Link to="/about" className="nav-item is-tab">
             About
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

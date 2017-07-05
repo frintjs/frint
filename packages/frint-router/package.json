@@ -27,7 +27,10 @@
   "keywords": [
     "frint"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "history": "^4.6.3",
+    "rxjs": "^5.4.2"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },

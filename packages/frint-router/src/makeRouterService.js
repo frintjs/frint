@@ -21,13 +21,16 @@ export default makeRouterService(createHistory) {
           action: this._history.action,
         });
       });
+
+      this._params = {};
+      this._params$ = new BehaviorSubject(this._params);
     }
 
     getHistory$() {
       return this._history$;
     }
 
-    getMatch$(path) {
+    getMatch$(path, updateParams = false) {
       return this.getHistory$()
         .map((history) => {
           let keys = [];
@@ -37,20 +40,49 @@ export default makeRouterService(createHistory) {
           const keyNames = keys.map(k => k.name);
 
           if (!matched) {
+            if (updateParams) {
+              this._unsetParams(keyNames);
+            }
+
             return null;
           }
 
           const keyValues = _.tail(matched);
+          const params = _.zipObject(keyNames, keyValues);
+
+          if (updateParams) {
+            this._setParams(params);
+          }
 
           return {
             keys,
             matched,
-            params: _.zipObject(keyNames, keyValues),
+            params,
           };
         });
     }
 
+    _unsetParams(names) {
+      this._params = names.reduce(acc, (name) => {
+        if (typeof acc[name] !== 'undefined') {
+          delete acc[name];
+        }
 
+        return acc;
+      }, this._params);
+
+      this._params$.next(this._params);
+    }
+
+    _setParams(params) {
+      this._params = Object.assign({}, this._params, params);
+
+      this._params$.next(this._params);
+    }
+
+    getParams$() {
+      return this._params$;
+    }
 
     destroy() {
       this._listener();

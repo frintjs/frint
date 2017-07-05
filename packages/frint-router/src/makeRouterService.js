@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
+import pathToRegexp from 'path-to-regexp';
 
 export default makeRouterService(createHistory) {
   class RouterService {
@@ -21,9 +23,34 @@ export default makeRouterService(createHistory) {
       });
     }
 
-    get$() {
+    getHistory$() {
       return this._history$;
     }
+
+    getMatch$(path) {
+      return this.getHistory$()
+        .map((history) => {
+          let keys = [];
+          const re = pathToRegexp(path, keys);
+          const matched = re.exec(history.location.pathname);
+
+          const keyNames = keys.map(k => k.name);
+
+          if (!matched) {
+            return null;
+          }
+
+          const keyValues = _.tail(matched);
+
+          return {
+            keys,
+            matched,
+            params: _.zipObject(keyNames, keyValues),
+          };
+        });
+    }
+
+
 
     destroy() {
       this._listener();

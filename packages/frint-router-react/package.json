@@ -34,5 +34,9 @@
     "url": "https://github.com/Travix-International/frint/issues"
   },
   "license": "MIT",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "devDependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1"
+  }
 }

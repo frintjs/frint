@@ -1,10 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Link extends React.Component {
-  handleClick = () => {
+  static contextTypes = {
+    app: PropTypes.object.isRequired
+  };
+
+  handleClick = (e) => {
+    e.preventDefault();
+
     this.context.app
       .get('router')
-      .go(this.prop.to);
+      .push(this.props.to);
 
     return false;
   };

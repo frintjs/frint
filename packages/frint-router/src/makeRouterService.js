@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import pathToRegexp from 'path-to-regexp';
 
-export default makeRouterService(createHistory) {
+export default function makeRouterService(createHistory) {
   class RouterService {
     constructor(options = {}) {
       this.options = options;
@@ -40,9 +40,9 @@ export default makeRouterService(createHistory) {
           const keyNames = keys.map(k => k.name);
 
           if (!matched) {
-            if (updateParams) {
-              this._unsetParams(keyNames);
-            }
+            // if (updateParams) {
+            //   this._unsetParams(keyNames);
+            // }
 
             return null;
           }
@@ -50,9 +50,9 @@ export default makeRouterService(createHistory) {
           const keyValues = _.tail(matched);
           const params = _.zipObject(keyNames, keyValues);
 
-          if (updateParams) {
-            this._setParams(params);
-          }
+          // if (updateParams) {
+          //   this._setParams(params);
+          // }
 
           return {
             keys,
@@ -63,13 +63,13 @@ export default makeRouterService(createHistory) {
     }
 
     _unsetParams(names) {
-      this._params = names.reduce(acc, (name) => {
+      this._params = names.reduce((acc, (name) => {
         if (typeof acc[name] !== 'undefined') {
           delete acc[name];
         }
 
         return acc;
-      }, this._params);
+      }), this._params || {});
 
       this._params$.next(this._params);
     }

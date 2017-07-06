@@ -8,6 +8,10 @@ export default class Outlet extends React.Component {
     children: PropTypes.node,
   };
 
+  static contextTypes = {
+    app: PropTypes.object.isRequired
+  };
+
   constructor(...args) {
     super(...args);
 

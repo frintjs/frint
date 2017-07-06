@@ -19,13 +19,17 @@ export default class Outlet extends React.Component {
   componentDidMount() {
     if (this.props.routes) {
       // passed as configuration via props
-      this.state.routes = this.props.routes;
+      this.setState({
+        routes: this.props.routes,
+      });
     } else {
       // check if available as config from provider
       const routesConfig = this.context.app.get('routes');
 
       if (Array.isArray(routesConfig)) {
-        this.state.routes = routesConfig;
+        this.setState({
+          routes: routesConfig,
+        });
       }
     }
   }
@@ -39,7 +43,7 @@ export default class Outlet extends React.Component {
       return null;
     }
 
-    return this.state.routes.map(function (routeProps, index) {
+    const components = this.state.routes.map(function (routeProps, index) {
       // @TODO: handle routeProps.children (if any)
       return (
         <Route
@@ -48,5 +52,11 @@ export default class Outlet extends React.Component {
         />
       );
     });
+
+    return (
+      <div>
+        {components}
+      </div>
+    );
   }
 }

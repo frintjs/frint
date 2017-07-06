@@ -7,13 +7,25 @@ export default class Router extends React.Component {
 
     this.state = {
       component: () => null,
+      matched: null,
     };
   }
 
   componentDidMount() {
+    this.subscription = this.context.app
+      .get('router')
+      .getMatch$(this.props.path, true)
+      .subscribe((matched) => {
+        this.setState({
+          matched,
+        });
+      });
+
     if (this.props.component) {
       // sync component
-      this.state.component = this.props.component;
+      this.setState({
+        component: this.props.component,
+      });
     } else if (typeof this.props.getComponent === 'function') {
       // async component
       this.props.getComponent((err, component) => {
@@ -21,7 +33,9 @@ export default class Router extends React.Component {
           return console.error(err);
         }
 
-        this.state.component = component;
+        this.setState({
+          component,
+        });
       });
     } else if (this.props.App) {
       // @TODO: sync App
@@ -30,7 +44,15 @@ export default class Router extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.subscription.unsubscribe();
+  }
+
   render() {
-    return this.state.component;
+    const ComponentToRender = this.state.component;
+
+    return this.state.matched !== null
+      ? <ComponentToRender router={this.state.matched} />
+      : null;
   }
 }

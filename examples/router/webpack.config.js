@@ -26,6 +26,9 @@ module.exports = {
     'frint': 'Frint',
     'frint-react': 'FrintReact',
     'frint-store': 'FrintStore',
+    'frint-router': 'FrintRouter',
+    'frint-router/HashRouterService': 'FrintRouter.HashRouterService',
+    'frint-router-react': 'FrintRouterReact',
     'react': 'React',
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx'

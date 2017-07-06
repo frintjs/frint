@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class Router extends React.Component {
+  static contextTypes = {
+    app: PropTypes.object.isRequired
+  };
+
   constructor(...args) {
     super(...args);
 

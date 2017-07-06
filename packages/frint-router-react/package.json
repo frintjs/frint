@@ -27,7 +27,9 @@
   "keywords": [
     "frint"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "frint-router": "^2.0.0"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },

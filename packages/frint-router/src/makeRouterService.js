@@ -52,6 +52,17 @@ export default function makeRouterService(createHistory) {
 
           const keyValues = _.tail(matched);
           const params = _.zipObject(keyNames, keyValues);
+          const allKeysAvailable = keyNames
+            .filter(k => typeof k === 'string')
+            .every(k => params[k]);
+
+          if (!allKeysAvailable) {
+            // if (updateParams) {
+            //   this._unsetParams(keyNames);
+            // }
+
+            return null;
+          }
 
           // if (updateParams) {
           //   this._setParams(params);
@@ -62,14 +73,15 @@ export default function makeRouterService(createHistory) {
             .length;
 
           return {
+            // path,
             url: exact // @TODO: make it readable
               ? matched[0]
               : matched[0]
                 .split('/')
                 .slice(0, matched[0].split('/').length - availableKeysLength)
                 .join('/'), // @TODO: check URLs not starting with `/`
-            keys,
-            matched,
+            // keys,
+            // matched,
             params,
           };
         });

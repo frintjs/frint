@@ -18,7 +18,7 @@ export default class Router extends React.Component {
   componentDidMount() {
     this.subscription = this.context.app
       .get('router')
-      .getMatch$(this.props.path, true)
+      .getMatch$(this.props.path, this.props.exact, true)
       .subscribe((matched) => {
         this.setState({
           matched,
@@ -56,7 +56,7 @@ export default class Router extends React.Component {
     const ComponentToRender = this.state.component;
 
     return this.state.matched !== null
-      ? <ComponentToRender router={this.state.matched} />
+      ? <ComponentToRender route={this.state.matched} />
       : null;
   }
 }

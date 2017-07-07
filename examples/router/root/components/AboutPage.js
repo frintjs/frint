@@ -1,7 +1,11 @@
 import React from 'react';
-import { Link } from 'frint-router-react';
+import { Link, Route } from 'frint-router-react';
+
+import AboutPageUser from './AboutPageUser';
 
 export default function AboutPage(props) {
+  const { route } = props;
+
   return (
     <section className="section">
       <div className="container">
@@ -12,14 +16,25 @@ export default function AboutPage(props) {
             <p>About us...</p>
 
             {<ul>
-              <li><Link to={`${props.route.url}/foo`}>Foo</Link></li>
-              <li><Link to={`${props.route.url}/bar`}>Bar</Link></li>
-              <li><Link to={`${props.route.url}/baz`}>Baz</Link></li>
+              <li><Link to={`${route.url}/foo`}>Foo</Link></li>
+              <li><Link to={`${route.url}/bar`}>Bar</Link></li>
+              <li><Link to={`${route.url}/baz`}>Baz</Link></li>
             </ul>}
 
             <h4>Props</h4>
 
             <pre>{JSON.stringify(props, null, 2)}</pre>
+
+            <hr />
+
+            <Route path={`${route.url}/:user`} component={AboutPageUser} />
+
+            {(
+              !route.params[0] ||
+              route.params[0].length === 0
+            ) &&
+              <p>Click on a link above</p>
+            }
           </div>
         </div>
       </div>

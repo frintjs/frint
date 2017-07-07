@@ -30,11 +30,14 @@ export default function makeRouterService(createHistory) {
       return this._history$;
     }
 
-    getMatch$(path, updateParams = false) {
+    getMatch$(path, exact, updateParams = false) {
       return this.getHistory$()
         .map((history) => {
+          const checkPath = exact
+            ? path
+            : path + '*'; // @TODO: needs proper fix non `/` matches
           let keys = [];
-          const re = pathToRegexp(path, keys);
+          const re = pathToRegexp(checkPath, keys);
           const matched = re.exec(history.location.pathname);
 
           const keyNames = keys.map(k => k.name);
@@ -54,7 +57,17 @@ export default function makeRouterService(createHistory) {
           //   this._setParams(params);
           // }
 
+          const availableKeysLength = keyValues
+            .filter(v => v && v.length > 0)
+            .length;
+
           return {
+            url: exact // @TODO: make it readable
+              ? matched[0]
+              : matched[0]
+                .split('/')
+                .slice(0, matched[0].split('/').length - availableKeysLength)
+                .join('/'), // @TODO: check URLs not starting with `/`
             keys,
             matched,
             params,

@@ -25,6 +25,7 @@ export default createApp({
       useFactory: function () {
         return new HashRouterService();
       },
+      cascade: true,
     },
 
     // static routes configuration (pre-defined)

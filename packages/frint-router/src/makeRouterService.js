@@ -22,9 +22,6 @@ export default function makeRouterService(createHistory) {
           action: this._history.action,
         });
       });
-
-      this._params = {};
-      this._params$ = new BehaviorSubject(this._params);
     }
 
     getHistory$() {
@@ -34,7 +31,6 @@ export default function makeRouterService(createHistory) {
     getMatch$(pattern, opts = {}) {
       const options = {
         exact: false,
-        updateParams: false, // @TODO: implement later
         cache: true, // @TODO: implement later
         ...opts,
       };
@@ -45,28 +41,6 @@ export default function makeRouterService(createHistory) {
 
           return matched;
         });
-    }
-
-    _unsetParams(names) {
-      this._params = names.reduce((acc, (name) => {
-        if (typeof acc[name] !== 'undefined') {
-          delete acc[name];
-        }
-
-        return acc;
-      }), this._params || {});
-
-      this._params$.next(this._params);
-    }
-
-    _setParams(params) {
-      this._params = Object.assign({}, this._params, params);
-
-      this._params$.next(this._params);
-    }
-
-    getParams$() {
-      return this._params$;
     }
 
     destroy() {

@@ -6,6 +6,37 @@ export default class Link extends React.Component {
     app: PropTypes.object.isRequired
   };
 
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      active: false,
+    }
+  }
+
+  componentDidMount() {
+    this.subscription = null;
+
+    if (typeof this.props.active === 'string') {
+      this.subscription = this.context.app
+        .get('router')
+        .getMatch$(this.props.to)
+        .subscribe((matched) => {
+          if (!matched) {
+            return this.setState({ active: false });
+          }
+
+          return this.setState({ active: true });
+        });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   handleClick = (e) => {
     e.preventDefault();
 
@@ -17,11 +48,22 @@ export default class Link extends React.Component {
   };
 
   render() {
-    const { to, children, className, type } = this.props;
+    const {
+      to,
+      children,
+      className,
+      type,
+      active,
+    } = this.props;
+
     const linkProps = {
       onClick: this.handleClick,
-      className,
+      className: className || '',
     };
+
+    if (this.state.active) {
+      linkProps.className += ' ' + active;
+    }
 
     if (typeof type === 'undefined') {
       // anchor

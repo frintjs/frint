@@ -29,10 +29,7 @@ export default function AboutPage(props) {
 
             <Route path={`${route.url}/:user`} component={AboutPageUser} />
 
-            {(
-              !route.params[0] ||
-              route.params[0].length === 0
-            ) &&
+            {route.isExact &&
               <p>Click on a link above</p>
             }
           </div>

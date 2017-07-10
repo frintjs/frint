@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
-import pathToRegexp from 'path-to-regexp';
+
+import matchFromHistory from './matchFromHistory';
 
 export default function makeRouterService(createHistory) {
   class RouterService {
@@ -30,60 +31,19 @@ export default function makeRouterService(createHistory) {
       return this._history$;
     }
 
-    getMatch$(path, exact, updateParams = false) {
+    getMatch$(pattern, opts = {}) {
+      const options = {
+        exact: false,
+        updateParams: false, // @TODO: implement later
+        cache: true, // @TODO: implement later
+        ...opts,
+      };
+
       return this.getHistory$()
         .map((history) => {
-          const checkPath = exact
-            ? path
-            : path + '*'; // @TODO: needs proper fix non `/` matches
-          let keys = [];
-          const re = pathToRegexp(checkPath, keys);
-          const matched = re.exec(history.location.pathname);
+          const matched = matchFromHistory(pattern, history, options);
 
-          const keyNames = keys.map(k => k.name);
-
-          if (!matched) {
-            // if (updateParams) {
-            //   this._unsetParams(keyNames);
-            // }
-
-            return null;
-          }
-
-          const keyValues = _.tail(matched);
-          const params = _.zipObject(keyNames, keyValues);
-          const allKeysAvailable = keyNames
-            .filter(k => typeof k === 'string')
-            .every(k => params[k]);
-
-          if (!allKeysAvailable) {
-            // if (updateParams) {
-            //   this._unsetParams(keyNames);
-            // }
-
-            return null;
-          }
-
-          // if (updateParams) {
-          //   this._setParams(params);
-          // }
-
-          const availableKeysLength = keyValues
-            .filter(v => v && v.length > 0)
-            .length;
-
-          return {
-            // path,
-            url: exact // @TODO: make it readable
-              ? matched[0]
-              : matched[0]
-                .split('/')
-                .slice(0, matched[0].split('/').length - availableKeysLength)
-                .join('/'), // @TODO: check URLs not starting with `/`
-            // keys,
-            // matched,
-            params,
-          };
+          return matched;
         });
     }
 

@@ -18,7 +18,10 @@ export default class Router extends React.Component {
   componentDidMount() {
     this.subscription = this.context.app
       .get('router')
-      .getMatch$(this.props.path, this.props.exact, true)
+      .getMatch$(this.props.path, {
+        exact: this.props.exact,
+        updateParams: true,
+      })
       .subscribe((matched) => {
         this.setState({
           matched,

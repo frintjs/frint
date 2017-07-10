@@ -29,7 +29,9 @@
     "babel-loader": "^6.2.9",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
+    "css-loader": "^0.28.4",
     "live-server": "^1.2.0",
+    "style-loader": "^0.18.2",
     "webpack": "^2.2.0"
   }
 }

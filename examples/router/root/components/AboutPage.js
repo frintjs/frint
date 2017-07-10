@@ -16,9 +16,9 @@ export default function AboutPage(props) {
             <p>About us...</p>
 
             {<ul>
-              <li><Link to={`${route.url}/foo`}>Foo</Link></li>
-              <li><Link to={`${route.url}/bar`}>Bar</Link></li>
-              <li><Link to={`${route.url}/baz`}>Baz</Link></li>
+              <li><Link to={`${route.url}/foo`} active="is-active">Foo</Link></li>
+              <li><Link to={`${route.url}/bar`} active="is-active">Bar</Link></li>
+              <li><Link to={`${route.url}/baz`} active="is-active">Baz</Link></li>
             </ul>}
 
             <h4>Props</h4>

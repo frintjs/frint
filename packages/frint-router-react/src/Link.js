@@ -17,10 +17,12 @@ export default class Link extends React.Component {
   componentDidMount() {
     this.subscription = null;
 
-    if (typeof this.props.active === 'string') {
+    if (typeof this.props.activeClassName === 'string') {
       this.subscription = this.context.app
         .get('router')
-        .getMatch$(this.props.to)
+        .getMatch$(this.props.to, {
+          exact: this.props.exact ? true : false,
+        })
         .subscribe((matched) => {
           if (!matched) {
             return this.setState({ active: false });
@@ -53,7 +55,7 @@ export default class Link extends React.Component {
       children,
       className,
       type,
-      active,
+      activeClassName,
     } = this.props;
 
     const linkProps = {
@@ -62,7 +64,7 @@ export default class Link extends React.Component {
     };
 
     if (this.state.active) {
-      linkProps.className += ' ' + active;
+      linkProps.className += ' ' + activeClassName;
     }
 
     if (typeof type === 'undefined') {

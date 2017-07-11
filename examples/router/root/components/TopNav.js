@@ -6,11 +6,20 @@ export default function TopNav() {
     <nav className="nav">
       <div className="container">
         <div className="nav-left">
-          <Link to="/" className="nav-item brand">
+          <Link
+            to="/"
+            className="nav-item is-tab"
+            activeClassName="is-active"
+            exact
+          >
             Home
           </Link>
 
-          <Link to="/about" className="nav-item is-tab">
+          <Link
+            to="/about"
+            className="nav-item is-tab"
+            activeClassName="is-active"
+          >
             About
           </Link>
         </div>

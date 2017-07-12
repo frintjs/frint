@@ -182,3 +182,6 @@ window.app.registerApp(App, {
   regions: ['sidebar']
 });
 ```
+
+Visit the [Async loading](/guides/async-loading) guide to learn how you can
+loading root and child apps asynchronously.

@@ -2,6 +2,14 @@ import _ from 'lodash';
 import pathToRegexp from 'path-to-regexp';
 
 export default function matchFromHistory(pattern, history, options = {}) {
+  if (!pattern) {
+    return {
+      url: history.location.pathname,
+      isExact: false,
+      params: {},
+    };
+  }
+
   const keys = [];
   const re = pathToRegexp(pattern, keys, {
     end: options.exact ? true : false,

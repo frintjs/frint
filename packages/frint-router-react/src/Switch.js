@@ -1,0 +1,73 @@
+import _ from 'lodash';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import Route from './Route';
+
+export default class Switch extends React.Component {
+  static contextTypes = {
+    app: PropTypes.object.isRequired
+  };
+
+  static propTypes = {
+    children: PropTypes.node,
+  };
+
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      history: null,
+    };
+
+    this.subscription = null;
+  }
+
+  componentWillMount() {
+    this.subscription = this.context.app
+      .get('router')
+      .getHistory$()
+      .subscribe((history) => {
+        this.setState({
+          history,
+        });
+      });
+  }
+
+  componentWillUnmount() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  render() {
+    let route = null;
+    let child = null;
+
+    React.Children.forEach(this.props.children, (element) => {
+      if (route !== null) {
+        return;
+      }
+
+      if (!React.isValidElement(element)) {
+        return;
+      }
+
+      const { path, exact } = element.props;
+
+      child = element;
+      route = path
+        ? this.context.app
+          .get('router')
+          .getMatch(path, this.state.history, { exact })
+        : null;
+    });
+
+    if (!child) {
+      return null;
+    }
+
+    // @TODO: not working properly on URL changes
+    return React.cloneElement(child, { route });
+  }
+}

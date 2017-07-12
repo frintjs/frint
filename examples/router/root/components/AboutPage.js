@@ -1,7 +1,23 @@
 import React from 'react';
-import { Link, Route } from 'frint-router-react';
+import { Link, Route, Switch } from 'frint-router-react';
 
 import AboutPageUser from './AboutPageUser';
+
+function NoUserSelected() {
+  return (
+    <p>No user selected.</p>
+  );
+}
+
+function AboutCompany() {
+  return (
+    <div>
+      <h3>About our company</h3>
+
+      <p>Text here...</p>
+    </div>
+  );
+}
 
 export default function AboutPage(props) {
   const { route } = props;
@@ -16,6 +32,8 @@ export default function AboutPage(props) {
             <p>About us...</p>
 
             {<ul>
+              <li><Link to={`${route.url}/company`} activeClassName="is-active">Company</Link></li>
+              <li>-</li>
               <li><Link to={`${route.url}/foo`} activeClassName="is-active">Foo</Link></li>
               <li><Link to={`${route.url}/bar`} activeClassName="is-active">Bar</Link></li>
               <li><Link to={`${route.url}/baz`} activeClassName="is-active">Baz</Link></li>
@@ -27,11 +45,12 @@ export default function AboutPage(props) {
 
             <hr />
 
-            <Route path={`${route.url}/:user`} component={AboutPageUser} />
-
-            {route.isExact &&
-              <p>Click on a link above</p>
-            }
+            {/* shows only one Route, or last one as default */}
+            <Switch>
+              <Route path={`${route.url}/company`} component={AboutCompany} />
+              <Route path={`${route.url}/:user`} component={AboutPageUser} />
+              <Route component={NoUserSelected} /> {/* default if nothing else matched */}
+            </Switch>
           </div>
         </div>
       </div>

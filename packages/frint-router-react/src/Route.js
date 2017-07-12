@@ -51,7 +51,9 @@ export default class Router extends React.Component {
   }
 
   componentWillUnmount() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   render() {

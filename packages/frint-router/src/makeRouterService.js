@@ -28,19 +28,23 @@ export default function makeRouterService(createHistory) {
       return this._history$;
     }
 
-    getMatch$(pattern, opts = {}) {
+    getMatch$(pattern, options = {}) {
+      return this.getHistory$()
+        .map((history) => {
+          return this.getMatch(pattern, history, options);
+        });
+    }
+
+    getMatch(pattern, history, opts = {}) {
       const options = {
         exact: false,
         cache: true, // @TODO: implement later
         ...opts,
       };
 
-      return this.getHistory$()
-        .map((history) => {
-          const matched = matchFromHistory(pattern, history, options);
+      const matched = matchFromHistory(pattern, history, options);
 
-          return matched;
-        });
+      return matched;
     }
 
     destroy() {

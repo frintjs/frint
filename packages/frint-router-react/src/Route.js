@@ -16,17 +16,26 @@ export default class Router extends React.Component {
   }
 
   componentDidMount() {
-    this.subscription = this.context.app
-      .get('router')
-      .getMatch$(this.props.path, {
-        exact: this.props.exact,
-      })
-      .subscribe((matched) => {
-        this.setState({
-          matched,
+    // @TODO: uncomment later, since it is more optimized
+    // match
+    // if (this.props.computedRoute) {
+    //   this.setState({
+    //     matched: this.props.computedRoute,
+    //   });
+    // } else {
+      this.subscription = this.context.app
+        .get('router')
+        .getMatch$(this.props.path, {
+          exact: this.props.exact,
+        })
+        .subscribe((matched) => {
+          this.setState({
+            matched,
+          });
         });
-      });
+    // }
 
+    // component
     if (this.props.component) {
       // sync component
       this.setState({

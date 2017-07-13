@@ -67,10 +67,13 @@ export default class Switch extends React.Component {
       if (route !== null) {
         child = React.cloneElement(element, {
           ...element.props,
-          route,
+          computedRoute: route,
         });
       }
     });
+
+    // @TODO: remove debug code
+    console.log('switched child', child.props, child);
 
     // @TODO: doesn't work properly on URL changes
     return child;

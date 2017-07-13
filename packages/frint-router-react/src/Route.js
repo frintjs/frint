@@ -17,6 +17,14 @@ export default class Router extends React.Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.component !== this.state.component) {
+      this.setState({
+        component: newProps.component,
+      });
+    }
+  }
+
   componentDidMount() {
     // @TODO: uncomment later, since it is more optimized
     // match
@@ -91,6 +99,7 @@ export default class Router extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     const ComponentToRender = this.state.component;
 
     return this.state.matched !== null

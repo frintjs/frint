@@ -23,16 +23,21 @@ export default class Router extends React.Component {
         component: newProps.component,
       });
     }
+
+    if (newProps.computedRoute !== this.state.matched) {
+      this.setState({
+        matched: newProps.computedRoute,
+      });
+    }
   }
 
   componentDidMount() {
-    // @TODO: uncomment later, since it is more optimized
     // match
-    // if (this.props.computedRoute) {
-    //   this.setState({
-    //     matched: this.props.computedRoute,
-    //   });
-    // } else {
+    if (this.props.computedRoute) {
+      this.setState({
+        matched: this.props.computedRoute,
+      });
+    } else {
       this.subscription = this.context.app
         .get('router')
         .getMatch$(this.props.path, {
@@ -43,7 +48,7 @@ export default class Router extends React.Component {
             matched,
           });
         });
-    // }
+    }
 
     // component
     if (this.props.component) {

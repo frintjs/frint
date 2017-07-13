@@ -6,7 +6,7 @@ import Root from '../components/Root';
 import HomePage from '../components/HomePage';
 import AboutPage from '../components/AboutPage';
 
-// import MessagesApp from '../../app-messages/app';
+import ContactApp from '../../app-contact/app';
 // import TodosApp from '../../app-todos/app';
 
 export default createApp({
@@ -47,10 +47,10 @@ export default createApp({
         },
 
         // // sync app
-        // {
-        //   path: '/messages',
-        //   App: MessagesApp, // will bring its own dynamic child routes
-        // },
+        {
+          path: '/contact',
+          app: ContactApp,
+        },
 
         // // async app
         // {

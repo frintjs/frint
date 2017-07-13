@@ -41,11 +41,10 @@ export default class Switch extends React.Component {
   }
 
   render() {
-    let route = null;
     let child = null;
 
     React.Children.forEach(this.props.children, (element) => {
-      if (route !== null) {
+      if (child !== null) {
         return;
       }
 
@@ -55,19 +54,25 @@ export default class Switch extends React.Component {
 
       const { path, exact } = element.props;
 
-      child = element;
-      route = path
-        ? this.context.app
-          .get('router')
-          .getMatch(path, this.state.history, { exact })
-        : null;
+      if (!path) {
+        child = React.cloneElement(element);
+
+        return;
+      }
+
+      const route = this.context.app
+        .get('router')
+        .getMatch(path, this.state.history, { exact });
+
+      if (route !== null) {
+        child = React.cloneElement(element, {
+          ...element.props,
+          route,
+        });
+      }
     });
 
-    if (!child) {
-      return null;
-    }
-
-    // @TODO: not working properly on URL changes
-    return React.cloneElement(child, { route });
+    // @TODO: doesn't work properly on URL changes
+    return child;
   }
 }

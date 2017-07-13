@@ -64,13 +64,29 @@ export default class Router extends React.Component {
         component: getMountableComponent(this.routeApp)
       });
     } else if (typeof this.props.getApp === 'function') {
-      // @TODO: async App
+      // async App
+      this.props.getApp((err, RouteApp) => {
+        if (err) {
+          return console.error(err);
+        }
+
+        this.routeApp = new RouteApp({
+          parentApp: this.context.app,
+        });
+        this.setState({
+          component: getMountableComponent(this.routeApp)
+        });
+      });
     }
   }
 
   componentWillUnmount() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+
+    if (this.routeApp) {
+      this.routeApp.beforeDestroy();
     }
   }
 

@@ -7,7 +7,7 @@ import HomePage from '../components/HomePage';
 import AboutPage from '../components/AboutPage';
 
 import ContactApp from '../../app-contact/app';
-// import TodosApp from '../../app-todos/app';
+import ServicesApp from '../../app-services/app';
 
 export default createApp({
   name: 'RouterApp',
@@ -53,10 +53,10 @@ export default createApp({
         },
 
         // // async app
-        // {
-        //   path: '/todos',
-        //   getApp: cb => cb(null, TodosApp), // will brings own own dynamic child routes
-        // },
+        {
+          path: '/services',
+          getApp: cb => cb(null, ServicesApp),
+        },
       ]
     }
   ],

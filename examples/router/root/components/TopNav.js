@@ -16,6 +16,14 @@ export default function TopNav() {
           </Link>
 
           <Link
+            to="/services"
+            className="nav-item is-tab"
+            activeClassName="is-active"
+          >
+            Services
+          </Link>
+
+          <Link
             to="/about"
             className="nav-item is-tab"
             activeClassName="is-active"

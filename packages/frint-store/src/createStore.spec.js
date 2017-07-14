@@ -310,7 +310,7 @@ describe('frint-store › createStore', function () {
     subscription.unsubscribe();
   });
 
-  it('handles combined reducers', function () {
+  describe('handles combined reducers', function () {
     function counterReducer(state = { value: 0 }, action) {
       switch (action.type) {
         case 'INCREMENT_COUNTER':
@@ -342,39 +342,104 @@ describe('frint-store › createStore', function () {
       color: colorReducer,
     });
 
-    const Store = createStore({
-      enableLogger: false,
-      initialState: {
-        counter: {
-          value: 100,
+    it('with given initial state', function () {
+      const Store = createStore({
+        enableLogger: false,
+        initialState: {
+          counter: {
+            value: 100,
+          },
+          color: {
+            value: 'red'
+          }
         },
-        color: {
-          value: 'red'
-        }
-      },
-      reducer: rootReducer,
-    });
-    const store = new Store();
-
-    const states = [];
-    const subscription = store.getState$()
-      .subscribe((state) => {
-        states.push(state);
+        reducer: rootReducer,
       });
+      const store = new Store();
 
-    store.dispatch({ type: 'INCREMENT_COUNTER' });
-    store.dispatch({ type: 'INCREMENT_COUNTER' });
-    store.dispatch({ type: 'DECREMENT_COUNTER' });
-    store.dispatch({ type: 'SET_COLOR', color: 'green' });
+      const states = [];
+      const subscription = store.getState$()
+        .subscribe((state) => {
+          states.push(state);
+        });
 
-    expect(states).to.deep.equal([
-      { counter: { value: 100 }, color: { value: 'red' } },  // initial
-      { counter: { value: 101 }, color: { value: 'red' } },  // INCREMENT_COUNTER
-      { counter: { value: 102 }, color: { value: 'red' } },  // INCREMENT_COUNTER
-      { counter: { value: 101 }, color: { value: 'red' } },  // DECREMENT_COUNTER
-      { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
-    ]);
+      store.dispatch({ type: 'INCREMENT_COUNTER' });
+      store.dispatch({ type: 'INCREMENT_COUNTER' });
+      store.dispatch({ type: 'DECREMENT_COUNTER' });
+      store.dispatch({ type: 'SET_COLOR', color: 'green' });
 
-    subscription.unsubscribe();
+      expect(states).to.deep.equal([
+        { counter: { value: 100 }, color: { value: 'red' } },  // initial
+        { counter: { value: 101 }, color: { value: 'red' } },  // INCREMENT_COUNTER
+        { counter: { value: 102 }, color: { value: 'red' } },  // INCREMENT_COUNTER
+        { counter: { value: 101 }, color: { value: 'red' } },  // DECREMENT_COUNTER
+        { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
+      ]);
+
+      subscription.unsubscribe();
+    });
+
+    it('with no given initial state', function () {
+      const Store = createStore({
+        enableLogger: false,
+        reducer: rootReducer,
+      });
+      const store = new Store();
+
+      const states = [];
+      const subscription = store.getState$()
+        .subscribe((state) => {
+          states.push(state);
+        });
+
+      store.dispatch({ type: 'INCREMENT_COUNTER' });
+      store.dispatch({ type: 'INCREMENT_COUNTER' });
+      store.dispatch({ type: 'DECREMENT_COUNTER' });
+      store.dispatch({ type: 'SET_COLOR', color: 'green' });
+
+      expect(states).to.deep.equal([
+        { counter: { value: 0 }, color: { value: 'blue' } },  // initial
+        { counter: { value: 1 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
+        { counter: { value: 2 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
+        { counter: { value: 1 }, color: { value: 'blue' } },  // DECREMENT_COUNTER
+        { counter: { value: 1 }, color: { value: 'green' } } // SET_COLOR
+      ]);
+
+      subscription.unsubscribe();
+    });
+
+    it('with partially given initial state for certain reducers', function () {
+      const Store = createStore({
+        enableLogger: false,
+        initialState: {
+          counter: {
+            value: 100,
+          },
+        },
+        reducer: rootReducer,
+      });
+      const store = new Store();
+
+      const states = [];
+      const subscription = store.getState$()
+        .subscribe((state) => {
+          states.push(state);
+        });
+
+      store.dispatch({ type: 'INCREMENT_COUNTER' });
+      store.dispatch({ type: 'INCREMENT_COUNTER' });
+      store.dispatch({ type: 'DECREMENT_COUNTER' });
+      store.dispatch({ type: 'SET_COLOR', color: 'green' });
+
+      expect(states).to.deep.equal([
+        { counter: { value: 100 }, color: { value: 'blue' } },  // initial
+        { counter: { value: 101 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
+        { counter: { value: 102 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
+        { counter: { value: 101 }, color: { value: 'blue' } },  // DECREMENT_COUNTER
+        { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
+      ]);
+
+      subscription.unsubscribe();
+    });
   });
 });

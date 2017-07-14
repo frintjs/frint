@@ -20,13 +20,11 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component bound to observable for props, without app in context', function () {
-    const Component = React.createClass({
-      render() {
-        return (
-          <p id="counter">{this.props.counter}</p>
-        );
-      }
-    });
+    function Component({ counter }) {
+      return (
+        <p id="counter">{counter}</p>
+      );
+    }
 
     const ObservedComponent = observe(function () {
       return Observable
@@ -43,13 +41,11 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component with no additional impact, if no function is given', function () {
-    const Component = React.createClass({
-      render() {
-        return (
-          <p id="text">Hello World</p>
-        );
-      }
-    });
+    function Component() {
+      return (
+        <p id="text">Hello World</p>
+      );
+    }
 
     const ObservedComponent = observe()(Component);
 
@@ -62,13 +58,11 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component bound to observable for props, with app in context', function () {
-    const Component = React.createClass({
-      render() {
-        return (
-          <p id="name">{this.props.name}</p>
-        );
-      }
-    });
+    function Component({ name }) {
+      return (
+        <p id="name">{name}</p>
+      );
+    }
 
     const ObservedComponent = observe(function (app) {
       return Observable
@@ -106,23 +100,19 @@ describe('frint-react › components › observe', function () {
   });
 
   it('can be tested with enzyme', function () {
-    const ChildComponent = React.createClass({
-      render() {
-        return <p>I am a child.</p>;
-      }
-    });
+    function ChildComponent() {
+      return <p>I am a child.</p>;
+    }
 
-    const Component = React.createClass({
-      render() {
-        return (
-          <div>
-            <p id="name">{this.props.name}</p>
+    function Component({ name }) {
+      return (
+        <div>
+          <p id="name">{name}</p>
 
-            <ChildComponent />
-          </div>
-        );
-      }
-    });
+          <ChildComponent />
+        </div>
+      );
+    }
 
     const ObservedComponent = observe(function (app) {
       return Observable
@@ -136,15 +126,13 @@ describe('frint-react › components › observe', function () {
       }
     };
 
-    const ComponentToRender = React.createClass({
-      render() {
-        return (
-          <Provider app={fakeApp}>
-            <ObservedComponent {...this.props} />
-          </Provider>
-        );
-      }
-    });
+    function ComponentToRender(props) {
+      return (
+        <Provider app={fakeApp}>
+          <ObservedComponent {...props} />
+        </Provider>
+      );
+    }
 
     const wrapper = mount(<ComponentToRender />);
     expect(wrapper.find(ObservedComponent)).to.have.length(1);

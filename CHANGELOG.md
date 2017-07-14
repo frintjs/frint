@@ -1,5 +1,65 @@
 # Change Log
 
+## v2.0.1 (2017-06-19)
+
+Maintenance release to force all package versions in the monorepo to be same.
+
+## v2.0.0 (2017-06-19)
+
+#### Pull Requests
+* `frint-compat`, `frint-react-server`, `frint-react`
+  * [#213](https://github.com/Travix-International/frint/pull/213) Upgrade all packages to React v15+. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v1.4.2 (2017-06-19)
+
+#### Pull Requests
+* `frint-store`
+  * [#225](https://github.com/Travix-International/frint/pull/225) Fix for initializing Stores with combined reducers. ([@fahad19](https://github.com/fahad19))
+* `frint-react`
+  * [#224](https://github.com/Travix-International/frint/pull/224) Minor fix for docs in frint-react. ([@yurist38](https://github.com/yurist38))
+* `frint-preset-travix`
+  * [#223](https://github.com/Travix-International/frint/pull/223) Removed `frint-preset-travix` from monorepo. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#214](https://github.com/Travix-International/frint/pull/214) Update lerna-changelog to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+  * [#218](https://github.com/Travix-International/frint/pull/218) Update nyc to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+  * [#222](https://github.com/Travix-International/frint/pull/222) Fixes for `alex`. ([@fahad19](https://github.com/fahad19))
+  * [#219](https://github.com/Travix-International/frint/pull/219) Quick start with `frint-cli`, and getting rid of Makefile in examples. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Yuri Drabik ([yurist38](https://github.com/yurist38))
+
+## v1.4.1 (2017-05-29)
+
+#### Pull Requests
+* `frint-cli`
+  * [#212](https://github.com/Travix-International/frint/pull/212) frint-cli: fix for `init` by removing extra space from command. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v1.4.0 (2017-05-29)
+
+#### Pull Requests
+* `frint-cli`, `frint-model`
+  * [#211](https://github.com/Travix-International/frint/pull/211) Show `frint-cli` docs in site. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react-server`, `frint-react`
+  * [#210](https://github.com/Travix-International/frint/pull/210) Root dependencies cleaned up. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`
+  * [#209](https://github.com/Travix-International/frint/pull/209) Frint CLI. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#200](https://github.com/Travix-International/frint/pull/200) Examples: use Html webpack plugin. ([@asci](https://github.com/asci))
+  * [#190](https://github.com/Travix-International/frint/pull/190) Examples: `multiple-apps` upgraded to use Frint v1.x. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react`
+  * [#199](https://github.com/Travix-International/frint/pull/199) ESLint fixes in tests. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Artem Riasnianskyi ([asci](https://github.com/asci))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v1.3.1 (2017-05-10)
 
 #### Pull Requests

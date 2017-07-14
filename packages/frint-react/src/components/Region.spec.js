@@ -21,15 +21,13 @@ describe('frint-react › components › Region', function () {
   });
 
   it('renders empty region when no root app available', function () {
-    const MyComponent = React.createClass({
-      render() {
-        return (
-          <div id="my-component">
-            <Region name="left-sidebar" />
-          </div>
-        );
-      }
-    });
+    function MyComponent() {
+      return (
+        <div id="my-component">
+          <Region name="left-sidebar" />
+        </div>
+      );
+    }
 
     ReactDOM.render(
       <MyComponent />,
@@ -37,23 +35,21 @@ describe('frint-react › components › Region', function () {
     );
 
     const element = document.getElementById('my-component');
-    expect(element.innerHTML.startsWith('<noscript ')).to.equal(true);
-    expect(element.innerHTML.endsWith('</noscript>')).to.equal(true);
+    expect(element.innerHTML.startsWith('<!-- react-empty: ')).to.equal(true);
+    expect(element.innerHTML.endsWith(' -->')).to.equal(true);
   });
 
   it('renders apps with weighted ordering', function () {
     resetDOM();
 
     // root
-    const RootComponent = React.createClass({
-      render() {
-        return (
-          <div>
-            <Region name="sidebar" />
-          </div>
-        );
-      }
-    });
+    function RootComponent() {
+      return (
+        <div>
+          <Region name="sidebar" />
+        </div>
+      );
+    }
     const RootApp = createApp({
       name: 'RootApp',
       providers: [
@@ -62,11 +58,9 @@ describe('frint-react › components › Region', function () {
     });
 
     // apps
-    const App1Component = React.createClass({
-      render() {
-        return <p>App 1</p>;
-      }
-    });
+    function App1Component() {
+      return <p>App 1</p>;
+    }
     const App1 = createApp({
       name: 'App1',
       providers: [
@@ -74,11 +68,9 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
-    const App2Component = React.createClass({
-      render() {
-        return <p>App 2</p>;
-      }
-    });
+    function App2Component() {
+      return <p>App 2</p>;
+    }
     const App2 = createApp({
       name: 'App2',
       providers: [
@@ -111,16 +103,14 @@ describe('frint-react › components › Region', function () {
 
   it('warns when apps subscription emits an error', function () {
     // root
-    const RootComponent = React.createClass({
-      render() {
-        return (
-          <div>
-            <Region name="sidebar" />
-            <Region name="footer" />
-          </div>
-        );
-      }
-    });
+    function RootComponent() {
+      return (
+        <div>
+          <Region name="sidebar" />
+          <Region name="footer" />
+        </div>
+      );
+    }
     const RootApp = createApp({
       name: 'RootApp',
       providers: [
@@ -156,7 +146,7 @@ describe('frint-react › components › Region', function () {
       { id: '3', title: 'Third todo' },
     ];
     let rootComponentInstance; // @TODO: hack
-    const RootComponent = React.createClass({
+    class RootComponent extends React.Component {
       render() {
         rootComponentInstance = this;
 
@@ -166,7 +156,7 @@ describe('frint-react › components › Region', function () {
 
             <Region name="sidebar" />
 
-            <ul classNames="todos">
+            <ul className="todos">
               {todos.map((todo) => {
                 return (
                   <li key={`todo-item-${todo.id}`}>
@@ -184,7 +174,7 @@ describe('frint-react › components › Region', function () {
           </div>
         );
       }
-    });
+    }
     const RootApp = createApp({
       name: 'RootApp',
       providers: [
@@ -193,11 +183,9 @@ describe('frint-react › components › Region', function () {
     });
 
     // apps
-    const App1Component = React.createClass({
-      render() {
-        return <p id="app1-text">Hello World from App1</p>;
-      }
-    });
+    function App1Component() {
+      return <p id="app1-text">Hello World from App1</p>;
+    }
     const App1 = createApp({
       name: 'App1',
       providers: [
@@ -211,11 +199,9 @@ describe('frint-react › components › Region', function () {
           data => ({ todo: data.todo })
         )
         .get$();
-    })(React.createClass({
-      render() {
-        return <p className="app2-text">Hello World from App2 - {this.props.todo.title}</p>;
-      }
-    }));
+    })(({ todo }) => (
+      <p className="app2-text">Hello World from App2 - {todo.title}</p>
+    ));
     const App2 = createApp({
       name: 'App2',
       providers: [
@@ -271,7 +257,7 @@ describe('frint-react › components › Region', function () {
       { id: '1', title: 'First todo' },
     ];
     let rootComponentInstance; // @TODO: hack
-    const RootComponent = React.createClass({
+    class RootComponent extends React.Component {
       render() {
         rootComponentInstance = this;
 
@@ -281,7 +267,7 @@ describe('frint-react › components › Region', function () {
 
             <Region name="sidebar" />
 
-            <ul classNames="todos">
+            <ul className="todos">
               {todos.map((todo) => {
                 return (
                   <li key={`todo-item-${todo.id}`}>
@@ -299,7 +285,7 @@ describe('frint-react › components › Region', function () {
           </div>
         );
       }
-    });
+    }
     const RootApp = createApp({
       name: 'RootApp',
       providers: [
@@ -315,11 +301,9 @@ describe('frint-react › components › Region', function () {
           data => ({ todo: data.todo })
         )
         .get$();
-    })(React.createClass({
-      render() {
-        return <p className="app-text">Hello World from App - {this.props.todo.title}</p>;
-      }
-    }));
+    })(({ todo }) => (
+      <p className="app-text">Hello World from App - {todo.title}</p>
+    ));
     let beforeDestroyCalled = false;
     const App = createApp({
       name: 'App',

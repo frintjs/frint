@@ -45,13 +45,11 @@ Now let's say, we have a basic React component:
 // components/Root.js
 import React from 'react';
 
-const MyComponent = React.createClass({
-  render() {
-    return (
-      <p>Name: {this.props.name}</p>
-    );
-  }
-});
+function MyComponent(props) {
+  return (
+    <p>Name: {props.name}</p>
+  );
+}
 
 export default MyComponent;
 ```
@@ -88,13 +86,11 @@ But we want to inject the App's name to the component, and we could easily do th
 import { Observable } from 'rxjs';
 import { observe } from 'frint-react';
 
-const MyComponent = React.createClass({
-  render() {
-    return (
-      <p>Name: {this.props.name}</p>
-    );
-  }
-});
+function MyComponent(props) {
+  return (
+    <p>Name: {props.name}</p>
+  );
+}
 
 export default observe(function (app) {
   // `app` is our App's instance

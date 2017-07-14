@@ -36,7 +36,12 @@ describe('frint-compat › createService', () => {
   });
 
   it('must contain the functions passed in the spec', () => {
-    expect(myServiceInstance).to.include.all.keys('initialize', 'customFunction1', 'customFunction2', 'returnsThis');
+    expect(Object.keys(myServiceInstance)).to.include(
+      'initialize',
+      'customFunction1',
+      'customFunction2',
+      'returnsThis'
+    );
 
     expect(myServiceInstance.customFunction1()).to.be.equal('value1');
     expect(myServiceInstance.customFunction2()).to.be.equal('value2');

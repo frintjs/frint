@@ -1,13 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it, beforeEach, afterEach */
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import Frint from 'frint';
 
 import extendApp from './extendApp';
-
-chai.use(chaiEnzyme());
 
 describe('frint-compat › extendApp', function () {
   const { App } = Frint;

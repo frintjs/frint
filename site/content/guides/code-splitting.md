@@ -49,7 +49,7 @@ We will see some code examples below.
 First the vendors:
 
 ```
-$ npm install --save lodash rxjs react react-dom frint frint-store frint-model frint-react
+$ npm install --save lodash rxjs react react-dom prop-types frint frint-store frint-model frint-react
 ```
 
 And the devDependencies for bundling:

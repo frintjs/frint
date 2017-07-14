@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, class-methods-use-this */
 import React from 'react';
 import FrintReact from 'frint-react';
 
@@ -9,19 +10,19 @@ export default function makeGetMountableComponent(Frint) {
 
     app.beforeMount();
 
-    const WrapperComponent = React.createClass({
+    class WrapperComponent extends React.Component {
       componentDidMount() {
         app.afterMount();
-      },
+      }
 
       componentWillUnmount() {
         app.beforeUnmount();
-      },
+      }
 
       render() {
         return <ComponentInProvider {...this.props} />;
       }
-    });
+    }
 
     return WrapperComponent;
   }

@@ -1,4 +1,6 @@
-# model
+# frint-model
+
+[![npm](https://img.shields.io/npm/v/frint-model.svg)](https://www.npmjs.com/package/frint-model)
 
 > Model package for Frint
 

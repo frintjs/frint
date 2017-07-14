@@ -15,11 +15,11 @@ sidebarPartial: guidesSidebar
 ## Why should you load apps asyncrounously?
 
 When performance is crucial, a common pattern for speeding up page loading is adding the
-`async` attribute to a html document script tags, this allows the browser to continue parsing the html without stopping, waiting for the script to completely download, parse and execute. This comes with a downside, which is that the scripts being referenced in the html document are not guaranteed to execute in order.
+`async` attribute to a html document script tags, this allows the browser to continue parsing the html without stopping, waiting for the script to completely download, parse and run. This comes with a downside, which is that the scripts being referenced in the html document are not guaranteed to run in order.
 
 ## How can we solve this?
 
-To workaround the order-of-execution problem, we can use a technique popularized by the
+To workaround the run-order problem, we can use a technique popularized by the
 Google Analytics tracking snippet. The technique works by creating a global array container
 where any app will register to, until the moment the main root application loads.
 

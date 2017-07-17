@@ -2,9 +2,9 @@ import { render } from 'frint-react';
 
 import App from './app';
 
-window.app = new App();
+const apps = window.app || [];
+const app = window.app = new App();
+app.push = options => app.registerApp(...options);
+apps.forEach(app.push);
 
-render(
-  window.app,
-  document.getElementById('root')
-);
+render(app, document.getElementById('root'));

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Link extends React.Component {
+// TODO check package(s).json
+
+class Link extends React.Component {
   static contextTypes = {
     app: PropTypes.object.isRequired
   };
@@ -11,29 +13,49 @@ export default class Link extends React.Component {
 
     this.state = {
       active: false,
-    }
+    };
+
+    this.subscription = null;
   }
 
   componentDidMount() {
-    this.subscription = null;
+    this.considerSubscribingToRouter(this.props);
+  }
 
-    if (typeof this.props.activeClassName === 'string') {
-      this.subscription = this.context.app
-        .get('router')
-        .getMatch$(this.props.to, {
-          exact: this.props.exact ? true : false,
-        })
-        .subscribe((matched) => {
-          if (!matched) {
-            return this.setState({ active: false });
-          }
-
-          return this.setState({ active: true });
-        });
-    }
+  componentWillReceiveProps(nextProps) {
+    this.considerSubscribingToRouter(nextProps);
   }
 
   componentWillUnmount() {
+    this.unsubscribeFromRouter();
+  }
+
+  considerSubscribingToRouter(nextProps) {
+    if (typeof nextProps.activeClassName === 'string') {
+      if (!this.subscription ||
+          this.props.to !== nextProps.to ||
+          this.props.exact !== nextProps.exact) {
+        this.resubscribeToRouter(nextProps.to, nextProps.exact);
+      }
+    }
+  }
+
+  resubscribeToRouter(to, exact) {
+    this.unsubscribeFromRouter();
+
+    this.subscription = this.context.app
+      .get('router')
+      .getMatch$(to, { exact })
+      .subscribe((matched) => {
+        if (!matched) {
+          return this.setState({ active: false });
+        }
+
+        return this.setState({ active: true });
+      });
+  }
+
+  unsubscribeFromRouter() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -45,8 +67,6 @@ export default class Link extends React.Component {
     this.context.app
       .get('router')
       .push(this.props.to);
-
-    return false;
   };
 
   render() {
@@ -64,7 +84,7 @@ export default class Link extends React.Component {
     };
 
     if (this.state.active) {
-      linkProps.className += ' ' + activeClassName;
+      linkProps.className += ` ${activeClassName}`;
     }
 
     if (typeof type === 'undefined') {
@@ -88,3 +108,14 @@ export default class Link extends React.Component {
     );
   }
 }
+
+Link.propTypes = {
+  to: PropTypes.string.isRequired,
+  exact: PropTypes.bool,
+  type: PropTypes.string,
+  className: PropTypes.string,
+  activeClassName: PropTypes.string,
+  children: PropTypes.node,
+};
+
+export default Link;

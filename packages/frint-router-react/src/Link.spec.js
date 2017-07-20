@@ -26,7 +26,7 @@ describe('frint-route-react › Link', () => {
     resetDOM();
   });
 
-  it('renders anchor with href, className and children when no type prop is passed', () => {
+  it('renders anchor with href, className and children when no type prop is passed', function () {
     const linkContent = <span className="decorated">About</span>;
 
     const wrapper = shallow(
@@ -41,7 +41,7 @@ describe('frint-route-react › Link', () => {
     expect(wrapper.children().get(0)).to.equal(linkContent);
   });
 
-  it('renders button with type, className and children when type prop is passed', () => {
+  it('renders button with type, className and children when type prop is passed', function () {
     const linkContent = <span className="decorated">About</span>;
 
     const wrapper = shallow(
@@ -58,7 +58,7 @@ describe('frint-route-react › Link', () => {
   });
 
   it('subscribes to router service for  matching route inexactly and changes activeClass accordingly ' +
-    'when activeClassName is passed', () => {
+    'when activeClassName is passed', function () {
     const router = new MemoryRouterService();
 
     const wrapper = mount(
@@ -90,7 +90,7 @@ describe('frint-route-react › Link', () => {
   });
 
   it('subscribes to router service for exactly matching route and changes activeClass accordingly ' +
-    'when activeClassName and exact is passed', () => {
+    'when activeClassName and exact is passed', function () {
     const router = new MemoryRouterService();
 
     const wrapper = mount(
@@ -120,7 +120,7 @@ describe('frint-route-react › Link', () => {
 
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
-    'even when activeClassName is passed later on', () => {
+    'even when activeClassName is passed later on', function () {
     const router = new MemoryRouterService();
 
     const wrapper = mount(
@@ -142,7 +142,7 @@ describe('frint-route-react › Link', () => {
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
-    'when "to" prop is changed', () => {
+    'when "to" prop is changed', function () {
     const router = new MemoryRouterService();
 
     const wrapper = mount(
@@ -167,7 +167,7 @@ describe('frint-route-react › Link', () => {
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
-    'when exact prop is changed', () => {
+    'when exact prop is changed', function () {
     const router = new MemoryRouterService();
 
     const wrapper = mount(
@@ -191,7 +191,7 @@ describe('frint-route-react › Link', () => {
     expect(wrapper.hasClass('anchor-active')).to.be.true;
   });
 
-  it('unsubscribes from router getMatch$ when unmounted and when resubscribes', () => {
+  it('unsubscribes from router getMatch$ when unmounted and when resubscribes', function () {
     let subscribeCount = 0;
     let unsubscribeCount = 0;
 
@@ -236,7 +236,7 @@ describe('frint-route-react › Link', () => {
     expect(unsubscribeCount).to.equal(2);
   });
 
-  it('pushes new url to router, prevents default and doesn\'t stopPropagation when clicked', () => {
+  it('pushes new url to router, prevents default and doesn\'t stopPropagation when clicked', function () {
     const pushedUrls = [];
 
     const router = {

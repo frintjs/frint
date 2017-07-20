@@ -17,7 +17,7 @@ export default function Root() {
       <Route path="/" component={HomePage} exact />
       <Route path="/about" getComponent={cb => cb(null, AboutPage)} />
       <Route path="/contact" app={ContactApp} />
-      <Route path="/services" getApp={cb => cb(null, SevicesApp)} />
+      <Route path="/services" getApp={cb => cb(null, ServicesApp)} />
     </div>
   );
 }

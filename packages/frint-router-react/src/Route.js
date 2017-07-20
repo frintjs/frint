@@ -1,10 +1,22 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getMountableComponent } from 'frint-react';
+/* eslint-enable import/no-extraneous-dependencies */
 
 export default class Router extends React.Component {
   static contextTypes = {
     app: PropTypes.object.isRequired
+  };
+
+  static propTypes = {
+    computedRoute: PropTypes.object,
+    path: PropTypes.string,
+    exact: PropTypes.bool,
+    component: PropTypes.node,
+    getComponent: PropTypes.func,
+    app: PropTypes.func,
+    getApp: PropTypes.func,
   };
 
   constructor(...args) {
@@ -31,7 +43,7 @@ export default class Router extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // match
     if (this.props.computedRoute) {
       this.setState({
@@ -60,7 +72,8 @@ export default class Router extends React.Component {
       // async component
       this.props.getComponent((err, component) => {
         if (err) {
-          return console.error(err);
+          console.error(err);
+          return;
         }
 
         this.setState({
@@ -80,7 +93,8 @@ export default class Router extends React.Component {
       // async App
       this.props.getApp((err, RouteApp) => {
         if (err) {
-          return console.error(err);
+          console.error(err);
+          return;
         }
 
         this.routeApp = new RouteApp({

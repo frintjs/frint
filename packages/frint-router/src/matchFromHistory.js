@@ -12,7 +12,7 @@ export default function matchFromHistory(pattern, history, options = {}) {
 
   const keys = [];
   const re = pathToRegexp(pattern, keys, {
-    end: options.exact ? true : false,
+    end: options.exact || false,
   });
 
   const matched = re.exec(history.location.pathname);

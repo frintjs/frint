@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 
 import matchFromHistory from './matchFromHistory';
@@ -18,8 +17,8 @@ export default function makeRouterService(createHistory) {
       this._listener = this._history.listen((location, action) => {
         this._history$.next({
           length: this._history.length,
-          location: this._history.location,
-          action: this._history.action,
+          location,
+          action,
         });
       });
     }
@@ -35,7 +34,7 @@ export default function makeRouterService(createHistory) {
         });
     }
 
-    getMatch(pattern, history, opts = {}) {
+    getMatch(pattern, history, opts = {}) { // eslint-disable-line
       const options = {
         exact: false,
         cache: true, // @TODO: implement later

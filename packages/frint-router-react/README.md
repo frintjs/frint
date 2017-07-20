@@ -153,7 +153,7 @@ And only one of them can render at the same time. If there is no match, the last
 
 ### `Link`
 
-The `Link` component is used for creating links, that can navigate to other pages. It will take care of adapting to the router service that you are using from `frint-react` automatically.
+The `Link` component is used for creating links, that can navigate to other pages. It will take care of adapting to the router service that you are using from `frint-router` automatically.
 
 ```js
 // components/TopNav.js

@@ -25,6 +25,9 @@ module.exports = {
   },
   externals: {
     'lodash': '_',
+    'react': 'React',
+    'rxjs': 'Rx',
+    'prop-types': 'PropTypes',
   },
   target: 'web',
   plugins: plugins,

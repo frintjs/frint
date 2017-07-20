@@ -25,6 +25,10 @@ module.exports = {
   },
   externals: {
     'lodash': '_',
+    'react': 'React',
+    'rxjs': 'Rx',
+    'prop-types': 'PropTypes',
+    'frint-router': 'FrintRouter',
   },
   target: 'web',
   plugins: plugins,

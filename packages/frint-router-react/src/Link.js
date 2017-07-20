@@ -1,9 +1,18 @@
 import React from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types'; // eslint-disable-line import/no-extraneous-dependencies
 
-class Link extends React.Component {
+export default class Link extends React.Component {
   static contextTypes = {
     app: PropTypes.object.isRequired
+  };
+
+  static propTypes = {
+    to: PropTypes.string.isRequired,
+    exact: PropTypes.bool,
+    type: PropTypes.string,
+    className: PropTypes.string,
+    activeClassName: PropTypes.string,
+    children: PropTypes.node,
   };
 
   constructor(...args) {
@@ -106,14 +115,3 @@ class Link extends React.Component {
     );
   }
 }
-
-Link.propTypes = {
-  to: PropTypes.string.isRequired,
-  exact: PropTypes.bool,
-  type: PropTypes.string,
-  className: PropTypes.string,
-  activeClassName: PropTypes.string,
-  children: PropTypes.node,
-};
-
-export default Link;

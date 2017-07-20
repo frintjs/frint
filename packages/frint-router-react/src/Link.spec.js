@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
+/* eslint-disable import/no-extraneous-dependencies, func-names, no-unused-expressions */
 /* global describe, it, before, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
@@ -35,7 +35,7 @@ describe('frint-route-react › Link', () => {
     );
 
     expect(wrapper.name()).to.equal('a');
-    expect(wrapper.hasClass('anchor')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor')).to.be.true;
 
     expect(wrapper.children().length).to.equal(1);
     expect(wrapper.children().get(0)).to.equal(linkContent);
@@ -51,7 +51,7 @@ describe('frint-route-react › Link', () => {
 
     expect(wrapper.name()).to.equal('button');
     expect(wrapper.prop('type')).to.equal('button');
-    expect(wrapper.hasClass('fancy-button')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('fancy-button')).to.be.true;
 
     expect(wrapper.children().length).to.equal(1);
     expect(wrapper.children().get(0)).to.equal(linkContent);
@@ -73,20 +73,20 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/');
-    expect(wrapper.hasClass('anchor')).to.be.true; // eslint-disable-line no-unused-expressions
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor')).to.be.true;
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor')).to.be.true; // eslint-disable-line no-unused-expressions
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor')).to.be.true;
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
 
     router.push('/about/whatever');
-    expect(wrapper.hasClass('anchor')).to.be.true; // eslint-disable-line no-unused-expressions
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor')).to.be.true;
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
 
     router.push('/');
-    expect(wrapper.hasClass('anchor')).to.be.true; // eslint-disable-line no-unused-expressions
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor')).to.be.true;
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
   });
 
   it('subscribes to router service for exactly matching route and changes activeClass accordingly ' +
@@ -106,16 +106,16 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/');
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
 
     router.push('/about/whatever');
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
 
     router.push('/');
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
   });
 
 
@@ -134,11 +134,11 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
 
 
     wrapper.setProps({ activeClassName: 'anchor-active' });
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
@@ -157,13 +157,13 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
 
     wrapper.setProps({ to: '/contact' });
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
 
     router.push('/contact');
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
@@ -182,13 +182,13 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/about/whatever');
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
 
     wrapper.setProps({ exact: true });
-    expect(wrapper.hasClass('anchor-active')).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.false;
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.true; // eslint-disable-line no-unused-expressions
+    expect(wrapper.hasClass('anchor-active')).to.be.true;
   });
 
   it('unsubscribes from router getMatch$ when unmounted and when resubscribes', () => {
@@ -258,7 +258,7 @@ describe('frint-route-react › Link', () => {
     });
 
     expect(pushedUrls).to.deep.equal(['/about']);
-    expect(preventDefaultCalled).to.be.true; // eslint-disable-line no-unused-expressions
-    expect(stopPropagationCalled).to.be.false; // eslint-disable-line no-unused-expressions
+    expect(preventDefaultCalled).to.be.true;
+    expect(stopPropagationCalled).to.be.false;
   });
 });

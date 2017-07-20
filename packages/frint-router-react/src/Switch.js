@@ -1,8 +1,7 @@
-import _ from 'lodash';
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Route from './Route';
+/* eslint-enable import/no-extraneous-dependencies */
 
 export default class Switch extends React.Component {
   static contextTypes = {

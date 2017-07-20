@@ -72,10 +72,6 @@ export default class Switch extends React.Component {
       }
     });
 
-    // @TODO: remove debug code
-    console.log('switched child', child.props, child);
-
-    // @TODO: doesn't work properly on URL changes
     return child;
   }
 }

@@ -27,6 +27,19 @@ export default function makeRouterService(createHistory) {
       return this._history$;
     }
 
+    getHistory() {
+      return this._history;
+    }
+
+    getLocation$() {
+      return this.getHistory$()
+        .map(history => history.location);
+    }
+
+    getLocation() {
+      return this.getHistory().location;
+    }
+
     getMatch$(pattern, options = {}) {
       return this.getHistory$()
         .map((history) => {

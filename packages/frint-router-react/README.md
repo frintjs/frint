@@ -12,6 +12,9 @@
   - [Nested routes](#nested-routes)
   - [Note](#note)
 - [API](#api)
+  - [Route](#route)
+  - [Link](#link)
+  - [Switch](#switch)
 
 <!-- /MarkdownTOC -->
 
@@ -41,7 +44,7 @@ Via [unpkg](https://unpkg.com) CDN:
 
 This package exports a handful of components.
 
-### `Route`
+### `Route` component
 
 The `Route` component is how you define a route in your application, that can render eithr a Component or an App in a synchronous or asynchronous way.
 
@@ -113,7 +116,7 @@ export default function Root() {
 }
 ```
 
-### `Switch`
+### `Switch` component
 
 The `Switch` component makes sure only one direct child `Route` is shown. The first one to match always wins, and the last `Route` with no `path` is rendered as a default case.
 
@@ -152,7 +155,7 @@ If the URL happens to be `/foo`, then `Foo` component will render. Same follows 
 
 And only one of them can render at the same time. If there is no match, the last `Route` with no `path` defined will be rendered. Much like handling the `default` use case in a plain `switch` statement in JavaScript.
 
-### `Link`
+### `Link` component
 
 The `Link` component is used for creating links, that can navigate to other pages. It will take care of adapting to the router service that you are using from `frint-router` automatically.
 
@@ -319,3 +322,40 @@ This package is a close implementation of the APIs introduced by the awesome [`r
 
 # API
 
+## Route
+
+> Route
+
+### Props
+
+1. `path` (`String`): The pattern to match against
+  * Example (plain): `/about`
+  * Example (with params): `/about/:user`
+1. `exact` (`Boolean`): Match the `path` exactly (with no suffix in the path)
+1. `component` (`Component`): The React component to render
+1. `getComponent` (`Function`): Asynchronously load the component
+  * Example: `(cb) => cb(null, MyComponent)`
+1. `app` (`App`): Frint App that you want to render
+1. `getApp` (`Function`): Asynchronously load the App
+  * Example: `(cb) => cb(null, MyApp)`
+
+## Link
+
+> Link
+
+### Props
+
+1. `to` (`String`): Path to navigate to
+1. `type` (`String`): If you want the Link to render as a `<button>` with its type, otherwise defaults to plain anchors (`<a>`)
+1. `className` (`String`): CSS class name
+1. `activeClassName` (`String`): CSS class name to render with, if current URL matches the Link's
+1. `exact` (`Boolean`): Trigger `activeClassName` by matching the path exactly
+1. `children` (`Node`): The body of the Link
+
+## Switch
+
+> Switch
+
+### Props
+
+1. `children` (`Node`): Children of `<Route>`s

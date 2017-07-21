@@ -9,6 +9,7 @@
 - [Guide](#guide)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Nested routes](#nested-routes)
   - [Note](#note)
 - [API](#api)
 
@@ -199,6 +200,116 @@ export default function TopNav() {
   );
 }
 ```
+
+## Nested routes
+
+When `Route` renders a particular Component, the component is given a `match` prop which contains information about the currently matched path.
+
+If you had a route for `/about` like this:
+
+```js
+// components/Root.js
+import React from 'react';
+import { Route } from 'frint-router-react';
+
+import HomePage from './HomePage';
+import AboutPage from './AboutPage';
+
+export default function Root() {
+  return (
+    <div>
+      <Route path="/" component={HomePage} exact />
+      <Route path="/about" component={AboutPage} />
+    </div>
+  );
+}
+```
+
+And when you navigate to `/about` in the browser, the `AboutPage` component will have access to a `match` prop:
+
+```js
+// components/AboutPage.js
+import React from 'react';
+
+export default function AboutPage(props) {
+  return (
+    <div>
+      <h2>About Page</h2>
+
+      <p>The current matched URL is {props.match.url}</p>
+    </div>
+  );
+}
+```
+
+The page will render with the text `The current matched URL is /about`.
+
+Now that you know in which path the component rendered itself in, you can have further child routes in the Component:
+
+```js
+// components/AboutPage.js
+import React from 'react';
+import { Route, Switch } from 'frint-router-react';
+
+function NoMatch() {
+  return (
+    <p>No user has been selected.</p>
+  );
+}
+
+function ShowUser(props) {
+  const { match } = props;
+
+  return (
+    <p>Current selected user is {match.params.user}</p>
+  );
+}
+
+export default function AboutPage(props) {
+  const { match } = props;
+
+  return (
+    <div>
+      <h2>About Page</h2>
+
+      <ul>
+        <li><Link to={`${match.url}/harry`}>Harry</Link></li>
+        <li><Link to={`${match.url}/hermione`}>Hermione</Link></li>
+        <li><Link to={`${match.url}/ron`}>Ron</Link></li>
+      </ul>
+
+      <Switch>
+        <Route path={`${match.url}/:user`} component={ShowUser} />
+        <Route component={NoMatch} />
+      </Switch>
+    </div>
+  );
+}
+```
+
+### `match` prop
+
+The `props.match` object in Components follow a structure like this:
+
+```js
+// in AboutPage component
+{
+  url: '/about',
+  isExact: true,
+  params: {}
+}
+
+// in ShowUser component
+{
+  url: '/about/hermione',
+  isExact: true,
+  params: {
+    user: 'hermione',
+  }
+}
+```
+
+Since `props.match` always contains the currenly matched URL info for the rendered Component, it is possible for you to create more child Routes dynamically.
 
 ## Note
 

@@ -66,7 +66,7 @@ describe('frint-react › components › observe', function () {
 
     const ObservedComponent = observe(function (app) {
       return Observable
-        .of(app.getOption('name'))
+        .of(app.getName())
         .map(name => ({ name }));
     })(Component);
 
@@ -85,9 +85,9 @@ describe('frint-react › components › observe', function () {
       beforeMount() {},
       afterMount() {},
       beforeUnmount() {},
-      getOption(key) {
+      getName() {
         const options = { name: 'FakeApp' };
-        return options[key];
+        return options.name;
       }
     };
 
@@ -116,12 +116,12 @@ describe('frint-react › components › observe', function () {
 
     const ObservedComponent = observe(function (app) {
       return Observable
-        .of(app.getOption('name'))
+        .of(app.getName())
         .map(name => ({ name }));
     })(Component);
 
     const fakeApp = {
-      getOption() {
+      getName() {
         return 'ShallowApp';
       }
     };

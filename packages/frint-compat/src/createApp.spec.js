@@ -55,7 +55,7 @@ describe('frint-compat › createApp', function () {
     const app = new CoreApp();
 
     expect(app).to.be.instanceof(CoreApp);
-    expect(app.getOption('name')).to.equal('CoreAppName');
+    expect(app.getName()).to.equal('CoreAppName');
   });
 
   it('throws error if instantiated without name option', function () {

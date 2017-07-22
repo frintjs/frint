@@ -66,7 +66,7 @@ describe('frint-react › components › observe', function () {
 
     const ObservedComponent = observe(function (app) {
       return Observable
-        .of(app.getOption('name'))
+        .of(app.getName())
         .map(name => ({ name }));
     })(Component);
 
@@ -116,7 +116,7 @@ describe('frint-react › components › observe', function () {
 
     const ObservedComponent = observe(function (app) {
       return Observable
-        .of(app.getOption('name'))
+        .of(app.getName())
         .map(name => ({ name }));
     })(Component);
 

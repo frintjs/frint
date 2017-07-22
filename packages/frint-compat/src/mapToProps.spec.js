@@ -57,7 +57,7 @@ describe('frint-compat › components › mapToProps', function () {
     const TestRootComponent = mapToProps({
       app(app) {
         return {
-          name: app.getOption('name')
+          name: app.getName()
         };
       },
       services: {
@@ -212,7 +212,7 @@ describe('frint-compat › components › mapToProps', function () {
       return (dispatch, getState, { app }) => {
         const currentState = getState();
 
-        if (app.getOption('name') === 'Test') {
+        if (app.getName() === 'Test') {
           const newValue = currentState.counter.value + step;
 
           dispatch(setCounter(newValue));
@@ -519,7 +519,7 @@ describe('frint-compat › components › mapToProps', function () {
 
             return acc;
           }, {
-            name: app.getOption('name'),
+            name: app.getName(),
             total: 0
           });
       }

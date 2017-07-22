@@ -86,8 +86,7 @@ describe('frint-react › components › observe', function () {
       afterMount() {},
       beforeUnmount() {},
       getName() {
-        const options = { name: 'FakeApp' };
-        return options.name;
+        return 'FakeApp';
       }
     };
 

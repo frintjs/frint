@@ -304,7 +304,13 @@ The `App` instance
 
 `app.getOption('name')` would give you `MyAppName` string.
 
-or better `app.getName()` Since name in options is a required key.
+### app.getName
+
+> app.getName()
+
+#### Returns
+
+`String`: The App's name.
 
 ### app.getRootApp
 

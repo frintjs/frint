@@ -61,6 +61,7 @@ export default function makeRouterService(createHistory) {
 
     destroy() {
       this._listener();
+      this._history$.complete();
     }
 
     go(n) {

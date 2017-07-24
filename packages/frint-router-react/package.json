@@ -36,6 +36,7 @@
   "license": "MIT",
   "types": "index.d.ts",
   "devDependencies": {
+    "frint": "^2.0.1",
     "frint-react": "^2.0.1",
     "frint-test-utils": "^2.0.1"
   }

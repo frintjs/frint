@@ -30,14 +30,6 @@ export default function TopNav() {
           >
             About
           </Link>
-
-          <Link
-            to="/contact"
-            className="nav-item is-tab"
-            activeClassName="is-active"
-          >
-            Contact
-          </Link>
         </div>
       </div>
     </nav>

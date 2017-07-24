@@ -20,7 +20,7 @@ function AboutCompany() {
 }
 
 export default function AboutPage(props) {
-  const { route } = props;
+  const { match } = props;
 
   return (
     <section className="section">
@@ -32,11 +32,11 @@ export default function AboutPage(props) {
             <p>About us...</p>
 
             {<ul>
-              <li><Link to={`${route.url}/company`} activeClassName="is-active">Company</Link></li>
+              <li><Link to={`${match.url}/company`} activeClassName="is-active">Company</Link></li>
               <li>-</li>
-              <li><Link to={`${route.url}/foo`} activeClassName="is-active">Foo</Link></li>
-              <li><Link to={`${route.url}/bar`} activeClassName="is-active">Bar</Link></li>
-              <li><Link to={`${route.url}/baz`} activeClassName="is-active">Baz</Link></li>
+              <li><Link to={`${match.url}/foo`} activeClassName="is-active">Foo</Link></li>
+              <li><Link to={`${match.url}/bar`} activeClassName="is-active">Bar</Link></li>
+              <li><Link to={`${match.url}/baz`} activeClassName="is-active">Baz</Link></li>
             </ul>}
 
             <h4>Props</h4>
@@ -47,8 +47,8 @@ export default function AboutPage(props) {
 
             {/* shows only one Route, or last one as default */}
             <Switch>
-              <Route path={`${route.url}/company`} component={AboutCompany} />
-              <Route path={`${route.url}/:user`} component={AboutPageUser} />
+              <Route path={`${match.url}/company`} component={AboutCompany} />
+              <Route path={`${match.url}/:user`} component={AboutPageUser} />
               <Route component={NoUserSelected} /> {/* default if nothing else matched */}
             </Switch>
           </div>

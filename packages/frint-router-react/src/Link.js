@@ -71,6 +71,7 @@ export default class Link extends React.Component {
   handleClick = (e) => {
     e.preventDefault();
 
+    // TODO avoid pushing route if it's current URL
     this.context.app
       .get('router')
       .push(this.props.to);

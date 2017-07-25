@@ -8,7 +8,7 @@
     "lint": "../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
     "transpile": "../../node_modules/.bin/babel src --out-dir lib",
     "test": "../../node_modules/.bin/mocha --colors --compilers js:babel-register --require frint-test-utils/register --recursive './src/**/*.spec.js'",
-    "cover:run": "../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
+    "cover:run": "../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --require frint-test-utils/register --recursive './src/**/*.spec.js'",
     "cover:report": "../../node_modules/.bin/nyc report",
     "cover": "npm run cover:run && npm run cover:report",
     "dist:lib": "../../node_modules/.bin/webpack --config ./webpack.config.js",
@@ -36,6 +36,7 @@
   "license": "MIT",
   "types": "index.d.ts",
   "devDependencies": {
+    "frint": "^2.0.1",
     "frint-react": "^2.0.1",
     "frint-test-utils": "^2.0.1"
   }

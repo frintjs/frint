@@ -4,124 +4,110 @@ import PropTypes from 'prop-types';
 import { getMountableComponent } from 'frint-react';
 /* eslint-enable import/no-extraneous-dependencies */
 
-export default class Router extends React.Component {
+export default class Route extends React.Component {
   static contextTypes = {
     app: PropTypes.object.isRequired
   };
 
   static propTypes = {
-    computedRoute: PropTypes.object,
     path: PropTypes.string,
     exact: PropTypes.bool,
-    component: PropTypes.node,
-    getComponent: PropTypes.func,
+    computedMatch: PropTypes.object,
+    component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     app: PropTypes.func,
-    getApp: PropTypes.func,
   };
 
   constructor(...args) {
     super(...args);
 
-    this.routeApp = null;
+    this._routerSubscription = null;
+    this._appInstance = null;
+
     this.state = {
-      component: () => null,
+      component: null,
       matched: null,
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.component !== this.state.component) {
-      this.setState({
-        component: newProps.component,
-      });
-    }
+  componentWillMount() {
+    this._calculateMatchedState(this.props);
+    this._calculateComponentState(this.props);
+  }
 
-    if (newProps.computedRoute !== this.state.matched) {
-      this.setState({
-        matched: newProps.computedRoute,
-      });
+  componentWillReceiveProps(nextProps) {
+    this._calculateMatchedState(nextProps);
+    this._calculateComponentState(nextProps);
+  }
+
+  _calculateMatchedState(nextProps) {
+    if (nextProps.computedMatch) {
+      // in case it was subscribed before
+      this._unsubscribeFromRouter();
+    } else if (nextProps.path) {
+      if (!this._routerSubscription || (nextProps.path !== this.props.path) || (nextProps.exact !== this.props.exact)) {
+        this._unsubscribeFromRouter();
+
+        this._routerSubscription = this.context.app
+          .get('router')
+          .getMatch$(nextProps.path, {
+            exact: nextProps.exact,
+          })
+          .subscribe((matched) => {
+            this.setState({
+              matched,
+            });
+          });
+      }
     }
   }
 
-  componentWillMount() {
-    // match
-    if (this.props.computedRoute) {
-      this.setState({
-        matched: this.props.computedRoute,
-      });
-    } else {
-      this.subscription = this.context.app
-        .get('router')
-        .getMatch$(this.props.path, {
-          exact: this.props.exact,
-        })
-        .subscribe((matched) => {
-          this.setState({
-            matched,
-          });
-        });
-    }
+  _calculateComponentState(nextProps) {
+    if (nextProps.component) {
+      // component
+      this._destroyRouteApp();
 
-    // component
-    if (this.props.component) {
-      // sync component
       this.setState({
-        component: this.props.component,
+        component: nextProps.component,
       });
-    } else if (typeof this.props.getComponent === 'function') {
-      // async component
-      this.props.getComponent((err, component) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
+    } else if (nextProps.app && (this._appInstance === null || nextProps.app !== this.props.app)) {
+      // app
+      this._destroyRouteApp();
 
-        this.setState({
-          component,
-        });
-      });
-    } else if (this.props.app) {
-      // sync app
-      const RouteApp = this.props.app;
-      this.routeApp = new RouteApp({
+      const RouteApp = nextProps.app;
+
+      this._appInstance = new RouteApp({
         parentApp: this.context.app,
       });
       this.setState({
-        component: getMountableComponent(this.routeApp)
-      });
-    } else if (typeof this.props.getApp === 'function') {
-      // async App
-      this.props.getApp((err, RouteApp) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-
-        this.routeApp = new RouteApp({
-          parentApp: this.context.app,
-        });
-        this.setState({
-          component: getMountableComponent(this.routeApp)
-        });
+        component: getMountableComponent(this._appInstance)
       });
     }
   }
 
   componentWillUnmount() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this._unsubscribeFromRouter();
+    this._destroyRouteApp();
+  }
 
-    if (this.routeApp) {
-      this.routeApp.beforeDestroy();
+  _unsubscribeFromRouter() {
+    if (this._routerSubscription) {
+      this._routerSubscription.unsubscribe();
+    }
+  }
+
+  _destroyRouteApp() {
+    if (this._appInstance) {
+      this._appInstance.beforeDestroy();
+      this._appInstance = null;
     }
   }
 
   render() {
     const ComponentToRender = this.state.component;
+    const matched = this.props.computedMatch || this.state.matched;
 
-    return this.state.matched !== null
-      ? <ComponentToRender route={this.state.matched} />
+    return ComponentToRender !== null && matched !== null
+      ? <ComponentToRender match={matched} />
       : null;
   }
 }

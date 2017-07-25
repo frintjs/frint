@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this*/
+/* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this */
 /* global describe, it */
 import chai, { expect } from 'chai';
 import sinon from 'sinon';

@@ -20,8 +20,8 @@ export default class Route extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.routerSubscription = null;
-    this.routeApp = null;
+    this._routerSubscription = null;
+    this._appInstance = null;
 
     this.state = {
       component: null,
@@ -30,96 +30,84 @@ export default class Route extends React.Component {
   }
 
   componentWillMount() {
-    this.calculateMatchedState(this.props);
-    this.calculateComponentState(this.props);
+    this._calculateMatchedState(this.props);
+    this._calculateComponentState(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.calculateMatchedState(nextProps);
-    this.calculateComponentState(nextProps);
+    this._calculateMatchedState(nextProps);
+    this._calculateComponentState(nextProps);
   }
 
-  calculateMatchedState(nextProps) {
+  _calculateMatchedState(nextProps) {
     if (nextProps.computedMatch) {
       // in case it was subscribed before
-      this.unsubscribeFromRouter();
+      this._unsubscribeFromRouter();
+    } else if (nextProps.path) {
+      if (!this._routerSubscription || (nextProps.path !== this.props.path) || (nextProps.exact !== this.props.exact)) {
+        this._unsubscribeFromRouter();
 
-      if (!this.state.matched || (nextProps.computedMatch !== this.props.computedMatch)) {
-        this.setState({
-          matched: nextProps.computedMatch,
-        });
-      }
-    } else {
-      // state.matched used to be set to computedMatch and now it became null
-      if (this.props.computedMatch) {
-        this.setState({ matched: null });
-      }
-
-      if (nextProps.path) {
-        if (!this.routerSubscription || (nextProps.path !== this.props.path) || (nextProps.exact !== this.props.exact)) {
-          this.unsubscribeFromRouter();
-
-          this.routerSubscription = this.context.app
-            .get('router')
-            .getMatch$(nextProps.path, {
-              exact: nextProps.exact,
-            })
-            .subscribe((matched) => {
-              this.setState({
-                matched,
-              });
+        this._routerSubscription = this.context.app
+          .get('router')
+          .getMatch$(nextProps.path, {
+            exact: nextProps.exact,
+          })
+          .subscribe((matched) => {
+            this.setState({
+              matched,
             });
-        }
+          });
       }
     }
   }
 
-  calculateComponentState(nextProps) {
+  _calculateComponentState(nextProps) {
     if (nextProps.component) {
       // component
-      this.destroyRouteApp();
+      this._destroyRouteApp();
 
       this.setState({
         component: nextProps.component,
       });
-    } else if (nextProps.app && (this.routeApp === null || nextProps.app !== this.props.app)) {
+    } else if (nextProps.app && (this._appInstance === null || nextProps.app !== this.props.app)) {
       // app
-      this.destroyRouteApp();
+      this._destroyRouteApp();
 
       const RouteApp = nextProps.app;
 
-      this.routeApp = new RouteApp({
+      this._appInstance = new RouteApp({
         parentApp: this.context.app,
       });
       this.setState({
-        component: getMountableComponent(this.routeApp)
+        component: getMountableComponent(this._appInstance)
       });
     }
   }
 
   componentWillUnmount() {
-    this.unsubscribeFromRouter();
-    this.destroyRouteApp();
+    this._unsubscribeFromRouter();
+    this._destroyRouteApp();
   }
 
-  unsubscribeFromRouter() {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
+  _unsubscribeFromRouter() {
+    if (this._routerSubscription) {
+      this._routerSubscription.unsubscribe();
     }
   }
 
-  destroyRouteApp() {
-    if (this.routeApp) {
-      this.routeApp.beforeDestroy();
-      this.routeApp = null;
+  _destroyRouteApp() {
+    if (this._appInstance) {
+      this._appInstance.beforeDestroy();
+      this._appInstance = null;
     }
   }
 
   render() {
     const ComponentToRender = this.state.component;
+    const matched = this.props.computedMatch || this.state.matched;
 
-    return ComponentToRender !== null && this.state.matched !== null
-      ? <ComponentToRender match={this.state.matched} />
+    return ComponentToRender !== null && matched !== null
+      ? <ComponentToRender match={matched} />
       : null;
   }
 }

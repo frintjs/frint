@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, no-unused-expressions */
-/* global describe, it */
+/* global describe, it, before, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -28,6 +28,10 @@ function createContext() {
 }
 
 describe('frint-route-react › Route', function () {
+  before(function () {
+    resetDOM();
+  });
+
   it('renders nothing (null) when no app or component prop is passed', function () {
     // exact and path
     const wrapperPathExact = shallow(
@@ -155,7 +159,7 @@ describe('frint-route-react › Route', function () {
     expect(wrapper.prop('match')).to.include({ url: '/whatever' });
   });
 
-  it('registers app, renders its component and then destroys it', function () {
+  describe('registers app, renders its component and then destroys it', function () {
     let beforeDestroyCallCount = 0;
 
     const AboutApp = createApp({
@@ -177,25 +181,29 @@ describe('frint-route-react › Route', function () {
       { context }
     );
 
-    // registers app with parent app from context
-    const aboutApp = wrapper.instance().routeApp;
-    expect(aboutApp.getParentApp()).to.equal(context.app);
+    it('registers app with parent app from context', function () {
+      const aboutApp = wrapper.instance()._appInstance;
+      expect(aboutApp.getParentApp()).to.equal(context.app);
+    });
 
-    // doesn't get rendered
-    expect(wrapper.type()).to.be.null;
+    it('doesn\'t get rendered when path doesn\'t match', function () {
+      expect(wrapper.type()).to.be.null;
+    });
 
-    // gets rendered
-    context.app.get('router').push('/about');
-    expect(wrapper.html()).to.equal('<article>About</article>');
-    expect(wrapper.prop('match')).to.include({ url: '/about' });
+    it('gets rendered when path matches', function () {
+      context.app.get('router').push('/about');
+      expect(wrapper.html()).to.equal('<article>About</article>');
+      expect(wrapper.prop('match')).to.include({ url: '/about' });
+    });
 
-    // beforeDestroy is called on unmount
-    expect(beforeDestroyCallCount).to.equal(0);
-    wrapper.unmount();
-    expect(beforeDestroyCallCount).to.equal(1);
+    it('beforeDestroy is called on unmount', function () {
+      expect(beforeDestroyCallCount).to.equal(0);
+      wrapper.unmount();
+      expect(beforeDestroyCallCount).to.equal(1);
+    });
   });
 
-  it('renders components, apps, registers and destroys them during lifecycle when they are changes in props', function () {
+  describe('renders components, apps, registers and destroys them during lifecycle when they are changes in props', function () {
     const HomeComponent = () => <header>Home</header>;
 
     let beforeDestroyAboutCallCount = 0;
@@ -234,49 +242,61 @@ describe('frint-route-react › Route', function () {
       { context }
     );
 
-    // nothing rendered
-    expect(wrapper.type()).to.be.null;
+    it('renders nothing then path doesn\'t match', function () {
+      expect(wrapper.type()).to.be.null;
+    });
 
-    // HomeComponent rendered
-    context.app.get('router').push('/about');
-    expect(wrapper.html()).to.equal('<header>Home</header>');
+    it('renders HomeComponent when path matches', function () {
+      context.app.get('router').push('/about');
+      expect(wrapper.html()).to.equal('<header>Home</header>');
+    });
 
-    // instantiates AboutApp and registers it with parent app from context
-    wrapper.setProps({ app: AboutApp, component: undefined });
+    let aboutApp;
 
-    const aboutApp = wrapper.instance().routeApp;
-    expect(aboutApp.getParentApp()).to.equal(context.app);
+    it('instantiates AboutApp and registers it with parent app from context', function () {
+      wrapper.setProps({ app: AboutApp, component: undefined });
 
-    expect(wrapper.html()).to.equal('<article>About</article>');
+      aboutApp = wrapper.instance()._appInstance;
+      expect(aboutApp.getParentApp()).to.equal(context.app);
 
-    // an app doesn't get destroyed and reinitialised when it's the same app
-    wrapper.setProps({ app: AboutApp });
-    expect(beforeDestroyAboutCallCount).to.equal(0);
-    expect(wrapper.instance().routeApp).to.equal(aboutApp);
+      expect(wrapper.html()).to.equal('<article>About</article>');
+    });
 
-    // beforeDestroy is called for AboutApp when app is changed
-    wrapper.setProps({ app: ServicesApp });
-    expect(beforeDestroyAboutCallCount).to.equal(1);
+    it('doesn\'t destroy the app and doesn\'t reinitialise it when it\'s the same app', function () {
+      wrapper.setProps({ app: AboutApp });
+      expect(beforeDestroyAboutCallCount).to.equal(0);
+      expect(wrapper.instance()._appInstance).to.equal(aboutApp);
+    });
 
-    // instantiates servicesApp and registers it with parent app from context
-    const servicesApp = wrapper.instance().routeApp;
-    expect(servicesApp.getParentApp()).to.equal(context.app);
-    expect(servicesApp).to.not.equal(aboutApp);
+    it('calls beforeDestroy for AboutApp when app is changed', function () {
+      wrapper.setProps({ app: ServicesApp });
+      expect(beforeDestroyAboutCallCount).to.equal(1);
+    });
 
-    // renders ServicesApp
-    expect(wrapper.html()).to.equal('<section>Services</section>');
+    it('instantiates servicesApp and registers it with parent app from context', function () {
+      const servicesApp = wrapper.instance()._appInstance;
+      expect(servicesApp.getParentApp()).to.equal(context.app);
+      expect(servicesApp).to.not.equal(aboutApp);
+    });
 
-    // destroys ServicesApp when switching to component
-    expect(beforeDestroyServicesCallCount).to.equal(0);
+    it('renders ServicesApp', function () {
+      expect(wrapper.html()).to.equal('<section>Services</section>');
+    });
 
-    wrapper.setProps({ app: undefined, component: HomeComponent });
-    expect(beforeDestroyServicesCallCount).to.equal(1);
-    expect(wrapper.instance().routeApp).to.be.null;
+    it('destroys ServicesApp when switching to component', function () {
+      expect(beforeDestroyServicesCallCount).to.equal(0);
 
-    // renders HomeComponent
-    expect(wrapper.html()).to.equal('<header>Home</header>');
+      wrapper.setProps({ app: undefined, component: HomeComponent });
+      expect(beforeDestroyServicesCallCount).to.equal(1);
+      expect(wrapper.instance()._appInstance).to.be.null;
+    });
 
-    // unmounts nicely
-    wrapper.unmount();
+    it('renders HomeComponent', function () {
+      expect(wrapper.html()).to.equal('<header>Home</header>');
+    });
+
+    it('unmounts nicely', function () {
+      wrapper.unmount();
+    });
   });
 });

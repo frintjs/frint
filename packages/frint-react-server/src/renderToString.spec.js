@@ -50,7 +50,7 @@ describe('frint-react-server › renderToString', function () {
 
     const ObservedTestComponent = observe(function (app) {
       return Observable.of({
-        name: app.getOption('name'),
+        name: app.getName(),
       });
     })(TestComponent);
 

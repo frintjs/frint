@@ -1,5 +1,5 @@
 import App from './app';
 
-window.app.registerApp(App, {
+(window.app = window.app || []).push([App, {
   regions: ['main'],
-});
+}]);

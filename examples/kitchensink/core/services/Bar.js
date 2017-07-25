@@ -4,6 +4,6 @@ export default class Bar {
   }
 
   getAppName() {
-    return this.app.getOption('name');
+    return this.app.getName();
   }
 }

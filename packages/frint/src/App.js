@@ -177,6 +177,10 @@ App.prototype.getOption = function getOption(key) {
   return _.get(this.options, key);
 };
 
+App.prototype.getName = function getName() {
+  return this.getOption('name');
+};
+
 App.prototype.getProviders = function getProviders() {
   return this.options.providers;
 };

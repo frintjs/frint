@@ -97,6 +97,6 @@ export default observe(function (app) {
       };
     }, {
       // start with these props
-      appName: app.getOption('name'),
+      appName: app.getName(),
     });
 })(Root);

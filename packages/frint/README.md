@@ -236,7 +236,7 @@ const RootApp = createApp({
     {
       name: 'theNameOfTheApp',
       useFactory: function ({ app }) {
-        return app.getOption('name');
+        return app.app.getName();
       },
       deps: ['app'],
       cascade: true,
@@ -303,6 +303,14 @@ The `App` instance
 #### Example
 
 `app.getOption('name')` would give you `MyAppName` string.
+
+### app.getName
+
+> app.getName()
+
+#### Returns
+
+`String`: The App's name.
 
 ### app.getRootApp
 

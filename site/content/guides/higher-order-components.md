@@ -95,7 +95,7 @@ function MyComponent(props) {
 export default observe(function (app) {
   // `app` is our App's instance
   const props = {
-    name: app.getOption('name') // `MyAppNameHere`
+    name: app.getName() // `MyAppNameHere`
   };
 
   // this function must always return an Observable of props

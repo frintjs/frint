@@ -20,6 +20,6 @@ describe('frint › createApp', function () {
     });
 
     expect(app).to.be.instanceOf(App);
-    expect(app.getOption('name')).to.equal('MyAppNameFromInstance');
+    expect(app.getName()).to.equal('MyAppNameFromInstance');
   });
 });

@@ -16,7 +16,7 @@ export default function createService(extend = {}) {
 
       Object.keys(this)
         .filter(prop => (this[prop] instanceof Function))
-        .forEach(prop => (this[prop] = this[prop].bind(this)));
+        .forEach((prop) => { this[prop] = this[prop].bind(this); });
 
       if (typeof this.initialize === 'function') {
         this.initialize(options);

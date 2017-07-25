@@ -48,7 +48,7 @@ Now you can instantiate it:
 
 ```js
 const app = new App();
-const name = app.getOption('name');
+const name = app.getName();
 console.log(name); // `MyAppName`
 ```
 
@@ -97,7 +97,7 @@ To access your App instance:
 ```js
 window.app.getAppOnceAvailable$('MyApp')
   .subscribe(function (app) {
-    const name = app.getOption('name');
+    const name = app.getName();
     console.log(name); // `MyApp`
   });
 ```

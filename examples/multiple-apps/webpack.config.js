@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -29,9 +30,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: __dirname + '/layouts/index.ejs',
       filename: __dirname + '/build/index.html',
-      chunksSortMode({ names }) {
-        return names[0] === 'core' ? -1 : 1;
-      }
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'async'
     })
   ],
   externals: {

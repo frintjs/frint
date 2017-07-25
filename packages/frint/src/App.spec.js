@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this*/
+/* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this */
 /* global describe, it */
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
@@ -21,7 +21,7 @@ describe('frint  › App', function () {
       name: 'MyApp',
     });
 
-    expect(app.getOption('name')).to.equal('MyApp');
+    expect(app.getName()).to.equal('MyApp');
   });
 
   it('gets parent and root app', function () {
@@ -39,8 +39,8 @@ describe('frint  › App', function () {
       parentApp: childApp,
     });
 
-    expect(rootApp.getOption('name')).to.equal('RootApp');
-    expect(childApp.getOption('name')).to.equal('ChildApp');
+    expect(rootApp.getName()).to.equal('RootApp');
+    expect(childApp.getName()).to.equal('ChildApp');
     expect(rootApp.getParentApps()).to.deep.equal([]);
 
     expect(childApp.getParentApp()).to.deep.equal(rootApp);
@@ -263,7 +263,7 @@ describe('frint  › App', function () {
       }
     });
 
-    expect(app.getOption('name')).to.equal('MyApp');
+    expect(app.getName()).to.equal('MyApp');
     expect(called).to.equal(true);
   });
 
@@ -278,7 +278,7 @@ describe('frint  › App', function () {
     });
     app.beforeDestroy();
 
-    expect(app.getOption('name')).to.equal('MyApp');
+    expect(app.getName()).to.equal('MyApp');
     expect(called).to.equal(true);
   });
 
@@ -373,7 +373,7 @@ describe('frint  › App', function () {
 
     root.getAppOnceAvailable$('App1')
       .subscribe(function (app) {
-        expect(app.getOption('name')).to.equal('App1');
+        expect(app.getName()).to.equal('App1');
 
         done();
       });
@@ -390,7 +390,7 @@ describe('frint  › App', function () {
 
     root.getAppOnceAvailable$('App1')
       .subscribe(function (app) {
-        expect(app.getOption('name')).to.equal('App1');
+        expect(app.getName()).to.equal('App1');
 
         done();
       });

@@ -1,5 +1,27 @@
 # Change Log
 
+## v2.1.0 (2017-07-26)
+
+#### Pull Requests
+* Other
+  * [#231](https://github.com/Travix-International/frint/pull/231) Update lerna-changelog to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+  * [#206](https://github.com/Travix-International/frint/pull/206) Feature #193, allow loading root and child apps asynchronously. ([@reaktivo](https://github.com/reaktivo))
+  * [#229](https://github.com/Travix-International/frint/pull/229) Fix for migration guide typos. ([@fahad19](https://github.com/fahad19))
+  * [#227](https://github.com/Travix-International/frint/pull/227) Upgrade all examples  to FrintJS v2.x. ([@fahad19](https://github.com/fahad19))
+  * [#226](https://github.com/Travix-International/frint/pull/226) Migration guide for v2.x. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react-server`, `frint-react`, `frint`
+  * [#236](https://github.com/Travix-International/frint/pull/236) frint: new `app.getName` method. ([@gtzio](https://github.com/gtzio))
+* `frint-compat`, `frint`
+  * [#238](https://github.com/Travix-International/frint/pull/238) Fixes lint issues detected with the newest version of eslint-config-travix. ([@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+* `frint-compat`
+  * [#221](https://github.com/Travix-International/frint/pull/221) Update chai to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
+#### Committers: 4
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Georgia Tziola ([gtzio](https://github.com/gtzio))
+- Marcel Miranda Ackerman ([reaktivo](https://github.com/reaktivo))
+- Ricardo Machado ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+
 ## v2.0.1 (2017-06-19)
 
 Maintenance release to force all package versions in the monorepo to be same.

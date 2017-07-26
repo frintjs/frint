@@ -1,6 +1,6 @@
 {
   "name": "frint-react",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "React package for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-react",
@@ -33,8 +33,8 @@
   },
   "devDependencies": {
     "enzyme": "^2.8.2",
-    "frint": "^2.0.1",
-    "frint-test-utils": "^2.0.1",
+    "frint": "^2.1.0",
+    "frint-test-utils": "^2.1.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

@@ -47,6 +47,10 @@ export default class Switch extends React.Component {
         return;
       }
 
+      if (!React.isValidElement(element)) {
+        return;
+      }
+
       const { path, exact } = element.props;
 
       // if Route has no path (it's default) then getMatch will return match with whatever URL

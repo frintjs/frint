@@ -284,4 +284,25 @@ describe('frint-route-react › Switch', function () {
       expect(wrapper.html()).to.equal('<header>HomeComponent</header>');
     });
   });
+
+  it('doesn\'t crash when not Reacts elements are passed as children', function () {
+    const DefaultComponent = () => <h2>DefaultComponent</h2>;
+
+    const context = createContext();
+
+    const wrapper = shallow(
+      <Switch>
+        {0}
+        {'string'}
+        <Route component={DefaultComponent} />
+      </Switch>,
+      { context }
+    );
+
+    expect(wrapper.type()).to.equal(Route);
+    expect(wrapper.props()).to.deep.equal({
+      component: DefaultComponent,
+      computedMatch: { url: '/', isExact: false, params: {} }
+    });
+  });
 });

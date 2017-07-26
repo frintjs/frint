@@ -29,7 +29,7 @@ function createContext() {
   };
 }
 
-describe('frint-route-react › Switch', function () {
+describe('frint-router-react › Switch', function () {
   it('switches routes according to router and passes computedMatch', function () {
     const HomeComponent = () => <header>HomeComponent</header>;
     const AboutComponent = () => <article>AboutComponent</article>;
@@ -285,7 +285,7 @@ describe('frint-route-react › Switch', function () {
     });
   });
 
-  it('doesn\'t crash when not Reacts elements are passed as children', function () {
+  it('doesn\'t crash when not React elements are passed as children', function () {
     const DefaultComponent = () => <h2>DefaultComponent</h2>;
 
     const context = createContext();

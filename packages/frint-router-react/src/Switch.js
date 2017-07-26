@@ -19,11 +19,11 @@ export default class Switch extends React.Component {
       history: null,
     };
 
-    this.subscription = null;
+    this._routerSubscription = null;
   }
 
   componentWillMount() {
-    this.subscription = this.context.app
+    this._routerSubscription = this.context.app
       .get('router')
       .getHistory$()
       .subscribe((history) => {
@@ -34,8 +34,8 @@ export default class Switch extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this._routerSubscription) {
+      this._routerSubscription.unsubscribe();
     }
   }
 
@@ -47,26 +47,17 @@ export default class Switch extends React.Component {
         return;
       }
 
-      if (!React.isValidElement(element)) {
-        return;
-      }
-
       const { path, exact } = element.props;
 
-      if (!path) {
-        child = React.cloneElement(element);
-
-        return;
-      }
-
-      const route = this.context.app
+      // if Route has no path (it's default) then getMatch will return match with whatever URL
+      const match = this.context.app
         .get('router')
         .getMatch(path, this.state.history, { exact });
 
-      if (route !== null) {
+      if (match !== null) {
         child = React.cloneElement(element, {
           ...element.props,
-          computedRoute: route,
+          computedMatch: match,
         });
       }
     });

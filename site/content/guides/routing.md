@@ -15,6 +15,7 @@ sidebarPartial: guidesSidebar
   - [Wiring things up](#wiring-things-up)
 - [Default route](#default-route)
 - [Nested routes](#nested-routes)
+- [Route params](#route-params)
 - [Another example](#another-example)
 
 <!-- /MarkdownTOC -->
@@ -45,7 +46,7 @@ really easy if you chose React as your view library by providing some handy comp
 You will need both `frint-router` and `frint-router-react` for this tutorial as well as `frint`, 
 `react` and `frint-react`.
 
-```bash
+```
 $ npm install --save frint-router frint-router-react frint react frint-react
 ```
 
@@ -207,18 +208,18 @@ const AboutPage = ({ match }) => {
   return (
     <div>
       <h2>About page</h2>
-        {<ul>
-          <li><Link to={`${match.url}`}>About</Link></li>
-          <li><Link to={`${match.url}/us`}>About us</Link></li>
-          <li><Link to={`${match.url}/them`}>About them</Link></li>
-        </ul>}
-        <Switch>
-          <Route path={`${match.url}/us`} component={AboutUs} />
-          <Route path={`${match.url}/them`} component={AboutThem} />
-        </Switch>
-      </div>
-    );
-  };
+      <ul>
+        <li><Link to={`${match.url}`}>About</Link></li>
+        <li><Link to={`${match.url}/us`}>About us</Link></li>
+        <li><Link to={`${match.url}/them`}>About them</Link></li>
+      </ul>
+      <Switch>
+        <Route path={`${match.url}/us`} component={AboutUs} />
+        <Route path={`${match.url}/them`} component={AboutThem} />
+      </Switch>
+    </div>
+  );
+};
 ...
 ```
 
@@ -228,11 +229,57 @@ object contains `url` which let's you define routes relative to the current.
 It is important that the parent `Route` doesn't have `exact` prop so that it would match all the URLs
 starting with the `path`.
 
+## Route params
+
+In your path you can also define params which will be passed to your component once the path is 
+matched. With params previous example can be rewritten in the following way: 
+
+```js
+const AboutAnyone = ({ match }) => <article>Some content about {match.params.party}...</article>;
+
+const AboutPage = ({ match }) => {
+  return (
+    <div>
+      <h2>About page</h2>
+      <ul>
+        <li><Link to={`${match.url}`}>About</Link></li>
+        <li><Link to={`${match.url}/us`}>About us</Link></li>
+        <li><Link to={`${match.url}/them`}>About them</Link></li>
+      </ul>
+      <Switch>
+        <Route path={`${match.url}/:party`} component={AboutAnyone} />
+      </Switch>
+    </div>
+  );
+};
+```
+
 ## Another example
 
 For more information about usage of Frint routing you can take a look at example here: 
 https://github.com/Travix-International/frint/tree/master/examples/router 
 
-# TODO
-## Route placeholders
-## Async loading with code splitting
+To launch it clone `frint` repository
+
+```
+git clone git@github.com:Travix-International/frint.git
+```
+
+Go to `frint` directory, install npm dependencies and bootstrap internal dependencies
+
+```
+$ cd frint
+$ npm install
+$ npm run bootstrap
+```
+
+Go to the `examples/router` directory which has the example's source code, install npm dependencies
+and start the project
+
+```
+$ cd examples/router
+$ npm install
+$ npm start
+```
+
+It will open a new browser for you with running the example app.

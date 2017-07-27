@@ -104,7 +104,7 @@ export default class Route extends React.Component {
 
   render() {
     const ComponentToRender = this.state.component;
-    const matched = this.props.computedMatch || this.state.matched;
+    const matched = this.props.computedMatch || this.state.matched || null;
 
     return ComponentToRender !== null && matched !== null
       ? <ComponentToRender match={matched} />

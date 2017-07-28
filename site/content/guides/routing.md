@@ -124,6 +124,7 @@ current URL. If you want to use `Link` or `Route` in your child apps you'll need
 
 ```js
 import { createApp } from 'frint';
+import BrowserRouterService from 'frint-router/BrowserRouterService';
 
 const RouterApp = createApp({
   name: 'RouterApp',
@@ -134,7 +135,9 @@ const RouterApp = createApp({
     },
     {
       name: 'router',
-      useValue: router,
+      useFactory: function() {
+        return new HashRouterService();
+      },
       cascade: true,
     },
   ],

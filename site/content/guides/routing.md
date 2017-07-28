@@ -167,15 +167,13 @@ component or an app when no other route matched. To enable this behaviour add a 
 `path` to your group of `Route` components and them wrap them into `Switch`.
 
 ```js
-...
 import { Route, Link, Switch } from 'frint-router-react';
-...
+
 const NotFoundPage = () => <div>Not found</div>;
-...
+
 const RootComponent = () => {
   return (
     <div>
-      ...
       <div className="content">
         <Switch>
           <Route path="/" component={HomePage} exact />
@@ -200,7 +198,6 @@ It is also possible for child components to define their own subroutes. So for e
 `AboutPage` to have subpages you can render `Link` and `Route` to it.
 
 ```js
-...
 const AboutUs = () => <article>Some content about us...</article>;
 const AboutThem = () => <article>Some content about them...</article>;
 
@@ -220,7 +217,6 @@ const AboutPage = ({ match }) => {
     </div>
   );
 };
-...
 ```
 
 Because `AboutPage` is rendered using `Route` component it receives a `match` object as a prop. This
@@ -256,7 +252,7 @@ const Photo = ({ match }) => {
     <div>
       <h1>Photo #{match.params.photoId}</h1>
       <div>
-        <img src={`...${match.params.photoId}`} />
+        <img src={`/static/img/photos/${match.params.photoId}`} />
       </div>
     </div>
   );
@@ -300,4 +296,4 @@ $ npm install
 $ npm start
 ```
 
-It will open a new browser for you with running the example app.
+It will launch the example in your browser for you, after taking care of bundling.

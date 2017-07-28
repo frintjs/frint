@@ -71,18 +71,6 @@ export default function Root() {
 
 The `exact` prop means, the route will be matched to the exact string `/`. Any further suffix in the URL would result in a no match.
 
-To load components asynchronously:
-
-```js
-export default function Root() {
-  return (
-    <div>
-      <Route path="/about" getComponent={cb => cb(null, AboutPage)} />
-    </div>
-  );
-}
-```
-
 #### Apps
 
 Similar to Components, Apps can also be mounted for specific routes:
@@ -99,18 +87,6 @@ export default function Root() {
   return (
     <div>
       <Route path="/about" app={ContactPage} />
-    </div>
-  );
-}
-```
-
-To load the app asynchronously:
-
-```js
-export default function Root() {
-  return (
-    <div>
-      <Route path="/about" getApp={cb => cb(null, ContactPage)} />
     </div>
   );
 }
@@ -333,11 +309,7 @@ This package is a close implementation of the APIs introduced by the awesome [`r
   * Example (with params): `/about/:user`
 1. `exact` (`Boolean`): Match the `path` exactly (with no suffix in the path)
 1. `component` (`Component`): The React component to render
-1. `getComponent` (`Function`): Asynchronously load the component
-  * Example: `(cb) => cb(null, MyComponent)`
 1. `app` (`App`): Frint App that you want to render
-1. `getApp` (`Function`): Asynchronously load the App
-  * Example: `(cb) => cb(null, MyApp)`
 
 ## Link
 

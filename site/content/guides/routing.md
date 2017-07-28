@@ -6,13 +6,9 @@ sidebarPartial: guidesSidebar
 # Routing
 
 <!-- MarkdownTOC depth=1 autolink=true bracket=round -->
-- [What is routing?](#what-is-routing-)
+
+- [What is routing?](#what-is-routing)
 - [Routing in Frint](#routing-in-frint)
-  - [Dependencies](#dependencies)
-  - [Creating components](#creating-components)
-  - [Creating a router](#creating-a-router)
-  - [Creating an app](#creating-an-app)
-  - [Wiring things up](#wiring-things-up)
 - [Default route](#default-route)
 - [Nested routes](#nested-routes)
 - [Route params](#route-params)
@@ -94,12 +90,10 @@ one passed to the `Link`.
 `Link` you can choose whether it should be an exact match. You can also pass a Frint app as an `app`
  prop instead of `component`.
 
-### Creating a router
-
-To create a router you need to import one of the router services from `frint-router` package and
-instantiate it.
+### Import the preferred router
 
 There are three router services available:
+
 - `BrowserRouterService`: uses modern HTML5 History API
 - `HashRouterService`: for legacy browsers
 - `MemoryRouterService`: useful for tests
@@ -108,8 +102,6 @@ For the purpose of this tutorial we will use `BrowserRouterService`:
 
 ```js
 import BrowserRouterService from 'frint-router/BrowserRouterService';
-
-const router = new BrowserRouterService();
 ```
 
 ### Creating an app
@@ -273,7 +265,8 @@ const PhotosPage = ({ match }) => {
 
 ## Another example
 
-To learn more about usage of Frint routing you can take a look at another example from `frint` repo.
+To learn more about usage of Frint routing you can take a look at another example from our monorepo.
+
 Install `frint-cli` package, then init the `router` example and run it.
 
 ```

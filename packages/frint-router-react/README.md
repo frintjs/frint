@@ -46,11 +46,11 @@ This package exports a handful of components.
 
 ### `Route` component
 
-The `Route` component is how you define a route in your application, that can render eithr a Component or an App in a synchronous or asynchronous way.
+The `Route` component is how you define a route in your application, that can render either a Component or an App.
 
 #### Components
 
-Assume you have two components `HomePage` and `AboutPage, and you want to show them when the browser navigates to `/` and `/about` respectively:
+Assume you have two components `HomePage` and `AboutPage`, and you want to show them when the browser navigates to `/` and `/about` respectively:
 
 ```js
 // components/Root.js

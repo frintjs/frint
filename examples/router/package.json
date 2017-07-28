@@ -16,6 +16,8 @@
   "dependencies": {
     "frint": "^2.0.1",
     "frint-react": "^2.0.1",
+    "frint-router": "^2.0.1",
+    "frint-router-react": "^2.0.1",
     "frint-store": "^2.0.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

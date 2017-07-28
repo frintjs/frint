@@ -270,28 +270,16 @@ const PhotosPage = ({ match }) => {
 
 ## Another example
 
-For more information about usage of Frint routing you can take a look at example here: 
-https://github.com/Travix-International/frint/tree/master/examples/router 
-
-To launch it clone `frint` repository
+To learn more about usage of Frint routing you can take a look at another example from `frint` repo.
+Install `frint-cli` package, then init the `router` example and run it.
 
 ```
-git clone git@github.com:Travix-International/frint.git
-```
+$ npm install -g frint-cli
 
-Go to `frint` directory, install npm dependencies and bootstrap internal dependencies
+$ mkdir my-frint-app
+$ cd my-frint-app
 
-```
-$ cd frint
-$ npm install
-$ npm run bootstrap
-```
-
-Go to the `examples/router` directory which has the example's source code, install npm dependencies
-and start the project
-
-```
-$ cd examples/router
+$ frint init --example router
 $ npm install
 $ npm start
 ```

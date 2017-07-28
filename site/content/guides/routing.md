@@ -136,7 +136,7 @@ const RouterApp = createApp({
     {
       name: 'router',
       useFactory: function() {
-        return new HashRouterService();
+        return new BrowserRouterService();
       },
       cascade: true,
     },

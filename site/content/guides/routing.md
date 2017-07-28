@@ -232,24 +232,42 @@ starting with the `path`.
 ## Route params
 
 In your path you can also define params which will be passed to your component once the path is 
-matched. With params previous example can be rewritten in the following way: 
+matched. Imagine we have a photo gallery where we show a list of photo names and by clicking on the
+name you can see the name and the photo itself. Below you can find how it can be implemented by
+using route params. `PhotosPage` acts as a container with routing for two nested components: `Photos`
+and `Photo`.
 
 ```js
-const AboutAnyone = ({ match }) => <article>Some content about {match.params.party}...</article>;
-
-const AboutPage = ({ match }) => {
+const Photos = ({ match }) => {
   return (
     <div>
-      <h2>About page</h2>
+      <h1>Photos</h1>
       <ul>
-        <li><Link to={`${match.url}`}>About</Link></li>
-        <li><Link to={`${match.url}/us`}>About us</Link></li>
-        <li><Link to={`${match.url}/them`}>About them</Link></li>
+        <li><Link to={`${match.url}/1`}>Photo #1</Link></li>
+        <li><Link to={`${match.url}/2`}>Photo #2</Link></li>
+        <li><Link to={`${match.url}/3`}>Photo #3</Link></li>
       </ul>
-      <Switch>
-        <Route path={`${match.url}/:party`} component={AboutAnyone} />
-      </Switch>
     </div>
+  );
+};
+
+const Photo = ({ match }) => {
+  return (
+    <div>
+      <h1>Photo #{match.params.photoId}</h1>
+      <div>
+        <img src={`...${match.params.photoId}`} />
+      </div>
+    </div>
+  );
+}
+
+const PhotosPage = ({ match }) => {
+  return (
+    <Switch>
+      <Route path={`${match.url}/:photoId`} component={Photo} />
+      <Route component={Photos} />
+    </Switch>
   );
 };
 ```

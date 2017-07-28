@@ -44,9 +44,11 @@ The framework is a collection of these packages, which can be composed together 
 * [frint-model](./packages/frint-model): For creating models for data structures.
 * [frint-react](./packages/frint-react): For creating React-compatible reactive components.
 * [frint-react-server](./packages/frint-react-server): Server-side rendering for Apps.
+* [frint-router](./packages/frint-router): Router services for single page applications (SPA).
+* [frint-router-react](./packages/frint-router-react): React components for building SPAs.
 * [frint-test-utils](./packages/frint-test-utils): Test utilities.
 * [frint-cli](./packages/frint-cli): CLI runner.
-* [frint-compat](./packages/frint-compat): Backwards compatibility plugin for supporting `v0.x` users.
+* [frint-compat](./packages/frint-compat): Backwards compatibility support for `v0.x` users.
 
 ## License
 

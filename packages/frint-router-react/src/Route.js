@@ -13,7 +13,7 @@ export default class Route extends React.Component {
     path: PropTypes.string,
     exact: PropTypes.bool,
     computedMatch: PropTypes.object,
-    component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    component: PropTypes.func,
     app: PropTypes.func,
   };
 

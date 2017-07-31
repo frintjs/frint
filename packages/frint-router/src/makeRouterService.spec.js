@@ -14,7 +14,7 @@ describe('frint-router › makeRouterService', function () {
     const MemoryRouterService = makeRouterService(createMemoryHistory);
 
     const router = new MemoryRouterService({ foo: 'foo' });
-    expect(router.options).to.deep.equal({ foo: 'foo' });
+    expect(router.options).to.contain({ foo: 'foo' });
   });
 
   describe('MemoryRouter', function () {

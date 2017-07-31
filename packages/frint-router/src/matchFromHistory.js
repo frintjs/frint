@@ -17,7 +17,7 @@ export default function matchFromHistory(pattern, history, options = {}) {
 
   const matched = re.exec(history.location.pathname);
 
-  if (!matched) {
+  if (!Array.isArray(matched)) {
     return null;
   }
 

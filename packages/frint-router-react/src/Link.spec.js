@@ -236,12 +236,22 @@ describe('frint-route-react › Link', () => {
     expect(unsubscribeCount).to.equal(2);
   });
 
-  it('pushes new url to router, prevents default and doesn\'t stopPropagation when clicked', function () {
+  describe('prevents default and doesn\'t stopPropagation when clicked ', function () {
     const pushedUrls = [];
+    const actualRouter = new MemoryRouterService();
 
     const router = {
       push(url) {
+        actualRouter.push(url);
         pushedUrls.push(url);
+      },
+
+      getHistory() {
+        return actualRouter.getHistory();
+      },
+
+      getMatch(...args) {
+        return actualRouter.getMatch.call(actualRouter, ...args);
       }
     };
 
@@ -250,15 +260,32 @@ describe('frint-route-react › Link', () => {
       { context: createContextWithRouter(router) }
     );
 
-    let preventDefaultCalled = false;
-    let stopPropagationCalled = false;
-    wrapper.simulate('click', {
-      preventDefault() { preventDefaultCalled = true; },
-      stopPropagation() { stopPropagationCalled = true; }
+    it('and pushes new url to router when it doesn\'t match current url', function () {
+      let preventDefaultCalled = 0;
+      let stopPropagationCalled = 0;
+      wrapper.simulate('click', {
+        preventDefault() { preventDefaultCalled += 1; },
+        stopPropagation() { stopPropagationCalled += 1; }
+      });
+
+      expect(pushedUrls).to.deep.equal(['/about']);
+      expect(preventDefaultCalled).to.equal(1);
+      expect(stopPropagationCalled).to.equal(0);
     });
 
-    expect(pushedUrls).to.deep.equal(['/about']);
-    expect(preventDefaultCalled).to.be.true;
-    expect(stopPropagationCalled).to.be.false;
+
+    it('and doesn\'t push new url to router when it matches current url', function () {
+      let preventDefaultCalled = 0;
+      let stopPropagationCalled = 0;
+      wrapper.simulate('click', {
+        preventDefault() { preventDefaultCalled += 1; },
+        stopPropagation() { stopPropagationCalled += 1; }
+      });
+
+      // nothing new was added to the pushedUrls and that's the point
+      expect(pushedUrls).to.deep.equal(['/about']);
+      expect(preventDefaultCalled).to.equal(1);
+      expect(stopPropagationCalled).to.equal(0);
+    });
   });
 });

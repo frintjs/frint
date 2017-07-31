@@ -93,7 +93,7 @@ describe('frint-router › makeRouterService', function () {
       const router = new MemoryRouterService();
 
       router.getMatch$('/about')
-        .take(3)
+        .take(4)
         .scan(
           (matches, currentMatch) => matches.concat([currentMatch]),
           []
@@ -113,6 +113,13 @@ describe('frint-router › makeRouterService', function () {
 
             // second push
             null,
+
+            // third push
+            {
+              url: '/about',
+              isExact: true,
+              params: {},
+            },
           ]);
 
           done();
@@ -120,6 +127,7 @@ describe('frint-router › makeRouterService', function () {
 
       router.push('/about');
       router.push('/');
+      router.push('/about');
     });
 
     it('destroys listener', function (done) {

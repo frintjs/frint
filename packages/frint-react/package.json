@@ -32,15 +32,8 @@
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
-    "enzyme": "^2.8.2",
     "frint": "^2.1.0",
-    "frint-test-utils": "^2.1.0",
-    "prop-types": "^15.5.10",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
-    "frint": "^2.0.1",
-    "frint-test-utils": "^2.0.1"
+    "frint-test-utils": "^2.1.0"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

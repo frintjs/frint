@@ -108,6 +108,14 @@ All of them implement the same set of methods.
 
 ## BrowserRouterService
 
+### constructor
+
+#### Arguments
+
+1. `options` (`Object`)
+  * `options.enableCache` (`Boolean`): Enables caching, set to `true` by default.
+  * `options.cacheLimit` (`Number`): Maximum limit of entries to cache, set to `10000` by default.
+
 ### getHistory$
 
 > getHistory$()
@@ -139,7 +147,6 @@ Keeps matching pattern against history as it keeps changing over time.
 1. `pattern` (`String`): Pattern to match against
 1. `options` (`Object`)
   * `options.exact` (`Boolean`): Matches pattern exactly, defaults to `false`.
-  * `options.cache` (`Boolean`): Cache matches (TODO)
 
 #### Returns
 

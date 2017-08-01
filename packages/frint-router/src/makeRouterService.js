@@ -5,7 +5,14 @@ import matchFromHistory from './matchFromHistory';
 export default function makeRouterService(createHistory) {
   class RouterService {
     constructor(options = {}) {
-      this.options = options;
+      const defaultOptions = {
+        enableCache: true,
+        cacheLimit: 10000,
+      };
+      this.options = {
+        ...defaultOptions,
+        ...options,
+      };
       this._history = createHistory(options);
 
       this._history$ = new BehaviorSubject({
@@ -21,6 +28,9 @@ export default function makeRouterService(createHistory) {
           action,
         });
       });
+
+      this._cache = {};
+      this._cacheCount = 0;
     }
 
     getHistory$() {
@@ -50,11 +60,26 @@ export default function makeRouterService(createHistory) {
     getMatch(pattern, history, opts = {}) { // eslint-disable-line
       const options = {
         exact: false,
-        cache: true, // @TODO: implement later
         ...opts,
       };
+      const cacheKey = `${pattern}|${history.location.pathname}|${options.exact}`;
+
+      if (
+        this.options.enableCache &&
+        this._cache[cacheKey]
+      ) {
+        return this._cache[cacheKey];
+      }
 
       const matched = matchFromHistory(pattern, history, options);
+
+      if (
+        this.options.enableCache &&
+        this._cacheCount < this.options.cacheLimit
+      ) {
+        this._cache[cacheKey] = matched;
+        this._cacheCount += 1;
+      }
 
       return matched;
     }

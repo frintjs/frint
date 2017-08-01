@@ -1,5 +1,18 @@
 # Change Log
 
+## v2.2.0 (2017-08-01)
+
+#### Pull Requests
+
+* `frint-router`, `frint-router-react`, `frint-react`
+  * [#244](https://github.com/Travix-International/frint/pull/244) Router. ([@fahad19](https://github.com/fahad19), [@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn), [@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 3
+
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Ricardo Machado ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v2.1.0 (2017-07-26)
 
 #### Pull Requests

@@ -58,8 +58,8 @@ Via [unpkg](https://unpkg.com) CDN:
 Let's import the necessary functions from the library first:
 
 ```js
-const Frint = require('frint');
-const { createStore, combineReducers } = Frint;
+const FrintStore = require('frint-store');
+const { createStore, combineReducers } = FrintStore;
 ```
 
 We can start by defining our Action Types:

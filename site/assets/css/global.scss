@@ -1,7 +1,8 @@
+$primary: #4C51A1;
 @import "bulma/bulma.sass";
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700");
-@import url("https://fonts.googleapis.com/css?family=Montserrat:600,800");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,600,800");
 
 * {
   margin: 0;
@@ -32,24 +33,13 @@ body > .nav + section {
   margin-bottom: 50px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, .content h1,
+h2, .content h2,
+h3, .content h3,
+h4, .content h4,
+h5, .content h5,
+h6, .content h6 {
   font-family: 'Montserrat', 'Open Sans', sans-serif;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: 800;
-}
-
-h4,
-h5,
-h6 {
   font-weight: 600;
 }
 

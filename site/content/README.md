@@ -1,5 +1,5 @@
 ---
-title: Frint - The Modular JavaScript Framework
+title: FrintJS - The Modular JavaScript Framework
 layout: home
 ---
 

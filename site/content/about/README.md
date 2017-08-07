@@ -6,7 +6,7 @@ processTemplate: true
 
 # About
 
-Frint was built at [Travix International](https://travix.com) for helping us with building our front-end web applications in a faster, modular and more scalable way.
+FrintJS was built at [Travix International](https://travix.com) for helping us with building our front-end web applications in a faster, modular and more scalable way.
 
 ## Contributors
 

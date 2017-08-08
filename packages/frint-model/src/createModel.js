@@ -13,7 +13,7 @@ export default function createModel(extend = {}) {
       }
     }
   }
-  
+
   _.merge(Model.prototype, extend);
 
   return Model;

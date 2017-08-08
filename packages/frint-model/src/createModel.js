@@ -8,13 +8,13 @@ export default function createModel(extend = {}) {
     constructor(...args) {
       super(...args);
 
-      _.merge(this, extend);
-
       if (typeof this.initialize === 'function') {
         this.initialize(...args);
       }
     }
   }
+
+  _.merge(Model.prototype, extend);
 
   return Model;
 }

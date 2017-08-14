@@ -8,6 +8,7 @@ function Store(options = {}) {
     thunkArgument: null,
     appendAction: false,
     reducer: state => state,
+    epic: null,
     enableLogger: true,
     console: console,
     ...options,
@@ -98,6 +99,10 @@ Store.prototype.dispatch = function dispatch(action) {
   )
     ? { ...this.options.appendAction, ...action }
     : action;
+
+  if (this.options.epic) {
+    // @TODO: handle epic
+  }
 
   return this.internalState$.next(payload);
 };

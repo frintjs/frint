@@ -26,6 +26,7 @@ module.exports = {
   externals: {
     'frint': 'Frint',
     'lodash': '_',
+    'prop-types': 'PropTypes',
     'react': 'React',
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx',

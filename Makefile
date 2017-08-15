@@ -34,6 +34,9 @@ list-packages:
 list-updated:
 	./node_modules/.bin/lerna updated
 
+list-dists:
+	ls -alh ./packages/frint*/dist/*.js | awk '{print $$5 "\t" $$9 }'
+
 ##
 # Site
 site-fetch-contributors:

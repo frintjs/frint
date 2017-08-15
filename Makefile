@@ -35,7 +35,15 @@ list-updated:
 	./node_modules/.bin/lerna updated
 
 list-dists:
-	ls -alh ./packages/frint*/dist/*.js | awk '{print $$5 "\t" $$9 }'
+	@echo "original \\t gzipped \\t file"
+	@echo "--- \\t\\t --- \\t\\t ---"
+	@ls -alh ./packages/frint*/dist/*.js | grep '.min.js' | awk '{print $$9 }' | while read LINE; do\
+		SIZE="$$(cat $${LINE} | wc -c | bc)";\
+		SIZE_IN_KB=$$(echo "scale=1; $${SIZE} / 1024" | bc);\
+		GZIPPED_SIZE="$$(gzip -c $${LINE} | wc -c | bc)";\
+		GZIPPED_SIZE_IN_KB=$$(echo "scale=1; $${GZIPPED_SIZE} / 1024" | bc);\
+		echo "$${SIZE_IN_KB}K \\t\\t $${GZIPPED_SIZE_IN_KB}K \\t\\t $${LINE}";\
+	done
 
 ##
 # Site

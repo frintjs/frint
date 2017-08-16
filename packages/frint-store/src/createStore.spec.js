@@ -442,77 +442,81 @@ describe('frint-store › createStore', function () {
 
       subscription.unsubscribe();
     });
+  });
 
-    it('creates Store with epics', function (done) {
-      // constants
-      const PING = 'PING';
-      const PONG = 'PONG';
+  it('creates Store with epics', function (done) {
+    // constants
+    const PING = 'PING';
+    const PONG = 'PONG';
 
-      const INITIAL_STATE = {
-        isPinging: false,
-      };
+    const INITIAL_STATE = {
+      isPinging: false,
+    };
 
-      // reducers
-      function pingReducer(state = INITIAL_STATE, action) {
-        switch (action.type) {
-          case PING:
-            return {
-              isPinging: true,
-            };
+    // reducers
+    function pingReducer(state = INITIAL_STATE, action) {
+      switch (action.type) {
+        case PING:
+          return {
+            isPinging: true,
+          };
 
-          case PONG:
-            return {
-              isPinging: false,
-            };
+        case PONG:
+          return {
+            isPinging: false,
+          };
 
-          default:
-            return state;
-        }
+        default:
+          return state;
       }
+    }
 
-      const rootReducer = combineReducers({
-        ping: pingReducer,
-      });
-
-      // epics
-      function pingEpic$(action$, store) {
-        return action$
-          .filter(action => action.type === PING)
-          .delay(100)
-          .map(action => ({ type: PONG }));
-      }
-
-      const rootEpic$ = combineEpics(pingEpic$);
-
-      // Store
-      const Store = createStore({
-        enableLogger: false,
-        reducer: rootReducer,
-        epic: rootEpic$,
-      });
-
-      const store = new Store();
-
-      expect(store.getState().ping.isPinging).to.equal(false);
-
-      store.getState$()
-        .take(3)
-        .scan(
-          function (acc, curr) {
-            acc.push({ isPinging: curr.ping.isPinging });
-
-            return acc;
-          },
-          []
-        )
-        .last()
-        .subscribe(function (pingStates) {
-          console.log('pingStates', pingStates);
-
-          done();
-        });
-
-      store.dispatch({ type: PING });
+    const rootReducer = combineReducers({
+      ping: pingReducer,
     });
+
+    // epics
+    function pingEpic$(action$) {
+      return action$
+        .filter(action => action.type === PING)
+        .delay(10)
+        .map(() => ({ type: PONG }));
+    }
+
+    const rootEpic$ = combineEpics(pingEpic$);
+
+    // Store
+    const Store = createStore({
+      enableLogger: false,
+      reducer: rootReducer,
+      epic: rootEpic$,
+    });
+
+    const store = new Store();
+
+    expect(store.getState().ping.isPinging).to.equal(false);
+
+    store.getState$()
+      .take(3)
+      .scan(
+        function (acc, curr) {
+          acc.push({ isPinging: curr.ping.isPinging });
+
+          return acc;
+        },
+        []
+      )
+      .last()
+      .subscribe(function (pingStates) {
+        expect(pingStates).to.deep.equal([
+          { isPinging: false }, // initial state
+          { isPinging: true }, // after PING
+          { isPinging: false }, // after PING has dispatched PONG
+        ]);
+
+        done();
+      });
+
+    store.dispatch({ type: PING });
   });
 });

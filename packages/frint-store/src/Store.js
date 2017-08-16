@@ -1,6 +1,13 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+
+class ActionsObservable extends Observable {
+  constructor(source) {
+    super();
+    this.source = source;
+  }
+}
 
 function Store(options = {}) {
   this.options = {
@@ -69,12 +76,30 @@ function Store(options = {}) {
       this.exposedState$.next(state);
     });
 
-  this.dispatch({ type: '__FRINT_INIT__' });
-
   this.getState = this.getState.bind(this);
   this.dispatch = this.dispatch.bind(this);
-}
 
+  // for epic
+  this._input$ = null;
+  this._action$ = null;
+  this._epic$ = null;
+  this._epicSubscription = null;
+
+  if (this.options.epic) {
+    this._input$ = new Subject();
+    this._action$ = new ActionsObservable(this._input$);
+    this._epic$ = new Subject();
+
+    this._epicSubscription = this._epic$
+      .map(epic => epic(this._action$, this))
+      .switchMap(output$ => output$)
+      .subscribe(this.dispatch);
+
+    this._epic$.next(this.options.epic);
+  }
+
+  this.dispatch({ type: '__FRINT_INIT__' });
+}
 
 Store.prototype.getState$ = function getState$() {
   return this.exposedState$;
@@ -99,17 +124,22 @@ Store.prototype.dispatch = function dispatch(action) {
   )
     ? { ...this.options.appendAction, ...action }
     : action;
+  const result = this.internalState$.next(payload);
 
   if (this.options.epic) {
-    // @TODO: handle epic
+    this._input$.next(payload);
   }
 
-  return this.internalState$.next(payload);
+  return result;
 };
 
 Store.prototype.destroy = function destroy() {
   if (this.subscription) {
     this.subscription.unsubscribe();
+  }
+
+  if (this._epicSubscription) {
+    this._epicSubscription.unsubscribe();
   }
 };
 

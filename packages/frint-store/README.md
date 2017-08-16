@@ -12,6 +12,7 @@
   - [Usage](#usage)
   - [Async actions](#async-actions)
   - [Extra arguments](#extra-arguments)
+  - [Note](#note)
 - [API](#api)
   - [createStore](#createstore)
   - [combineReducers](#combinereducers)
@@ -177,6 +178,10 @@ function incrementCounterAsync() {
   };
 }
 ```
+
+## Note
+
+This package is a close implementation of the APIs introduced by the awesome `redux` and `redux-observable`.
 
 ---
 

@@ -28,6 +28,7 @@ module.exports = {
     'react': 'React',
     'rxjs': 'Rx',
     'prop-types': 'PropTypes',
+    'frint-react': 'FrintReact',
     'frint-router': 'FrintRouter',
   },
   target: 'web',

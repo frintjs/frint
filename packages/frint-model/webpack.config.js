@@ -25,6 +25,7 @@ module.exports = {
   },
   externals: {
     'lodash': '_',
+    'rxjs': 'Rx',
   },
   target: 'web',
   plugins: plugins,

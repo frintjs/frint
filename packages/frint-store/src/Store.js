@@ -91,7 +91,7 @@ function Store(options = {}) {
     this._epic$ = new Subject();
 
     this._epicSubscription = this._epic$
-      .map(epic => epic(this._action$, this))
+      .map(epic => epic(this._action$, this, this.options.thunkArgument))
       .switchMap(output$ => output$)
       .subscribe(this.dispatch);
 

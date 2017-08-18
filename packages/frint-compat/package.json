@@ -27,20 +27,9 @@
   "keywords": [
     "frint"
   ],
-  "dependencies": {
-    "frint": "^2.8.1",
-    "frint-model": "^2.8.1",
-    "frint-react": "^2.8.1",
-    "frint-store": "^2.8.1",
-    "lodash": "^4.13.1",
-    "rxjs": "^5.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "cross-env": "^5.0.5",
-    "frint-test-utils": "^2.8.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "cross-env": "^5.0.5"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

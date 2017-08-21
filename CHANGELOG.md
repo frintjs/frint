@@ -1,5 +1,24 @@
 # Change Log
 
+## v2.2.1 (2017-08-21)
+
+#### Pull Requests
+* Other
+  * [#263](https://github.com/Travix-International/frint/pull/263) Site: fix REPL by loading `prop-types`.. ([@fahad19](https://github.com/fahad19))
+  * [#255](https://github.com/Travix-International/frint/pull/255) Homepage: header updated. ([@fahad19](https://github.com/fahad19))
+  * [#254](https://github.com/Travix-International/frint/pull/254) Migration to v1.x docs: Add information about combineReducers. ([@viacheslaff](https://github.com/viacheslaff))
+* `frint-compat`, `frint-model`, `frint-react`, `frint-router-react`
+  * [#261](https://github.com/Travix-International/frint/pull/261) Apply Webpack’s `externals` more accurately to reduce dist sizes.. ([@fahad19](https://github.com/fahad19))
+* `frint-model`
+  * [#258](https://github.com/Travix-International/frint/pull/258) Extend the prototype of Model at definition time. ([@reaktivo](https://github.com/reaktivo))
+* `frint-store`
+  * [#251](https://github.com/Travix-International/frint/pull/251) frint-store: Fix wrong combineReducers require in docs. ([@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 3
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Marcel Miranda Ackerman ([reaktivo](https://github.com/reaktivo))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v2.2.0 (2017-08-01)
 
 #### Pull Requests
@@ -8,7 +27,6 @@
   * [#244](https://github.com/Travix-International/frint/pull/244) Router. ([@fahad19](https://github.com/fahad19), [@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn), [@viacheslaff](https://github.com/viacheslaff))
 
 #### Committers: 3
-
 - Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
 - Ricardo Machado ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
 - Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))

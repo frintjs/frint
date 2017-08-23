@@ -1,6 +1,6 @@
 import React from 'react';
-import  { observe, streamProps } from 'frint-react';
-import { Observable } from 'rxjs';
+import { observe, streamProps } from 'frint-react';
+import PropTypes from 'prop-types';
 
 import {
   incrementCounter,
@@ -8,6 +8,18 @@ import {
 } from '../actions/counter';
 
 class Root extends React.Component {
+  static propTypes = {
+    color: PropTypes.string,
+    counter: PropTypes.number,
+    incrementCounter: PropTypes.func,
+    decrementCounter: PropTypes.func,
+    changeColor: PropTypes.func,
+    regionProps: PropTypes.object,
+    foo: PropTypes.object,
+    bar: PropTypes.object,
+    baz: PropTypes.object
+  };
+
   render() {
     const codeStyle = {
       color: this.props.color,
@@ -87,10 +99,10 @@ export default observe(function (app) {
 
     // map dispatchable actions
     .setDispatch(
-      {
-        incrementCounter,
-        decrementCounter
-      },
+    {
+      incrementCounter,
+      decrementCounter
+    },
       app.get('store')
     )
 
@@ -104,14 +116,14 @@ export default observe(function (app) {
     // other app: ColorApp
     .set(
       app.getAppOnceAvailable$('ColorApp'),
-      (colorApp) => colorApp.get('store').getState$(),
-      (colorAppState) => ({ color: colorAppState.color.value })
+      colorApp => colorApp.get('store').getState$(),
+      colorAppState => ({ color: colorAppState.color.value })
     )
     .set(
       app.getAppOnceAvailable$('ColorApp'),
-      (colorApp) => colorApp.get('store'),
-      (colorAppStore) => ({
-        changeColor: (color) => colorAppStore.dispatch({
+      colorApp => colorApp.get('store'),
+      colorAppStore => ({
+        changeColor: color => colorAppStore.dispatch({
           type: 'CHANGE_COLOR',
           color,
         })

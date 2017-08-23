@@ -1,13 +1,7 @@
 /* eslint-disable no-console */
 import _ from 'lodash';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-
-class ActionsObservable extends Observable {
-  constructor(source) {
-    super();
-    this.source = source;
-  }
-}
+import { Subject, BehaviorSubject } from 'rxjs';
+import ActionsObservable from './ActionsObservable';
 
 function Store(options = {}) {
   this.options = {

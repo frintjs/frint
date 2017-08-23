@@ -179,6 +179,10 @@ describe('frint-store › createStore', function () {
   it('destroys internal subscription', function () {
     const Store = createStore({
       enableLogger: false,
+      epic: function (action$) {
+        return action$
+          .filter(action => action.type === 'PING');
+      },
       initialState: {
         counter: 0
       }

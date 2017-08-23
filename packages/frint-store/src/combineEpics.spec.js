@@ -23,13 +23,12 @@ describe('frint-store › combineEpics', function () {
 
     result$.subscribe((emittedAction) => {
       emittedActions.push(emittedAction);
-    });
+    }).then(done());
 
     subject$.next({ type: 'PING' });
 
     expect(emittedActions).to.deep.equal([
       { type: 'PONG' }
     ]);
-    done();
   });
 });

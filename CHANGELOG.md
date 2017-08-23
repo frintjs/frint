@@ -1,5 +1,14 @@
 # Change Log
 
+## v2.3.0 (2017-08-23)
+
+* `frint-store`
+  * [#271](https://github.com/Travix-International/frint/pull/271) frint-store: Epics ([@fahad19](https://github.com/fahad19), [@nunorfpt](https://github.com/nunorfpt))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Nuno Fatela ([nunorfpt](https://github.com/nunorfpt))
+
 ## v2.2.1 (2017-08-21)
 
 #### Pull Requests

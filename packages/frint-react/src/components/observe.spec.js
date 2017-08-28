@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
-/* global describe, it, document, before, resetDOM */
+/* global describe, it, document, beforeEach, resetDOM */
 import { expect } from 'chai';
 import { Observable } from 'rxjs';
 import React from 'react';
@@ -11,7 +11,7 @@ import Provider from './Provider';
 import render from '../render';
 
 describe('frint-react › components › observe', function () {
-  before(function () {
+  beforeEach(function () {
     resetDOM();
   });
 

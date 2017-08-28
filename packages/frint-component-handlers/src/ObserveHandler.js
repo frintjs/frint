@@ -17,7 +17,7 @@ export default {
   },
   beforeDestroy() {
     if (this._subscription) {
-      this._subscription.unsubsribe();
+      this._subscription.unsubscribe();
     }
   }
 };

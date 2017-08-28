@@ -35,57 +35,58 @@ export default {
 
     this._subscription = apps$.subscribe({
       next: (list) => {
-        this.setData('list', list);
-        this.getData('list').forEach((item) => {
-          const {
-            name: appName,
-            weight: appWeight,
-            multi
-          } = item;
-          const existsInState = this.getData('listForRendering').some((w) => {
-            return w.name === appName;
-          });
-
-          // @TODO: take care of removal in streamed list too?
-
-          if (existsInState) {
-            return;
-          }
-
-          const regionArgs = this.getProp('uniqueKey')
-            ? [this.getProp('name'), this.getProp('uniqueKey')]
-            : [this.getProp('name')];
-
-          if (
-            this.getProp('uniqueKey') &&
-            !rootApp.hasAppInstance(appName, ...regionArgs)
-          ) {
-            rootApp.instantiateApp(appName, ...regionArgs);
-          }
-
-          const appInstance = rootApp.getAppInstance(appName, ...regionArgs);
-          if (appInstance) {
-            this.sendProps(appInstance, {
-              name: this.getProp('name'),
-              uniqueKey: this.getProp('uniqueKey'),
-              data: this.getProp('data'),
+        this.setDataWithCallback('list', list, () => {
+          this.getData('list').forEach((item) => {
+            const {
+              name: appName,
+              weight: appWeight,
+              multi
+            } = item;
+            const existsInState = this.getData('listForRendering').some((w) => {
+              return w.name === appName;
             });
-          }
 
-          this.setData(
-            'listForRendering',
-            this.getData('listForRendering')
-              .concat({
-                name: appName,
-                weight: appWeight,
-                instance: appInstance,
-                multi: multi,
-                Component: this.getMountableComponent(appInstance),
-              })
-              .sort((a, b) => {
-                return a.weight - b.weight;
-              })
-          );
+            // @TODO: take care of removal in streamed list too?
+
+            if (existsInState) {
+              return;
+            }
+
+            const regionArgs = this.getProp('uniqueKey')
+              ? [this.getProp('name'), this.getProp('uniqueKey')]
+              : [this.getProp('name')];
+
+            if (
+              this.getProp('uniqueKey') &&
+              !rootApp.hasAppInstance(appName, ...regionArgs)
+            ) {
+              rootApp.instantiateApp(appName, ...regionArgs);
+            }
+
+            const appInstance = rootApp.getAppInstance(appName, ...regionArgs);
+            if (appInstance) {
+              this.sendProps(appInstance, {
+                name: this.getProp('name'),
+                uniqueKey: this.getProp('uniqueKey'),
+                data: this.getProp('data'),
+              });
+            }
+
+            this.setData(
+              'listForRendering',
+              this.getData('listForRendering')
+                .concat({
+                  name: appName,
+                  weight: appWeight,
+                  instance: appInstance,
+                  multi: multi,
+                  Component: this.getMountableComponent(appInstance),
+                })
+                .sort((a, b) => {
+                  return a.weight - b.weight;
+                })
+            );
+          });
         });
       },
       error: (err) => {
@@ -130,7 +131,9 @@ export default {
       }));
   },
   beforeDestroy() {
-    this._subscription.unsubsribe();
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+    }
 
     if (this.rootApp) {
       this.getData('listForRendering')

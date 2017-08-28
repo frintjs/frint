@@ -3,8 +3,8 @@ import DefaultHandler from './DefaultHandler';
 function Handler(...handlers) {
   [DefaultHandler]
     .concat(handlers)
-    .forEach(options => {
-      Object.keys(options).forEach(k => {
+    .forEach((options) => {
+      Object.keys(options).forEach((k) => {
         this[k] = options[k];
 
         if (typeof options[k] === 'function') {

@@ -28,7 +28,7 @@ export default function observe(fn) {
           {
             component: this,
             getProps$: fn,
-          },
+          }
         );
 
         this.state = this._handler.getInitialData();

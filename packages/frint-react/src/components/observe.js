@@ -3,6 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Observable } from 'rxjs';
 
+import composeHandlers from 'frint-component-utils/lib/composeHandlers';
+import ObserveHandler from 'frint-component-handlers/lib/ObserveHandler';
+
+import ReactHandler from '../handlers/ReactHandler';
+
 export default function observe(fn) {
   return (Component) => {
     class WrappedComponent extends React.Component {
@@ -17,32 +22,29 @@ export default function observe(fn) {
       constructor(...args) {
         super(...args);
 
-        this.state = {
-          computedProps: {},
-        };
+        this._handler = composeHandlers(
+          ReactHandler,
+          ObserveHandler,
+          {
+            component: this,
+            getProps$: fn,
+          },
+        );
+
+        this.state = this._handler.getInitialData();
       }
 
       componentWillMount() {
-        const observableFn = (typeof fn !== 'undefined')
-          ? fn
-          : () => Observable.of({});
-
-        this.subscription = observableFn(this.context.app)
-          .subscribe((computedProps) => {
-            this.setState({
-              computedProps,
-            });
-          });
+        this._handler.app = this.context.app;
+        this._handler.beforeMount();
       }
 
       componentWillUnmount() {
-        this.subscription.unsubscribe();
+        this._handler.beforeDestroy();
       }
 
       render() {
-        const {
-          computedProps,
-        } = this.state;
+        const { computedProps } = this.state;
 
         return <Component {...computedProps} {...this.props} />;
       }

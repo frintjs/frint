@@ -28,6 +28,8 @@
     "frint"
   ],
   "dependencies": {
+    "frint-component-handlers": "^2.3.0",
+    "frint-component-utils": "^2.3.0",
     "lodash": "^4.13.1",
     "rxjs": "^5.2.0"
   },

@@ -51,30 +51,27 @@ This is the default handler interface which other handlers are expected to imple
   component: null,
 
   // lifecycle: creation
-  initialize() { return null; },
-  beforeDestroy() { return null; },
+  initialize() {},
+  beforeDestroy() {},
 
   // data
-  getInitialData() { return {}; },
-  setData(key, value) { return null; },
-  setDataWithCallback(key, value, cb) {
-    this.setData(key, value);
-    cb();
-  },
-  getData(key) { return null; },
+  getInitialData() {},
+  setData(key, value) {},
+  setDataWithCallback(key, value, cb) {},
+  getData(key) {},
 
   // props
-  getProp(key) { return null; },
-  getProps() { return {}; },
+  getProp(key) {},
+  getProps() {},
 
   // lifecycle: mounting
-  beforeMount() { return null; },
-  afterMount() { return null; },
+  beforeMount() {},
+  afterMount() {},
 
   // lifecycle: re-rendering
-  beforeUpdate() { return null; },
-  shouldUpdate(nextProps, nextData) { return true; },
-  afterUpdate() { return null; },
+  beforeUpdate() {},
+  shouldUpdate(nextProps, nextData) {},
+  afterUpdate() {},
 
   // other
   getMountableComponent(app) {}

@@ -15,7 +15,7 @@ export default class Region extends React.Component {
 
   static contextTypes = {
     app: PropTypes.object,
-  }
+  };
 
   constructor(...args) {
     super(...args);

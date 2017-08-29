@@ -57,6 +57,6 @@ export default {
 
   // other
   getMountableComponent(app) {
-    return null;
+    return app.get('component');
   }
 };

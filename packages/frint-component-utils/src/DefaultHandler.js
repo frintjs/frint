@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* istanbul ignore next */
 export default {
   // options
   app: null,

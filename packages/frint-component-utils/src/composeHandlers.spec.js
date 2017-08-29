@@ -45,6 +45,7 @@ describe('frint-component-utils › composeHandlers', function () {
     const firstHandler = {
       counter: 0,
       increment() {
+        /* istanbul ignore next */
         this.counter = this.counter + 1;
       },
       beforeMount() {

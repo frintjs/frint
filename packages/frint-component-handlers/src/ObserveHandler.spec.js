@@ -30,9 +30,9 @@ describe('frint-component-handlers › ObserveHandler', function () {
       },
       ObserveHandler,
       {
-        getProps$: function (app) {
+        getProps$: function (a) {
           return Observable.of({
-            appName: app.getName(),
+            appName: a.getName(),
           });
         },
         app,

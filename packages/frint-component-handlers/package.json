@@ -32,7 +32,8 @@
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
-    "frint-component-utils": "2.3.0"
+    "frint": "^2.0.3",
+    "frint-component-utils": "^2.3.0"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

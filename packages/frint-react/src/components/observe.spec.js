@@ -72,10 +72,6 @@ describe('frint-react › components › observe', function () {
 
     const fakeApp = {
       get(key) {
-        if (key !== 'component') {
-          return null;
-        }
-
         return (...props) => (
           <Provider app={fakeApp}>
             <ObservedComponent {...props} />

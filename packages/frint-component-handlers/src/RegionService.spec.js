@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 import RegionService from './RegionService';
 
-describe('frint-react › services › Region', function () {
+describe('frint-component-handlers › RegionService', function () {
   it('is a function', function () {
     expect(RegionService).to.be.a('function');
   });

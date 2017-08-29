@@ -7,7 +7,7 @@
 For documentation, visit [https://frint.js.org](https://frint.js.org).
 
 This project adheres to the Contributor Covenant code of conduct. By participating, you are expected to uphold this code.
-Please report unacceptable behavior to [frintjs-conduct@googlegroups.com].
+Please report unacceptable behavior to frintjs-conduct@googlegroups.com.
 
 ## Quick start
 

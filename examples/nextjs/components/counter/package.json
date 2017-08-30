@@ -1,0 +1,36 @@
+{
+  "name": "frint-example-counter",
+  "version": "0.0.1",
+  "description": "Counter example in frint",
+  "main": "index.js",
+  "scripts": {
+    "bundle:vendors": "webpack --config ./vendors/webpack.config.js",
+    "bundle:apps": "webpack",
+    "bundle": "npm run bundle:vendors && npm run bundle:apps",
+    "build": "npm run bundle",
+    "start:server": "live-server ./build --port $(PORT)",
+    "start": "npm run build && npm run start:server"
+  },
+  "author": "Travix International B.V.",
+  "license": "MIT",
+  "dependencies": {
+    "frint": "^2.0.1",
+    "frint-react": "^2.0.1",
+    "frint-store": "^2.0.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "rxjs": "^5.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.13.2",
+    "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-travix": "^1.1.0",
+    "babel-register": "^6.9.0",
+    "html-webpack-plugin": "^2.28.0",
+    "live-server": "^1.2.0",
+    "webpack": "^2.2.0"
+  }
+}

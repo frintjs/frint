@@ -53,6 +53,7 @@
     "bulma": "^0.3.2",
     "chai": "^4.0.2",
     "coveralls": "^2.11.12",
+    "cross-env": "^5.0.5",
     "enzyme": "^2.9.1",
     "eslint": "^3.3.1",
     "eslint-config-travix": "^2.2.0",
@@ -77,7 +78,7 @@
     "request": "^2.81.0",
     "rimraf": "^2.5.2",
     "sinon": "^3.0.0",
-    "sinon-chai": "^2.8.0",
+    "sinon-chai": "^2.13.0",
     "webpack": "^3.0.0"
   }
 }

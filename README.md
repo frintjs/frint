@@ -49,9 +49,17 @@ The framework is a collection of these packages, which can be composed together 
 * [frint-react-server](./packages/frint-react-server): Server-side rendering for Apps.
 * [frint-router](./packages/frint-router): Router services for single page applications (SPA).
 * [frint-router-react](./packages/frint-router-react): React components for building SPAs.
-* [frint-test-utils](./packages/frint-test-utils): Test utilities.
 * [frint-cli](./packages/frint-cli): CLI runner.
 * [frint-compat](./packages/frint-compat): Backwards compatibility support for `v0.x` users.
+
+For library developers:
+
+* [frint-component-utils](./packages/frint-component-utils): Utils for reactive components.
+* [frint-component-handlers](./packages/frint-component-handlers): Handlers for integrating other rendering libraries with FrintJS.
+
+Used internally in the monorepo:
+
+* [frint-test-utils](./packages/frint-test-utils): Test utilities.
 
 ## License
 

@@ -9,6 +9,8 @@ import Provider from './components/Provider';
 
 import RegionService from './services/Region';
 
+import ReactHandler from './handlers/ReactHandler';
+
 export default {
   render,
   streamProps,
@@ -20,4 +22,6 @@ export default {
   Provider,
 
   RegionService,
+
+  ReactHandler,
 };

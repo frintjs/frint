@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
-/* global describe, it, window, document, resetDOM */
+/* global describe, it, window, document, beforeEach, resetDOM */
 import { expect } from 'chai';
 import _ from 'lodash';
 import React from 'react';
@@ -16,6 +16,10 @@ import RegionService from '../services/Region';
 import streamProps from '../streamProps';
 
 describe('frint-react › components › Region', function () {
+  beforeEach(function () {
+    resetDOM();
+  });
+
   it('is a function', function () {
     expect(Region).to.be.a('function');
   });
@@ -40,8 +44,6 @@ describe('frint-react › components › Region', function () {
   });
 
   it('renders apps with weighted ordering', function () {
-    resetDOM();
-
     // root
     function RootComponent() {
       return (

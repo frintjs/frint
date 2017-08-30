@@ -8,7 +8,7 @@
     "lint": "cross-env ../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
     "transpile": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
     "test": "cross-env ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
-    "cover:run": "cross-env ../../node_modules/.bin/nyc --reporter=json --require babel-register mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "cover:run": "cross-env ../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
     "cover:report": "cross-env ../../node_modules/.bin/nyc report",
     "cover": "npm run cover:run && npm run cover:report",
     "dist:lib": "echo \"Nothing to build\"",

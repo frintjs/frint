@@ -42,13 +42,13 @@ export default {
               weight: appWeight,
               multi
             } = item;
-            const existsInState = this.getData('listForRendering').some((w) => {
+            const isPresent = this.getData('listForRendering').some((w) => {
               return w.name === appName;
             });
 
             // @TODO: take care of removal in streamed list too?
 
-            if (existsInState) {
+            if (isPresent) {
               return;
             }
 
@@ -101,26 +101,18 @@ export default {
       const { listForRendering } = nextData;
       shouldUpdate = shouldUpdate || this.getData('listForRendering').length !== listForRendering.length;
       shouldUpdate = shouldUpdate ||
-        _.zipWith(this.getData('listForRendering'), listForRendering, (prev, next) => prev.name === next.name)
+        _.zipWith(this.getData('listForRendering'), listForRendering, (a, b) => a.name === b.name)
           .some(value => !value);
     }
 
     return shouldUpdate;
   },
   afterUpdate(newProps = null) {
-    let name;
-    let uniqueKey;
-    let data;
-
-    if (newProps) {
-      name = newProps.name;
-      uniqueKey = newProps.uniqueKey;
-      data = newProps.data;
-    } else {
-      name = this.getProp('name');
-      uniqueKey = this.getProp('uniqueKey');
-      data = this.getProp('data');
-    }
+    const {
+      name = this.getProp('name'),
+      uniqueKey = this.getProp('uniqueKey'),
+      data = this.getProp('data'),
+    } = newProps || {};
 
     this.getData('listForRendering')
       .filter(item => item.instance)

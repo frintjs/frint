@@ -49,7 +49,7 @@ Handler for creating `observe` higher-order component.
 
 > RegionService
 
-If your App wishes to receive data coming from the Region component it rendered in, RegionService is your way to access it.
+If your App wishes to receive data coming from the Region component it's rendered in, RegionService is your way to access it.
 
 Methods exposed by the instance:
 

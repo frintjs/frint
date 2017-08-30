@@ -1,5 +1,19 @@
 # Change Log
 
+## v2.3.1 (2017-08-30)
+
+#### Pull Requests
+* `frint-react`
+  * [#280](https://github.com/Travix-International/frint/pull/280) frint-react: Declare app in context of Region. ([@reaktivo](https://github.com/reaktivo))
+  * [#278](https://github.com/Travix-International/frint/pull/278) Make `isObservable` more generic. ([@DzmitryKukharuk](https://github.com/DzmitryKukharuk))
+* Other
+  * [#276](https://github.com/Travix-International/frint/pull/276) Remove redundant square brackets from Code of Conduct. ([@gtzio](https://github.com/gtzio))
+  * [#275](https://github.com/Travix-International/frint/pull/275) Code of Conduct. ([@gtzio](https://github.com/gtzio))
+
+#### Committers: 3
+- Georgia Tziola ([gtzio](https://github.com/gtzio))
+- Marcel Miranda Ackerman ([reaktivo](https://github.com/reaktivo))
+- Dzmitry Kukharuk [DzmitryKukharuk](https://github.com/DzmitryKukharuk)
 
 ## v2.3.0 (2017-08-23)
 

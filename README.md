@@ -61,6 +61,10 @@ Used internally in the monorepo:
 
 * [frint-test-utils](./packages/frint-test-utils): Test utilities.
 
+## Community projects
+
+* [frint-vue](https://github.com/frintjs/frint-vue): Vue.js integration
+
 ## License
 
 MIT © [Travix International](http://travix.com)

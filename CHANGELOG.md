@@ -1,5 +1,17 @@
 # Change Log
 
+## v2.4.0 (2017-08-30)
+
+#### Pull Requests
+* `frint-component-handlers`, `frint-component-utils`, `frint-react`
+  * [#277](https://github.com/Travix-International/frint/pull/277) Handlers for abstracting reactive components. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#281](https://github.com/Travix-International/frint/pull/281) Fix script errors on Windows platform. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
 ## v2.3.1 (2017-08-30)
 
 #### Pull Requests

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
-/* globals describe, document, it */
+/* globals describe, document, it, beforeEach, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
 
@@ -21,6 +21,10 @@ describe('frint-react › render', function () {
         useValue: TestComponent,
       },
     ],
+  });
+
+  beforeEach(function () {
+    resetDOM();
   });
 
   it('renders app to DOM', function () {

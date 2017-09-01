@@ -73,7 +73,7 @@ We try to follow a convention for our file structure in Apps. A simple App's tre
 
 ## App
 
-Creating a new App class is pretty straight forward. You would be required to create a new file at app/index.js with the following content:
+Creating a new App class is pretty straightforward. You would be required to create a new file at app/index.js with the following content:
 
 ```js
 // app/index.js

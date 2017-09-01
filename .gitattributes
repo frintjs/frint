@@ -1,0 +1,3 @@
+# Ensure all JavaScript and TypeScript files use LF.
+*.js eol=lf
+*.ts eol=lf

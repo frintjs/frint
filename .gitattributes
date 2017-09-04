@@ -1,3 +1,2 @@
-# Ensure all JavaScript and TypeScript files use LF.
-*.js eol=lf
-*.ts eol=lf
+# Ensure all text files use LF line endings.
+* text=auto eol=lf

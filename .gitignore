@@ -5,6 +5,7 @@ yarn.lock
 lib
 .changelog/
 _site
+package-lock.json
 
 # Ignore vim temporary files
 *~

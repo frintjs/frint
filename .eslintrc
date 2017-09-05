@@ -5,6 +5,6 @@
   "parser": "babel-eslint",
   "rules": {
     "no-underscore-dangle": 0,
-    "linebreak-style": "off"
+    "linebreak-style": 0
   }
 }

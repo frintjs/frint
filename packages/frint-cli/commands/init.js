@@ -1,4 +1,6 @@
-const exec = require('execa');
+const mkdirp = require('mkdirp');
+const request = require('request');
+const tar = require('tar');
 
 const createApp = require('frint').createApp;
 
@@ -37,17 +39,27 @@ module.exports = createApp({
           const example = deps.params.example || 'counter';
           const dir = deps.pwd;
 
-          const cmds = [
-            `mkdir -p ${dir}`,
-            `curl https://codeload.github.com/Travix-International/frint/tar.gz/master | tar -xz -C ${dir} --strip=3 frint-master/examples/${example}`,
-          ];
+          function streamFrintExampleToDir() {
+            request('https://codeload.github.com/Travix-International/frint/tar.gz/master')
+              .on('error', deps.console.error)
+              .pipe(tar.x({
+                filter: path => path.indexOf(`frint-master/examples/${example}/`) === 0,
+                strip: 3,
+                C: dir
+              }))
+              .on('error', deps.console.error)
+              .on('finish', () => deps.console.log('Done!'));
+          }
 
           deps.console.log('Initializing...');
-          const cmdPromises = cmds.map(cmd => exec.shell(cmd));
 
-          Promise.all(cmdPromises)
-            .then(() => deps.console.log('Done!'))
-            .catch(e => deps.console.error(e));
+          mkdirp(dir, function (error) {
+            if (error) {
+              deps.console.error(error);
+              return;
+            }
+            streamFrintExampleToDir();
+          });
         };
       },
       deps: [

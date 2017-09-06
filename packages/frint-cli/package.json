@@ -33,9 +33,11 @@
     "frint-cli"
   ],
   "dependencies": {
-    "execa": "^0.6.3",
     "frint": "^2.4.0",
     "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
+    "request": "^2.81.0",
+    "tar": "^4.0.1",
     "yargs": "^8.0.1"
   },
   "bugs": {

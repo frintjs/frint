@@ -1,5 +1,20 @@
 # Change Log
 
+## v2.4.1 (2017-09-06)
+
+#### Pull Requests
+* `frint-cli`
+  * [#283](https://github.com/Travix-International/frint/pull/283) frint-cli: fix init command on Windows platform. ([@discosultan](https://github.com/discosultan))
+* Other
+  * [#293](https://github.com/Travix-International/frint/pull/293) Ignore package-lock.json. ([@discosultan](https://github.com/discosultan))
+  * [#286](https://github.com/Travix-International/frint/pull/286) Remove end of line setting from .editorconfig. ([@discosultan](https://github.com/discosultan))
+  * [#288](https://github.com/Travix-International/frint/pull/288) Fix typo in Hello World guide. ([@discosultan](https://github.com/discosultan))
+  * [#284](https://github.com/Travix-International/frint/pull/284) Link to `frint-vue`.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
 ## v2.4.0 (2017-08-30)
 
 #### Pull Requests

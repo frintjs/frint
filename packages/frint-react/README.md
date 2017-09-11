@@ -277,8 +277,9 @@ We have just made our simple Component reactive, by wrapping it with `observe`. 
 In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your App's component too:
 
 ```js
-const ObservedAppComponent = observe(function (app) {
+const ObservedAppComponent = observe(function (app, props$) {
   // `app` is your App instance
+  // `props$` is an Observable of props being passed by parent Component (if any)
 
   // let's keep our first interval Observable too
   const interval$ = Observable
@@ -469,7 +470,9 @@ Renders a Root App in target DOM node.
 ### Arguments
 
 1. `fn` (`Function`): The function returning an Observable.
-    * The `fn` accepts `app` as an argument, which is the instance of your Root App or the App in scope
+    * The `fn` accepts two arguments:
+      * `app`: the instance of your Root App or the App in scope
+      * `props$`: an Observable of props being passed by parent component (if any)
     * It should return an `Observable`
 
 ### Returns

@@ -31,11 +31,16 @@ export default function observe(fn) {
         );
 
         this.state = this._handler.getInitialData();
+        this._handler.initialize();
       }
 
       componentWillMount() {
         this._handler.app = this.context.app;
         this._handler.beforeMount();
+      }
+
+      componentWillReceiveProps(newProps) {
+        this._handler.receiveProps(newProps);
       }
 
       componentWillUnmount() {

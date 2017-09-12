@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BehaviorSubject } from 'rxjs';
 
 import composeHandlers from 'frint-component-utils/lib/composeHandlers';
 import ObserveHandler from 'frint-component-handlers/lib/ObserveHandler';
@@ -26,12 +27,14 @@ export default function observe(fn) {
           ObserveHandler,
           {
             component: this,
-            getProps$: fn,
+            getProps$: typeof fn === 'function'
+              ? app => fn(app, this._props$)
+              : fn,
           }
         );
 
         this.state = this._handler.getInitialData();
-        this._handler.initialize();
+        this._props$ = new BehaviorSubject(this.props);
       }
 
       componentWillMount() {
@@ -40,7 +43,7 @@ export default function observe(fn) {
       }
 
       componentWillReceiveProps(newProps) {
-        this._handler.receiveProps(newProps);
+        this._props$.next(newProps);
       }
 
       componentWillUnmount() {

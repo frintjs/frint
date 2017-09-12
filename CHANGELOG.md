@@ -1,5 +1,12 @@
 # Change Log
 
+#### Pull Requests
+* `frint-react`
+  * [#295](https://github.com/Travix-International/frint/pull/295) frint-react: Allow observing parent component's props. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v2.4.1 (2017-09-06)
 
 #### Pull Requests

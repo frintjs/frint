@@ -57,24 +57,67 @@ describe('frint-react › components › observe', function () {
     expect(document.getElementById('text').innerHTML).to.equal('Hello World');
   });
 
-  it('generates Component bound to observable for props, with app in context', function () {
-    function Component({ name }) {
+  it('generates Component bound to observable for props, with app in context and props from parent component', function () {
+    function Component({ name, counter, parentProps }) {
       return (
-        <p id="name">{name}</p>
+        <div>
+          <p id="name">{name}</p>
+          <p id="counter">{counter}</p>
+          <p id="counterFromParent">{parentProps.counter}</p>
+        </div>
       );
     }
 
-    const ObservedComponent = observe(function (app) {
-      return Observable
-        .of(app.getName())
-        .map(name => ({ name }));
+    const ObservedComponent = observe(function (app, props$) {
+      return Observable.merge(
+        Observable.of({ name: app.getName() }),
+        props$.map(parentProps => ({ parentProps }))
+      )
+        .scan((props, emitted) => {
+          return {
+            ...props,
+            ...emitted,
+          };
+        });
     })(Component);
+
+    class ParentComponent extends React.Component {
+      constructor(...args) {
+        super(...args);
+
+        this.state = {
+          counter: 0,
+        };
+      }
+
+      incrementCounter = () => {
+        this.setState({
+          counter: this.state.counter + 1,
+        });
+      };
+
+      render() {
+        return (
+          <div>
+            <button
+              id="increment"
+              onClick={() => this.incrementCounter()}
+              type="button"
+            >
+              Increment
+            </button>
+
+            <ObservedComponent counter={this.state.counter} />
+          </div>
+        );
+      }
+    }
 
     const fakeApp = {
       get() {
         return (...props) => (
           <Provider app={fakeApp}>
-            <ObservedComponent {...props} />
+            <ParentComponent {...props} />
           </Provider>
         );
       },
@@ -92,6 +135,12 @@ describe('frint-react › components › observe', function () {
     );
 
     expect(document.getElementById('name').innerHTML).to.equal('FakeApp');
+    expect(document.getElementById('counter').innerHTML).to.equal('0');
+    expect(document.getElementById('counterFromParent').innerHTML).to.equal('0');
+
+    document.getElementById('increment').click();
+    expect(document.getElementById('counter').innerHTML).to.equal('1');
+    expect(document.getElementById('counterFromParent').innerHTML).to.equal('1');
   });
 
   it('can be tested with enzyme', function () {

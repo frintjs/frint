@@ -7,8 +7,8 @@
   "scripts": {
     "lint": "eslint --color '{src,test}/**/*.js'",
     "transpile": "babel src --out-dir lib",
-    "test": "mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
-    "cover:run": "nyc --reporter=json --require babel-register mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
+    "test": "mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "cover:run": "nyc --reporter=json --require babel-register mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
     "cover:report": "nyc report",
     "cover": "npm run cover:run && npm run cover:report",
     "dist:lib": "webpack --config ./webpack.config.js",

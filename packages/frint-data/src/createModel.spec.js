@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
 
@@ -44,10 +45,6 @@ describe('frint-data › createModel', function () {
     expect(model).to.be.instanceof(Model);
     expect(model.name).to.eql('Fahad');
 
-    function changeName() {
-      model.name = 'Some other name';
-    }
-
     expect(model.name).to.eql('Fahad');
   });
 
@@ -90,15 +87,7 @@ describe('frint-data › createModel', function () {
       city: 'Amsterdam'
     });
 
-    function changeStreet() {
-      model.address.street = 'something else';
-    }
-
     expect(model.address.street).to.eql('Straat');
-
-    function changeAddress() {
-      model.address = {};
-    }
 
     expect(model.address).to.eql({
       street: 'Straat',
@@ -155,7 +144,7 @@ describe('frint-data › createModel', function () {
 
       // full
       getFullName() {
-        return this.getFirstName() + ' ' + this.getLastName();
+        return `${this.getFirstName()} ${this.getLastName()}`;
       },
       setFullName(firstName, lastName) {
         this.setFirstName(firstName);
@@ -316,10 +305,10 @@ describe('frint-data › createModel', function () {
       value: Types.number.isRequired
     }, {
       increment() {
-        this.value++;
+        this.value += 1;
       },
       decrement() {
-        this.value--;
+        this.value -= 1;
       }
     });
 
@@ -395,7 +384,7 @@ describe('frint-data › createModel', function () {
     let changeCounter = 0;
 
     const cancelListener = person.on('change', function () {
-      changeCounter++;
+      changeCounter += 1;
     });
 
     person.setName('Fahad changed');
@@ -440,7 +429,7 @@ describe('frint-data › createModel', function () {
     let changeCounter = 0;
 
     const cancelListener = person.on('change', function () {
-      changeCounter++;
+      changeCounter += 1;
     });
 
     person.address.setStreet('New Street');
@@ -482,10 +471,6 @@ describe('frint-data › createModel', function () {
     });
 
     let changeCounter = 0;
-
-    const cancelListener = author.on('change', function () {
-      changeCounter++;
-    });
 
     author.books.addBook('My New Book');
     expect(changeCounter).to.eql(1);
@@ -634,7 +619,7 @@ describe('frint-data › createModel', function () {
 
     let count = 0;
     const watcher = book.on('method:change', function () {
-      count++;
+      count += 1;
     });
 
     book.getTitle();
@@ -682,7 +667,7 @@ describe('frint-data › createModel', function () {
 
     let count = 0;
     const watcher = person.on('method:change', function (event) {
-      count++;
+      count += 1;
 
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['address', 'setStreet']);
@@ -728,7 +713,7 @@ describe('frint-data › createModel', function () {
 
     // first change
     watcher = author.on('method:change', function (event) {
-      count++;
+      count += 1;
 
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['books', 0, 'setTitle']);
@@ -742,7 +727,7 @@ describe('frint-data › createModel', function () {
     // second change
     count = 0;
     watcher = author.on('method:change', function (event) {
-      count++;
+      count += 1;
 
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['books', 'push']);
@@ -758,7 +743,7 @@ describe('frint-data › createModel', function () {
     count = 0;
     const events = [];
     watcher = author.on('method:change', function (event) {
-      count++;
+      count += 1;
       events.push(event);
 
       expect(isEvent(event)).to.eql(true);

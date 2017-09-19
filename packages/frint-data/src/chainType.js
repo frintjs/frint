@@ -1,6 +1,6 @@
+/* eslint-disable func-names */
 import _ from 'lodash';
 
-import TypeError from './errors/Type';
 import * as chainables from './ChainableTypes';
 
 export default function chain(fn, omitChainables = []) {
@@ -13,7 +13,7 @@ export default function chain(fn, omitChainables = []) {
     }
 
     Object.defineProperty(fn, chainName, {
-      get: function () {
+      get() {
         if (chainIsFactory) {
           return function (...args) {
             return chain(function (value) {

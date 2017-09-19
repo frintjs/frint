@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import _ from 'lodash';
 
 import TypeError from './errors/Type';
@@ -162,7 +163,7 @@ function validateAndReturnObject(value, schema) {
     try {
       return type(value[k]);
     } catch (e) {
-      throw new TypeError('schema failed for key `' + k + '`, ' + e.message);
+      throw new TypeError(`schema failed for key '${k}', ${e.message}`);
     }
   });
 }

@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 export default function events(context, listeners = {}) {
   Object.defineProperty(context, 'on', {
     value: function (event, fn) {
@@ -19,7 +20,7 @@ export default function events(context, listeners = {}) {
         return;
       }
 
-      return listeners[event].forEach(function (listener) {
+      return listeners[event].forEach(function (listener) { // eslint-disable-line
         listener(...args);
       });
     }

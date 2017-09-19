@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import _ from 'lodash';
 
 import MethodError from './errors/Method';
@@ -5,7 +6,6 @@ import CollectionError from './errors/Collection';
 import isModel from './isModel';
 import BaseCollection from './base/Collection';
 import Event from './base/Event';
-import isEvent from './isEvent';
 import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
@@ -202,7 +202,7 @@ export default function createCollection(Model, methods = {}, initializers = [])
       // methods
       _.each(methods, (methodFunc, methodName) => {
         if (typeof this[methodName] !== 'undefined') {
-          throw new MethodError('conflicting method name: ' + methodName);
+          throw new MethodError(`conflicting method name: ${methodName}`);
         }
 
         this[methodName] = wrapCustomMethod(this, methodName, methodFunc);

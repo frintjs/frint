@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import isEvent from '../isEvent';
 import Event from '../base/Event';
 

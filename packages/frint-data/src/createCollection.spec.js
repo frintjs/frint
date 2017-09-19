@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
 
@@ -125,7 +126,7 @@ describe('frint-data › createCollection', function () {
     let changeCounter = 0;
 
     const cancelListener = people.on('change', function () {
-      changeCounter++;
+      changeCounter += 1;
     });
 
     people.push(new Person({ name: 'Ron' }));
@@ -159,7 +160,7 @@ describe('frint-data › createCollection', function () {
     let changeCounter = 0;
 
     const cancelListener = people.on('change', function () {
-      changeCounter++;
+      changeCounter += 1;
     });
 
     const hermione = people.at(2);
@@ -194,7 +195,7 @@ describe('frint-data › createCollection', function () {
     let changeCounter = 0;
 
     const cancelListener = people.on('change', function () {
-      changeCounter++;
+      changeCounter += 1;
     });
 
     const hermione = people.at(2);

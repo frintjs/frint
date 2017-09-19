@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
 
@@ -397,7 +398,7 @@ describe('frint-data › Types', function () {
       const type = Types.object;
 
       expect(type({})).to.eql({});
-      expect(type({a: 1, b: 2})).to.eql({a: 1, b: 2});
+      expect(type({ a: 1, b: 2 })).to.eql({ a: 1, b: 2 });
     });
 
     it('rejects non-object values', function () {
@@ -417,10 +418,10 @@ describe('frint-data › Types', function () {
     });
 
     it('allows empty values when default is set', function () {
-      const type = Types.object.defaults({hi: 'there'});
+      const type = Types.object.defaults({ hi: 'there' });
 
-      expect(type()).to.eql({hi: 'there'});
-      expect(type({hello: 'world'})).to.eql({hello: 'world'});
+      expect(type()).to.eql({ hi: 'there' });
+      expect(type({ hello: 'world' })).to.eql({ hello: 'world' });
       expect(() => type(123)).to.throw(/value is not an object/);
     });
 

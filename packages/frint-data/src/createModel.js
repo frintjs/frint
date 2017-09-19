@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import _ from 'lodash';
 
 import Types from './Types';
@@ -6,7 +7,6 @@ import isCollection from './isCollection';
 import MethodError from './errors/Method';
 import BaseModel from './base/Model';
 import Event from './base/Event';
-import isEvent from './isEvent';
 import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
@@ -29,7 +29,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
       Object.defineProperty(this, 'toJS', {
         value: function () {
           function convertToJS(attrs) {
-            return _.mapValues(attrs, (v, k) => {
+            return _.mapValues(attrs, (v) => {
               if (
                 isModel(v) ||
                 isCollection(v)
@@ -56,7 +56,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           this.trigger('method:change', new Event({ path: ['destroy'] }));
           this.off();
 
-          _.each(attributes, function (v, k) {
+          _.each(attributes, function (v) {
             if (isModel(v) || isCollection(v)) {
               v.destroy();
             }
@@ -85,14 +85,14 @@ export default function createModel(schema = {}, methods = {}, initializers = []
             }
 
             // model
-            if (!path in result) {
-              throw new MethodError(`Path ${JSON.stringify(reducedPaths)} does not exist`)
+            if (!(path in result)) {
+              throw new MethodError(`Path ${JSON.stringify(reducedPaths)} does not exist`);
             }
 
             return result[path];
           }, this);
         }
-      })
+      });
 
       // parse by schema
       const applySchema = Types.object.of(schema);
@@ -145,7 +145,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           typeof attributes[methodName] !== 'undefined' ||
           typeof this[methodName] !== 'undefined'
         ) {
-          throw new MethodError('conflicting method name: ' + methodName);
+          throw new MethodError(`conflicting method name: ${methodName}`);
         }
 
         this[methodName] = wrapCustomMethod(this, methodName, func);

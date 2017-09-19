@@ -20,7 +20,7 @@ export default function createCollection(Model, methods = {}, initializers = [])
       // others listening to this
       let listeners = {};
 
-      applyEventsMixin(this, listeners);
+      applyEventsMixin(this, listeners); // brings in on(), off(), and trigger()
 
       const bubbleUp = (model, eventName) => {
         return bubbleUpEvent(this, model, eventName, (ctx, m) => {

@@ -23,9 +23,12 @@ export default function createModel(schema = {}, methods = {}, initializers = []
       let listeners = {};
 
       // apply mixins
-      applyEventsMixin(this, listeners);
+      applyEventsMixin(this, listeners); // brings in on(), off(), and trigger()
 
-      // built-in methods
+      /**
+       * Built-in methods
+       */
+      // toJS()
       Object.defineProperty(this, 'toJS', {
         value: function () {
           function convertToJS(attrs) {
@@ -49,6 +52,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
         }
       });
 
+      // destroy()
       Object.defineProperty(this, 'destroy', {
         value: function () {
           this.trigger('method:call', new Event({ path: ['destroy'] }));
@@ -64,6 +68,14 @@ export default function createModel(schema = {}, methods = {}, initializers = []
         }
       });
 
+      // get()
+      Object.defineProperty(this, 'get', {
+        value: function (path) {
+          return this.getIn(path.split('.'));
+        }
+      });
+
+      // getIn()
       Object.defineProperty(this, 'getIn', {
         value: function (paths) {
           if (!_.isArray(paths)) {

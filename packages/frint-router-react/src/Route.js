@@ -14,6 +14,7 @@ export default class Route extends React.Component {
     exact: PropTypes.bool,
     computedMatch: PropTypes.object,
     component: PropTypes.func,
+    render: PropTypes.func,
     app: PropTypes.func,
   };
 
@@ -106,8 +107,18 @@ export default class Route extends React.Component {
     const ComponentToRender = this.state.component;
     const matched = this.props.computedMatch || this.state.matched || null;
 
-    return ComponentToRender !== null && matched !== null
-      ? <ComponentToRender match={matched} />
-      : null;
+    if (!matched) {
+      return null;
+    }
+
+    if (ComponentToRender) {
+      return <ComponentToRender match={matched} />;
+    }
+
+    if (this.props.render) {
+      return this.props.render({ match: matched });
+    }
+
+    return null;
   }
 }

@@ -448,7 +448,7 @@ describe('frint-data › Types', function () {
         street: 'Amsterdam',
         city: 'Amsterdam',
         postalCode: '123'
-      })).to.throw(/schema failed for key `postalCode`, value is not a number/);
+      })).to.throw(/schema failed for key 'postalCode', value is not a number/);
     });
 
     it('checks for deep-nested types', function () {
@@ -486,7 +486,7 @@ describe('frint-data › Types', function () {
           city: 'Amsterdam',
           postalCode: '123'
         }
-      })).to.throw(/schema failed for key `postalCode`, value is not a number/);
+      })).to.throw(/schema failed for key 'postalCode', value is not a number/);
     });
   });
 

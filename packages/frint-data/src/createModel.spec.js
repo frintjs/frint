@@ -472,6 +472,10 @@ describe('frint-data › createModel', function () {
 
     let changeCounter = 0;
 
+    author.on('change', function () {
+      changeCounter += 1;
+    });
+
     author.books.addBook('My New Book');
     expect(changeCounter).to.eql(1);
 

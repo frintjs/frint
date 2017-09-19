@@ -1,5 +1,6 @@
 /* eslint-disable func-names */
 import _ from 'lodash';
+import { Observable } from 'rxjs';
 
 import Types from './Types';
 import isModel from './isModel';
@@ -10,6 +11,24 @@ import Event from './base/Event';
 import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
+
+function makeReactive(context, method) {
+  Object.defineProperty(context, `${method}$`, {
+    value(...args) {
+      return new Observable(function (observer) {
+        observer.next(context[method](...args));
+
+        const listener = context.on('change', function () {
+          observer.next(context[method](...args));
+        });
+
+        return function () {
+          listener();
+        };
+      });
+    }
+  });
+}
 
 export default function createModel(schema = {}, methods = {}, initializers = []) {
   class Model extends BaseModel {
@@ -51,6 +70,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           return convertToJS(attributes);
         }
       });
+      makeReactive(this, 'toJS');
 
       // destroy()
       Object.defineProperty(this, 'destroy', {
@@ -71,9 +91,14 @@ export default function createModel(schema = {}, methods = {}, initializers = []
       // get()
       Object.defineProperty(this, 'get', {
         value: function (path) {
+          if (!path) {
+            return this;
+          }
+
           return this.getIn(path.split('.'));
         }
       });
+      makeReactive(this, 'get');
 
       // getIn()
       Object.defineProperty(this, 'getIn', {
@@ -105,6 +130,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           }, this);
         }
       });
+      makeReactive(this, 'getIn');
 
       // parse by schema
       const applySchema = Types.object.of(schema);

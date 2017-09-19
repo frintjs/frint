@@ -784,7 +784,7 @@ describe('frint-data › createModel', function () {
   });
 
   describe('Model :: get()', function () {
-    it('gets value by path from self', function () {
+    it('gets value by path from self', function (done) {
       const Person = createModel({
         name: Types.string
       });
@@ -792,6 +792,13 @@ describe('frint-data › createModel', function () {
       const person = new Person({ name: 'Newt Scamander' });
 
       expect(person.get('name')).to.eql('Newt Scamander');
+
+      person.get$('name')
+        .subscribe(function (name) {
+          expect(name).to.eql('Newt Scamander');
+
+          done();
+        });
     });
 
     it('gets value by dot-separated path from child-model', function () {
@@ -855,7 +862,7 @@ describe('frint-data › createModel', function () {
   });
 
   describe('Model :: getIn()', function () {
-    it('gets value by path from self', function () {
+    it('gets value by path from self', function (done) {
       const Person = createModel({
         name: Types.string
       });
@@ -863,6 +870,13 @@ describe('frint-data › createModel', function () {
       const person = new Person({ name: 'Newt Scamander' });
 
       expect(person.getIn(['name'])).to.eql('Newt Scamander');
+
+      person.getIn$(['name'])
+        .subscribe(function (name) {
+          expect(name).to.eql('Newt Scamander');
+
+          done();
+        });
     });
 
     it('gets value by path from child-model', function () {
@@ -926,7 +940,7 @@ describe('frint-data › createModel', function () {
   });
 
   describe('Model :: toJS()', function () {
-    it('converts simple Model\'s attributes to plain object', function () {
+    it('converts simple Model\'s attributes to plain object', function (done) {
       const Model = createModel({
         name: Types.string.isRequired
       });
@@ -935,6 +949,13 @@ describe('frint-data › createModel', function () {
       });
 
       expect(model.toJS()).to.eql({ name: 'Blah' });
+
+      model.toJS$()
+        .subscribe(function (obj) {
+          expect(obj).to.deep.equal({ name: 'Blah' });
+
+          done();
+        });
     });
 
     it('converts nested Model\'s attributes to plain object', function () {

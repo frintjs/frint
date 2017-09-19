@@ -8,9 +8,9 @@
     "frint": "./bin/frint.js"
   },
   "scripts": {
-    "lint": "eslint --color '{root,commands,bin}/**/*.js'",
+    "lint": "cross-env ../../node_modules/.bin/eslint --color '{root,commands,bin}/**/*.js'",
     "transpile": "echo \"Nothing to transpile\"",
-    "test": "mocha --colors --recursive ./commands/*.spec.js",
+    "test": "cross-env ../../node_modules/.bin/mocha --colors --recursive ./commands/*.spec.js",
     "cover:run": "echo \"Nothing to cover\"",
     "cover:report": "echo \"Nothing to report\"",
     "cover": "npm run cover:run && npm run cover:report",

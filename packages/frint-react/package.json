@@ -28,6 +28,7 @@
     "frint"
   ],
   "dependencies": {
+    "cross-env": "^5.0.5",
     "frint-component-handlers": "^2.6.0",
     "frint-component-utils": "^2.6.0",
     "lodash": "^4.13.1",

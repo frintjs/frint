@@ -36,6 +36,7 @@
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
+    "cross-env": "^5.0.5",
     "frint-test-utils": "^2.6.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",

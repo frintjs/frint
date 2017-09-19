@@ -45,6 +45,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "cross-env": "^5.0.5",
     "memory-fs": "^0.4.1"
   }
 }

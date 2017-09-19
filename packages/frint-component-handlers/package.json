@@ -32,6 +32,7 @@
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
+    "cross-env": "^5.0.5",
     "frint": "^2.6.0",
     "frint-component-utils": "^2.6.0"
   },

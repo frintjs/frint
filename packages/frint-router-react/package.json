@@ -30,14 +30,15 @@
   "dependencies": {
     "frint-router": "^2.6.0"
   },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "frint": "^2.6.0",
+    "frint-react": "^2.6.0",
+    "frint-test-utils": "^2.6.0"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },
   "license": "MIT",
-  "types": "index.d.ts",
-  "devDependencies": {
-    "frint": "^2.6.0",
-    "frint-react": "^2.6.0",
-    "frint-test-utils": "^2.6.0"
-  }
+  "types": "index.d.ts"
 }

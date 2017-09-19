@@ -1,6 +1,5 @@
 /* eslint-disable func-names */
 import _ from 'lodash';
-import { Observable } from 'rxjs';
 
 import Types from './Types';
 import isModel from './isModel';
@@ -11,24 +10,7 @@ import Event from './base/Event';
 import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
-
-function makeReactive(context, method) {
-  Object.defineProperty(context, `${method}$`, {
-    value(...args) {
-      return new Observable(function (observer) {
-        observer.next(context[method](...args));
-
-        const listener = context.on('change', function () {
-          observer.next(context[method](...args));
-        });
-
-        return function () {
-          listener();
-        };
-      });
-    }
-  });
-}
+import makeMethodReactive from './utils/makeMethodReactive';
 
 export default function createModel(schema = {}, methods = {}, initializers = []) {
   class Model extends BaseModel {
@@ -70,7 +52,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           return convertToJS(attributes);
         }
       });
-      makeReactive(this, 'toJS');
+      makeMethodReactive(this, 'toJS');
 
       // destroy()
       Object.defineProperty(this, 'destroy', {
@@ -98,7 +80,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           return this.getIn(path.split('.'));
         }
       });
-      makeReactive(this, 'get');
+      makeMethodReactive(this, 'get');
 
       // getIn()
       Object.defineProperty(this, 'getIn', {
@@ -130,7 +112,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           }, this);
         }
       });
-      makeReactive(this, 'getIn');
+      makeMethodReactive(this, 'getIn');
 
       // parse by schema
       const applySchema = Types.object.of(schema);
@@ -165,6 +147,7 @@ export default function createModel(schema = {}, methods = {}, initializers = []
           const methodCallWatcher = bubbleUpEvent(self, value, 'method:call', [attributeName]);
           const methodChangeWatcher = bubbleUpEvent(self, value, 'method:change', [attributeName]);
 
+          // @TODO: listener should be cleared later?
           value.on('destroy', function () {
             self.trigger('change', new Event({
               path: [attributeName]

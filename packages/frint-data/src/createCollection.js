@@ -9,6 +9,7 @@ import Event from './base/Event';
 import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
+import makeMethodReactive from './utils/makeMethodReactive';
 
 export default function createCollection(Model, methods = {}, initializers = []) {
   class Collection extends BaseCollection {
@@ -28,15 +29,22 @@ export default function createCollection(Model, methods = {}, initializers = [])
         });
       };
 
+      /**
+       * Built-in properties
+       */
       Object.defineProperty(this, 'length', {
         get() {
           return models.length;
         }
       });
 
+      /**
+       * Built-in methods
+       */
       this.at = function (n) {
         return models[n];
       };
+      makeMethodReactive(this, 'at');
 
       this.push = function (model) {
         if (!isModel(model)) {
@@ -58,6 +66,7 @@ export default function createCollection(Model, methods = {}, initializers = [])
         const methodCallWatcher = bubbleUp(model, 'method:call');
         const methodChangeWatcher = bubbleUp(model, 'method:change');
 
+        // @TODO: these listeners should be cleared?
         model.on('destroy', () => {
           this.remove(model);
           changeWatcher();
@@ -74,6 +83,7 @@ export default function createCollection(Model, methods = {}, initializers = [])
 
         return result;
       };
+      makeMethodReactive(this, 'push');
 
       // native array methods
       [
@@ -90,6 +100,8 @@ export default function createCollection(Model, methods = {}, initializers = [])
         this[readOnlyMethod] = function (fn, ...args) {
           return models[readOnlyMethod](fn.bind(this), ...args);
         };
+
+        makeMethodReactive(this, readOnlyMethod);
       });
 
       // lodash methods
@@ -105,6 +117,8 @@ export default function createCollection(Model, methods = {}, initializers = [])
         this[lodashMethod] = function (...args) {
           return _[lodashMethod](models, ...args);
         };
+
+        makeMethodReactive(this, lodashMethod);
       });
 
       this.pop = function () {
@@ -150,6 +164,7 @@ export default function createCollection(Model, methods = {}, initializers = [])
         const methodCallWatcher = bubbleUp(model, 'method:call');
         const methodChangeWatcher = bubbleUp(model, 'method:change');
 
+        // @TODO: how are these listeners cleared later?
         model.on('destroy', () => {
           this.remove(model);
           this.trigger('change');
@@ -198,6 +213,7 @@ export default function createCollection(Model, methods = {}, initializers = [])
           return model.toJS();
         });
       };
+      makeMethodReactive(this, 'toJS');
 
       // methods
       _.each(methods, (methodFunc, methodName) => {

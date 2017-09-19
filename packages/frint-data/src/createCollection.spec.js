@@ -230,7 +230,7 @@ describe('frint-data › createCollection', function () {
   });
 
   describe('Collection :: at()', function () {
-    it('finds model by index', function () {
+    it('finds model by index', function (done) {
       const Person = createModel({
         name: Types.string.isRequired
       });
@@ -245,11 +245,18 @@ describe('frint-data › createCollection', function () {
       expect(people.at(0).name).to.eql('Harry');
       expect(people.at(1).name).to.eql('Hermione');
       expect(people.at(2).name).to.eql('Ron');
+
+      people.at$(1)
+        .subscribe(function (model) {
+          expect(model.name).to.equal('Hermione');
+
+          done();
+        });
     });
   });
 
   describe('Collection :: filter()', function () {
-    it('filters the collection', function () {
+    it('filters the collection', function (done) {
       const Person = createModel({
         name: Types.string.isRequired
       });
@@ -268,11 +275,21 @@ describe('frint-data › createCollection', function () {
       expect(modelsWithH.length).to.eql(2);
       expect(modelsWithH[0].name).to.eql('Harry');
       expect(modelsWithH[1].name).to.eql('Hermione');
+
+      people
+        .filter$(p => p.name.startsWith('H'))
+        .subscribe(function (models) {
+          expect(models.length).to.equal(2);
+          expect(models[0].name).to.eql('Harry');
+          expect(models[1].name).to.eql('Hermione');
+
+          done();
+        });
     });
   });
 
   describe('Collection :: find()', function () {
-    it('finds single model from collection', function () {
+    it('finds single model from collection', function (done) {
       const Person = createModel({
         name: Types.string.isRequired
       });
@@ -291,11 +308,19 @@ describe('frint-data › createCollection', function () {
       });
 
       expect(hermione.name).to.eql('Hermione');
+
+      people
+        .find$(p => p.name === 'Hermione')
+        .subscribe(function (model) {
+          expect(model.name).to.equal('Hermione');
+
+          done();
+        });
     });
   });
 
   describe('Collection :: findIndex()', function () {
-    it('finds index of the model in collection', function () {
+    it('finds index of the model in collection', function (done) {
       const Person = createModel({
         name: Types.string.isRequired
       });
@@ -313,11 +338,19 @@ describe('frint-data › createCollection', function () {
       const index = people.findIndex(hermione);
 
       expect(index).to.eql(1);
+
+      people
+        .findIndex$(hermione)
+        .subscribe(function (i) {
+          expect(i).to.equal(1);
+
+          done();
+        });
     });
   });
 
   describe('Collection :: forEach()', function () {
-    it('iterates through the collection', function () {
+    it('iterates through the collection', function (done) {
       const Person = createModel({
         name: Types.string.isRequired
       });

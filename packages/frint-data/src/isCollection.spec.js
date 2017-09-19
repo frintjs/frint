@@ -6,7 +6,7 @@ import createModel from './createModel';
 import createCollection from './createCollection';
 import isCollection from './isCollection';
 
-describe('isCollection', function () {
+describe('frint-data › isCollection', function () {
   it('returns true when object is a valid Collection instance', function () {
     const Person = createModel({
       name: Types.string.isRequired

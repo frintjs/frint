@@ -5,7 +5,7 @@ import Types from './Types';
 import createModel from './createModel';
 import createCollection from './createCollection';
 
-describe('Types', function () {
+describe('frint-data › Types', function () {
   describe('Types :: any', function () {
     it('accepts any values', function () {
       const type = Types.any;

@@ -5,7 +5,7 @@ import Types from '../src/Types';
 import createModel from '../src/createModel';
 import isModel from '../src/isModel';
 
-describe('isModel', function () {
+describe('frint-data › isModel', function () {
   it('returns true when object is a valid Model instance', function () {
     const Person = createModel({
       name: Types.string

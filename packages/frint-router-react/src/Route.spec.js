@@ -80,6 +80,35 @@ describe('frint-route-react › Route', function () {
     expect(wrapper.type()).to.equal(Component);
   });
 
+  it('renders stateless component, when route is matched not exactly', function () {
+    const context = createContext();
+    const wrapper = shallow(
+      <Route
+        path="/about"
+        render={function ({ match }) {
+          return (
+            <div>
+              <div className="url">{match.url}</div>
+            </div>
+          );
+        }}
+      />,
+      { context }
+    );
+
+    context.app.get('router').push('/');
+    expect(wrapper.type()).to.be.null;
+
+    context.app.get('router').push('/about');
+    expect(wrapper.find('.url').text()).to.equal('/about');
+
+    context.app.get('router').push('/service');
+    expect(wrapper.type()).to.be.null;
+
+    context.app.get('router').push('/about/contact');
+    expect(wrapper.find('.url').text()).to.equal('/about');
+  });
+
   it('renders component when exact prop passed and route is matched exactly', function () {
     const Component = () => <div>Matched</div>;
 

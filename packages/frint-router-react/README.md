@@ -309,6 +309,7 @@ This package is a close implementation of the APIs introduced by the awesome [`r
   * Example (with params): `/about/:user`
 1. `exact` (`Boolean`): Match the `path` exactly (with no suffix in the path)
 1. `component` (`Component`): The React component to render
+1, `render` (`Function`): For rendering inline via wrapped stateless components
 1. `app` (`App`): Frint App that you want to render
 
 ## Link

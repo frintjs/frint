@@ -1,5 +1,16 @@
 # Change Log
 
+## v2.6.0 (2017-09-19)
+
+#### Pull Requests
+* `frint-router-react`
+  * [#303](https://github.com/Travix-International/frint/pull/303) frint-router-react: inline rendering via Route component. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.5.0 (2017-09-12)
+
 #### Pull Requests
 * `frint-react`
   * [#295](https://github.com/Travix-International/frint/pull/295) frint-react: Allow observing parent component's props. ([@fahad19](https://github.com/fahad19))

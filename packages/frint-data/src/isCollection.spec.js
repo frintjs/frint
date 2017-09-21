@@ -20,14 +20,14 @@ describe('frint-data › isCollection', function () {
 
     const people = new People([]);
 
-    expect(isCollection(people)).to.eql(true);
+    expect(isCollection(people)).to.equal(true);
   });
 
   it('returns false when object is NOT a collection', function () {
-    expect(isCollection(123)).to.eql(false);
-    expect(isCollection('hi')).to.eql(false);
-    expect(isCollection({})).to.eql(false);
-    expect(isCollection([])).to.eql(false);
-    expect(isCollection(() => {})).to.eql(false);
+    expect(isCollection(123)).to.equal(false);
+    expect(isCollection('hi')).to.equal(false);
+    expect(isCollection({})).to.equal(false);
+    expect(isCollection([])).to.equal(false);
+    expect(isCollection(() => {})).to.equal(false);
   });
 });

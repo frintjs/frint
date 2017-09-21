@@ -11,10 +11,10 @@ describe('frint-data › Types', function () {
     it('accepts any values', function () {
       const type = Types.any;
 
-      expect(type(1)).to.eql(1);
-      expect(type('hello')).to.eql('hello');
-      expect(type([])).to.eql([]);
-      expect(type({})).to.eql({});
+      expect(type(1)).to.equal(1);
+      expect(type('hello')).to.equal('hello');
+      expect(type([])).to.deep.equal([]);
+      expect(type({})).to.deep.equal({});
     });
 
     it('checks for required values', function () {
@@ -26,8 +26,8 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.any.defaults(123);
 
-      expect(type()).to.eql(123);
-      expect(type(234)).to.eql(234);
+      expect(type()).to.equal(123);
+      expect(type(234)).to.equal(234);
     });
   });
 
@@ -42,8 +42,8 @@ describe('frint-data › Types', function () {
     it('accepts array values', function () {
       const type = Types.array;
 
-      expect(type([])).to.eql([]);
-      expect(type([1, 2, 3])).to.eql([1, 2, 3]);
+      expect(type([])).to.deep.equal([]);
+      expect(type([1, 2, 3])).to.deep.equal([1, 2, 3]);
     });
 
     it('rejects non-array values', function () {
@@ -65,8 +65,8 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.array.defaults(['hi', 'there']);
 
-      expect(type()).to.eql(['hi', 'there']);
-      expect(type([1, 2, 3])).to.eql([1, 2, 3]);
+      expect(type()).to.deep.equal(['hi', 'there']);
+      expect(type([1, 2, 3])).to.deep.equal([1, 2, 3]);
       expect(() => type(123)).to.throw(/value is not an array/);
     });
   });
@@ -82,8 +82,8 @@ describe('frint-data › Types', function () {
     it('accepts boolean values', function () {
       const type = Types.bool;
 
-      expect(type(true)).to.eql(true);
-      expect(type(false)).to.eql(false);
+      expect(type(true)).to.equal(true);
+      expect(type(false)).to.equal(false);
     });
 
     it('rejects non-boolean values', function () {
@@ -104,7 +104,7 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.bool.defaults(true);
 
-      expect(type()).to.eql(true);
+      expect(type()).to.equal(true);
       expect(() => type(123)).to.throw(/value is not a boolean/);
     });
   });
@@ -131,7 +131,7 @@ describe('frint-data › Types', function () {
 
       const people = new People([{ name: 'Frint' }]);
 
-      expect(type(people)).to.eql(people);
+      expect(type(people)).to.equal(people);
     });
 
     it('rejects non-collection values', function () {
@@ -163,10 +163,10 @@ describe('frint-data › Types', function () {
       const people = new People([{ name: 'Frint' }]);
       const type = Types.collection.defaults(people);
 
-      expect(type()).to.eql(people);
+      expect(type()).to.equal(people);
 
       const otherPeople = new People([{ name: 'Dark Lord' }]);
-      expect(type(otherPeople)).to.eql(otherPeople);
+      expect(type(otherPeople)).to.equal(otherPeople);
       expect(() => type('hello world')).to.throw(/value is not a Collection/);
     });
 
@@ -183,7 +183,7 @@ describe('frint-data › Types', function () {
       const type = Types.collection.of(People);
       const people = new People([{ name: 'Frint' }]);
 
-      expect(type(people)).to.eql(people);
+      expect(type(people)).to.equal(people);
       expect(type([{ name: 'Name here' }])).to.be.instanceof(People);
 
       const Post = createModel({
@@ -211,9 +211,9 @@ describe('frint-data › Types', function () {
     it('accepts enum values', function () {
       const type = Types.enum([1, 2, 3]);
 
-      expect(type(1)).to.eql(1);
-      expect(type(2)).to.eql(2);
-      expect(type(3)).to.eql(3);
+      expect(type(1)).to.equal(1);
+      expect(type(2)).to.equal(2);
+      expect(type(3)).to.equal(3);
     });
 
     it('rejects non-enum values', function () {
@@ -230,14 +230,14 @@ describe('frint-data › Types', function () {
       const type = Types.enum([1, 2, 3]).isRequired;
 
       expect(() => type()).to.throw(/value is not defined/);
-      expect(type(1)).to.eql(1);
+      expect(type(1)).to.equal(1);
     });
 
     it('allows empty values when default is set', function () {
       const type = Types.enum([1, 2, 3]).defaults(2);
 
-      expect(type()).to.eql(2);
-      expect(type(3)).to.eql(3);
+      expect(type()).to.equal(2);
+      expect(type(3)).to.equal(3);
       expect(() => type('hello world')).to.throw(/value is none of the provided enums/);
     });
 
@@ -247,9 +247,9 @@ describe('frint-data › Types', function () {
         Types.number
       ]).isRequired;
 
-      expect(type(1)).to.eql(1);
-      expect(type(2)).to.eql(2);
-      expect(type('hi')).to.eql('hi');
+      expect(type(1)).to.equal(1);
+      expect(type(2)).to.equal(2);
+      expect(type('hi')).to.equal('hi');
       expect(() => type({})).to.throw('value is none of the provided enum types');
     });
   });
@@ -266,7 +266,7 @@ describe('frint-data › Types', function () {
       const type = Types.func;
 
       const fn = () => {};
-      expect(type(fn)).to.eql(fn);
+      expect(type(fn)).to.equal(fn);
     });
 
     it('rejects non-function values', function () {
@@ -289,7 +289,7 @@ describe('frint-data › Types', function () {
       const defaultFunc = () => {};
       const type = Types.func.defaults(defaultFunc);
 
-      expect(type()).to.eql(defaultFunc);
+      expect(type()).to.equal(defaultFunc);
       expect(() => type(123)).to.throw(/value is not a function/);
     });
   });
@@ -312,7 +312,7 @@ describe('frint-data › Types', function () {
 
       const person = new Person({ name: 'Frint' });
 
-      expect(type(person)).to.eql(person);
+      expect(type(person)).to.equal(person);
     });
 
     it('rejects non-model values', function () {
@@ -341,10 +341,10 @@ describe('frint-data › Types', function () {
       const person = new Person({ name: 'Frint' });
       const type = Types.model.defaults(person);
 
-      expect(type()).to.eql(person);
+      expect(type()).to.equal(person);
 
       const anotherPerson = new Person({ name: 'Dark Lord' });
-      expect(type(anotherPerson)).to.eql(anotherPerson);
+      expect(type(anotherPerson)).to.equal(anotherPerson);
       expect(() => type('hello world')).to.throw(/value is not a Model/);
     });
 
@@ -363,7 +363,7 @@ describe('frint-data › Types', function () {
       const type = Types.model.of(Person);
 
       const person = new Person({ name: 'Frint' });
-      expect(type(person)).to.eql(person);
+      expect(type(person)).to.equal(person);
       expect(type({ name: 'Name here' })).to.be.instanceof(Person);
 
       const post = new Post({ title: 'Hello World' });
@@ -382,8 +382,8 @@ describe('frint-data › Types', function () {
     it('accepts number values', function () {
       const type = Types.number;
 
-      expect(type(123)).to.eql(123);
-      expect(type(0)).to.eql(0);
+      expect(type(123)).to.equal(123);
+      expect(type(0)).to.equal(0);
     });
 
     it('rejects non-number values', function () {
@@ -404,8 +404,8 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.number.defaults(123);
 
-      expect(type()).to.eql(123);
-      expect(type(345)).to.eql(345);
+      expect(type()).to.equal(123);
+      expect(type(345)).to.equal(345);
       expect(() => type('hello world')).to.throw(/value is not a number/);
     });
   });
@@ -421,8 +421,8 @@ describe('frint-data › Types', function () {
     it('accepts object values', function () {
       const type = Types.object;
 
-      expect(type({})).to.eql({});
-      expect(type({ a: 1, b: 2 })).to.eql({ a: 1, b: 2 });
+      expect(type({})).to.deep.equal({});
+      expect(type({ a: 1, b: 2 })).to.deep.equal({ a: 1, b: 2 });
     });
 
     it('rejects non-object values', function () {
@@ -444,8 +444,8 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.object.defaults({ hi: 'there' });
 
-      expect(type()).to.eql({ hi: 'there' });
-      expect(type({ hello: 'world' })).to.eql({ hello: 'world' });
+      expect(type()).to.deep.equal({ hi: 'there' });
+      expect(type({ hello: 'world' })).to.deep.equal({ hello: 'world' });
       expect(() => type(123)).to.throw(/value is not an object/);
     });
 
@@ -461,7 +461,7 @@ describe('frint-data › Types', function () {
         street: 'Amsterdam',
         city: 'Amsterdam',
         postalCode: 123
-      })).to.eql({
+      })).to.deep.equal({
         street: 'Amsterdam',
         city: 'Amsterdam',
         postalCode: 123,
@@ -493,7 +493,7 @@ describe('frint-data › Types', function () {
           city: 'Amsterdam',
           postalCode: 123
         }
-      })).to.eql({
+      })).to.deep.equal({
         name: 'Frint',
         address: {
           street: 'Amsterdam',
@@ -525,9 +525,9 @@ describe('frint-data › Types', function () {
     it('accepts string values', function () {
       const type = Types.string;
 
-      expect(type('hello')).to.eql('hello');
-      expect(type('hello world')).to.eql('hello world');
-      expect(type('')).to.eql('');
+      expect(type('hello')).to.equal('hello');
+      expect(type('hello world')).to.equal('hello world');
+      expect(type('')).to.equal('');
     });
 
     it('rejects non-string values', function () {
@@ -548,8 +548,8 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.string.defaults('hello');
 
-      expect(type()).to.eql('hello');
-      expect(type('something')).to.eql('something');
+      expect(type()).to.equal('hello');
+      expect(type('something')).to.equal('something');
       expect(() => type(123)).to.throw(/value is not a string/);
     });
   });
@@ -565,8 +565,8 @@ describe('frint-data › Types', function () {
     it('accepts UUIDs values', function () {
       const type = Types.uuid;
 
-      expect(type('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9')).to.eql('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9');
-      expect(type('90691cbc-b5ea-5826-ae98-951e30fc3b2d')).to.eql('90691cbc-b5ea-5826-ae98-951e30fc3b2d');
+      expect(type('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9')).to.equal('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9');
+      expect(type('90691cbc-b5ea-5826-ae98-951e30fc3b2d')).to.equal('90691cbc-b5ea-5826-ae98-951e30fc3b2d');
     });
 
     it('rejects non-UUID values', function () {
@@ -587,8 +587,8 @@ describe('frint-data › Types', function () {
     it('allows empty values when default is set', function () {
       const type = Types.uuid.defaults('90691cbc-b5ea-5826-ae98-951e30fc3b2d');
 
-      expect(type()).to.eql('90691cbc-b5ea-5826-ae98-951e30fc3b2d');
-      expect(type('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9')).to.eql('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9');
+      expect(type()).to.equal('90691cbc-b5ea-5826-ae98-951e30fc3b2d');
+      expect(type('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9')).to.equal('27961a0e-f4e8-4eb3-bf95-c5203e1d87b9');
       expect(() => type('hello world')).to.throw(/value is not a valid UUID/);
     });
   });

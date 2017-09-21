@@ -41,19 +41,19 @@ describe('frint-data › createCollection', function () {
     ]);
 
     expect(people).to.be.instanceof(People);
-    expect(isCollection(people)).to.eql(true);
+    expect(isCollection(people)).to.equal(true);
 
     // first
-    expect(isModel(people.at(0))).to.eql(true);
-    expect(people.at(0).name).to.eql('Harry');
+    expect(isModel(people.at(0))).to.equal(true);
+    expect(people.at(0).name).to.equal('Harry');
 
     // second
-    expect(isModel(people.at(1))).to.eql(true);
-    expect(people.at(1).name).to.eql('Hermione');
+    expect(isModel(people.at(1))).to.equal(true);
+    expect(people.at(1).name).to.equal('Hermione');
 
     // third
-    expect(isModel(people.at(2))).to.eql(true);
-    expect(people.at(2).name).to.eql('Ron');
+    expect(isModel(people.at(2))).to.equal(true);
+    expect(people.at(2).name).to.equal('Ron');
   });
 
   it('checks with multiple collection instances', function () {
@@ -78,13 +78,13 @@ describe('frint-data › createCollection', function () {
       { name: 'C' }
     ]);
 
-    expect(people1.at(0).name).to.eql('Harry');
-    expect(people1.at(1).name).to.eql('Hermione');
-    expect(people1.at(2).name).to.eql('Ron');
+    expect(people1.at(0).name).to.equal('Harry');
+    expect(people1.at(1).name).to.equal('Hermione');
+    expect(people1.at(2).name).to.equal('Ron');
 
-    expect(people2.at(0).name).to.eql('A');
-    expect(people2.at(1).name).to.eql('B');
-    expect(people2.at(2).name).to.eql('C');
+    expect(people2.at(0).name).to.equal('A');
+    expect(people2.at(1).name).to.equal('B');
+    expect(people2.at(2).name).to.equal('C');
   });
 
   it('creates collection with methods', function () {
@@ -107,7 +107,7 @@ describe('frint-data › createCollection', function () {
     ]);
 
     expect(people.findAt).to.be.a('function');
-    expect(people.findAt(1).name).to.eql('Blah');
+    expect(people.findAt(1).name).to.equal('Blah');
   });
 
   it('throws error on conflicting method', function () {
@@ -220,9 +220,9 @@ describe('frint-data › createCollection', function () {
       .take(1)
       .last()
       .subscribe(function ({ collection }) {
-        expect(collection.length).to.eql(2);
-        expect(collection.at(0).name).to.eql('Harry');
-        expect(collection.at(1).name).to.eql('Ron');
+        expect(collection.length).to.equal(2);
+        expect(collection.at(0).name).to.equal('Harry');
+        expect(collection.at(1).name).to.equal('Ron');
 
         done();
       });
@@ -249,7 +249,7 @@ describe('frint-data › createCollection', function () {
 
     const people = new People();
 
-    expect(people.at(0).name).to.eql('Initialize');
+    expect(people.at(0).name).to.equal('Initialize');
   });
 
   describe('Collection :: at()', function () {
@@ -269,9 +269,9 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.at(0).name).to.eql('Harry');
-      expect(people.at(1).name).to.eql('Hermione');
-      expect(people.at(2).name).to.eql('Ron');
+      expect(people.at(0).name).to.equal('Harry');
+      expect(people.at(1).name).to.equal('Hermione');
+      expect(people.at(2).name).to.equal('Ron');
 
       people.at$(1)
         .subscribe(function (model) {
@@ -303,16 +303,16 @@ describe('frint-data › createCollection', function () {
         return person.name.startsWith('H');
       });
 
-      expect(modelsWithH.length).to.eql(2);
-      expect(modelsWithH[0].name).to.eql('Harry');
-      expect(modelsWithH[1].name).to.eql('Hermione');
+      expect(modelsWithH.length).to.equal(2);
+      expect(modelsWithH[0].name).to.equal('Harry');
+      expect(modelsWithH[1].name).to.equal('Hermione');
 
       people
         .filter$(p => p.name.startsWith('H'))
         .subscribe(function (models) {
           expect(models.length).to.equal(2);
-          expect(models[0].name).to.eql('Harry');
-          expect(models[1].name).to.eql('Hermione');
+          expect(models[0].name).to.equal('Harry');
+          expect(models[1].name).to.equal('Hermione');
 
           done();
         });
@@ -336,13 +336,13 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.length).to.eql(3);
+      expect(people.length).to.equal(3);
 
       const hermione = people.find(function (person) {
         return person.name === 'Hermione';
       });
 
-      expect(hermione.name).to.eql('Hermione');
+      expect(hermione.name).to.equal('Hermione');
 
       people
         .find$(p => p.name === 'Hermione')
@@ -371,12 +371,12 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.length).to.eql(3);
+      expect(people.length).to.equal(3);
 
       const hermione = people.at(1);
       const index = people.findIndex(hermione);
 
-      expect(index).to.eql(1);
+      expect(index).to.equal(1);
 
       people
         .findIndex$(hermione)
@@ -410,7 +410,7 @@ describe('frint-data › createCollection', function () {
         names.push(person.name);
       });
 
-      expect(names).to.eql([
+      expect(names).to.deep.equal([
         'Harry',
         'Hermione',
         'Ron'
@@ -439,7 +439,7 @@ describe('frint-data › createCollection', function () {
         return person.name;
       });
 
-      expect(names).to.eql([
+      expect(names).to.deep.equal([
         'Harry',
         'Hermione',
         'Ron'
@@ -464,17 +464,17 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.length).to.eql(3);
+      expect(people.length).to.equal(3);
 
       const lastModel = people.pop();
 
-      expect(people.length).to.eql(2);
+      expect(people.length).to.equal(2);
 
-      expect(people.toJS()).to.eql([
+      expect(people.toJS()).to.deep.equal([
         { name: 'Harry' },
         { name: 'Hermione' }
       ]);
-      expect(lastModel.name).to.eql('Ron');
+      expect(lastModel.name).to.equal('Ron');
     });
   });
 
@@ -495,9 +495,9 @@ describe('frint-data › createCollection', function () {
       people.push(new Person({ name: 'Hermione' }));
       people.push(new Person({ name: 'Ron' }));
 
-      expect(people.at(0).name).to.eql('Harry');
-      expect(people.at(1).name).to.eql('Hermione');
-      expect(people.at(2).name).to.eql('Ron');
+      expect(people.at(0).name).to.equal('Harry');
+      expect(people.at(1).name).to.equal('Hermione');
+      expect(people.at(2).name).to.equal('Ron');
     });
   });
 
@@ -522,7 +522,7 @@ describe('frint-data › createCollection', function () {
         return result + model.age;
       }, 0);
 
-      expect(totalAge).to.eql(10 + 20 + 30);
+      expect(totalAge).to.equal(10 + 20 + 30);
     });
   });
 
@@ -543,14 +543,14 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.length).to.eql(3);
+      expect(people.length).to.equal(3);
 
       const hermione = people.at(1);
       people.remove(hermione);
 
-      expect(people.length).to.eql(2);
+      expect(people.length).to.equal(2);
 
-      expect(people.toJS()).to.eql([
+      expect(people.toJS()).to.deep.equal([
         { name: 'Harry' },
         { name: 'Ron' }
       ]);
@@ -574,13 +574,13 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.length).to.eql(3);
+      expect(people.length).to.equal(3);
 
       people.removeFrom(0);
 
-      expect(people.length).to.eql(2);
+      expect(people.length).to.equal(2);
 
-      expect(people.toJS()).to.eql([
+      expect(people.toJS()).to.deep.equal([
         { name: 'Hermione' },
         { name: 'Ron' }
       ]);
@@ -604,17 +604,17 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(people.length).to.eql(3);
+      expect(people.length).to.equal(3);
 
       const firstModel = people.shift();
 
-      expect(people.length).to.eql(2);
+      expect(people.length).to.equal(2);
 
-      expect(people.toJS()).to.eql([
+      expect(people.toJS()).to.deep.equal([
         { name: 'Hermione' },
         { name: 'Ron' }
       ]);
-      expect(firstModel.name).to.eql('Harry');
+      expect(firstModel.name).to.equal('Harry');
     });
   });
 
@@ -635,11 +635,11 @@ describe('frint-data › createCollection', function () {
         { name: 'Ron' }
       ]);
 
-      expect(isModel(people.at(0))).to.eql(true);
-      expect(isModel(people.at(1))).to.eql(true);
-      expect(isModel(people.at(2))).to.eql(true);
+      expect(isModel(people.at(0))).to.equal(true);
+      expect(isModel(people.at(1))).to.equal(true);
+      expect(isModel(people.at(2))).to.equal(true);
 
-      expect(people.toJS()).to.eql([
+      expect(people.toJS()).to.deep.equal([
         { name: 'Harry' },
         { name: 'Hermione' },
         { name: 'Ron' }
@@ -665,9 +665,9 @@ describe('frint-data › createCollection', function () {
 
       people.unshift(new Person({ name: 'Ron' }));
 
-      expect(people.at(0).name).to.eql('Ron');
-      expect(people.at(1).name).to.eql('Harry');
-      expect(people.at(2).name).to.eql('Hermione');
+      expect(people.at(0).name).to.equal('Ron');
+      expect(people.at(1).name).to.equal('Harry');
+      expect(people.at(2).name).to.equal('Hermione');
     });
   });
 });

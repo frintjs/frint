@@ -30,8 +30,8 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Frint');
-    expect(model.language).to.eql('English');
+    expect(model.name).to.equal('Frint');
+    expect(model.language).to.equal('English');
   });
 
   it('disables instance property mutations', function () {
@@ -47,9 +47,9 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Frint');
+    expect(model.name).to.equal('Frint');
 
-    expect(model.name).to.eql('Frint');
+    expect(model.name).to.equal('Frint');
   });
 
   it('makes only attributes enumerable', function () {
@@ -64,7 +64,7 @@ describe('frint-data › createModel', function () {
       name: 'Frint'
     });
 
-    expect(Object.keys(model)).to.eql(['name', 'language']);
+    expect(Object.keys(model)).to.deep.equal(['name', 'language']);
   });
 
   it('creates Model class with nested types', function () {
@@ -87,17 +87,17 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Frint');
-    expect(model.address.street).to.eql('Straat');
-    expect(model.address.city).to.eql('Amsterdam');
-    expect(model.address).to.eql({
+    expect(model.name).to.equal('Frint');
+    expect(model.address.street).to.equal('Straat');
+    expect(model.address.city).to.equal('Amsterdam');
+    expect(model.address).to.deep.equal({
       street: 'Straat',
       city: 'Amsterdam'
     });
 
-    expect(model.address.street).to.eql('Straat');
+    expect(model.address.street).to.equal('Straat');
 
-    expect(model.address).to.eql({
+    expect(model.address).to.deep.equal({
       street: 'Straat',
       city: 'Amsterdam'
     });
@@ -121,13 +121,13 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Frint');
+    expect(model.name).to.equal('Frint');
     expect(model.setName).to.be.a('function');
 
-    expect(model.getName()).to.eql('Frint');
+    expect(model.getName()).to.equal('Frint');
 
     model.setName('Heylaal');
-    expect(model.name).to.eql('Heylaal');
+    expect(model.name).to.equal('Heylaal');
   });
 
   it('allows methods to call other methods', function () {
@@ -168,23 +168,23 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.firstName).to.eql('Frint');
-    expect(model.lastName).to.eql('Heylaal');
+    expect(model.firstName).to.equal('Frint');
+    expect(model.lastName).to.equal('Heylaal');
 
     expect(model.getFirstName).to.be.a('function');
-    expect(model.getFirstName()).to.eql('Frint');
+    expect(model.getFirstName()).to.equal('Frint');
 
     expect(model.getLastName).to.be.a('function');
-    expect(model.getLastName()).to.eql('Heylaal');
+    expect(model.getLastName()).to.equal('Heylaal');
 
-    expect(model.getFullName()).to.eql('Frint Heylaal');
+    expect(model.getFullName()).to.equal('Frint Heylaal');
 
     model.setFirstName('John');
     model.setLastName('Smith');
-    expect(model.getFullName()).to.eql('John Smith');
+    expect(model.getFullName()).to.equal('John Smith');
 
     model.setFullName('Foo', 'Bar');
-    expect(model.getFullName()).to.eql('Foo Bar');
+    expect(model.getFullName()).to.equal('Foo Bar');
   });
 
   it('throws error when method name conflicts', function () {
@@ -267,11 +267,11 @@ describe('frint-data › createModel', function () {
 
     expect(person).to.be.instanceof(Person);
     expect(person.address).to.be.instanceof(Address);
-    expect(isModel(person.address)).to.eql(true);
+    expect(isModel(person.address)).to.equal(true);
 
-    expect(person.name).to.eql('Frint');
-    expect(person.address.street).to.eql('Straat');
-    expect(person.address.country).to.eql('Netherlands');
+    expect(person.name).to.equal('Frint');
+    expect(person.address.street).to.equal('Straat');
+    expect(person.address.country).to.equal('Netherlands');
   });
 
   it('checks for types on re-assignments', function () {
@@ -288,17 +288,17 @@ describe('frint-data › createModel', function () {
       name: 'Frint'
     });
 
-    expect(person.name).to.eql('Frint');
+    expect(person.name).to.equal('Frint');
 
     person.setName('Frint [updated]');
-    expect(person.name).to.eql('Frint [updated]');
+    expect(person.name).to.equal('Frint [updated]');
 
     function changeName() {
       person.setName(123);
     }
 
     expect(changeName).to.throw(/value is not a string/);
-    expect(person.name).to.eql('Frint [updated]');
+    expect(person.name).to.equal('Frint [updated]');
   });
 
   it('checks with multiple model instances', function () {
@@ -312,9 +312,9 @@ describe('frint-data › createModel', function () {
     const hermione = new Person({ name: 'Hermione' });
     const ron = new Person({ name: 'Ron' });
 
-    expect(harry.name).to.eql('Harry');
-    expect(hermione.name).to.eql('Hermione');
-    expect(ron.name).to.eql('Ron');
+    expect(harry.name).to.equal('Harry');
+    expect(hermione.name).to.equal('Hermione');
+    expect(ron.name).to.equal('Ron');
   });
 
   it('sets falsy values', function () {
@@ -339,7 +339,7 @@ describe('frint-data › createModel', function () {
     counter.decrement();
     counter.decrement();
 
-    expect(counter.value).to.eql(-1);
+    expect(counter.value).to.equal(-1);
   });
 
   it('embeds collections', function () {
@@ -372,23 +372,23 @@ describe('frint-data › createModel', function () {
       ]
     });
 
-    expect(author.name).to.eql('Frint');
-    expect(isCollection(author.posts)).to.eql(true);
+    expect(author.name).to.equal('Frint');
+    expect(isCollection(author.posts)).to.equal(true);
 
     expect(isModel(author.posts.at(0)));
-    expect(author.posts.at(0).title).to.eql('Hello World');
+    expect(author.posts.at(0).title).to.equal('Hello World');
 
     expect(isModel(author.posts.at(1)));
-    expect(author.posts.at(1).title).to.eql('About');
+    expect(author.posts.at(1).title).to.equal('About');
 
     expect(isModel(author.posts.at(2)));
-    expect(author.posts.at(2).title).to.eql('Contact');
+    expect(author.posts.at(2).title).to.equal('Contact');
 
     const about = author.posts.at(1);
     about.setTitle('About Us');
 
-    expect(about.title).to.eql('About Us');
-    expect(author.posts.at(1).title).to.eql('About Us');
+    expect(about.title).to.equal('About Us');
+    expect(author.posts.at(1).title).to.equal('About Us');
   });
 
   it('listens for self assignments', function (done) {
@@ -517,9 +517,9 @@ describe('frint-data › createModel', function () {
     const book = new Book({ title: 'Prisoner of Azkaban' });
 
     book._on('change', function (event) {
-      expect(isEvent(event)).to.eql(true);
-      expect(event.path).to.eql(['title']);
-      expect(book.title).to.eql('Harry Potter and The Prisoner of Azkaban');
+      expect(isEvent(event)).to.equal(true);
+      expect(event.path).to.deep.equal(['title']);
+      expect(book.title).to.equal('Harry Potter and The Prisoner of Azkaban');
 
       done();
     });
@@ -555,10 +555,10 @@ describe('frint-data › createModel', function () {
 
     person.listen$('change')
       .subscribe(function ({ model, event }) {
-        expect(isEvent(event)).to.eql(true);
-        expect(event.path).to.eql(['address', 'street']);
-        expect(model.address.street).to.eql('4 Privet Drive');
-        expect(model.getIn(event.path)).to.eql('4 Privet Drive');
+        expect(isEvent(event)).to.equal(true);
+        expect(event.path).to.deep.equal(['address', 'street']);
+        expect(model.address.street).to.equal('4 Privet Drive');
+        expect(model.getIn(event.path)).to.equal('4 Privet Drive');
 
         done();
       });
@@ -597,10 +597,10 @@ describe('frint-data › createModel', function () {
     // first change
     const firstSubscription = author.listen$('change')
       .subscribe(function ({ model, event }) {
-        expect(isEvent(event)).to.eql(true);
-        expect(event.path).to.eql(['books', 0, 'title']);
-        expect(model.books.at(0).title).to.eql('The Life and Lies of Albus Dumbledore');
-        expect(model.getIn(event.path)).to.eql('The Life and Lies of Albus Dumbledore');
+        expect(isEvent(event)).to.equal(true);
+        expect(event.path).to.deep.equal(['books', 0, 'title']);
+        expect(model.books.at(0).title).to.equal('The Life and Lies of Albus Dumbledore');
+        expect(model.getIn(event.path)).to.equal('The Life and Lies of Albus Dumbledore');
 
         firstSubscription.unsubscribe();
       });
@@ -610,10 +610,10 @@ describe('frint-data › createModel', function () {
     // second change
     const secondSubscription = author.listen$('change')
       .subscribe(function ({ model, event }) {
-        expect(isEvent(event)).to.eql(true);
-        expect(event.path).to.eql(['books', 1]);
-        expect(model.books.at(1).title).to.eql(`Dumbledore's Army`);
-        expect(model.getIn(event.path)).to.eql(model.books.at(1));
+        expect(isEvent(event)).to.equal(true);
+        expect(event.path).to.deep.equal(['books', 1]);
+        expect(model.books.at(1).title).to.equal(`Dumbledore's Army`);
+        expect(model.getIn(event.path)).to.equal(model.books.at(1));
 
         secondSubscription.unsubscribe();
         done();
@@ -641,7 +641,7 @@ describe('frint-data › createModel', function () {
       name: 'Initial name'
     });
 
-    expect(person.name).to.eql('Updated by initialize');
+    expect(person.name).to.equal('Updated by initialize');
   });
 
   describe('Model :: get()', function () {
@@ -654,11 +654,11 @@ describe('frint-data › createModel', function () {
 
       const person = new Person({ name: 'Newt Scamander' });
 
-      expect(person.get('name')).to.eql('Newt Scamander');
+      expect(person.get('name')).to.equal('Newt Scamander');
 
       person.get$('name')
         .subscribe(function (name) {
-          expect(name).to.eql('Newt Scamander');
+          expect(name).to.equal('Newt Scamander');
 
           done();
         });
@@ -690,9 +690,9 @@ describe('frint-data › createModel', function () {
         }
       });
 
-      expect(isModel(person.get('address'))).to.eql(true);
-      expect(person.get('address')).to.eql(person.address);
-      expect(person.get('address.city')).to.eql('Surrey');
+      expect(isModel(person.get('address'))).to.equal(true);
+      expect(person.get('address')).to.equal(person.address);
+      expect(person.get('address.city')).to.equal('Surrey');
     });
 
     it('gets value by dot-separated path from child-collection', function () {
@@ -724,11 +724,11 @@ describe('frint-data › createModel', function () {
         ]
       });
 
-      expect(author.get('books')).to.eql(author.books);
-      expect(author.get('books.0')).to.eql(author.books.at(0));
-      expect(author.get('books.0.title')).to.eql('The Life and Lies of Dumbledore');
-      expect(author.get('books.1')).to.eql(author.books.at(1));
-      expect(author.get('books.1.title')).to.eql(`Dumbledore's Army`);
+      expect(author.get('books')).to.equal(author.books);
+      expect(author.get('books.0')).to.equal(author.books.at(0));
+      expect(author.get('books.0.title')).to.equal('The Life and Lies of Dumbledore');
+      expect(author.get('books.1')).to.equal(author.books.at(1));
+      expect(author.get('books.1.title')).to.equal(`Dumbledore's Army`);
     });
   });
 
@@ -742,11 +742,11 @@ describe('frint-data › createModel', function () {
 
       const person = new Person({ name: 'Newt Scamander' });
 
-      expect(person.getIn(['name'])).to.eql('Newt Scamander');
+      expect(person.getIn(['name'])).to.equal('Newt Scamander');
 
       person.getIn$(['name'])
         .subscribe(function (name) {
-          expect(name).to.eql('Newt Scamander');
+          expect(name).to.equal('Newt Scamander');
 
           done();
         });
@@ -778,9 +778,9 @@ describe('frint-data › createModel', function () {
         }
       });
 
-      expect(isModel(person.getIn(['address']))).to.eql(true);
-      expect(person.getIn(['address'])).to.eql(person.address);
-      expect(person.getIn(['address', 'city'])).to.eql('Surrey');
+      expect(isModel(person.getIn(['address']))).to.equal(true);
+      expect(person.getIn(['address'])).to.equal(person.address);
+      expect(person.getIn(['address', 'city'])).to.equal('Surrey');
     });
 
     it('gets value by path from child-collection', function () {
@@ -812,11 +812,11 @@ describe('frint-data › createModel', function () {
         ]
       });
 
-      expect(author.getIn(['books'])).to.eql(author.books);
-      expect(author.getIn(['books', 0])).to.eql(author.books.at(0));
-      expect(author.getIn(['books', 0, 'title'])).to.eql('The Life and Lies of Dumbledore');
-      expect(author.getIn(['books', 1])).to.eql(author.books.at(1));
-      expect(author.getIn(['books', 1, 'title'])).to.eql(`Dumbledore's Army`);
+      expect(author.getIn(['books'])).to.equal(author.books);
+      expect(author.getIn(['books', 0])).to.equal(author.books.at(0));
+      expect(author.getIn(['books', 0, 'title'])).to.equal('The Life and Lies of Dumbledore');
+      expect(author.getIn(['books', 1])).to.equal(author.books.at(1));
+      expect(author.getIn(['books', 1, 'title'])).to.equal(`Dumbledore's Army`);
     });
   });
 
@@ -831,7 +831,7 @@ describe('frint-data › createModel', function () {
         name: 'Blah'
       });
 
-      expect(model.toJS()).to.eql({ name: 'Blah' });
+      expect(model.toJS()).to.deep.equal({ name: 'Blah' });
 
       model.toJS$()
         .subscribe(function (obj) {
@@ -862,9 +862,9 @@ describe('frint-data › createModel', function () {
         }
       });
 
-      expect(isModel(person.address)).to.eql(true);
+      expect(isModel(person.address)).to.equal(true);
 
-      expect(person.toJS()).to.eql({
+      expect(person.toJS()).to.deep.equal({
         name: 'Blah',
         address: {
           street: 'Straat'
@@ -888,7 +888,7 @@ describe('frint-data › createModel', function () {
 
       todo.y = 'y';
 
-      expect(todo.toJS()).to.eql({
+      expect(todo.toJS()).to.deep.equal({
         id: 1,
         title: 'My first todo'
       });

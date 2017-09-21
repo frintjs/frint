@@ -15,12 +15,12 @@ describe('frint-data › isModel', function () {
     });
 
     const model = new Person({ name: 'Frint' });
-    expect(isModel(model)).to.eql(true);
+    expect(isModel(model)).to.equal(true);
   });
 
   it('returns false when object is NOT a model', function () {
-    expect(isModel(123)).to.eql(false);
-    expect(isModel('hi')).to.eql(false);
-    expect(isModel(() => {})).to.eql(false);
+    expect(isModel(123)).to.equal(false);
+    expect(isModel('hi')).to.equal(false);
+    expect(isModel(() => {})).to.equal(false);
   });
 });

@@ -10,9 +10,13 @@ import isCollection from './isCollection';
 describe('frint-data › isCollection', function () {
   it('returns true when object is a valid Collection instance', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people = new People([]);
 

@@ -9,7 +9,9 @@ import isModel from '../src/isModel';
 describe('frint-data › isModel', function () {
   it('returns true when object is a valid Model instance', function () {
     const Person = createModel({
-      name: Types.string
+      schema: {
+        name: Types.string,
+      },
     });
 
     const model = new Person({ name: 'Fahad' });

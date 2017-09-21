@@ -121,9 +121,13 @@ describe('frint-data › Types', function () {
       const type = Types.collection;
 
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([{ name: 'Fahad' }]);
 
@@ -148,9 +152,13 @@ describe('frint-data › Types', function () {
 
     it('allows empty values when default is set', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([{ name: 'Fahad' }]);
       const type = Types.collection.defaults(people);
@@ -164,9 +172,13 @@ describe('frint-data › Types', function () {
 
     it('accepts collection instances of certain Colelction', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const type = Types.collection.of(People);
       const people = new People([{ name: 'Fahad' }]);
@@ -175,9 +187,13 @@ describe('frint-data › Types', function () {
       expect(type([{ name: 'Name here' }])).to.be.instanceof(People);
 
       const Post = createModel({
-        title: Types.string.isRequired
+        schema: {
+          title: Types.string.isRequired,
+        },
       });
-      const Posts = createCollection(Post);
+      const Posts = createCollection({
+        model: Post,
+      });
 
       const posts = new Posts([{ title: 'Hello World' }]);
       expect(() => type(posts)).to.throw(/value is not instance of expected Collection/);
@@ -289,7 +305,9 @@ describe('frint-data › Types', function () {
     it('accepts model instances', function () {
       const type = Types.model;
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
 
       const person = new Person({ name: 'Fahad' });
@@ -315,7 +333,9 @@ describe('frint-data › Types', function () {
 
     it('allows empty values when default is set', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
 
       const person = new Person({ name: 'Fahad' });
@@ -330,10 +350,14 @@ describe('frint-data › Types', function () {
 
     it('accepts model instances of certain Model', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
       const Post = createModel({
-        title: Types.string.isRequired
+        schema: {
+          title: Types.string.isRequired,
+        },
       });
 
       const type = Types.model.of(Person);

@@ -19,8 +19,10 @@ describe('frint-data › createModel', function () {
 
   it('creates Model class with types', function () {
     const Model = createModel({
-      name: Types.string.isRequired,
-      language: Types.string.defaults('English')
+      schema: {
+        name: Types.string.isRequired,
+        language: Types.string.defaults('English'),
+      },
     });
 
     const model = new Model({
@@ -34,8 +36,10 @@ describe('frint-data › createModel', function () {
 
   it('disables instance property mutations', function () {
     const Model = createModel({
-      name: Types.string.isRequired,
-      language: Types.string.defaults('English')
+      schema: {
+        name: Types.string.isRequired,
+        language: Types.string.defaults('English')
+      },
     });
 
     const model = new Model({
@@ -50,8 +54,10 @@ describe('frint-data › createModel', function () {
 
   it('makes only attributes enumerable', function () {
     const Model = createModel({
-      name: Types.string.isRequired,
-      language: Types.string.defaults('English')
+      schema: {
+        name: Types.string.isRequired,
+        language: Types.string.defaults('English'),
+      },
     });
 
     const model = new Model({
@@ -63,11 +69,13 @@ describe('frint-data › createModel', function () {
 
   it('creates Model class with nested types', function () {
     const Model = createModel({
-      name: Types.string.isRequired,
-      address: Types.object.of({
-        street: Types.string,
-        city: Types.string
-      })
+      schema: {
+        name: Types.string.isRequired,
+        address: Types.object.of({
+          street: Types.string,
+          city: Types.string,
+        }),
+      },
     });
 
     const model = new Model({
@@ -95,16 +103,17 @@ describe('frint-data › createModel', function () {
     });
   });
 
-  it('creates Model class with methods', function () {
+  it.only('creates Model class with methods', function () {
     const Model = createModel({
-      name: Types.string.isRequired
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+      },
       getName() {
         return this.name;
       },
       setName(name) {
         this.name = name;
-      }
+      },
     });
 
     const model = new Model({
@@ -123,9 +132,10 @@ describe('frint-data › createModel', function () {
 
   it('allows methods to call other methods', function () {
     const Model = createModel({
-      firstName: Types.string.isRequired,
-      lastName: Types.string.isRequired
-    }, {
+      schema: {
+        firstName: Types.string.isRequired,
+        lastName: Types.string.isRequired,
+      },
       // first
       getFirstName() {
         return this.firstName;
@@ -149,7 +159,7 @@ describe('frint-data › createModel', function () {
       setFullName(firstName, lastName) {
         this.setFirstName(firstName);
         this.setLastName(lastName);
-      }
+      },
     });
 
     const model = new Model({
@@ -179,12 +189,13 @@ describe('frint-data › createModel', function () {
 
   it('throws error when method name conflicts', function () {
     const Person = createModel({
-      name: Types.string,
-      bio: Types.string
-    }, {
+      schema: {
+        name: Types.string,
+        bio: Types.string,
+      },
       name() {
         return true;
-      }
+      },
     });
 
     function getPerson() {
@@ -199,12 +210,13 @@ describe('frint-data › createModel', function () {
 
   it('throws error when method name conflicts with built-in methods', function () {
     const Person = createModel({
-      name: Types.string,
-      bio: Types.string
-    }, {
+      schema: {
+        name: Types.string,
+        bio: Types.string,
+      },
       toJS() {
         return true;
-      }
+      },
     });
 
     function getPerson() {
@@ -220,27 +232,29 @@ describe('frint-data › createModel', function () {
 
   it('embeds other models', function () {
     const Address = createModel({
-      street: Types.string,
-      country: Types.string
-    }, {
+      schema: {
+        street: Types.string,
+        country: Types.string,
+      },
       getStreet() {
         return this.street;
       },
       setStreet(street) {
         this.street = street;
-      }
+      },
     });
 
     const Person = createModel({
-      name: Types.string.isRequired,
-      address: Types.model.of(Address)
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+        address: Types.model.of(Address),
+      },
       getName() {
         return this.name;
       },
       getStreet() {
         return this.address.getStreet();
-      }
+      },
     });
 
     const person = new Person({
@@ -262,11 +276,12 @@ describe('frint-data › createModel', function () {
 
   it('checks for types on re-assignments', function () {
     const Person = createModel({
-      name: Types.string.isRequired
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+      },
       setName(name) {
         this.name = name;
-      }
+      },
     });
 
     const person = new Person({
@@ -288,7 +303,9 @@ describe('frint-data › createModel', function () {
 
   it('checks with multiple model instances', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
 
     const harry = new Person({ name: 'Harry' });
@@ -302,14 +319,15 @@ describe('frint-data › createModel', function () {
 
   it('sets falsy values', function () {
     const Counter = createModel({
-      value: Types.number.isRequired
-    }, {
+      schema: {
+        value: Types.number.isRequired,
+      },
       increment() {
         this.value += 1;
       },
       decrement() {
         this.value -= 1;
-      }
+      },
     });
 
     const counter = new Counter({ value: 0 });
@@ -326,18 +344,23 @@ describe('frint-data › createModel', function () {
 
   it('embeds collections', function () {
     const Post = createModel({
-      title: Types.string.isRequired
-    }, {
+      schema: {
+        title: Types.string.isRequired,
+      },
       setTitle(newTitle) {
         this.title = newTitle;
-      }
+      },
     });
 
-    const Posts = createCollection(Post);
+    const Posts = createCollection({
+      model: Post,
+    });
 
     const Author = createModel({
-      name: Types.string.isRequired,
-      posts: Types.collection.of(Posts)
+      schema: {
+        name: Types.string.isRequired,
+        posts: Types.collection.of(Posts),
+      },
     });
 
     const author = new Author({
@@ -370,11 +393,12 @@ describe('frint-data › createModel', function () {
 
   it('listens for self assignments', function () {
     const Person = createModel({
-      name: Types.string.isRequired
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+      },
       setName(name) {
         this.name = name;
-      }
+      },
     });
 
     const person = new Person({
@@ -401,21 +425,23 @@ describe('frint-data › createModel', function () {
 
   it('listens for child-model assignments', function () {
     const Address = createModel({
-      street: Types.string.isRequired,
-      city: Types.string.isRequired
-    }, {
+      schema: {
+        street: Types.string.isRequired,
+        city: Types.string.isRequired,
+      },
       setStreet(street) {
         this.street = street;
-      }
+      },
     });
 
     const Person = createModel({
-      name: Types.string.isRequired,
-      address: Types.model.of(Address)
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+        address: Types.model.of(Address),
+      },
       setName(name) {
         this.name = name;
-      }
+      },
     });
 
     const person = new Person({
@@ -445,14 +471,16 @@ describe('frint-data › createModel', function () {
 
   it('listens for child-collection changes', function () {
     const Book = createModel({
-      title: Types.string.isRequired
-    }, {
+      schema: {
+        title: Types.string.isRequired,
+      },
       setTitle(title) {
         this.title = title;
-      }
+      },
     });
 
-    const Books = createCollection(Book, {
+    const Books = createCollection({
+      model: Book,
       addBook(title) {
         this.push(new Book({
           title
@@ -461,8 +489,10 @@ describe('frint-data › createModel', function () {
     });
 
     const Author = createModel({
-      name: Types.string.isRequired,
-      books: Types.collection.of(Books)
+      schema: {
+        name: Types.string.isRequired,
+        books: Types.collection.of(Books),
+      },
     });
 
     const author = new Author({
@@ -485,11 +515,12 @@ describe('frint-data › createModel', function () {
 
   it('emits `change` event with Event object for self', function (done) {
     const Book = createModel({
-      title: Types.string.isRequired
-    }, {
+      schema: {
+        title: Types.string.isRequired,
+      },
       setTitle(title) {
         this.title = title;
-      }
+      },
     });
 
     const book = new Book({ title: 'Prisoner of Azkaban' });
@@ -507,17 +538,20 @@ describe('frint-data › createModel', function () {
 
   it('emits `change` event with Event object for child-model', function (done) {
     const Address = createModel({
-      street: Types.string,
-      city: Types.string
-    }, {
+      schema: {
+        street: Types.string,
+        city: Types.string,
+      },
       setStreet(street) {
         this.street = street;
-      }
+      },
     });
 
     const Person = createModel({
-      name: Types.string.isRequired,
-      address: Types.model.of(Address)
+      schema: {
+        name: Types.string.isRequired,
+        address: Types.model.of(Address),
+      },
     });
 
     const person = new Person({
@@ -542,18 +576,23 @@ describe('frint-data › createModel', function () {
 
   it('emits `change` event with Event object for child-collection', function (done) {
     const Book = createModel({
-      title: Types.string.isRequired
-    }, {
+      schema: {
+        title: Types.string.isRequired,
+      },
       setTitle(title) {
         this.title = title;
-      }
+      },
     });
 
-    const Books = createCollection(Book);
+    const Books = createCollection({
+      model: Book,
+    });
 
     const Author = createModel({
-      name: Types.string.isRequired,
-      books: Types.collection.of(Books)
+      schema: {
+        name: Types.string.isRequired,
+        books: Types.collection.of(Books),
+      },
     });
 
     const author = new Author({
@@ -595,9 +634,10 @@ describe('frint-data › createModel', function () {
 
   it('emits `method:change` event for self', function () {
     const Book = createModel({
-      title: Types.string.isRequired,
-      description: Types.string.isRequired
-    }, {
+      schema: {
+        title: Types.string.isRequired,
+        description: Types.string.isRequired,
+      },
       getTitle() {
         return this.title;
       },
@@ -613,7 +653,7 @@ describe('frint-data › createModel', function () {
       setTitleAndDescription(title, description) {
         this.title = title;
         this.description = description;
-      }
+      },
     });
 
     const book = new Book({
@@ -648,17 +688,20 @@ describe('frint-data › createModel', function () {
 
   it('emits `method:change` event for child-model', function () {
     const Address = createModel({
-      street: Types.string,
-      city: Types.string
-    }, {
+      schema: {
+        street: Types.string,
+        city: Types.string,
+      },
       setStreet(street) {
         this.street = street;
-      }
+      },
     });
 
     const Person = createModel({
-      name: Types.string.isRequired,
-      address: Types.model.of(Address)
+      schema: {
+        name: Types.string.isRequired,
+        address: Types.model.of(Address),
+      },
     });
 
     const person = new Person({
@@ -685,14 +728,16 @@ describe('frint-data › createModel', function () {
 
   it('emits `method:change` event for child-collection', function () {
     const Book = createModel({
-      title: Types.string.isRequired
-    }, {
+      schema: {
+        title: Types.string.isRequired,
+      },
       setTitle(title) {
         this.title = title;
-      }
+      },
     });
 
-    const Books = createCollection(Book, {
+    const Books = createCollection({
+      model: Book,
       add(title) {
         return this.push(new Book({
           title
@@ -701,8 +746,10 @@ describe('frint-data › createModel', function () {
     });
 
     const Author = createModel({
-      name: Types.string.isRequired,
-      books: Types.collection.of(Books)
+      schema: {
+        name: Types.string.isRequired,
+        books: Types.collection.of(Books),
+      },
     });
 
     const author = new Author({
@@ -767,14 +814,14 @@ describe('frint-data › createModel', function () {
     }
 
     const Person = createModel({
-      name: Types.string.isRequired
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+      },
+      initializers: [initializer],
       setName(name) {
         this.name = name;
-      }
-    }, [
-      initializer
-    ]);
+      },
+    });
 
     const person = new Person({
       name: 'Initial name'
@@ -786,7 +833,9 @@ describe('frint-data › createModel', function () {
   describe('Model :: get()', function () {
     it('gets value by path from self', function (done) {
       const Person = createModel({
-        name: Types.string
+        schema: {
+          name: Types.string,
+        },
       });
 
       const person = new Person({ name: 'Newt Scamander' });
@@ -803,17 +852,20 @@ describe('frint-data › createModel', function () {
 
     it('gets value by dot-separated path from child-model', function () {
       const Address = createModel({
-        street: Types.string,
-        city: Types.string
-      }, {
+        schema: {
+          street: Types.string,
+          city: Types.string,
+        },
         setStreet(street) {
           this.street = street;
         }
       });
 
       const Person = createModel({
-        name: Types.string.isRequired,
-        address: Types.model.of(Address)
+        schema: {
+          name: Types.string.isRequired,
+          address: Types.model.of(Address),
+        },
       });
 
       const person = new Person({
@@ -831,18 +883,23 @@ describe('frint-data › createModel', function () {
 
     it('gets value by dot-separated path from child-collection', function () {
       const Book = createModel({
-        title: Types.string.isRequired
-      }, {
+        schema: {
+          title: Types.string.isRequired,
+        },
         setTitle(title) {
           this.title = title;
-        }
+        },
       });
 
-      const Books = createCollection(Book);
+      const Books = createCollection({
+        model: Book,
+      });
 
       const Author = createModel({
-        name: Types.string.isRequired,
-        books: Types.collection.of(Books)
+        schema: {
+          name: Types.string.isRequired,
+          books: Types.collection.of(Books),
+        },
       });
 
       const author = new Author({
@@ -864,7 +921,9 @@ describe('frint-data › createModel', function () {
   describe('Model :: getIn()', function () {
     it('gets value by path from self', function (done) {
       const Person = createModel({
-        name: Types.string
+        schema: {
+          name: Types.string,
+        },
       });
 
       const person = new Person({ name: 'Newt Scamander' });
@@ -881,17 +940,20 @@ describe('frint-data › createModel', function () {
 
     it('gets value by path from child-model', function () {
       const Address = createModel({
-        street: Types.string,
-        city: Types.string
-      }, {
+        schema: {
+          street: Types.string,
+          city: Types.string,
+        },
         setStreet(street) {
           this.street = street;
-        }
+        },
       });
 
       const Person = createModel({
-        name: Types.string.isRequired,
-        address: Types.model.of(Address)
+        schema: {
+          name: Types.string.isRequired,
+          address: Types.model.of(Address),
+        },
       });
 
       const person = new Person({
@@ -909,18 +971,23 @@ describe('frint-data › createModel', function () {
 
     it('gets value by path from child-collection', function () {
       const Book = createModel({
-        title: Types.string.isRequired
-      }, {
+        schema: {
+          title: Types.string.isRequired,
+        },
         setTitle(title) {
           this.title = title;
-        }
+        },
       });
 
-      const Books = createCollection(Book);
+      const Books = createCollection({
+        model: Book,
+      });
 
       const Author = createModel({
-        name: Types.string.isRequired,
-        books: Types.collection.of(Books)
+        schema: {
+          name: Types.string.isRequired,
+          books: Types.collection.of(Books),
+        },
       });
 
       const author = new Author({
@@ -942,7 +1009,9 @@ describe('frint-data › createModel', function () {
   describe('Model :: toJS()', function () {
     it('converts simple Model\'s attributes to plain object', function (done) {
       const Model = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
       const model = new Model({
         name: 'Blah'
@@ -960,12 +1029,16 @@ describe('frint-data › createModel', function () {
 
     it('converts nested Model\'s attributes to plain object', function () {
       const Address = createModel({
-        street: Types.string.isRequired
+        schema: {
+          street: Types.string.isRequired,
+        },
       });
 
       const Person = createModel({
-        name: Types.string.isRequired,
-        address: Types.model.of(Address)
+        schema: {
+          name: Types.string.isRequired,
+          address: Types.model.of(Address),
+        },
       });
 
       const person = new Person({
@@ -987,8 +1060,10 @@ describe('frint-data › createModel', function () {
 
     it('returns plain object based strictly on schema', function () {
       const Todo = createModel({
-        id: Types.number.isRequired,
-        title: Types.string.isRequired
+        schema: {
+          id: Types.number.isRequired,
+          title: Types.string.isRequired,
+        },
       });
 
       const todo = new Todo({

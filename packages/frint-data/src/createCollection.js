@@ -11,7 +11,17 @@ import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
 import makeMethodReactive from './utils/makeMethodReactive';
 
-export default function createCollection(Model, methods = {}, initializers = []) {
+export default function createCollection(options = {}) {
+  const Model = options.model;
+  const {
+    initializers: [],
+  } = options;
+
+  const methods = Object.keys(options)
+    .filter(k => ['model', 'initializers'].indexOf(k) === -1)
+    .filter(k => typeof options[k] === 'function')
+    .map(k => options[k]);
+
   class Collection extends BaseCollection {
     constructor(givenModels = []) {
       super(givenModels);

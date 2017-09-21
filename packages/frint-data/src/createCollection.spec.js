@@ -11,9 +11,13 @@ import isCollection from './isCollection';
 describe('frint-data › createCollection', function () {
   it('creates Collection class', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people = new People();
     expect(people).to.be.instanceof(People);
@@ -21,9 +25,13 @@ describe('frint-data › createCollection', function () {
 
   it('creates Collection with Model', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people = new People([
       { name: 'Harry' },
@@ -50,9 +58,13 @@ describe('frint-data › createCollection', function () {
 
   it('checks with multiple collection instances', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people1 = new People([
       { name: 'Harry' },
@@ -77,9 +89,12 @@ describe('frint-data › createCollection', function () {
 
   it('creates collection with methods', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
-    const People = createCollection(Person, {
+    const People = createCollection({
+      model: Person,
       findAt(n) {
         return this.at(n);
       }
@@ -97,9 +112,12 @@ describe('frint-data › createCollection', function () {
 
   it('throws error on conflicting method', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
-    const People = createCollection(Person, {
+    const People = createCollection({
+      model: Person,
       at(n) {
         return this.at(n);
       }
@@ -114,10 +132,14 @@ describe('frint-data › createCollection', function () {
 
   it('listens for self changes', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
 
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people = new People([
       { name: 'Harry' }
@@ -142,14 +164,17 @@ describe('frint-data › createCollection', function () {
 
   it('listens for child-model changes', function () {
     const Person = createModel({
-      name: Types.string.isRequired
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+      },
       setName(name) {
         this.name = name;
-      }
+      },
     });
 
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people = new People([
       { name: 'Harry' },
@@ -177,14 +202,17 @@ describe('frint-data › createCollection', function () {
 
   it('listens for child-model destroys', function () {
     const Person = createModel({
-      name: Types.string.isRequired
-    }, {
+      schema: {
+        name: Types.string.isRequired,
+      },
       setName(name) {
         this.name = name;
-      }
+      },
     });
 
-    const People = createCollection(Person);
+    const People = createCollection({
+      model: Person,
+    });
 
     const people = new People([
       { name: 'Harry' },
@@ -211,7 +239,9 @@ describe('frint-data › createCollection', function () {
 
   it('applies initializers', function () {
     const Person = createModel({
-      name: Types.string.isRequired
+      schema: {
+        name: Types.string.isRequired,
+      },
     });
 
     function initializer(collection) {
@@ -220,9 +250,10 @@ describe('frint-data › createCollection', function () {
       }));
     }
 
-    const People = createCollection(Person, {}, [
-      initializer
-    ]);
+    const People = createCollection({
+      model: Person,
+      initializers: [initializer],
+    });
 
     const people = new People();
 
@@ -232,9 +263,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: at()', function () {
     it('finds model by index', function (done) {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -258,9 +293,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: filter()', function () {
     it('filters the collection', function (done) {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People();
 
@@ -291,9 +330,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: find()', function () {
     it('finds single model from collection', function (done) {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -322,9 +365,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: findIndex()', function () {
     it('finds index of the model in collection', function (done) {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -352,9 +399,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: forEach()', function () {
     it('iterates through the collection', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People();
 
@@ -378,9 +429,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: map()', function () {
     it('iterates and maps the collection', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People();
 
@@ -403,9 +458,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: pop()', function () {
     it('removes last model from collection and returns it', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -430,9 +489,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: push()', function () {
     it('appends model to the end of the collection', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People();
 
@@ -449,9 +512,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: reduce()', function () {
     it('iterates and reduces the collection', function () {
       const Person = createModel({
-        age: Types.number.isRequired
+        schema: {
+          age: Types.number.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People();
 
@@ -470,9 +537,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: remove()', function () {
     it('removes specific model from collection', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -497,9 +568,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: removeFrom()', function () {
     it('removes specific model from collection by index', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -523,9 +598,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: shift()', function () {
     it('removes first model from collection and returns it', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -550,9 +629,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: toJS()', function () {
     it('converts to plain array of plain objects', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People([
         { name: 'Harry' },
@@ -575,9 +658,13 @@ describe('frint-data › createCollection', function () {
   describe('Collection :: unshift()', function () {
     it('prepends model at the beginning of the collection', function () {
       const Person = createModel({
-        name: Types.string.isRequired
+        schema: {
+          name: Types.string.isRequired,
+        },
       });
-      const People = createCollection(Person);
+      const People = createCollection({
+        model: Person,
+      });
 
       const people = new People();
 

@@ -12,7 +12,17 @@ import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
 import makeMethodReactive from './utils/makeMethodReactive';
 
-export default function createModel(schema = {}, methods = {}, initializers = []) {
+export default function createModel(options = {}) {
+  const {
+    schema = {},
+    initializers = [],
+  } = options;
+
+  const methods = Object.keys(options)
+    .filter(k => ['schema', 'initializers'].indexOf(k) === -1)
+    .filter(k => typeof options[k] === 'function')
+    .map(k => options[k]);
+
   class Model extends BaseModel {
     constructor(givenAttributes = {}) {
       super(givenAttributes);

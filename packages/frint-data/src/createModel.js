@@ -19,6 +19,7 @@ export default function createModel(options = {}) {
 
   const methods = extractMethods(options, [
     'schema',
+    'initialize',
   ]);
 
   class Model extends BaseModel {
@@ -173,6 +174,11 @@ export default function createModel(options = {}) {
 
         this[methodName] = func.bind(this);
       });
+
+      // initialize
+      if (typeof options.initialize === 'function') {
+        options.initialize.bind(this)();
+      }
     }
   }
 

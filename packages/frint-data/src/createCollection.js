@@ -15,6 +15,7 @@ export default function createCollection(options = {}) {
   const Model = options.model;
   const methods = extractMethods(options, [
     'model',
+    'initialize',
   ]);
 
   class Collection extends BaseCollection {
@@ -217,6 +218,10 @@ export default function createCollection(options = {}) {
         const model = new Model(v);
         this.push(model);
       });
+
+      if (typeof options.initialize === 'function') {
+        options.initialize.bind(this)();
+      }
     }
   }
 

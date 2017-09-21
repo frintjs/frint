@@ -147,7 +147,7 @@ describe('frint-data › createCollection', function () {
 
     let changeCounter = 0;
 
-    const cancelListener = people.on('change', function () {
+    const cancelListener = people._on('change', function () {
       changeCounter += 1;
     });
 
@@ -184,7 +184,7 @@ describe('frint-data › createCollection', function () {
 
     let changeCounter = 0;
 
-    const cancelListener = people.on('change', function () {
+    const cancelListener = people._on('change', function () {
       changeCounter += 1;
     });
 
@@ -222,7 +222,7 @@ describe('frint-data › createCollection', function () {
 
     let changeCounter = 0;
 
-    const cancelListener = people.on('change', function () {
+    const cancelListener = people._on('change', function () {
       changeCounter += 1;
     });
 

@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 export default function events(context, listeners = {}) {
-  Object.defineProperty(context, 'on', {
+  Object.defineProperty(context, '_on', {
     value: function (event, fn) {
       if (typeof listeners[event] === 'undefined') {
         listeners[event] = [];
@@ -9,12 +9,12 @@ export default function events(context, listeners = {}) {
       listeners[event].push(fn);
 
       return function cancelListener() {
-        return context.off(event, fn);
+        return context._off(event, fn);
       };
     }
   });
 
-  Object.defineProperty(context, 'trigger', {
+  Object.defineProperty(context, '_trigger', {
     value: function (event, ...args) {
       if (typeof listeners[event] === 'undefined') {
         return;
@@ -26,7 +26,7 @@ export default function events(context, listeners = {}) {
     }
   });
 
-  Object.defineProperty(context, 'off', {
+  Object.defineProperty(context, '_off', {
     value: function (event = null, fn = null) {
       if (!event) {
         listeners = {}; // eslint-disable-line

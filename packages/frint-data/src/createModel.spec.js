@@ -407,7 +407,7 @@ describe('frint-data › createModel', function () {
 
     let changeCounter = 0;
 
-    const cancelListener = person.on('change', function () {
+    const cancelListener = person._on('change', function () {
       changeCounter += 1;
     });
 
@@ -454,7 +454,7 @@ describe('frint-data › createModel', function () {
 
     let changeCounter = 0;
 
-    const cancelListener = person.on('change', function () {
+    const cancelListener = person._on('change', function () {
       changeCounter += 1;
     });
 
@@ -502,7 +502,7 @@ describe('frint-data › createModel', function () {
 
     let changeCounter = 0;
 
-    author.on('change', function () {
+    author._on('change', function () {
       changeCounter += 1;
     });
 
@@ -525,7 +525,7 @@ describe('frint-data › createModel', function () {
 
     const book = new Book({ title: 'Prisoner of Azkaban' });
 
-    book.on('change', function (event) {
+    book._on('change', function (event) {
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['title']);
       expect(book.title).to.eql('Harry Potter and The Prisoner of Azkaban');
@@ -562,7 +562,7 @@ describe('frint-data › createModel', function () {
       }
     });
 
-    person.on('change', function (event) {
+    person._on('change', function (event) {
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['address', 'street']);
       expect(person.address.street).to.eql('4 Privet Drive');
@@ -605,7 +605,7 @@ describe('frint-data › createModel', function () {
     let watcher;
 
     // first change
-    watcher = author.on('change', function (event) {
+    watcher = author._on('change', function (event) {
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['books', 0, 'title']);
       expect(author.books.at(0).title).to.eql('The Life and Lies of Albus Dumbledore');
@@ -617,7 +617,7 @@ describe('frint-data › createModel', function () {
     author.books.at(0).setTitle('The Life and Lies of Albus Dumbledore');
 
     // second change
-    watcher = author.on('change', function (event) {
+    watcher = author._on('change', function (event) {
       expect(isEvent(event)).to.eql(true);
       expect(event.path).to.eql(['books', 1]);
       expect(author.books.at(1).title).to.eql(`Dumbledore's Army`);

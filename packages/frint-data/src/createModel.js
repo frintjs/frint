@@ -66,8 +66,8 @@ export default function createModel(options = {}) {
       // destroy()
       Object.defineProperty(this, 'destroy', {
         value: function () {
-          this.trigger('destroy');
-          this.off();
+          this._trigger('destroy');
+          this._off();
 
           _.each(attributes, function (v) {
             if (isModel(v) || isCollection(v)) {
@@ -137,7 +137,7 @@ export default function createModel(options = {}) {
               schema[attributeName](newValue);
               attributes[attributeName] = newValue;
 
-              self.trigger('change', new Event({
+              self._trigger('change', new Event({
                 path: [attributeName]
               }));
             } catch (typesError) {
@@ -153,8 +153,8 @@ export default function createModel(options = {}) {
           const changeWatcher = bubbleUpEvent(self, value, 'change', [attributeName]);
 
           // @TODO: listener should be cleared later?
-          value.on('destroy', function () {
-            self.trigger('change', new Event({
+          value._on('destroy', function () {
+            self._trigger('change', new Event({
               path: [attributeName]
             }));
 

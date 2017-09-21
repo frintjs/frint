@@ -63,18 +63,18 @@ export default function createCollection(options = {}) {
 
         const result = models.push(model);
         const index = result - 1;
-        this.trigger('change', new Event({ path: [index] }));
+        this._trigger('change', new Event({ path: [index] }));
 
         const changeWatcher = bubbleUp(model, 'change');
 
         // @TODO: these listeners should be cleared?
-        model.on('destroy', () => {
+        model._on('destroy', () => {
           this.remove(model);
           changeWatcher();
         });
 
-        model.on('remove', () => {
-          this.trigger('change');
+        model._on('remove', () => {
+          this._trigger('change');
           changeWatcher();
         });
 
@@ -121,9 +121,9 @@ export default function createCollection(options = {}) {
       this.pop = function () {
         const model = models.pop();
 
-        this.trigger('change');
+        this._trigger('change');
 
-        model.trigger('remove');
+        model._trigger('remove');
 
         return model;
       };
@@ -131,9 +131,9 @@ export default function createCollection(options = {}) {
       this.shift = function () {
         const model = models.shift();
 
-        this.trigger('change');
+        this._trigger('change');
 
-        model.trigger('remove');
+        model._trigger('remove');
 
         return model;
       };
@@ -149,14 +149,14 @@ export default function createCollection(options = {}) {
 
         const result = models.unshift(model);
 
-        this.trigger('change', new Event({ path: [0] }));
+        this._trigger('change', new Event({ path: [0] }));
 
         const changeWatcher = bubbleUp(model, 'change');
 
         // @TODO: how are these listeners cleared later?
-        model.on('destroy', () => {
+        model._on('destroy', () => {
           this.remove(model);
-          this.trigger('change');
+          this._trigger('change');
 
           changeWatcher();
         });
@@ -179,7 +179,7 @@ export default function createCollection(options = {}) {
 
         models.splice(index, 1);
         model.destroy();
-        this.trigger('change');
+        this._trigger('change');
       };
 
       this.destroy = function () {
@@ -187,8 +187,8 @@ export default function createCollection(options = {}) {
           model.destroy();
         });
 
-        this.trigger('destroy');
-        this.off();
+        this._trigger('destroy');
+        this._off();
       };
 
       this.toJS = function () {

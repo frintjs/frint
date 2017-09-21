@@ -7,7 +7,7 @@ export default function makeMethodReactive(context, method) {
       return new Observable(function (observer) {
         observer.next(context[method](...args));
 
-        const listener = context.on('change', function () {
+        const listener = context._on('change', function () {
           observer.next(context[method](...args));
         });
 

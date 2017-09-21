@@ -11,6 +11,7 @@ import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import wrapCustomMethod from './utils/wrapCustomMethod';
 import makeMethodReactive from './utils/makeMethodReactive';
+import extractMethods from './utils/extractMethods';
 
 export default function createModel(options = {}) {
   const {
@@ -18,14 +19,10 @@ export default function createModel(options = {}) {
     initializers = [],
   } = options;
 
-  const methods = Object.keys(options)
-    .filter(k => ['schema', 'initializers'].indexOf(k) === -1)
-    .filter(k => typeof options[k] === 'function')
-    .reduce(function (acc, k) {
-      acc[k] = options[k];
-
-      return acc;
-    }, {});
+  const methods = extractMethods(options, [
+    'schema',
+    'initializers',
+  ]);
 
   class Model extends BaseModel {
     constructor(givenAttributes = {}) {

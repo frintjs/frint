@@ -9,7 +9,6 @@ import BaseModel from './base/Model';
 import Event from './base/Event';
 import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
-import wrapCustomMethod from './utils/wrapCustomMethod';
 import makeMethodReactive from './utils/makeMethodReactive';
 import extractMethods from './utils/extractMethods';
 
@@ -68,9 +67,7 @@ export default function createModel(options = {}) {
       // destroy()
       Object.defineProperty(this, 'destroy', {
         value: function () {
-          this.trigger('method:call', new Event({ path: ['destroy'] }));
           this.trigger('destroy');
-          this.trigger('method:change', new Event({ path: ['destroy'] }));
           this.off();
 
           _.each(attributes, function (v) {
@@ -155,8 +152,6 @@ export default function createModel(options = {}) {
         // watch children
         if (isModel(value) || isCollection(value)) {
           const changeWatcher = bubbleUpEvent(self, value, 'change', [attributeName]);
-          const methodCallWatcher = bubbleUpEvent(self, value, 'method:call', [attributeName]);
-          const methodChangeWatcher = bubbleUpEvent(self, value, 'method:change', [attributeName]);
 
           // @TODO: listener should be cleared later?
           value.on('destroy', function () {
@@ -165,8 +160,6 @@ export default function createModel(options = {}) {
             }));
 
             changeWatcher();
-            methodCallWatcher();
-            methodChangeWatcher();
           });
         }
       });
@@ -180,7 +173,7 @@ export default function createModel(options = {}) {
           throw new MethodError(`conflicting method name: ${methodName}`);
         }
 
-        this[methodName] = wrapCustomMethod(this, methodName, func);
+        this[methodName] = func.bind(this);
       });
 
       // initializers

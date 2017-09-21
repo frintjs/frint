@@ -1,9 +1,9 @@
-import TypeError from './errors/Type';
+import TypesError from './errors/Types';
 
 export const isRequired = {
   func: function isRequired(value) {
     if (typeof value === 'undefined') {
-      throw new TypeError('value is not defined');
+      throw new TypesError('value is not defined');
     }
 
     return value;

@@ -7,7 +7,7 @@ import isModel from './isModel';
 import isEvent from './isEvent';
 import Event from './base/Event';
 import Types from './Types';
-import TypeError from './errors/Type';
+import TypesError from './errors/Types';
 import MethodError from './errors/Method';
 import CollectionError from './errors/Collection';
 
@@ -16,7 +16,7 @@ export default {
   ChainableTypes,
   chainType,
   Types,
-  TypeError,
+  TypesError,
 
   // Collection
   createCollection,

@@ -144,8 +144,8 @@ export default function createModel(options = {}) {
               self.trigger('change', new Event({
                 path: [attributeName]
               }));
-            } catch (typeError) {
-              throw typeError;
+            } catch (typesError) {
+              throw typesError;
             }
           },
 

@@ -31,6 +31,9 @@
     "lodash": "^4.13.1",
     "rxjs": "^5.2.0"
   },
+  "devDependencies": {
+    "cross-env": "^5.0.5"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },

@@ -40,11 +40,12 @@
     "tar": "^4.0.1",
     "yargs": "^8.0.1"
   },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "memory-fs": "^0.4.1"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },
-  "license": "MIT",
-  "devDependencies": {
-    "memory-fs": "^0.4.1"
-  }
+  "license": "MIT"
 }

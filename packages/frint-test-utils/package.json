@@ -30,6 +30,9 @@
   "dependencies": {
     "jsdom": "^9.11.0"
   },
+  "devDependencies": {
+    "cross-env": "^5.0.5"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },

@@ -33,6 +33,9 @@
     "path-to-regexp": "^1.7.0",
     "rxjs": "^5.4.2"
   },
+  "devDependencies": {
+    "cross-env": "^5.0.5"
+  },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"
   },

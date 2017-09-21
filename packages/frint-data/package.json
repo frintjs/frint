@@ -27,12 +27,15 @@
   "keywords": [
     "frint"
   ],
+  "bugs": {
+    "url": "https://github.com/Travix-International/frint/issues"
+  },
   "dependencies": {
     "lodash": "^4.13.1",
     "rxjs": "^5.4.3"
   },
-  "bugs": {
-    "url": "https://github.com/Travix-International/frint/issues"
+  "devDependencies": {
+    "cross-env": "^5.0.5"
   },
   "license": "MIT"
 }

@@ -25,10 +25,13 @@ export default function createCollection(options = {}) {
 
       const models = [];
 
-      // others listening to this
-      let listeners = {};
+      // others listening to this collection
+      let eventHandlers = {};
 
-      applyEventsMixin(this, listeners); // brings in on(), off(), and trigger()
+      // this collection listening to others
+      const listeners = [];
+
+      applyEventsMixin(this, eventHandlers);
 
       const bubbleUp = (model, eventName) => {
         return bubbleUpEvent(this, model, eventName, (ctx, m) => {
@@ -71,18 +74,23 @@ export default function createCollection(options = {}) {
         const index = result - 1;
         this._trigger('change', new Event({ path: [index] }));
 
-        const changeWatcher = bubbleUp(model, 'change');
+        const cancelChangeWatcher = bubbleUp(model, 'change');
 
-        // @TODO: these listeners should be cleared?
-        model._on('destroy', () => {
-          this.remove(model);
-          changeWatcher();
-        });
-
-        model._on('remove', () => {
+        const cancelRemoveListener = model._on('remove', () => {
           this._trigger('change');
-          changeWatcher();
+          cancelChangeWatcher();
         });
+        listeners.push(cancelRemoveListener);
+
+        const cancelDestroyListener = model._on('destroy', () => {
+          this.remove(model);
+
+          cancelRemoveListener();
+          cancelDestroyListener();
+
+          cancelChangeWatcher();
+        });
+        listeners.push(cancelDestroyListener);
 
         return result;
       };
@@ -157,15 +165,16 @@ export default function createCollection(options = {}) {
 
         this._trigger('change', new Event({ path: [0] }));
 
-        const changeWatcher = bubbleUp(model, 'change');
+        const cancelChangeWatcher = bubbleUp(model, 'change');
 
-        // @TODO: how are these listeners cleared later?
-        model._on('destroy', () => {
+        const cancelDestroyListener = model._on('destroy', () => {
           this.remove(model);
           this._trigger('change');
 
-          changeWatcher();
+          cancelDestroyListener();
+          cancelChangeWatcher();
         });
+        listeners.push(cancelDestroyListener);
 
         return result;
       };

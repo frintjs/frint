@@ -30,11 +30,14 @@ export default function createModel(options = {}) {
 
       let attributes = {};
 
-      // others listening to this
-      let listeners = {};
+      // others listening to this model
+      let eventHandlers = {};
+
+      // this model listening to others
+      const listeners = [];
 
       // apply mixins
-      applyEventsMixin(this, listeners); // brings in on(), off(), and trigger()
+      applyEventsMixin(this, eventHandlers);
 
       /**
        * Built-in methods
@@ -69,6 +72,12 @@ export default function createModel(options = {}) {
         value: function () {
           this._trigger('destroy');
           this._off();
+
+          listeners.forEach(function (childListener) {
+            if (typeof childListener === 'function') {
+              childListener();
+            }
+          });
 
           _.each(attributes, function (v) {
             if (isModel(v) || isCollection(v)) {
@@ -154,16 +163,17 @@ export default function createModel(options = {}) {
 
         // watch children
         if (isModel(value) || isCollection(value)) {
-          const changeWatcher = bubbleUpEvent(self, value, 'change', [attributeName]);
+          const cancelChangeWatcher = bubbleUpEvent(self, value, 'change', [attributeName]);
 
-          // @TODO: listener should be cleared later?
-          value._on('destroy', function () {
+          const cancelDestroyListener = value._on('destroy', function () {
             self._trigger('change', new Event({
               path: [attributeName]
             }));
 
-            changeWatcher();
+            cancelChangeWatcher();
           });
+
+          listeners.push(cancelDestroyListener);
         }
       });
 

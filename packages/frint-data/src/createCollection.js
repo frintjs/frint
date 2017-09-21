@@ -10,6 +10,7 @@ import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import makeMethodReactive from './utils/makeMethodReactive';
 import extractMethods from './utils/extractMethods';
+import addListenerMethod from './utils/addListenerMethod';
 
 export default function createCollection(options = {}) {
   const Model = options.model;
@@ -47,6 +48,11 @@ export default function createCollection(options = {}) {
       /**
        * Built-in methods
        */
+      this.get = function () {
+        return this;
+      };
+      makeMethodReactive(this, 'get');
+
       this.at = function (n) {
         return models[n];
       };
@@ -197,6 +203,9 @@ export default function createCollection(options = {}) {
         });
       };
       makeMethodReactive(this, 'toJS');
+
+      // listen$()
+      addListenerMethod(this, 'collection');
 
       // methods
       _.each(methods, (methodFunc, methodName) => {

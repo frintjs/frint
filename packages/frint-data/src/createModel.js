@@ -11,6 +11,7 @@ import applyEventsMixin from './mixins/events';
 import bubbleUpEvent from './utils/bubbleUpEvent';
 import makeMethodReactive from './utils/makeMethodReactive';
 import extractMethods from './utils/extractMethods';
+import addListenerMethod from './utils/addListenerMethod';
 
 export default function createModel(options = {}) {
   const {
@@ -120,6 +121,9 @@ export default function createModel(options = {}) {
         }
       });
       makeMethodReactive(this, 'getIn');
+
+      // listen$()
+      addListenerMethod(this, 'model');
 
       // parse by schema
       const applySchema = Types.object.of(schema);

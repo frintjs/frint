@@ -130,7 +130,7 @@ describe('frint-data › createCollection', function () {
     expect(getPeople).to.throw(/conflicting method name: at/);
   });
 
-  it('listens for self changes', function () {
+  it('listens for self changes', function (done) {
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
@@ -145,24 +145,24 @@ describe('frint-data › createCollection', function () {
       { name: 'Harry' }
     ]);
 
-    let changeCounter = 0;
+    people.get$()
+      .take(3)
+      .last()
+      .subscribe(function (collection) {
+        expect(collection.length).to.equal(3);
 
-    const cancelListener = people._on('change', function () {
-      changeCounter += 1;
-    });
+        expect(collection.at(0).name).to.equal('Harry');
+        expect(collection.at(1).name).to.equal('Ron');
+        expect(collection.at(2).name).to.equal('Hermione');
+
+        done();
+      });
 
     people.push(new Person({ name: 'Ron' }));
     people.push(new Person({ name: 'Hermione' }));
-
-    expect(changeCounter).to.eql(2);
-
-    cancelListener();
-
-    people.push(new Person({ name: 'Luna' }));
-    expect(changeCounter).to.eql(2);
   });
 
-  it('listens for child-model changes', function () {
+  it('listens for child-model changes', function (done) {
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
@@ -182,25 +182,21 @@ describe('frint-data › createCollection', function () {
       { name: 'Hermione' }
     ]);
 
-    let changeCounter = 0;
+    people.listen$('change')
+      .take(2)
+      .last()
+      .subscribe(function ({ collection }) {
+        expect(collection.at(2).name).to.equal('Hermione Granger-Weasley');
 
-    const cancelListener = people._on('change', function () {
-      changeCounter += 1;
-    });
+        done();
+      });
 
     const hermione = people.at(2);
     hermione.setName('Hermione Granger');
     hermione.setName('Hermione Granger-Weasley');
-
-    expect(changeCounter).to.eql(2);
-
-    cancelListener();
-
-    people.push(new Person({ name: 'Luna' }));
-    expect(changeCounter).to.eql(2);
   });
 
-  it('listens for child-model destroys', function () {
+  it('listens for child-model destroys', function (done) {
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
@@ -220,21 +216,19 @@ describe('frint-data › createCollection', function () {
       { name: 'Hermione' }
     ]);
 
-    let changeCounter = 0;
+    people.listen$('change')
+      .take(1)
+      .last()
+      .subscribe(function ({ collection }) {
+        expect(collection.length).to.eql(2);
+        expect(collection.at(0).name).to.eql('Harry');
+        expect(collection.at(1).name).to.eql('Ron');
 
-    const cancelListener = people._on('change', function () {
-      changeCounter += 1;
-    });
+        done();
+      });
 
     const hermione = people.at(2);
     hermione.destroy();
-
-    expect(changeCounter).to.eql(1);
-    expect(people.length).to.eql(2);
-    expect(people.at(0).name).to.eql('Harry');
-    expect(people.at(1).name).to.eql('Ron');
-
-    cancelListener();
   });
 
   it('applies initialize', function () {

@@ -391,7 +391,7 @@ describe('frint-data › createModel', function () {
     expect(author.posts.at(1).title).to.eql('About Us');
   });
 
-  it('listens for self assignments', function () {
+  it('listens for self assignments', function (done) {
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
@@ -405,25 +405,20 @@ describe('frint-data › createModel', function () {
       name: 'Fahad'
     });
 
-    let changeCounter = 0;
+    person.get$() // 1
+      .take(3)
+      .last()
+      .subscribe(function (p) {
+        expect(p.name).to.equal('Fahad changed again');
 
-    const cancelListener = person._on('change', function () {
-      changeCounter += 1;
-    });
+        done();
+      });
 
-    person.setName('Fahad changed');
-    person.setName('Fahad changed again');
-
-    expect(person.name).to.eql('Fahad changed again');
-    expect(changeCounter).to.eql(2);
-
-    cancelListener();
-
-    person.setName('Should not emit any further change');
-    expect(changeCounter).to.eql(2);
+    person.setName('Fahad changed'); // 2
+    person.setName('Fahad changed again'); // 3
   });
 
-  it('listens for child-model assignments', function () {
+  it('listens for child-model assignments', function (done) {
     const Address = createModel({
       schema: {
         street: Types.string.isRequired,
@@ -452,24 +447,20 @@ describe('frint-data › createModel', function () {
       }
     });
 
-    let changeCounter = 0;
+    person.get$()
+      .take(3)
+      .last()
+      .subscribe(function (p) {
+        expect(p.address.street).to.equal('New Street Again');
 
-    const cancelListener = person._on('change', function () {
-      changeCounter += 1;
-    });
+        done();
+      });
 
     person.address.setStreet('New Street');
     person.address.setStreet('New Street Again');
-    expect(person.address.street).to.eql('New Street Again');
-    expect(changeCounter).to.eql(2);
-
-    cancelListener();
-
-    person.setName('Should not emit any further change');
-    expect(changeCounter).to.eql(2);
   });
 
-  it('listens for child-collection changes', function () {
+  it('listens for child-collection changes', function (done) {
     const Book = createModel({
       schema: {
         title: Types.string.isRequired,
@@ -500,17 +491,17 @@ describe('frint-data › createModel', function () {
       books: []
     });
 
-    let changeCounter = 0;
+    author.get$()
+      .take(3)
+      .last()
+      .subscribe(function (a) {
+        expect(a.books.length).to.equal(2);
 
-    author._on('change', function () {
-      changeCounter += 1;
-    });
+        done();
+      });
 
     author.books.addBook('My New Book');
-    expect(changeCounter).to.eql(1);
-
     author.books.push(new Book({ title: 'Another Book' }));
-    expect(changeCounter).to.eql(2);
   });
 
   it('emits `change` event with Event object for self', function (done) {
@@ -562,14 +553,15 @@ describe('frint-data › createModel', function () {
       }
     });
 
-    person._on('change', function (event) {
-      expect(isEvent(event)).to.eql(true);
-      expect(event.path).to.eql(['address', 'street']);
-      expect(person.address.street).to.eql('4 Privet Drive');
-      expect(person.getIn(event.path)).to.eql('4 Privet Drive');
+    person.listen$('change')
+      .subscribe(function ({ model, event }) {
+        expect(isEvent(event)).to.eql(true);
+        expect(event.path).to.eql(['address', 'street']);
+        expect(model.address.street).to.eql('4 Privet Drive');
+        expect(model.getIn(event.path)).to.eql('4 Privet Drive');
 
-      done();
-    });
+        done();
+      });
 
     person.address.setStreet('4 Privet Drive');
   });
@@ -602,30 +594,30 @@ describe('frint-data › createModel', function () {
       ]
     });
 
-    let watcher;
-
     // first change
-    watcher = author._on('change', function (event) {
-      expect(isEvent(event)).to.eql(true);
-      expect(event.path).to.eql(['books', 0, 'title']);
-      expect(author.books.at(0).title).to.eql('The Life and Lies of Albus Dumbledore');
-      expect(author.getIn(event.path)).to.eql('The Life and Lies of Albus Dumbledore');
+    const firstSubscription = author.listen$('change')
+      .subscribe(function ({ model, event }) {
+        expect(isEvent(event)).to.eql(true);
+        expect(event.path).to.eql(['books', 0, 'title']);
+        expect(model.books.at(0).title).to.eql('The Life and Lies of Albus Dumbledore');
+        expect(model.getIn(event.path)).to.eql('The Life and Lies of Albus Dumbledore');
 
-      watcher();
-    });
+        firstSubscription.unsubscribe();
+      });
 
     author.books.at(0).setTitle('The Life and Lies of Albus Dumbledore');
 
     // second change
-    watcher = author._on('change', function (event) {
-      expect(isEvent(event)).to.eql(true);
-      expect(event.path).to.eql(['books', 1]);
-      expect(author.books.at(1).title).to.eql(`Dumbledore's Army`);
-      expect(author.getIn(event.path)).to.eql(author.books.at(1));
+    const secondSubscription = author.listen$('change')
+      .subscribe(function ({ model, event }) {
+        expect(isEvent(event)).to.eql(true);
+        expect(event.path).to.eql(['books', 1]);
+        expect(model.books.at(1).title).to.eql(`Dumbledore's Army`);
+        expect(model.getIn(event.path)).to.eql(model.books.at(1));
 
-      watcher();
-      done();
-    });
+        secondSubscription.unsubscribe();
+        done();
+      });
 
     author.books.push(new Book({
       title: `Dumbledore's Army`

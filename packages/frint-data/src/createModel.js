@@ -15,12 +15,10 @@ import extractMethods from './utils/extractMethods';
 export default function createModel(options = {}) {
   const {
     schema = {},
-    initializers = [],
   } = options;
 
   const methods = extractMethods(options, [
     'schema',
-    'initializers',
   ]);
 
   class Model extends BaseModel {
@@ -174,11 +172,6 @@ export default function createModel(options = {}) {
         }
 
         this[methodName] = func.bind(this);
-      });
-
-      // initializers
-      initializers.forEach((initializer) => {
-        initializer(this);
       });
     }
   }

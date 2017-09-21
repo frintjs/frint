@@ -237,29 +237,6 @@ describe('frint-data › createCollection', function () {
     cancelListener();
   });
 
-  it('applies initializers', function () {
-    const Person = createModel({
-      schema: {
-        name: Types.string.isRequired,
-      },
-    });
-
-    function initializer(collection) {
-      collection.push(new Person({
-        name: 'Initializer'
-      }));
-    }
-
-    const People = createCollection({
-      model: Person,
-      initializers: [initializer],
-    });
-
-    const people = new People();
-
-    expect(people.at(0).name).to.eql('Initializer');
-  });
-
   describe('Collection :: at()', function () {
     it('finds model by index', function (done) {
       const Person = createModel({

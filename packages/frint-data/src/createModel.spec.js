@@ -632,28 +632,6 @@ describe('frint-data › createModel', function () {
     }));
   });
 
-  it('applies initializers', function () {
-    function initializer(model) {
-      model.setName('Updated by initializer');
-    }
-
-    const Person = createModel({
-      schema: {
-        name: Types.string.isRequired,
-      },
-      initializers: [initializer],
-      setName(name) {
-        this.name = name;
-      },
-    });
-
-    const person = new Person({
-      name: 'Initial name'
-    });
-
-    expect(person.name).to.eql('Updated by initializer');
-  });
-
   describe('Model :: get()', function () {
     it('gets value by path from self', function (done) {
       const Person = createModel({

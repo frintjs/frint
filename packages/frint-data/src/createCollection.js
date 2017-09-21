@@ -13,13 +13,8 @@ import extractMethods from './utils/extractMethods';
 
 export default function createCollection(options = {}) {
   const Model = options.model;
-  const {
-    initializers = [],
-  } = options;
-
   const methods = extractMethods(options, [
     'model',
-    'initializers',
   ]);
 
   class Collection extends BaseCollection {
@@ -221,11 +216,6 @@ export default function createCollection(options = {}) {
 
         const model = new Model(v);
         this.push(model);
-      });
-
-      // initializers
-      initializers.forEach((initializer) => {
-        initializer(this);
       });
     }
   }

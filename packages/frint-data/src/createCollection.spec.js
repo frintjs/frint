@@ -101,7 +101,7 @@ describe('frint-data › createCollection', function () {
     });
 
     const people = new People([
-      { name: 'Fahad' },
+      { name: 'Frint' },
       { name: 'Blah' },
       { name: 'Yo' }
     ]);

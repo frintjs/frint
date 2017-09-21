@@ -14,7 +14,7 @@ describe('frint-data › isModel', function () {
       },
     });
 
-    const model = new Person({ name: 'Fahad' });
+    const model = new Person({ name: 'Frint' });
     expect(isModel(model)).to.eql(true);
   });
 

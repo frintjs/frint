@@ -129,7 +129,7 @@ describe('frint-data › Types', function () {
         model: Person,
       });
 
-      const people = new People([{ name: 'Fahad' }]);
+      const people = new People([{ name: 'Frint' }]);
 
       expect(type(people)).to.eql(people);
     });
@@ -160,7 +160,7 @@ describe('frint-data › Types', function () {
         model: Person,
       });
 
-      const people = new People([{ name: 'Fahad' }]);
+      const people = new People([{ name: 'Frint' }]);
       const type = Types.collection.defaults(people);
 
       expect(type()).to.eql(people);
@@ -181,7 +181,7 @@ describe('frint-data › Types', function () {
       });
 
       const type = Types.collection.of(People);
-      const people = new People([{ name: 'Fahad' }]);
+      const people = new People([{ name: 'Frint' }]);
 
       expect(type(people)).to.eql(people);
       expect(type([{ name: 'Name here' }])).to.be.instanceof(People);
@@ -310,7 +310,7 @@ describe('frint-data › Types', function () {
         },
       });
 
-      const person = new Person({ name: 'Fahad' });
+      const person = new Person({ name: 'Frint' });
 
       expect(type(person)).to.eql(person);
     });
@@ -338,7 +338,7 @@ describe('frint-data › Types', function () {
         },
       });
 
-      const person = new Person({ name: 'Fahad' });
+      const person = new Person({ name: 'Frint' });
       const type = Types.model.defaults(person);
 
       expect(type()).to.eql(person);
@@ -362,7 +362,7 @@ describe('frint-data › Types', function () {
 
       const type = Types.model.of(Person);
 
-      const person = new Person({ name: 'Fahad' });
+      const person = new Person({ name: 'Frint' });
       expect(type(person)).to.eql(person);
       expect(type({ name: 'Name here' })).to.be.instanceof(Person);
 
@@ -487,14 +487,14 @@ describe('frint-data › Types', function () {
       });
 
       expect(type({
-        name: 'Fahad',
+        name: 'Frint',
         address: {
           street: 'Amsterdam',
           city: 'Amsterdam',
           postalCode: 123
         }
       })).to.eql({
-        name: 'Fahad',
+        name: 'Frint',
         address: {
           street: 'Amsterdam',
           city: 'Amsterdam',
@@ -504,7 +504,7 @@ describe('frint-data › Types', function () {
       });
 
       expect(() => type({
-        name: 'Fahad',
+        name: 'Frint',
         address: {
           street: 'Amsterdam',
           city: 'Amsterdam',

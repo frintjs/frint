@@ -26,11 +26,11 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Fahad'
+      name: 'Frint'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Fahad');
+    expect(model.name).to.eql('Frint');
     expect(model.language).to.eql('English');
   });
 
@@ -43,13 +43,13 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Fahad'
+      name: 'Frint'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Fahad');
+    expect(model.name).to.eql('Frint');
 
-    expect(model.name).to.eql('Fahad');
+    expect(model.name).to.eql('Frint');
   });
 
   it('makes only attributes enumerable', function () {
@@ -61,7 +61,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Fahad'
+      name: 'Frint'
     });
 
     expect(Object.keys(model)).to.eql(['name', 'language']);
@@ -79,7 +79,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Fahad',
+      name: 'Frint',
       address: {
         street: 'Straat',
         city: 'Amsterdam'
@@ -87,7 +87,7 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Fahad');
+    expect(model.name).to.eql('Frint');
     expect(model.address.street).to.eql('Straat');
     expect(model.address.city).to.eql('Amsterdam');
     expect(model.address).to.eql({
@@ -117,14 +117,14 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Fahad'
+      name: 'Frint'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.eql('Fahad');
+    expect(model.name).to.eql('Frint');
     expect(model.setName).to.be.a('function');
 
-    expect(model.getName()).to.eql('Fahad');
+    expect(model.getName()).to.eql('Frint');
 
     model.setName('Heylaal');
     expect(model.name).to.eql('Heylaal');
@@ -163,21 +163,21 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      firstName: 'Fahad',
+      firstName: 'Frint',
       lastName: 'Heylaal'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.firstName).to.eql('Fahad');
+    expect(model.firstName).to.eql('Frint');
     expect(model.lastName).to.eql('Heylaal');
 
     expect(model.getFirstName).to.be.a('function');
-    expect(model.getFirstName()).to.eql('Fahad');
+    expect(model.getFirstName()).to.eql('Frint');
 
     expect(model.getLastName).to.be.a('function');
     expect(model.getLastName()).to.eql('Heylaal');
 
-    expect(model.getFullName()).to.eql('Fahad Heylaal');
+    expect(model.getFullName()).to.eql('Frint Heylaal');
 
     model.setFirstName('John');
     model.setLastName('Smith');
@@ -200,7 +200,7 @@ describe('frint-data › createModel', function () {
 
     function getPerson() {
       new Person({  // eslint-disable-line
-        name: 'Fahad',
+        name: 'Frint',
         bio: 'blah...'
       });
     }
@@ -221,7 +221,7 @@ describe('frint-data › createModel', function () {
 
     function getPerson() {
       new Person({  // eslint-disable-line
-        name: 'Fahad',
+        name: 'Frint',
         bio: 'blah...'
       });
     }
@@ -258,7 +258,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Fahad',
+      name: 'Frint',
       address: {
         street: 'Straat',
         country: 'Netherlands'
@@ -269,7 +269,7 @@ describe('frint-data › createModel', function () {
     expect(person.address).to.be.instanceof(Address);
     expect(isModel(person.address)).to.eql(true);
 
-    expect(person.name).to.eql('Fahad');
+    expect(person.name).to.eql('Frint');
     expect(person.address.street).to.eql('Straat');
     expect(person.address.country).to.eql('Netherlands');
   });
@@ -285,20 +285,20 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Fahad'
+      name: 'Frint'
     });
 
-    expect(person.name).to.eql('Fahad');
+    expect(person.name).to.eql('Frint');
 
-    person.setName('Fahad [updated]');
-    expect(person.name).to.eql('Fahad [updated]');
+    person.setName('Frint [updated]');
+    expect(person.name).to.eql('Frint [updated]');
 
     function changeName() {
       person.setName(123);
     }
 
     expect(changeName).to.throw(/value is not a string/);
-    expect(person.name).to.eql('Fahad [updated]');
+    expect(person.name).to.eql('Frint [updated]');
   });
 
   it('checks with multiple model instances', function () {
@@ -364,7 +364,7 @@ describe('frint-data › createModel', function () {
     });
 
     const author = new Author({
-      name: 'Fahad',
+      name: 'Frint',
       posts: [
         { title: 'Hello World' },
         { title: 'About' },
@@ -372,7 +372,7 @@ describe('frint-data › createModel', function () {
       ]
     });
 
-    expect(author.name).to.eql('Fahad');
+    expect(author.name).to.eql('Frint');
     expect(isCollection(author.posts)).to.eql(true);
 
     expect(isModel(author.posts.at(0)));
@@ -402,20 +402,20 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Fahad'
+      name: 'Frint'
     });
 
     person.get$() // 1
       .take(3)
       .last()
       .subscribe(function (p) {
-        expect(p.name).to.equal('Fahad changed again');
+        expect(p.name).to.equal('Frint changed again');
 
         done();
       });
 
-    person.setName('Fahad changed'); // 2
-    person.setName('Fahad changed again'); // 3
+    person.setName('Frint changed'); // 2
+    person.setName('Frint changed again'); // 3
   });
 
   it('listens for child-model assignments', function (done) {
@@ -440,7 +440,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Fahad',
+      name: 'Frint',
       address: {
         street: 'Straat',
         city: 'Amsterdam'
@@ -487,7 +487,7 @@ describe('frint-data › createModel', function () {
     });
 
     const author = new Author({
-      name: 'Fahad',
+      name: 'Frint',
       books: []
     });
 

@@ -15,6 +15,17 @@
   - [Collections](#collections)
   - [Embedding](#embedding)
 - [API](#api)
+  - [Types](#types-1)
+  - [createModel](#createmodel)
+  - [createCollection](#createcollection)
+  - [Model](#model)
+  - [Collection](#collection)
+  - [reduce](#reduce)
+  - [isModel](#ismodel)
+  - [isCollection](#iscollection)
+  - [TypesError](#typeserror)
+  - [MethodError](#methoderror)
+  - [CollectionError](#collectionerror)
 
 <!-- /MarkdownTOC -->
 
@@ -444,3 +455,501 @@ person.books.push(new Book({
 
 # API
 
+## Types
+
+> Types
+
+Type expressions for your Models' schema.
+
+Available types:
+
+### Types.string
+
+> Types.string
+
+```js
+const Todo = createModel({
+  schema: {
+    title: Types.string
+  }
+});
+```
+
+### Types.bool
+
+> Types.bool
+
+```js
+const Todo = createModel({
+  schema: {
+    completed: Types.bool
+  }
+});
+```
+
+### Types.number
+
+> Types.number
+
+```js
+const Person = createModel({
+  schema: {
+    age: Types.number
+  }
+});
+```
+
+### Types.enum
+
+> Types.enum
+
+If you want the value to be one of the pre-defined list of values:
+
+```js
+const Book = createModel({
+  schema: {
+    category: Types.enum([
+      'history',
+      'fiction',
+      'romance'
+    ])
+  }
+});
+```
+
+And if you want the enum to be of specific types, you can use enum.of:
+
+```js
+const Book = createModel({
+  schema: {
+      category: Types.enum.of([
+      Types.string,
+      Types.number
+    ])
+  }
+});
+```
+
+### Types.UUID
+
+> Types.uuid
+
+```js
+const Book = createModel({
+  schema: {
+    id: Types.uuid
+  }
+});
+```
+
+Example UUID value: 27961a0e-f4e8-4eb3-bf95-c5203e1d87b9
+
+### Types.model
+
+> Types.model
+
+Models can embed other models too:
+
+```js
+const Person = createModel({
+  schema: {
+    address: Types.model
+  }
+});
+```
+
+If you want to be more strict about which Model class can be embedded, use `model.of`:
+
+```js
+const Address = createModel({
+  schema: {
+    street: Types.string,
+    city: Types.string
+  }
+});
+
+const Person = createModel({
+  schema: {
+    address: Types.model.of(Address)
+  }
+});
+```
+
+### Types.collection
+
+> Types.collection
+
+Collections can also be embedded in models:
+
+```js
+const Author = createModel({
+  schema: {
+    books: Types.collection
+  }
+});
+```
+
+If you want to be more strict about which Collection class can be embedded, use `collection.of`:
+
+
+```js
+const Book = createModel({
+  schema: {
+    title: Types.string
+  }
+});
+
+const Books = createCollection({
+  model: Book
+});
+
+const Author = createModel({
+  schema: {
+    books: Types.collection.of(Books)
+  }
+});
+```
+
+The following Types are available, but not recommended for use since these do not support observing them for changes. Consider embedding Models or Collections instead:
+
+* `Types.object`
+* `Types.array`
+* `Types.any`
+
+## createModel
+
+> createModel(options)
+
+Returns a `Model` class based on the schema and methods that are provided.
+
+### Arguments
+
+1. `options` (`Object`):
+  * `options.schema` (`Object`): Schema object with keys having field values based on `Types` expressions
+  * `options.initialize` (`Function`): Called when the Model is constructed
+  * `options.*` (`Function`): Custom methods
+
+### Returns
+
+Model class.
+
+## createCollection
+
+> createCollection(options)
+
+### Arguments
+
+1. `options` (`Object`):
+  * `options.model` (`Model`): Model class that this Collection is of
+  * `options.initialize` (`Function`): Called when the Collection is constructed
+  * `options.*` (`Function`): Custom methods
+
+### Returns
+
+Collection class.
+
+## Model
+
+Next to the custom methods, Models also expose some built-in methods.
+
+Some methods also support streaming the results with an Observable. Look for methods ending with `$`:
+
+### model.getIn
+
+> getIn(paths)
+
+> getIn$(paths)
+
+Returns the value in given path.
+
+For example:
+
+```js
+const firstBookTitle = author.getIn(['books', 0, 'title']);
+
+// same as:
+// author.books.at(0).title;
+```
+
+### model.get
+
+> get()
+
+> get(path)
+
+> get$(path)
+
+If no argument provided, then results self.
+
+The `path` can either be key according to the model's schema, or a dot separated path targeting some nested child.
+
+```js
+person.get('books.0.title');
+
+// same as:
+// person.getIn(['books', 0, 'title']);
+```
+
+### toJS
+
+> toJS()
+
+> toJS$()
+
+Returns a plain JavaScript object from all its properties, as well as nested Models and Collections.
+
+### model.destroy
+
+> destroy()
+
+Destroys the model, and cleans up its watchers.
+
+## Collection
+
+The Collection instance tries to imitate the native `Array` as much as possible.
+
+Most methods also support supporting streaming the results as they change. Look for methods ending with `$` in examples.
+
+### collection.length
+
+> length
+
+The lengh of the Collection.
+
+```js
+const length = collection.length'
+```
+
+### collection.at
+
+> collection.at(n)
+
+> collection.at$(n)
+
+Returns the model at specific index
+
+### collection.push
+
+> collection.push(model)
+
+Pushes the model, and adds it to the end of the collection.
+
+### collection.every
+
+> every(iteratorFn)
+
+> every$(iteratorFn)
+
+Tests whether all models in the collection pass the test implemented by the provided function.
+
+### collection.filter
+
+> filter(iteratorFn)
+
+> filter$(iteratorFn)
+
+Creates a new array with all models that pass the test implemented by the provided function.
+
+### collection.find
+
+> find(iteratorFn)
+
+> find$(iteratorFn)
+
+Returns a model in the collection, if a model in the array satisfies the provided testing function. Otherwise undefined is returned.
+
+### collection.forEach
+
+> forEach(iteratorFn)
+
+> forEach$(iteratorFn)
+
+Executes provided function once per model in the collection.
+
+### collection.includes
+
+> includes(model)
+
+> includes$(model)
+
+Determines whether colelction includes a certain model, returning true or false as appropriate.
+
+### collection.indexOf
+
+> indexOf(model)
+
+> indexOf$(model)
+
+Returns the first index at which a given model can be found in the collection, or -1 if it is not present.
+
+### collection.map
+
+> map(fn)
+
+> map$(fn)
+
+Creates a new array with the results of calling the provided function on every model in this collection.
+
+## reduce
+
+> reduce(fn, initialValue)
+
+> reduce$(fn, initialValue)
+
+Applies the function against an accumulator and each model of the collection (from left-to-right) to reduce it to a single value.
+
+### collection.some
+
+> some(iteratorFn)
+
+> some$(iteratorFn)
+
+Tests whether some model in the collection passes the test implemented by the provided function.
+
+### collection.pop
+
+> pop()
+
+Removes the last model from the collection and returns that model. This method changes the length of the collection.
+
+### collection.shift
+
+> shift()
+
+Removes the first model from the collection and returns that model. This method changes the length of the collection.
+
+### collection.unshift
+
+> unshift(model)
+
+Adds one or more models to the beginning of the collection and returns the new length of the collection.
+
+### collection.remove
+
+> remove(model)
+
+Removes model from the collection.
+
+### collection.removeFrom
+
+> removeFrom(n)
+
+Removes model from the given n index.
+
+### collection.difference
+
+> difference(models)
+
+> difference$(models)
+
+Creates an array of unique models not included in the other given models array.
+
+### collection.findIndex
+
+> findIndex(model)
+
+> findIndex$(model)
+
+This method is like `find()`, except that it returns the index of the first model.
+
+### collection.first
+
+> first()
+
+> first$()
+
+Gets the first model of the collection.
+
+### collection.last
+
+> last()
+
+> last$()
+
+Gets the last model of the collection.
+
+### collection.nth
+
+> nth(n = 0)
+
+> nth$(n = 0)
+
+Gets the model at n index of the collection. If n is negative, the nth element from the end is returned.
+
+### collection.take
+
+> take(n = 1)
+
+> take$(n = 1)
+
+Creates a slice of array with n models taken from the beginning.
+
+### collection.takeRight
+
+> takeRight(n = 1)
+
+> takeRight$(n = 1)
+
+Creates a slice of array with n models taken from the end.
+
+### collection.destroy
+
+> destroy()
+
+Destroys the collection and its watchers.
+
+### collection.toJS
+
+> toJS()
+
+> toJS$()
+
+Converts the collection to an plain array, and also converting the models into plain objects recursively.
+
+### collection.get
+
+> get$()
+
+Returns an Observable of the collection, as it keeps on changing.
+
+## isModel
+
+> isModel(object)
+
+### Arguments
+
+1. `object` (`Object`): The argument to check against
+
+### Returns
+
+`Boolean`: True if the given object is a valid Model instance, false otherwise.
+
+## isCollection
+
+> isCollection(object)
+
+### Arguments
+
+1. `object` (`Object`): The argument to check against
+
+### Returns
+
+`Boolean`: True if the given object is a valid Collection instance, false otherwise.
+
+## TypesError
+
+> TypesError
+
+Thrown when Type checking has failed.
+
+## MethodError
+
+> MethodError
+
+Thrown when executing a custom method has resulted in an error.
+
+## CollectionError
+
+> CollectionError
+
+Thrown when a Collection has experienced an error.

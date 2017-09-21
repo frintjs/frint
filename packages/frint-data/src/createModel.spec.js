@@ -103,7 +103,7 @@ describe('frint-data › createModel', function () {
     });
   });
 
-  it.only('creates Model class with methods', function () {
+  it('creates Model class with methods', function () {
     const Model = createModel({
       schema: {
         name: Types.string.isRequired,

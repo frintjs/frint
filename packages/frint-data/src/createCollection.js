@@ -14,13 +14,17 @@ import makeMethodReactive from './utils/makeMethodReactive';
 export default function createCollection(options = {}) {
   const Model = options.model;
   const {
-    initializers: [],
+    initializers = [],
   } = options;
 
   const methods = Object.keys(options)
     .filter(k => ['model', 'initializers'].indexOf(k) === -1)
     .filter(k => typeof options[k] === 'function')
-    .map(k => options[k]);
+    .reduce(function (acc, k) {
+      acc[k] = options[k];
+
+      return acc;
+    }, {});
 
   class Collection extends BaseCollection {
     constructor(givenModels = []) {

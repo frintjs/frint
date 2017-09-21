@@ -21,7 +21,11 @@ export default function createModel(options = {}) {
   const methods = Object.keys(options)
     .filter(k => ['schema', 'initializers'].indexOf(k) === -1)
     .filter(k => typeof options[k] === 'function')
-    .map(k => options[k]);
+    .reduce(function (acc, k) {
+      acc[k] = options[k];
+
+      return acc;
+    }, {});
 
   class Model extends BaseModel {
     constructor(givenAttributes = {}) {

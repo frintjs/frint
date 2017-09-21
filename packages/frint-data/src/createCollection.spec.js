@@ -350,7 +350,7 @@ describe('frint-data › createCollection', function () {
   });
 
   describe('Collection :: forEach()', function () {
-    it('iterates through the collection', function (done) {
+    it('iterates through the collection', function () {
       const Person = createModel({
         name: Types.string.isRequired
       });

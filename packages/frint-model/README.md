@@ -4,6 +4,10 @@
 
 > Model package for Frint
 
+# WARNING: This package has been deprecated!
+
+Use [`frint-data`](https://frint.js.org/docs/packages/frint-data/) instead.
+
 <!-- MarkdownTOC autolink=true bracket=round -->
 
 - [Guide](#guide)

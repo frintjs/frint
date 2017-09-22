@@ -762,8 +762,6 @@ Returns a model in the collection, if a model in the array satisfies the provide
 
 > forEach(iteratorFn)
 
-> forEach$(iteratorFn)
-
 Executes provided function once per model in the collection.
 
 ### collection.includes
@@ -836,22 +834,6 @@ Removes model from the collection.
 
 Removes model from the given n index.
 
-### collection.difference
-
-> difference(models)
-
-> difference$(models)
-
-Creates an array of unique models not included in the other given models array.
-
-### collection.findIndex
-
-> findIndex(model)
-
-> findIndex$(model)
-
-This method is like `find()`, except that it returns the index of the first model.
-
 ### collection.first
 
 > first()
@@ -867,14 +849,6 @@ Gets the first model of the collection.
 > last$()
 
 Gets the last model of the collection.
-
-### collection.nth
-
-> nth(n = 0)
-
-> nth$(n = 0)
-
-Gets the model at n index of the collection. If n is negative, the nth element from the end is returned.
 
 ### collection.take
 

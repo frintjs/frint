@@ -100,7 +100,6 @@ export default function createCollection(options = {}) {
       [
         'every',
         'filter',
-        'find',
         'forEach',
         'includes',
         'indexOf',
@@ -117,11 +116,10 @@ export default function createCollection(options = {}) {
 
       // lodash methods
       [
-        'difference',
+        'find', // used from Lodash instead of native, because of IE
         'findIndex',
         'first',
         'last',
-        'nth',
         'take',
         'takeRight',
       ].forEach((lodashMethod) => {

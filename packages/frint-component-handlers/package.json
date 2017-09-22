@@ -1,18 +1,18 @@
 {
   "name": "frint-component-handlers",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Component handlers package for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-component-handlers",
   "scripts": {
-    "lint": "../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
-    "transpile": "../../node_modules/.bin/babel src --out-dir lib",
-    "test": "../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
-    "cover:run": "../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive './src/**/*.spec.js'",
-    "cover:report": "../../node_modules/.bin/nyc report",
+    "lint": "cross-env ../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
+    "transpile": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
+    "test": "cross-env ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "cover:run": "cross-env ../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "cover:report": "cross-env ../../node_modules/.bin/nyc report",
     "cover": "npm run cover:run && npm run cover:report",
-    "dist:lib": "../../node_modules/.bin/webpack --config ./webpack.config.js",
-    "dist:min": "DIST_MIN=1 ../../node_modules/.bin/webpack --config ./webpack.config.js",
+    "dist:lib": "cross-env ../../node_modules/.bin/webpack --config ./webpack.config.js",
+    "dist:min": "cross-env DIST_MIN=1 ../../node_modules/.bin/webpack --config ./webpack.config.js",
     "dist": "npm run dist:lib && npm run dist:min",
     "prepublish": "npm run transpile"
   },
@@ -32,8 +32,9 @@
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
-    "frint": "^2.5.0",
-    "frint-component-utils": "^2.5.0"
+    "cross-env": "^5.0.5",
+    "frint": "^2.6.0",
+    "frint-component-utils": "^2.6.0"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

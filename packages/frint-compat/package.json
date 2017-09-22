@@ -1,6 +1,6 @@
 {
   "name": "frint-compat",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Backwards compatibility package for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-compat",
@@ -28,15 +28,16 @@
     "frint"
   ],
   "dependencies": {
-    "frint": "^2.5.0",
-    "frint-model": "^2.5.0",
-    "frint-react": "^2.5.0",
-    "frint-store": "^2.5.0",
+    "frint": "^2.6.0",
+    "frint-model": "^2.6.0",
+    "frint-react": "^2.6.0",
+    "frint-store": "^2.6.0",
     "lodash": "^4.13.1",
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
-    "frint-test-utils": "^2.5.0",
+    "cross-env": "^5.0.5",
+    "frint-test-utils": "^2.6.0",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"

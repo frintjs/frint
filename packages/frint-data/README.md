@@ -67,7 +67,7 @@ Via [unpkg](https://unpkg.com) CDN:
 Let's first import the dependencies:
 
 ```js
-import { Types, createModel, createCollection }
+import { Types, createModel, createCollection } from 'frint-data';
 ```
 
 ### Define Model
@@ -167,7 +167,7 @@ One of the main features of `frint-data` is that it is strictly based on typed v
 
 A list of type expressions are already shipped with the package and you can import them as follows:
 
-```
+```js
 import { Types } from 'frint-data';
 ```
 
@@ -883,7 +883,7 @@ Destroys the collection and its watchers.
 
 > toJS$()
 
-Converts the collection to an plain array, and also converting the models into plain objects recursively.
+Converts the collection to a plain array, and also converting the models into plain objects recursively.
 
 ### collection.get
 

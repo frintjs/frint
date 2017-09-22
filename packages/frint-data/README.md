@@ -14,6 +14,7 @@
   - [Models](#models)
   - [Collections](#collections)
   - [Embedding](#embedding)
+  - [Note](#note)
 - [API](#api)
   - [Types](#types-1)
   - [createModel](#createmodel)
@@ -450,6 +451,10 @@ person.books.push(new Book({
   name: 'Hogwarts: A History'
 }));
 ```
+
+## Note
+
+The API is highly inspired by [Tydel](https://tydel.js.org), and this package aims to be a reactive version of it using RxJS.
 
 ---
 

@@ -101,7 +101,6 @@ export default function createCollection(options = {}) {
         'every',
         'filter',
         'forEach',
-        'includes',
         'indexOf',
         'map',
         'reduce',
@@ -116,7 +115,11 @@ export default function createCollection(options = {}) {
 
       // lodash methods
       [
-        'find', // used from Lodash instead of native, because of IE
+        // used from Lodash instead of native, because of IE
+        'find',
+        'includes',
+
+        // others
         'findIndex',
         'first',
         'last',

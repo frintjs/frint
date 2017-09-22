@@ -6,6 +6,8 @@
     "color",
     "dead",
     "dumb",
+    "executes",
+    "failed",
     "hooks",
     "jacktheripper"
   ]

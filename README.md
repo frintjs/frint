@@ -45,6 +45,7 @@ The framework is a collection of these packages, which can be composed together 
 * [frint](./packages/frint): The base of the framework.
 * [frint-store](./packages/frint-store): For creating reactive reducer-based stores for state management.
 * [frint-model](./packages/frint-model): For creating models for data structures.
+* [frint-data](./packages/frint-data): Reactive data modelling.
 * [frint-react](./packages/frint-react): For creating React-compatible reactive components.
 * [frint-react-server](./packages/frint-react-server): Server-side rendering for Apps.
 * [frint-router](./packages/frint-router): Router services for single page applications (SPA).

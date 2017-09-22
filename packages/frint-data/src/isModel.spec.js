@@ -22,5 +22,9 @@ describe('frint-data › isModel', function () {
     expect(isModel(123)).to.equal(false);
     expect(isModel('hi')).to.equal(false);
     expect(isModel(() => {})).to.equal(false);
+    expect(isModel(null)).to.equal(false);
+    expect(isModel(undefined)).to.equal(false);
+    expect(isModel(true)).to.equal(false);
+    expect(isModel(false)).to.equal(false);
   });
 });

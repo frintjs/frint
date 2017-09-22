@@ -118,7 +118,7 @@ describe('frint-data › createCollection', function () {
     });
     const People = createCollection({
       model: Person,
-      at(n) {
+      at(n) { /* istanbul ignore next */
         return this.at(n);
       }
     });
@@ -200,9 +200,6 @@ describe('frint-data › createCollection', function () {
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
-      },
-      setName(name) {
-        this.name = name;
       },
     });
 

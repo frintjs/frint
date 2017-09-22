@@ -29,5 +29,9 @@ describe('frint-data › isCollection', function () {
     expect(isCollection({})).to.equal(false);
     expect(isCollection([])).to.equal(false);
     expect(isCollection(() => {})).to.equal(false);
+    expect(isCollection(null)).to.equal(false);
+    expect(isCollection(undefined)).to.equal(false);
+    expect(isCollection(true)).to.equal(false);
+    expect(isCollection(false)).to.equal(false);
   });
 });

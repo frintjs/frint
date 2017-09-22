@@ -193,7 +193,7 @@ describe('frint-data › createModel', function () {
         name: Types.string,
         bio: Types.string,
       },
-      name() {
+      name() { /* istanbul ignore next */
         return true;
       },
     });
@@ -214,7 +214,7 @@ describe('frint-data › createModel', function () {
         name: Types.string,
         bio: Types.string,
       },
-      toJS() {
+      toJS() { /* istanbul ignore next */
         return true;
       },
     });
@@ -236,24 +236,12 @@ describe('frint-data › createModel', function () {
         street: Types.string,
         country: Types.string,
       },
-      getStreet() {
-        return this.street;
-      },
-      setStreet(street) {
-        this.street = street;
-      },
     });
 
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
         address: Types.model.of(Address),
-      },
-      getName() {
-        return this.name;
-      },
-      getStreet() {
-        return this.address.getStreet();
       },
     });
 
@@ -389,6 +377,8 @@ describe('frint-data › createModel', function () {
 
     expect(about.title).to.equal('About Us');
     expect(author.posts.at(1).title).to.equal('About Us');
+
+    author.destroy();
   });
 
   it('listens for self assignments', function (done) {
@@ -434,9 +424,6 @@ describe('frint-data › createModel', function () {
         name: Types.string.isRequired,
         address: Types.model.of(Address),
       },
-      setName(name) {
-        this.name = name;
-      },
     });
 
     const person = new Person({
@@ -464,9 +451,6 @@ describe('frint-data › createModel', function () {
     const Book = createModel({
       schema: {
         title: Types.string.isRequired,
-      },
-      setTitle(title) {
-        this.title = title;
       },
     });
 
@@ -670,9 +654,6 @@ describe('frint-data › createModel', function () {
           street: Types.string,
           city: Types.string,
         },
-        setStreet(street) {
-          this.street = street;
-        }
       });
 
       const Person = createModel({
@@ -699,9 +680,6 @@ describe('frint-data › createModel', function () {
       const Book = createModel({
         schema: {
           title: Types.string.isRequired,
-        },
-        setTitle(title) {
-          this.title = title;
         },
       });
 
@@ -758,9 +736,6 @@ describe('frint-data › createModel', function () {
           street: Types.string,
           city: Types.string,
         },
-        setStreet(street) {
-          this.street = street;
-        },
       });
 
       const Person = createModel({
@@ -787,9 +762,6 @@ describe('frint-data › createModel', function () {
       const Book = createModel({
         schema: {
           title: Types.string.isRequired,
-        },
-        setTitle(title) {
-          this.title = title;
         },
       });
 

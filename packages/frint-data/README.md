@@ -722,7 +722,7 @@ Most methods also support supporting streaming the results as they change. Look 
 The lengh of the Collection.
 
 ```js
-const length = collection.length'
+const length = collection.length;
 ```
 
 ### collection.at

@@ -1,5 +1,17 @@
 # Change Log
 
+## v2.7.0 (2017-09-22)
+
+#### Pull Requests
+* `frint-data`
+  * [#305](https://github.com/Travix-International/frint/pull/305) frint-data: Reactive data modelling. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#304](https://github.com/Travix-International/frint/pull/304) Enable execution of npm scripts within subpackage folder. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
 ## v2.6.0 (2017-09-19)
 
 #### Pull Requests

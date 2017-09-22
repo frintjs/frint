@@ -120,7 +120,7 @@ describe('frint-store › createStore', function () {
     const actions = [];
     const Store = createStore({
       enableLogger: false,
-      thunkArgument: { foo: 'bar' },
+      deps: { foo: 'bar' },
       initialState: {
         counter: 0,
       },

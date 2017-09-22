@@ -25,7 +25,7 @@ export default createApp({
           },
           reducer: rootReducer,
           epic: colorEpic$,
-          thunkArgument: { app },
+          deps: { app },
         });
 
         return new Store();

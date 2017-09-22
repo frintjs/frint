@@ -26,11 +26,11 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Frint'
+      name: 'Rubeus'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.equal('Frint');
+    expect(model.name).to.equal('Rubeus');
     expect(model.language).to.equal('English');
   });
 
@@ -43,13 +43,13 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Frint'
+      name: 'Rubeus'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.equal('Frint');
+    expect(model.name).to.equal('Rubeus');
 
-    expect(model.name).to.equal('Frint');
+    expect(model.name).to.equal('Rubeus');
   });
 
   it('makes only attributes enumerable', function () {
@@ -61,7 +61,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Frint'
+      name: 'Rubeus'
     });
 
     expect(Object.keys(model)).to.deep.equal(['name', 'language']);
@@ -79,7 +79,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Frint',
+      name: 'Rubeus',
       address: {
         street: 'Straat',
         city: 'Amsterdam'
@@ -87,7 +87,7 @@ describe('frint-data › createModel', function () {
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.equal('Frint');
+    expect(model.name).to.equal('Rubeus');
     expect(model.address.street).to.equal('Straat');
     expect(model.address.city).to.equal('Amsterdam');
     expect(model.address).to.deep.equal({
@@ -117,17 +117,17 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Frint'
+      name: 'Rubeus'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.name).to.equal('Frint');
+    expect(model.name).to.equal('Rubeus');
     expect(model.setName).to.be.a('function');
 
-    expect(model.getName()).to.equal('Frint');
+    expect(model.getName()).to.equal('Rubeus');
 
-    model.setName('Heylaal');
-    expect(model.name).to.equal('Heylaal');
+    model.setName('Hagrid');
+    expect(model.name).to.equal('Hagrid');
   });
 
   it('allows methods to call other methods', function () {
@@ -163,21 +163,21 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      firstName: 'Frint',
-      lastName: 'Heylaal'
+      firstName: 'Rubeus',
+      lastName: 'Hagrid'
     });
 
     expect(model).to.be.instanceof(Model);
-    expect(model.firstName).to.equal('Frint');
-    expect(model.lastName).to.equal('Heylaal');
+    expect(model.firstName).to.equal('Rubeus');
+    expect(model.lastName).to.equal('Hagrid');
 
     expect(model.getFirstName).to.be.a('function');
-    expect(model.getFirstName()).to.equal('Frint');
+    expect(model.getFirstName()).to.equal('Rubeus');
 
     expect(model.getLastName).to.be.a('function');
-    expect(model.getLastName()).to.equal('Heylaal');
+    expect(model.getLastName()).to.equal('Hagrid');
 
-    expect(model.getFullName()).to.equal('Frint Heylaal');
+    expect(model.getFullName()).to.equal('Rubeus Hagrid');
 
     model.setFirstName('John');
     model.setLastName('Smith');
@@ -200,7 +200,7 @@ describe('frint-data › createModel', function () {
 
     function getPerson() {
       new Person({  // eslint-disable-line
-        name: 'Frint',
+        name: 'Rubeus',
         bio: 'blah...'
       });
     }
@@ -221,7 +221,7 @@ describe('frint-data › createModel', function () {
 
     function getPerson() {
       new Person({  // eslint-disable-line
-        name: 'Frint',
+        name: 'Rubeus',
         bio: 'blah...'
       });
     }
@@ -246,7 +246,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Frint',
+      name: 'Rubeus',
       address: {
         street: 'Straat',
         country: 'Netherlands'
@@ -257,7 +257,7 @@ describe('frint-data › createModel', function () {
     expect(person.address).to.be.instanceof(Address);
     expect(isModel(person.address)).to.equal(true);
 
-    expect(person.name).to.equal('Frint');
+    expect(person.name).to.equal('Rubeus');
     expect(person.address.street).to.equal('Straat');
     expect(person.address.country).to.equal('Netherlands');
   });
@@ -273,10 +273,10 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Frint'
+      name: 'Rubeus'
     });
 
-    expect(person.name).to.equal('Frint');
+    expect(person.name).to.equal('Rubeus');
 
     person.setName('Frint [updated]');
     expect(person.name).to.equal('Frint [updated]');
@@ -352,7 +352,7 @@ describe('frint-data › createModel', function () {
     });
 
     const author = new Author({
-      name: 'Frint',
+      name: 'Rubeus',
       posts: [
         { title: 'Hello World' },
         { title: 'About' },
@@ -360,7 +360,7 @@ describe('frint-data › createModel', function () {
       ]
     });
 
-    expect(author.name).to.equal('Frint');
+    expect(author.name).to.equal('Rubeus');
     expect(isCollection(author.posts)).to.equal(true);
 
     expect(isModel(author.posts.at(0)));
@@ -392,7 +392,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Frint'
+      name: 'Rubeus'
     });
 
     person.get$() // 1
@@ -427,7 +427,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Frint',
+      name: 'Rubeus',
       address: {
         street: 'Straat',
         city: 'Amsterdam'
@@ -471,7 +471,7 @@ describe('frint-data › createModel', function () {
     });
 
     const author = new Author({
-      name: 'Frint',
+      name: 'Rubeus',
       books: []
     });
 

@@ -1,5 +1,16 @@
 # Change Log
 
+## v2.8.0 (2017-09-25)
+
+#### Pull Requests
+* `frint-store`
+  * [#310](https://github.com/Travix-International/frint/pull/310) frint-store: Deprecate `thunkArgument`, and introduce `deps`. ([@fahad19](https://github.com/fahad19))
+* `frint-model`
+  * [#308](https://github.com/Travix-International/frint/pull/308) frint-model: Deprecated. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v2.7.0 (2017-09-22)
 
 #### Pull Requests

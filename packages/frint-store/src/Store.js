@@ -6,7 +6,7 @@ import ActionsObservable from './ActionsObservable';
 function Store(options = {}) {
   this.options = {
     initialState: undefined,
-    thunkArgument: null,
+    deps: null,
     appendAction: false,
     reducer: state => state,
     epic: null,
@@ -14,6 +14,11 @@ function Store(options = {}) {
     console: console,
     ...options,
   };
+
+  if (this.options.thunkArgument) {
+    console.warn('[DEPRECATED] Use `deps` instead of `thunkArgument` option');
+    this.options.deps = this.options.thunkArgument;
+  }
 
   this.internalState$ = new BehaviorSubject(this.options.initialState)
     .scan((previousState, action) => {
@@ -85,7 +90,7 @@ function Store(options = {}) {
     this._epic$ = new Subject();
 
     this._epicSubscription = this._epic$
-      .map(epic => epic(this._action$, this, this.options.thunkArgument))
+      .map(epic => epic(this._action$, this, this.options.deps))
       .switchMap(output$ => output$)
       .subscribe(this.dispatch);
 
@@ -108,7 +113,7 @@ Store.prototype.dispatch = function dispatch(action) {
     return action(
       this.dispatch,
       this.getState,
-      this.options.thunkArgument
+      this.options.deps
     );
   }
 

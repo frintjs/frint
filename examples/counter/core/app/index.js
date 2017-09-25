@@ -22,7 +22,7 @@ export default createApp({
             }
           },
           reducer: rootReducer,
-          thunkArgument: { app },
+          deps: { app },
         });
 
         return new Store();

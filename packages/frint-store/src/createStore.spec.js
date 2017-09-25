@@ -116,11 +116,11 @@ describe('frint-store › createStore', function () {
     subscription.unsubscribe();
   });
 
-  it('dispatches async actions, with thunk argument', function () {
+  it('dispatches async actions, with deps argument', function () {
     const actions = [];
     const Store = createStore({
       enableLogger: false,
-      thunkArgument: { foo: 'bar' },
+      deps: { foo: 'bar' },
       initialState: {
         counter: 0,
       },
@@ -150,10 +150,10 @@ describe('frint-store › createStore', function () {
       });
 
     store.dispatch({ type: 'INCREMENT_COUNTER' });
-    store.dispatch(function (dispatch, getState, thunkArg) {
+    store.dispatch(function (dispatch, getState, deps) {
       dispatch({
         type: 'INCREMENT_COUNTER',
-        thunkArg
+        deps
       });
     });
     store.dispatch({ type: 'DECREMENT_COUNTER' });
@@ -161,7 +161,7 @@ describe('frint-store › createStore', function () {
     expect(actions).to.deep.equal([
       { type: '__FRINT_INIT__' },
       { type: 'INCREMENT_COUNTER' },
-      { type: 'INCREMENT_COUNTER', thunkArg: { foo: 'bar' } },
+      { type: 'INCREMENT_COUNTER', deps: { foo: 'bar' } },
       { type: 'DECREMENT_COUNTER' },
     ]);
 

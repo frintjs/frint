@@ -48,7 +48,7 @@ The framework is a collection of these packages, which can be composed together 
 | [frint-store]              | [![frint-store-status]][frint-store-package]                           | State management with reactive stores |
 | [frint-data]               | [![frint-data-status]][frint-data-package]                             | Reactive data modelling |
 | [frint-react]              | [![frint-react-status]][frint-react-package]                           | React.js integration |
-| [frint-react-server]       | [![frint-react-server-status]][frint-react-server-package]             | Server-rendering of Apps |
+| [frint-react-server]       | [![frint-react-server-status]][frint-react-server-package]             | Server-side rendering of Apps |
 | [frint-router]             | [![frint-router-status]][frint-router-package]                         | Router services for building Single Page Applications |
 | [frint-router-react]       | [![frint-router-react-status]][frint-router-react-package]             | React components for building SPAs |
 | [frint-cli]                | [![frint-cli-status]][frint-cli-package]                               | CLI runner |
@@ -57,6 +57,7 @@ The framework is a collection of these packages, which can be composed together 
 | [frint-component-utils]    | [![frint-component-utils-status]][frint-component-utils-package]       | Utils for reactive Components |
 | [frint-component-handlers] | [![frint-component-handlers-status]][frint-component-handlers-package] | Handlers for integrating with other rendering libraries |
 | [frint-test-utils]         | [![frint-test-utils-status]][frint-test-utils-package]                 | Internally used test utilities |
+| [frint-config]             | [![frint-config-status]][frint-config-package]                         | Common config for your Apps |
 
 [frint]: https://frint.js.org/docs/packages/frint
 [frint-store]: https://frint.js.org/docs/packages/frint-store
@@ -71,6 +72,7 @@ The framework is a collection of these packages, which can be composed together 
 [frint-component-utils]: https://frint.js.org/docs/packages/frint-component-utils
 [frint-component-handlers]: https://frint.js.org/docs/packages/frint-component-handlers
 [frint-test-utils]: https://frint.js.org/docs/packages/frint-test-utils
+[frint-config]: https://frint.js.org/docs/packages/frint-config
 
 [frint-status]: https://img.shields.io/npm/v/frint.svg
 [frint-store-status]: https://img.shields.io/npm/v/frint-store.svg
@@ -85,6 +87,7 @@ The framework is a collection of these packages, which can be composed together 
 [frint-component-utils-status]: https://img.shields.io/npm/v/frint-component-utils.svg
 [frint-component-handlers-status]: https://img.shields.io/npm/v/frint-component-handlers.svg
 [frint-test-utils-status]: https://img.shields.io/npm/v/frint-test-utils.svg
+[frint-config-status]: https://img.shields.io/npm/v/frint-config.svg
 
 [frint-package]: https://npmjs.com/package/frint
 [frint-store-package]: https://npmjs.com/package/frint-store
@@ -99,6 +102,7 @@ The framework is a collection of these packages, which can be composed together 
 [frint-component-utils-package]: https://npmjs.com/package/frint-component-utils
 [frint-component-handlers-package]: https://npmjs.com/package/frint-component-handlers
 [frint-test-utils-package]: https://npmjs.com/package/frint-test-utils
+[frint-config-package]: https://npmjs.com/package/frint-config
 
 ## Community projects
 

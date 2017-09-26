@@ -1,6 +1,6 @@
 {
   "name": "frint-test-utils",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "description": "Test utilities for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-test-utils",

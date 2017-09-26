@@ -15,11 +15,6 @@ function Store(options = {}) {
     ...options,
   };
 
-  if (this.options.thunkArgument) {
-    console.warn('[DEPRECATED] Use `deps` instead of `thunkArgument` option');
-    this.options.deps = this.options.thunkArgument;
-  }
-
   this.internalState$ = new BehaviorSubject(this.options.initialState)
     .scan((previousState, action) => {
       let updatedState;

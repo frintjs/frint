@@ -1,5 +1,14 @@
 # Change Log
 
+## v2.8.1 (2017-09-26)
+
+#### Pull Requests
+* `frint-model`, `frint-store`
+  * [#313](https://github.com/Travix-International/frint/pull/313) Show  deprecated warnings when creating Store and Model classes. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v2.8.0 (2017-09-25)
 
 #### Pull Requests

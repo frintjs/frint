@@ -349,22 +349,6 @@ App.prototype.beforeDestroy = function beforeDestroy() {
   return this.options.beforeDestroy.bind(this)();
 };
 
-// @TODO: Get rid of *Widget* aliases
-[
-  { alias: 'getWidgets$', fn: 'getApps$' },
-  { alias: 'registerWidget', fn: 'registerApp' },
-  { alias: 'hasWidgetInstance', fn: 'hasWidgetInstance' },
-  { alias: 'getWidgetInstance', fn: 'getAppInstance' },
-  { alias: 'getWidgetOnceAvailable$', fn: 'getAppOnceAvailable$' },
-  { alias: 'destroyWidget', fn: 'destroyApp' },
-].forEach(({ alias, fn }) => {
-  App.prototype[alias] = function deprecatedAlias(...args) {
-    // eslint-disable-next-line no-console, prefer-template
-    console.warn('[DEPRECATED] `' + alias + '` has been deprecated. Use `' + fn + '` instead');
-    this[fn](...args);
-  };
-});
-
 // unregisterApp(name, region = null, regionKey = null) {
 //   // @TODO
 // }

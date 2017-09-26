@@ -1,4 +1,9 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of } from 'rxjs/observable/of';
+import { concatMap } from 'rxjs/operator/concatMap';
+import { find } from 'rxjs/operator/find';
+import { map } from 'rxjs/operator/map';
+import { first } from 'rxjs/operator/first';
 import _ from 'lodash';
 import { createContainer, resolveContainer } from 'travix-di';
 
@@ -207,7 +212,7 @@ App.prototype.getApps$ = function getApps$(regionName = null) {
   }
 
   return this._apps$
-    .map((collection) => {
+    ::map((collection) => {
       return collection
         .filter((w) => {
           return w.regions.indexOf(regionName) > -1;
@@ -287,17 +292,17 @@ App.prototype.getAppOnceAvailable$ = function getAppOnceAvailable$(name, region 
   const w = rootApp.getAppInstance(name, region, regionKey);
 
   if (w) {
-    return Observable.of(w);
+    return of(w);
   }
 
   return rootApp._apps$
-    .concatMap(y => y)
-    .find(app => app.name === name)
-    .map((x) => {
+    ::concatMap(y => y)
+    ::find(app => app.name === name)
+    ::map((x) => {
       const instanceKey = makeInstanceKey(region, regionKey, x.multi);
       return x.instances[instanceKey];
     })
-    .first(y => y);
+    ::first(y => y);
 };
 
 App.prototype.instantiateApp = function instantiateApp(name, region = null, regionKey = null) {

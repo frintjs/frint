@@ -28,9 +28,12 @@
     "frint"
   ],
   "dependencies": {
-    "cross-env": "^5.0.5",
     "lodash": "^4.13.1",
     "rxjs": "^5.3.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "frint-config": "^2.8.1"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

@@ -1,10 +1,10 @@
 /* eslint-disable func-names */
-import _ from 'lodash';
+import each from 'lodash/each';
 
 import * as chainables from './ChainableTypes';
 
 export default function chain(fn, omitChainables = []) {
-  _.each(chainables, (chainObj, chainName) => {
+  each(chainables, (chainObj, chainName) => {
     const chainFunc = chainObj.func;
     const chainIsFactory = chainObj.isFactory === true;
 

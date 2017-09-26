@@ -1,5 +1,9 @@
 /* eslint-disable func-names */
-import _ from 'lodash';
+import each from 'lodash/each';
+import take from 'lodash/take';
+import mapValues from 'lodash/mapValues';
+import isPlainObject from 'lodash/isPlainObject';
+import isArray from 'lodash/isArray';
 
 import Types from './Types';
 import isModel from './isModel';
@@ -46,7 +50,7 @@ export default function createModel(options = {}) {
       Object.defineProperty(this, 'toJS', {
         value: function () {
           function convertToJS(attrs) {
-            return _.mapValues(attrs, (v) => {
+            return mapValues(attrs, (v) => {
               if (
                 isModel(v) ||
                 isCollection(v)
@@ -54,7 +58,7 @@ export default function createModel(options = {}) {
                 return v.toJS();
               }
 
-              if (_.isPlainObject(v)) {
+              if (isPlainObject(v)) {
                 return convertToJS(v);
               }
 
@@ -79,7 +83,7 @@ export default function createModel(options = {}) {
             }
           });
 
-          _.each(attributes, function (v) {
+          each(attributes, function (v) {
             if (isModel(v) || isCollection(v)) {
               v.destroy();
             }
@@ -102,7 +106,7 @@ export default function createModel(options = {}) {
       // getIn()
       Object.defineProperty(this, 'getIn', {
         value: function (paths) {
-          if (!_.isArray(paths)) {
+          if (!isArray(paths)) {
             throw new MethodError('`path` array is not provided');
           }
 
@@ -113,7 +117,7 @@ export default function createModel(options = {}) {
             if (!isNaN(path)) {
               // collection
               if (!isCollection(result)) {
-                const collectionPath = _.take(reducedPaths, reducedPaths.length - 1);
+                const collectionPath = take(reducedPaths, reducedPaths.length - 1);
                 throw new MethodError(`Path ${JSON.stringify(collectionPath)} is not inside a collection`);
               }
 
@@ -139,7 +143,7 @@ export default function createModel(options = {}) {
       attributes = applySchema(givenAttributes);
 
       // define attributes
-      _.each(attributes, (value, attributeName) => {
+      each(attributes, (value, attributeName) => {
         Object.defineProperty(this, attributeName, {
           get() {
             return attributes[attributeName];
@@ -178,7 +182,7 @@ export default function createModel(options = {}) {
       });
 
       // define methods
-      _.each(methods, (func, methodName) => {
+      each(methods, (func, methodName) => {
         if (
           typeof attributes[methodName] !== 'undefined' ||
           typeof this[methodName] !== 'undefined'

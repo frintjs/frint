@@ -4,7 +4,10 @@ import { concatMap as concatMap$ } from 'rxjs/operator/concatMap';
 import { find as find$ } from 'rxjs/operator/find';
 import { map as map$ } from 'rxjs/operator/map';
 import { first as first$ } from 'rxjs/operator/first';
-import _ from 'lodash';
+import omit from 'lodash/omit';
+import lodashGet from 'lodash/get';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import { createContainer, resolveContainer } from 'travix-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
@@ -98,7 +101,7 @@ App.prototype._registerRootProviders = function _registerRootProviders() {
 
       const definedProvider = Object.assign(
         {},
-        _.omit(parentProvider, [
+        omit(parentProvider, [
           'useClass',
           'useValue',
           'useFactory'
@@ -179,7 +182,7 @@ App.prototype.getParentApps = function getParentApps() {
 };
 
 App.prototype.getOption = function getOption(key) {
-  return _.get(this.options, key);
+  return lodashGet(this.options, key);
 };
 
 App.prototype.getName = function getName() {
@@ -191,7 +194,7 @@ App.prototype.getProviders = function getProviders() {
 };
 
 App.prototype.getProvider = function getProvider(name) {
-  return _.find(this.options.providers, (p) => {
+  return find(this.options.providers, (p) => {
     return p.name === name;
   });
 };
@@ -233,7 +236,7 @@ App.prototype.registerApp = function registerApp(AppClass, opts = {}) {
     });
   }
 
-  const existingIndex = _.findIndex(this._appsCollection, (w) => {
+  const existingIndex = findIndex(this._appsCollection, (w) => {
     return w.name === AppClass.frintAppName;
   });
 
@@ -267,7 +270,7 @@ App.prototype.hasAppInstance = function hasAppInstance(name, region = null, regi
 };
 
 App.prototype.getAppInstance = function getAppInstance(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._appsCollection, (w) => {
+  const index = findIndex(this._appsCollection, (w) => {
     return w.name === name;
   });
 
@@ -306,7 +309,7 @@ App.prototype.getAppOnceAvailable$ = function getAppOnceAvailable$(name, region 
 };
 
 App.prototype.instantiateApp = function instantiateApp(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._appsCollection, (w) => {
+  const index = findIndex(this._appsCollection, (w) => {
     return w.App.frintAppName === name;
   });
 
@@ -318,7 +321,7 @@ App.prototype.instantiateApp = function instantiateApp(name, region = null, regi
   const key = makeInstanceKey(region, regionKey, w.multi);
 
   this._appsCollection[index].instances[key] = new w.App({
-    ..._.omit(w, ['App', 'instances']),
+    ...omit(w, ['App', 'instances']),
     name: w.App.frintAppName,
     parentApp: this,
   });
@@ -327,7 +330,7 @@ App.prototype.instantiateApp = function instantiateApp(name, region = null, regi
 };
 
 App.prototype.destroyApp = function destroyApp(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._appsCollection, (w) => {
+  const index = findIndex(this._appsCollection, (w) => {
     if (!w || !w.App) {
       return false;
     }

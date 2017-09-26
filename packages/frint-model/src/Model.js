@@ -1,4 +1,7 @@
-import _ from 'lodash';
+import lodashGet from 'lodash/get';
+import lodashSet from 'lodash/set';
+import cloneDeep from 'lodash/cloneDeep';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map as map$ } from 'rxjs/operator/map';
 
@@ -16,7 +19,7 @@ function getFromAttributes(attributes, key) {
     return undefined;
   }
 
-  return _.get(attributes, key);
+  return lodashGet(attributes, key);
 }
 
 Model.prototype.get = function get(key) {
@@ -24,7 +27,7 @@ Model.prototype.get = function get(key) {
 };
 
 Model.prototype.set = function set(key, value) {
-  _.set(this.attributes, key, value);
+  lodashSet(this.attributes, key, value);
 
   if (this.$) {
     this.$.next(this.attributes);
@@ -43,7 +46,7 @@ Model.prototype.get$ = function get$(key) {
 };
 
 Model.prototype.toJS = function toJS() {
-  return _.cloneDeep(this.attributes);
+  return cloneDeep(this.attributes);
 };
 
 export default Model;

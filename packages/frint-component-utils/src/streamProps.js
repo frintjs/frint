@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isPlainObject from 'lodash/isPlainObject';
 import { Observable } from 'rxjs/Observable';
 import { of as of$ } from 'rxjs/observable/of';
 import { merge as merge$ } from 'rxjs/observable/merge';
@@ -25,7 +25,7 @@ class Streamer {
     }
 
     // (plainObject)
-    if (_.isPlainObject(value)) {
+    if (isPlainObject(value)) {
       return this.setPlainObject(value);
     }
 

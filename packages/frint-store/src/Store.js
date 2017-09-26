@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import _ from 'lodash';
+import isPlainObject from 'lodash/isPlainObject';
+import padStart from 'lodash/padStart';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map as map$ } from 'rxjs/operator/map';
@@ -24,13 +25,13 @@ function Store(options = {}) {
       let updatedState;
       const d = new Date();
       const prettyDate = [
-        _.padStart(d.getHours(), 2, 0),
+        padStart(d.getHours(), 2, 0),
         ':',
-        _.padStart(d.getMinutes(), 2, 0),
+        padStart(d.getMinutes(), 2, 0),
         ':',
-        _.padStart(d.getSeconds(), 2, 0),
+        padStart(d.getSeconds(), 2, 0),
         '.',
-        _.padStart(d.getMilliseconds(), 3, 0)
+        padStart(d.getMilliseconds(), 3, 0)
       ].join('');
 
       try {
@@ -118,7 +119,7 @@ Store.prototype.dispatch = function dispatch(action) {
 
   const payload = (
     this.options.appendAction &&
-    _.isPlainObject(this.options.appendAction)
+    isPlainObject(this.options.appendAction)
   )
     ? { ...this.options.appendAction, ...action }
     : action;

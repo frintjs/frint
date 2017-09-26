@@ -1,6 +1,7 @@
 /* global window */
 /* eslint-disable no-console */
-import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
+import zipWith from 'lodash/zipWith';
 
 export default {
   getInitialData() {
@@ -95,13 +96,13 @@ export default {
     });
   },
   shouldUpdate(nextProps, nextData) {
-    let shouldUpdate = !_.isEqual(this.getProps(), nextProps);
+    let shouldUpdate = !isEqual(this.getProps(), nextProps);
 
     if (!shouldUpdate) {
       const { listForRendering } = nextData;
       shouldUpdate = shouldUpdate || this.getData('listForRendering').length !== listForRendering.length;
       shouldUpdate = shouldUpdate ||
-        _.zipWith(this.getData('listForRendering'), listForRendering, (a, b) => a.name === b.name)
+        zipWith(this.getData('listForRendering'), listForRendering, (a, b) => a.name === b.name)
           .some(value => !value);
     }
 

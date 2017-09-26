@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import merge from 'lodash/merge';
 
 import BaseApp from './App';
 
 export default function createApp(options = {}) {
   class App extends BaseApp {
     constructor(opts = {}) {
-      super(_.merge(
+      super(merge(
         options,
         opts
       ));

@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map as map$ } from 'rxjs/operator/map';
 
 function Model(attributes) {
   this.attributes = Object.assign({}, attributes);
@@ -36,7 +37,7 @@ Model.prototype.get$ = function get$(key) {
   }
 
   return this.$
-    .map((attributes) => {
+    ::map$((attributes) => {
       return getFromAttributes(attributes, key);
     });
 };

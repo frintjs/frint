@@ -1,12 +1,16 @@
 import _ from 'lodash';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { of as of$ } from 'rxjs/observable/of';
+import { merge as merge$ } from 'rxjs/observable/merge';
+import { concatMap as concatMap$ } from 'rxjs/operator/concatMap';
+import { scan as scan$ } from 'rxjs/operator/scan';
 
 import isObservable from './isObservable';
 
 class Streamer {
   constructor(defaults = {}) {
     this._observables = [
-      Observable.of(defaults),
+      of$(defaults),
     ];
   }
 
@@ -42,7 +46,7 @@ class Streamer {
   }
 
   setPlainObject(object) {
-    this._push(Observable.of(object));
+    this._push(of$(object));
 
     return this;
   }
@@ -52,14 +56,14 @@ class Streamer {
 
     mappers.forEach((mapperFn) => {
       mappedObject$ = mappedObject$
-        .concatMap((object) => {
+        ::concatMap$((object) => {
           const result = mapperFn(object);
 
           if (isObservable(result)) {
             return result;
           }
 
-          return Observable.of(result);
+          return of$(result);
         });
     });
 
@@ -80,14 +84,14 @@ class Streamer {
         };
       });
 
-    this._push(Observable.of(object));
+    this._push(of$(object));
 
     return this;
   }
 
   get$() {
-    return Observable.merge(...this._observables)
-      .scan((props, emitted) => {
+    return merge$(...this._observables)
+      ::scan$((props, emitted) => {
         return {
           ...props,
           ...emitted,

@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import sinon from 'sinon';
 
 import { createApp } from 'frint';

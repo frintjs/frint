@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it, document, beforeEach, resetDOM */
 import { expect } from 'chai';
-import { Observable } from 'rxjs';
+import { merge as merge$ } from 'rxjs/observable/merge';
+import { of as of$ } from 'rxjs/observable/of';
+import { map as map$ } from 'rxjs/operator/map';
+import { scan as scan$ } from 'rxjs/operator/scan';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
@@ -27,9 +30,8 @@ describe('frint-react › components › observe', function () {
     }
 
     const ObservedComponent = observe(function () {
-      return Observable
-        .of(1)
-        .map(number => ({ counter: number }));
+      return of$(1)
+        ::map$(number => ({ counter: number }));
     })(Component);
 
     ReactDOM.render(
@@ -69,11 +71,11 @@ describe('frint-react › components › observe', function () {
     }
 
     const ObservedComponent = observe(function (app, props$) {
-      return Observable.merge(
-        Observable.of({ name: app.getName() }),
-        props$.map(parentProps => ({ parentProps }))
+      return merge$(
+        of$({ name: app.getName() }),
+        props$::map$(parentProps => ({ parentProps }))
       )
-        .scan((props, emitted) => {
+        ::scan$((props, emitted) => {
           return {
             ...props,
             ...emitted,
@@ -159,9 +161,8 @@ describe('frint-react › components › observe', function () {
     }
 
     const ObservedComponent = observe(function (app) {
-      return Observable
-        .of(app.getName())
-        .map(name => ({ name }));
+      return of$(app.getName())
+        ::map$(name => ({ name }));
     })(Component);
 
     const fakeApp = {

@@ -73,7 +73,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
+    "react-test-renderer": "^16.0.0",
     "request": "^2.81.0",
     "rimraf": "^2.5.2",
     "sinon": "^3.0.0",

@@ -94,3 +94,16 @@ site-publish-only:
 	(cd ./_site && git add .)
 	(cd ./_site && git commit -am 'update site')
 	(cd ./_site && git push git@github.com:Travix-International/frint gh-pages --force)
+
+##
+# Usage stats
+#
+define list_usage_in_source
+	find ./packages -iname "*.js" | grep "/src/" | grep -v -e ".spec.js" -e "/node_modules/" | xargs cat | grep $(1) | sort -u
+endef
+
+list-usage-rxjs:
+	@$(call list_usage_in_source,'rxjs/')
+
+list-usage-lodash:
+	@$(call list_usage_in_source,'lodash/')

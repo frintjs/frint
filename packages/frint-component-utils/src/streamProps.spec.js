@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
-import { Observable } from 'rxjs';
+import { of as of$ } from 'rxjs/observable/of';
+import { last as last$ } from 'rxjs/operator/last';
 
 import streamProps from './streamProps';
 
@@ -37,7 +38,7 @@ describe('frint-react › streamProps', function () {
     });
 
     streamer.get$()
-      .last()
+      ::last$()
       .subscribe(function (props) {
         expect(props).to.deep.equal({
           key: 'value',
@@ -58,7 +59,7 @@ describe('frint-react › streamProps', function () {
     streamer.set('key3', 'value3');
 
     streamer.get$()
-      .last()
+      ::last$()
       .subscribe(function (props) {
         expect(props).to.deep.equal({
           key: 'value',
@@ -75,14 +76,14 @@ describe('frint-react › streamProps', function () {
       key: 'value',
     });
 
-    const names$ = Observable.of(
+    const names$ = of$(
       'Fahad',
       'Ricardo',
       'Mark',
       'Jean',
       'Alex' // last one wins
     );
-    const numbers$ = Observable.of(
+    const numbers$ = of$(
       1,
       2,
       3 // last one wins
@@ -96,12 +97,12 @@ describe('frint-react › streamProps', function () {
     streamer.set(
       numbers$,
       number => number * 2, // direct mapped values
-      number => Observable.of(number), // even mapped observables
+      number => of$(number), // even mapped observables
       number => ({ number }) // final plain object
     );
 
     streamer.get$()
-      .last()
+      ::last$()
       .subscribe(function (props) {
         expect(props).to.deep.equal({
           key: 'value',
@@ -136,7 +137,7 @@ describe('frint-react › streamProps', function () {
     );
 
     streamer.get$()
-      .last()
+      ::last$()
       .subscribe(function (props) {
         props.myAction('someValue');
 

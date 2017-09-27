@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const _ = require('lodash');
+const clone = require('lodash/clone');
 const argv = require('yargs').argv;
 
 module.exports = [
@@ -29,7 +29,7 @@ module.exports = [
   {
     name: 'params',
     useFactory: function useFactory() {
-      const clonedArgv = _.clone(argv);
+      const clonedArgv = clone(argv);
       clonedArgv._.shift();
 
       return clonedArgv;

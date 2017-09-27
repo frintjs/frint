@@ -30,6 +30,7 @@
   "devDependencies": {
     "cross-env": "^5.0.5",
     "frint": "^2.8.1",
+    "frint-config": "^2.8.1",
     "frint-react": "^2.8.1",
     "frint-test-utils": "^2.8.1",
     "react": "^15.5.4",

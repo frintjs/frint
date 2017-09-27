@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 class ActionsObservable extends Observable {
   constructor(source) {

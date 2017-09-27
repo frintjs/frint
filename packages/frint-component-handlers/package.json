@@ -34,7 +34,8 @@
   "devDependencies": {
     "cross-env": "^5.0.5",
     "frint": "^2.8.1",
-    "frint-component-utils": "^2.8.1"
+    "frint-component-utils": "^2.8.1",
+    "frint-config": "^2.8.1"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

@@ -1,5 +1,12 @@
 /* eslint-disable func-names */
-import _ from 'lodash';
+import each from 'lodash/each';
+import find from 'lodash/find';
+import includes from 'lodash/includes';
+import findIndex from 'lodash/findIndex';
+import first from 'lodash/first';
+import last from 'lodash/last';
+import take from 'lodash/take';
+import takeRight from 'lodash/takeRight';
 
 import MethodError from './errors/Method';
 import CollectionError from './errors/Collection';
@@ -114,23 +121,23 @@ export default function createCollection(options = {}) {
       });
 
       // lodash methods
-      [
+      each({
         // used from Lodash instead of native, because of IE
-        'find',
-        'includes',
+        find,
+        includes,
 
         // others
-        'findIndex',
-        'first',
-        'last',
-        'take',
-        'takeRight',
-      ].forEach((lodashMethod) => {
-        this[lodashMethod] = function (...args) {
-          return _[lodashMethod](models, ...args);
+        findIndex,
+        first,
+        last,
+        take,
+        takeRight,
+      }, (lodashFunc, lodashFuncName) => {
+        this[lodashFuncName] = function (...args) {
+          return lodashFunc(models, ...args);
         };
 
-        makeMethodReactive(this, lodashMethod);
+        makeMethodReactive(this, lodashFuncName);
       });
 
       this.pop = function () {
@@ -218,7 +225,7 @@ export default function createCollection(options = {}) {
       addListenerMethod(this, 'collection');
 
       // methods
-      _.each(methods, (methodFunc, methodName) => {
+      each(methods, (methodFunc, methodName) => {
         if (typeof this[methodName] !== 'undefined') {
           throw new MethodError(`conflicting method name: ${methodName}`);
         }

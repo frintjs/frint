@@ -53,7 +53,7 @@ module.exports = createApp({
 
           deps.console.log('Initializing...');
 
-          mkdirp(dir, function (error) {
+          mkdirp(dir, function mkdirpCallback(error) {
             if (error) {
               deps.console.error(error);
               return;

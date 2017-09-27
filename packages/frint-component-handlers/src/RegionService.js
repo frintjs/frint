@@ -1,4 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map as map$ } from 'rxjs/operator/map';
 
 export default class RegionService {
   constructor() {
@@ -19,7 +20,7 @@ export default class RegionService {
 
   getData$() {
     return this.props$
-      .map((props) => {
+      ::map$((props) => {
         return props.data;
       });
   }

@@ -8,7 +8,8 @@
     "no-restricted-imports": ["error", {
       "paths": [
         "lodash",
-        "rxjs"
+        "rxjs",
+        "rxjs/add/*"
       ]
     }]
   }

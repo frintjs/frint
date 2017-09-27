@@ -1,5 +1,4 @@
 import isPlainObject from 'lodash/isPlainObject';
-import { Observable } from 'rxjs/Observable';
 import { of as of$ } from 'rxjs/observable/of';
 import { merge as merge$ } from 'rxjs/observable/merge';
 import { concatMap as concatMap$ } from 'rxjs/operator/concatMap';
@@ -38,7 +37,7 @@ class Streamer {
   }
 
   setKey(key, value) {
-    this._push(Observable.of({
+    this._push(of$({
       [key]: value
     }));
 

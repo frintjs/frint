@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const externals = require('frint-config').externals;
 
 module.exports = {
   entry: {
@@ -35,7 +36,7 @@ module.exports = {
       defaultAttribute: 'async'
     })
   ],
-  externals: {
+  externals: Object.assign({}, externals, {
     'lodash': '_',
     'frint': 'Frint',
     'frint-model': 'FrintModel',
@@ -44,5 +45,5 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx'
-  }
+  })
 };

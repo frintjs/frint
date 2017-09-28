@@ -42,22 +42,24 @@ Find more examples [here](https://github.com/Travix-International/frint/tree/mas
 
 The framework is a collection of these packages, which can be composed together on demand:
 
-| Package                    | Status                                                                 | Description |
-|----------------------------|------------------------------------------------------------------------|-------------|
-| [frint]                    | [![frint-status]][frint-package]                                       | Base for creating Apps |
-| [frint-store]              | [![frint-store-status]][frint-store-package]                           | State management with reactive stores |
-| [frint-data]               | [![frint-data-status]][frint-data-package]                             | Reactive data modelling |
-| [frint-react]              | [![frint-react-status]][frint-react-package]                           | React.js integration |
-| [frint-react-server]       | [![frint-react-server-status]][frint-react-server-package]             | Server-side rendering of Apps |
-| [frint-router]             | [![frint-router-status]][frint-router-package]                         | Router services for building Single Page Applications |
-| [frint-router-react]       | [![frint-router-react-status]][frint-router-react-package]             | React components for building SPAs |
-| [frint-cli]                | [![frint-cli-status]][frint-cli-package]                               | CLI runner |
-| [frint-compat]             | [![frint-compat-status]][frint-compat-package]                         | Backwards compatibility for older versions |
-| [frint-model]              | [![frint-model-status]][frint-model-package]                           | Use `frint-data` instead |
-| [frint-component-utils]    | [![frint-component-utils-status]][frint-component-utils-package]       | Utils for reactive Components |
-| [frint-component-handlers] | [![frint-component-handlers-status]][frint-component-handlers-package] | Handlers for integrating with other rendering libraries |
-| [frint-test-utils]         | [![frint-test-utils-status]][frint-test-utils-package]                 | Internally used test utilities |
-| [frint-config]             | [![frint-config-status]][frint-config-package]                         | Common config for your Apps |
+| Package                     | Status                                                                 | Description |
+|-----------------------------|------------------------------------------------------------------------|-------------|
+| [frint]                     | [![frint-status]][frint-package]                                       | Base for creating Apps |
+| [frint-store]               | [![frint-store-status]][frint-store-package]                           | State management with reactive stores |
+| [frint-data]                | [![frint-data-status]][frint-data-package]                             | Reactive data modelling |
+| [frint-react]               | [![frint-react-status]][frint-react-package]                           | React.js integration |
+| [frint-react-server]        | [![frint-react-server-status]][frint-react-server-package]             | Server-side rendering of Apps |
+| [frint-router]              | [![frint-router-status]][frint-router-package]                         | Router services for building Single Page Applications |
+| [frint-router-react]        | [![frint-router-react-status]][frint-router-react-package]             | React components for building SPAs |
+| [frint-cli]                 | [![frint-cli-status]][frint-cli-package]                               | CLI runner |
+| [frint-compat]              | [![frint-compat-status]][frint-compat-package]                         | Backwards compatibility for older versions |
+| [frint-model]               | [![frint-model-status]][frint-model-package]                           | Use `frint-data` instead |
+| **For library developers:** |                                                                        |  |
+| [frint-component-utils]     | [![frint-component-utils-status]][frint-component-utils-package]       | Utils for reactive Components |
+| [frint-component-handlers]  | [![frint-component-handlers-status]][frint-component-handlers-package] | Handlers for integrating with other rendering libraries |
+| **Internally used:**        |                                                                        |  |
+| [frint-test-utils]          | [![frint-test-utils-status]][frint-test-utils-package]                 | Internally used test utilities |
+| [frint-config]              | [![frint-config-status]][frint-config-package]                         | Common config for your Apps |
 
 [frint]: https://frint.js.org/docs/packages/frint
 [frint-store]: https://frint.js.org/docs/packages/frint-store

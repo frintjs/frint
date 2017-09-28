@@ -16,6 +16,17 @@
   ],
   "author": "jbaudin",
   "license": "MIT",
+  "dependencies": {
+    "frint": "^3.0.0",
+    "frint-react": "^3.0.0",
+    "frint-store": "^3.0.0",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "rxjs": "^5.4.1",
+    "typescript": "^2.3.2"
+  },
   "devDependencies": {
     "@types/node": "^7.0.18",
     "@types/react": "^15.0.24",
@@ -26,16 +37,6 @@
     "ts-node": "^3.0.4",
     "tslint": "^5.2.0",
     "tslint-react": "^3.0.0",
-    "webpack": "^2.5.1"
-  },
-  "dependencies": {
-    "frint": "^2.0.1",
-    "frint-react": "^2.0.1",
-    "frint-store": "^2.0.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "rxjs": "^5.4.1",
-    "typescript": "^2.3.2"
+    "webpack": "^3.0.0"
   }
 }

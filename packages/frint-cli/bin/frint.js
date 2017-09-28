@@ -32,8 +32,6 @@ function run() {
     console.log('\n');
     console.log('These commands are currently available:\n');
 
-
-
     return Observable.from(app.getApps$())
       .map(registeredApps => (
         registeredApps

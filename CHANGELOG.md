@@ -1,5 +1,16 @@
 # Change Log
 
+## v3.0.1 (2017-09-28)
+
+#### Pull Requests
+* `frint-cli`
+  * [#321](https://github.com/Travix-International/frint/pull/321) frint-cli: fix. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#320](https://github.com/Travix-International/frint/pull/320) Examples: Upgraded to FrintJS v3. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v3.0.0 (2017-09-28)
 
 #### Pull Requests

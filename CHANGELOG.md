@@ -1,5 +1,20 @@
 # Change Log
 
+## v3.0.0 (2017-09-28)
+
+#### Pull Requests
+* Other
+  * [#312](https://github.com/Travix-International/frint/pull/312) Docs: Migration guide to v3. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#316](https://github.com/Travix-International/frint/pull/316) Import RxJS and Lodash modules individually. ([@fahad19](https://github.com/fahad19))
+* `frint`
+  * [#309](https://github.com/Travix-International/frint/pull/309) frint: Drop previously deprecated methods.. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`
+  * [#267](https://github.com/Travix-International/frint/pull/267) frint-compat: empty the package.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v2.8.1 (2017-09-26)
 
 #### Pull Requests

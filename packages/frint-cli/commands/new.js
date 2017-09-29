@@ -44,7 +44,7 @@ module.exports = createApp({
           // Since the repo arg might start or end with a '/', this would cause empty strings
           // in the components array after split. We make sure to filter out empty values.
           const repoComponents = repo.split('/').filter(str => str !== '');
-          // Must contains at least two components: organization and repository.
+          // Must contain at least two components: <organization> and <repository>.
           if (repoComponents.length < 2) {
             deps.console.error(invalidRepoArgText);
             return;

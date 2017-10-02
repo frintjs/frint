@@ -8,21 +8,21 @@ const descriptionText = `
 Usage:
 
   $ frint new
-  $ frint new <app-name>
-  $ frint new --example=<example-name> <app-name>
-  $ frint new --repo=<repo-path> --example=<example-name> <app-name>
+  $ frint new <name>
+  $ frint new <name> --example=<example>
+  $ frint new <name> --path=<path> --example=<example>
 
 Example:
 
-  $ frint new --repo=/frint-vue/tree/master/examples --example=basic my-app
+  $ frint new myapp --path=frint-vue/tree/master/examples --example=basic
 
-You can find list of all available examples here:
+You can find a list of all available official examples here:
 https://github.com/Travix-International/frint/tree/master/examples
 `.trim();
 
-const invalidRepoArgText = `
-Invalid repo value
-Must be in the format: "<organization>/<repository>/**/*"
+const invalidPathArgText = `
+Invalid <path> value. Must be in the format:
+"<organization>/<repository>/tree/<branch>/**/*"
 `.trim();
 
 module.exports = createApp({
@@ -40,44 +40,37 @@ module.exports = createApp({
       name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
-          const repo = deps.params.repo || 'Travix-International/frint/tree/master/examples';
-          // Since the repo arg might start or end with a '/', this would cause empty strings
-          // in the components array after split. We make sure to filter out empty values.
-          const repoComponents = repo.split('/').filter(str => str !== '');
+          const path = deps.params.path || 'Travix-International/frint/tree/master/examples';
+          // Split by '/' and filter out empty results.
+          // <path> arg might start or end with the separator.
+          const pathComponents = path.split('/').filter(str => str !== '');
           // Must contain at least 4 components: <organization>/<repository>/tree/<branch>.
-          if (repoComponents.length < 4) {
-            deps.console.error(invalidRepoArgText);
+          if (pathComponents.length < 4) {
+            deps.console.error(invalidPathArgText);
             return;
           }
-          const organization = repoComponents[0];
-          const name = repoComponents[1];
-          const branch = repoComponents[3];
-          let rest = repoComponents.slice(4).join('/');
+          const organization = pathComponents[0];
+          const repository = pathComponents[1];
+          const branch = pathComponents[3];
+          let rest = pathComponents.slice(4).join('/');
           if (rest !== '') rest += '/';
 
           const example = deps.params.example || 'counter';
-          let dir = deps.params.name || deps.pwd;
-          // Normally, the application name goes to the first slot of params if defined.
-          // Note that flags are not part of the _ array.
-          if (deps.params._.length >= 1) {
-            dir = deps.params._[0];
-          }
 
-          // TEMP
-          console.log(deps.params);
-          console.log(repo);
-          console.log(repoComponents);
-          console.log(organization);
-          console.log(name);
-          console.log(branch);
-          console.log(example);
-          console.log(dir);
+          // Normally, the application name goes to the first slot of params if defined.
+          // Note that flags such as <path> and <example> are not part of the _ array.
+
+          // If app name is specified, it is taken as the 1st param.
+          // Note that params does not include flags <path> and <example>.
+          const dir = deps.params._.length >= 1
+            ? deps.params._[0]
+            : deps.pwd;
 
           function streamFrintExampleToDir() {
-            request(`https://codeload.github.com/${organization}/${name}/tar.gz/${branch}`)
+            request(`https://codeload.github.com/${organization}/${repository}/tar.gz/${branch}`)
               .on('error', deps.console.error)
               .pipe(tar.x({
-                filter: p => p.indexOf(`${name}-${branch}/${rest}${example}/`) === 0,
+                filter: p => p.indexOf(`${repository}-${branch}/${rest}${example}/`) === 0,
                 strip: 3,
                 C: dir,
               }))

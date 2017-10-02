@@ -40,17 +40,20 @@ module.exports = createApp({
       name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
-          const repo = deps.params.repo || 'Travix-International/frint/examples';
+          const repo = deps.params.repo || 'Travix-International/frint/tree/master/examples';
           // Since the repo arg might start or end with a '/', this would cause empty strings
           // in the components array after split. We make sure to filter out empty values.
           const repoComponents = repo.split('/').filter(str => str !== '');
-          // Must contain at least two components: <organization> and <repository>.
-          if (repoComponents.length < 2) {
+          // Must contain at least 4 components: <organization>/<repository>/tree/<branch>.
+          if (repoComponents.length < 4) {
             deps.console.error(invalidRepoArgText);
             return;
           }
-
-          const branch = deps.params.branch || 'master';
+          const organization = repoComponents[0];
+          const name = repoComponents[1];
+          const branch = repoComponents[3];
+          let rest = repoComponents.slice(4).join('/');
+          if (rest !== '') rest += '/';
 
           const example = deps.params.example || 'counter';
           let dir = deps.params.name || deps.pwd;
@@ -64,21 +67,19 @@ module.exports = createApp({
           console.log(deps.params);
           console.log(repo);
           console.log(repoComponents);
+          console.log(organization);
+          console.log(name);
+          console.log(branch);
           console.log(example);
           console.log(dir);
 
           function streamFrintExampleToDir() {
-            const organization = repoComponents[0];
-            const name = repoComponents[1];
-            let rest = repoComponents.slice(2).join('/');
-            if (rest !== '') rest += '/';
-
             request(`https://codeload.github.com/${organization}/${name}/tar.gz/${branch}`)
               .on('error', deps.console.error)
               .pipe(tar.x({
                 filter: p => p.indexOf(`${name}-${branch}/${rest}${example}/`) === 0,
                 strip: 3,
-                C: dir
+                C: dir,
               }))
               .on('error', deps.console.error)
               .on('finish', () => deps.console.log('Done!'));

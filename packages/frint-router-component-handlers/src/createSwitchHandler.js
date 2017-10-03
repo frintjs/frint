@@ -37,6 +37,7 @@ const SwitchHandler = {
   _unsubscribeFromRouter() {
     if (this._routerSubscription) {
       this._routerSubscription.unsubscribe();
+      this._routerSubscription = null;
     }
   },
 };

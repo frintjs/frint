@@ -7,6 +7,3 @@ export default {
   createRouteHandler,
   createSwitchHandler
 };
-
-// TODO maybe merge with frint-router package?
-// TODO tests

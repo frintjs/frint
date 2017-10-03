@@ -41,7 +41,7 @@ Will list all the commands available to you.
 
 ### `init`
 
-Scaffolds a new FrintJS application in current directory:
+Scaffolds a new FrintJS application in the current directory:
 
 ```
 $ mkdir my-directory && cd my-directory

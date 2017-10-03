@@ -26,7 +26,7 @@ const invalidExampleArgText = `
 Invalid <example> value. Must be in one of the following formats:
 
   * <name>
-  * <organization>/<repository>/tree/<branch>/**/<name>
+  * <organization>/<repository>/tree/<branch>/**
 `.trim();
 
 module.exports = createApp({

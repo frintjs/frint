@@ -22,7 +22,7 @@ You can find a list of all available official examples here:
 https://github.com/Travix-International/frint/tree/master/examples
 `.trim();
 
-const invalidPathArgText = `
+const invalidExampleArgText = `
 Invalid <example> value. Must be in one of the following formats:
 
   * <name>
@@ -46,24 +46,24 @@ module.exports = createApp({
         return function execute() {
           // The <example> param has two shapes:
           // * <name> - example name from the official Frint GitHub repository
-          // * <organization>/<repo>/tree/<branch>/**/<name> - full GitHub path to arbitrary example
+          // * <organization>/<repo>/tree/<branch>/** - full GitHub path to an arbitrary example
           const example = deps.params.example || 'counter';
 
           // Split by '/' and filter out empty results.
           // <example> arg might start or end with a separator.
-          const exampleComponents = example.split('/').filter(str => str !== '');
+          const exampleParts = example.split('/').filter(str => str !== '');
 
-          if (exampleComponents.length > 1 && exampleComponents.length < 5) {
-            deps.console.error(invalidPathArgText);
+          if (exampleParts.length > 1 && exampleParts.length < 5) {
+            deps.console.error(invalidExampleArgText);
             return;
           }
 
-          const isFullExamplePath = exampleComponents.length > 1;
+          const isFullExamplePath = exampleParts.length > 1;
 
-          const organization = isFullExamplePath ? exampleComponents[0] : 'Travix-International';
-          const repository   = isFullExamplePath ? exampleComponents[1] : 'frint';
-          const branch       = isFullExamplePath ? exampleComponents[3] : 'master';
-          const rest         = isFullExamplePath ? exampleComponents.slice(4).join('/') : `examples/${example}`;
+          const organization = isFullExamplePath ? exampleParts[0]                 : 'Travix-International';
+          const repository   = isFullExamplePath ? exampleParts[1]                 : 'frint';
+          const branch       = isFullExamplePath ? exampleParts[3]                 : 'master';
+          const rest         = isFullExamplePath ? exampleParts.slice(4).join('/') : `examples/${example}`;
 
           // If <directory> is specified, it is taken as the 1st value from params _ array.
           // Note that this array does not include the <example> flag.

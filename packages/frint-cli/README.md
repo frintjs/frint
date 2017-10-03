@@ -56,14 +56,14 @@ $ frint init --example kitchensink
 
 ### `new`
 
-Scaffolds a new FrintJS application in current directory:
+Scaffolds a new FrintJS application in the current directory:
 
 ```
 $ mkdir my-directory && cd my-directory
 $ frint new
 ```
 
-Scaffolds a new FrintJS application in specified directory:
+Scaffolds a new FrintJS application in the specified directory:
 
 ```
 $ frint new my-directory

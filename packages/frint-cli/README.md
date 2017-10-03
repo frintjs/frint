@@ -72,13 +72,13 @@ $ frint new my-directory
 To scaffold a certain example, as available in the repository [here](https://github.com/Travix-International/frint/tree/master/examples):
 
 ```
-$ frint new my-directory --example=kitchensink
+$ frint new my-directory --example kitchensink
 ```
 
 It is also possible to scaffold an example from an arbitrary repository:
 
 ```
-$ frint new my-directory --example=frintjs/frint-vue/tree/master/examples/basic
+$ frint new my-directory --example frintjs/frint-vue/tree/master/examples/basic
 ```
 
 ### `version`

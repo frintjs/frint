@@ -20,7 +20,7 @@ $ npm install -g frint-cli
 Initialize an example app:
 
 ```
-$ frint new my-directory --example=kitchensink
+$ frint new my-directory --example kitchensink
 ```
 
 Now you can install all the dependencies, and start the application:

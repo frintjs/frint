@@ -11,12 +11,12 @@ Usage:
 
   $ frint new
   $ frint new <directory>
-  $ frint new <directory> --example=<example>
+  $ frint new <directory> --example <example>
 
 Example:
 
-  $ frint new myapp --example=kitchensink
-  $ frint new myapp --example=frint-vue/tree/master/examples/basic
+  $ frint new myapp --example kitchensink
+  $ frint new myapp --example frint-vue/tree/master/examples/basic
 
 You can find a list of all available official examples here:
 https://github.com/Travix-International/frint/tree/master/examples

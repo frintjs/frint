@@ -1,3 +1,5 @@
+/* eslint-disable no-multi-spaces */
+
 const mkdirp = require('mkdirp');
 const request = require('request');
 const tar = require('tar');
@@ -8,21 +10,23 @@ const descriptionText = `
 Usage:
 
   $ frint new
-  $ frint new <name>
-  $ frint new <name> --example=<example>
-  $ frint new <name> --path=<path> --example=<example>
+  $ frint new <directory>
+  $ frint new <directory> --example=<example>
 
 Example:
 
-  $ frint new myapp --path=frint-vue/tree/master/examples --example=basic
+  $ frint new myapp --example=kitchensink
+  $ frint new myapp --example=frint-vue/tree/master/examples/basic
 
 You can find a list of all available official examples here:
 https://github.com/Travix-International/frint/tree/master/examples
 `.trim();
 
 const invalidPathArgText = `
-Invalid <path> value. Must be in the format:
-"<organization>/<repository>/tree/<branch>/**/*"
+Invalid <example> value. Must be in one of the following formats:
+
+  * <name>
+  * <organization>/<repository>/tree/<branch>/**/<name>
 `.trim();
 
 module.exports = createApp({
@@ -40,29 +44,30 @@ module.exports = createApp({
       name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
-          const path = deps.params.path || 'Travix-International/frint/tree/master/examples';
+          // The <example> param has two shapes:
+          // * <name> - example name from the official Frint GitHub repository
+          // * <organization>/<repo>/tree/<branch>/**/<name> - full GitHub path to arbitrary example
+          const example = deps.params.example || 'counter';
+
           // Split by '/' and filter out empty results.
-          // <path> arg might start or end with the separator.
-          const pathComponents = path.split('/').filter(str => str !== '');
-          // Must contain at least 4 components: <organization>/<repository>/tree/<branch>.
-          if (pathComponents.length < 4) {
+          // <example> arg might start or end with a separator.
+          const exampleComponents = example.split('/').filter(str => str !== '');
+
+          if (exampleComponents.length > 1 && exampleComponents.length < 5) {
             deps.console.error(invalidPathArgText);
             return;
           }
-          const organization = pathComponents[0];
-          const repository = pathComponents[1];
-          const branch = pathComponents[3];
-          let rest = pathComponents.slice(4).join('/');
-          if (rest !== '') rest += '/';
 
-          const example = deps.params.example || 'counter';
+          const isFullExamplePath = exampleComponents.length > 1;
 
-          // Normally, the application name goes to the first slot of params if defined.
-          // Note that flags such as <path> and <example> are not part of the _ array.
+          const organization = isFullExamplePath ? exampleComponents[0] : 'Travix-International';
+          const repository   = isFullExamplePath ? exampleComponents[1] : 'frint';
+          const branch       = isFullExamplePath ? exampleComponents[3] : 'master';
+          const rest         = isFullExamplePath ? exampleComponents.slice(4).join('/') : `examples/${example}`;
 
-          // If app name is specified, it is taken as the 1st param.
-          // Note that params does not include flags <path> and <example>.
-          const dir = deps.params._.length >= 1
+          // If <directory> is specified, it is taken as the 1st value from params _ array.
+          // Note that this array does not include the <example> flag.
+          const directory = deps.params._.length >= 1
             ? deps.params._[0]
             : deps.pwd;
 
@@ -70,9 +75,9 @@ module.exports = createApp({
             request(`https://codeload.github.com/${organization}/${repository}/tar.gz/${branch}`)
               .on('error', deps.console.error)
               .pipe(tar.x({
-                filter: p => p.indexOf(`${repository}-${branch}/${rest}${example}/`) === 0,
+                filter: p => p.indexOf(`${repository}-${branch}/${rest}/`) === 0,
                 strip: 3,
-                C: dir,
+                C: directory,
               }))
               .on('error', deps.console.error)
               .on('finish', () => deps.console.log('Done!'));
@@ -80,7 +85,7 @@ module.exports = createApp({
 
           deps.console.log('Initializing...');
 
-          mkdirp(dir, function mkdirpCallback(error) {
+          mkdirp(directory, function mkdirpCallback(error) {
             if (error) {
               deps.console.error(error);
               return;

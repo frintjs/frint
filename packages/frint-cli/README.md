@@ -41,18 +41,44 @@ Will list all the commands available to you.
 
 ### `init`
 
-Scaffolds a new FrintJS application in an empty directory:
+Scaffolds a new FrintJS application in current directory:
 
 ```
 $ mkdir my-directory && cd my-directory
-
 $ frint init
 ```
 
 To scaffold a certain example, as available in the repository [here](https://github.com/Travix-International/frint/tree/master/examples):
 
 ```
-$ frint init --example exampleName
+$ frint init --example kitchensink
+```
+
+### `new`
+
+Scaffolds a new FrintJS application in current directory:
+
+```
+$ mkdir my-directory && cd my-directory
+$ frint new
+```
+
+Scaffolds a new FrintJS application in specified directory:
+
+```
+$ frint new my-directory
+```
+
+To scaffold a certain example, as available in the repository [here](https://github.com/Travix-International/frint/tree/master/examples):
+
+```
+$ frint new my-directory --example=kitchensink
+```
+
+It is also possible to scaffold an example from an arbitrary repository:
+
+```
+$ frint new my-directory --example=frintjs/frint-vue/tree/master/examples/basic
 ```
 
 ### `version`

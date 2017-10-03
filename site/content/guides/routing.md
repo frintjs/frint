@@ -272,10 +272,9 @@ Install `frint-cli` package, then init the `router` example and run it.
 ```
 $ npm install -g frint-cli
 
-$ mkdir my-frint-app
-$ cd my-frint-app
+$ frint new my-directory --example=router
 
-$ frint init --example router
+$ cd my-directory
 $ npm install
 $ npm start
 ```

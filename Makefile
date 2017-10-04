@@ -61,8 +61,6 @@ site-build:
 
 	cp -rf ./site/assets/img ./_site/img
 
-	cp -rf ./packages/frint*/dist ./_site/js
-
 site-watch:
 	make site-build
 	fswatch -or './site' | xargs -I{} make site-build
@@ -76,8 +74,6 @@ site-serve:
 	make site-serve-only
 
 site-publish:
-	npm run bootstrap
-	npm run dist
 	rm -rf ./_site
 	make site-build
 	make site-publish-only

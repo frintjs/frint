@@ -1,5 +1,87 @@
 # Change Log
 
+## v3.1.0 (2017-10-04)
+
+#### Pull Requests
+* `frint-router-component-handlers`, `frint-router-react`
+  * [#327](https://github.com/Travix-International/frint/pull/327) frint-router-component-handlers. ([@viacheslaff](https://github.com/viacheslaff))
+* Other
+  * [#329](https://github.com/Travix-International/frint/pull/329) Update .gitignore to ignore all JetBrains IDEs files under .idea folder. ([@viacheslaff](https://github.com/viacheslaff))
+  * [#328](https://github.com/Travix-International/frint/pull/328) REPL: use Codesandbox.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
+## v3.0.1 (2017-09-28)
+
+#### Pull Requests
+* `frint-cli`
+  * [#321](https://github.com/Travix-International/frint/pull/321) frint-cli: fix. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#320](https://github.com/Travix-International/frint/pull/320) Examples: Upgraded to FrintJS v3. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.0.0 (2017-09-28)
+
+#### Pull Requests
+* Other
+  * [#312](https://github.com/Travix-International/frint/pull/312) Docs: Migration guide to v3. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#316](https://github.com/Travix-International/frint/pull/316) Import RxJS and Lodash modules individually. ([@fahad19](https://github.com/fahad19))
+* `frint`
+  * [#309](https://github.com/Travix-International/frint/pull/309) frint: Drop previously deprecated methods.. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`
+  * [#267](https://github.com/Travix-International/frint/pull/267) frint-compat: empty the package.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.8.1 (2017-09-26)
+
+#### Pull Requests
+* `frint-model`, `frint-store`
+  * [#313](https://github.com/Travix-International/frint/pull/313) Show  deprecated warnings when creating Store and Model classes. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.8.0 (2017-09-25)
+
+#### Pull Requests
+* `frint-store`
+  * [#310](https://github.com/Travix-International/frint/pull/310) frint-store: Deprecate `thunkArgument`, and introduce `deps`. ([@fahad19](https://github.com/fahad19))
+* `frint-model`
+  * [#308](https://github.com/Travix-International/frint/pull/308) frint-model: Deprecated. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.7.0 (2017-09-22)
+
+#### Pull Requests
+* `frint-data`
+  * [#305](https://github.com/Travix-International/frint/pull/305) frint-data: Reactive data modelling. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#304](https://github.com/Travix-International/frint/pull/304) Enable execution of npm scripts within subpackage folder. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
+## v2.6.0 (2017-09-19)
+
+#### Pull Requests
+* `frint-router-react`
+  * [#303](https://github.com/Travix-International/frint/pull/303) frint-router-react: inline rendering via Route component. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.5.0 (2017-09-12)
+
 #### Pull Requests
 * `frint-react`
   * [#295](https://github.com/Travix-International/frint/pull/295) frint-react: Allow observing parent component's props. ([@fahad19](https://github.com/fahad19))

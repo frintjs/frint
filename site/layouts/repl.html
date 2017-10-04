@@ -12,39 +12,14 @@
     </nav>
 
     <section class="editor-section">
-      <div class="columns">
-        <div class="column editor-column">
-          <div id="editor"></div>
-        </div>
-
-        <div class="column root-column">
-          <div id="root"></div>
-        </div>
-      </div>
+      <iframe
+        src="https://codesandbox.io/embed/6MNkoppL"
+        style="width:100%; height:1200px; border:0; border-radius: 4px; overflow:hidden;"
+        sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin">
+      </iframe>
     </section>
 
     <%= renderPartial('footer') %>
 
     <%= renderPartial('assets') %>
-
-    <!-- third-party libs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.5.10/prop-types.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.8/react-dom.min.js"></script>
-
-    <!-- frint -->
-    <script src="/js/dist/frint.js"></script>
-    <script src="/js/dist/frint-store.js"></script>
-    <script src="/js/dist/frint-model.js"></script>
-    <script src="/js/dist/frint-react.js"></script>
-
-    <!-- babel -->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
-    <!-- editor -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
-    <script src="/js/repl.js"></script>
-  </body>
 </html>

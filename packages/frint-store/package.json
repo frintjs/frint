@@ -1,6 +1,6 @@
 {
   "name": "frint-store",
-  "version": "2.5.0",
+  "version": "3.1.0",
   "description": "Store package for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-store",
@@ -30,6 +30,10 @@
   "dependencies": {
     "lodash": "^4.13.1",
     "rxjs": "^5.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "frint-config": "^3.1.0"
   },
   "bugs": {
     "url": "https://github.com/Travix-International/frint/issues"

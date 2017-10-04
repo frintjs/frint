@@ -163,7 +163,7 @@ export default createApp({
       useFactory: function ({ app }) { // the `app` instance via `deps`
         const Store = createStore({
           reducer: rootReducer,
-          thunkArgument: { app }
+          deps: { app }
         });
 
         return new Store();
@@ -183,7 +183,7 @@ export function incrementCounterAsync() {
   return function (dispatch, getState, { app }) {
     // `dispatch(actionPayload)` can dispatch another action
     // `getState()` returns the current state object
-    // `app` is available because of `thunkArgument`
+    // `app` is available because of `deps`
 
     setTimeout(function () {
       dispatch(incrementCounter()); // increment after 2 seconds

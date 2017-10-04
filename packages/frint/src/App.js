@@ -1,5 +1,13 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import _ from 'lodash';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of as of$ } from 'rxjs/observable/of';
+import { concatMap as concatMap$ } from 'rxjs/operator/concatMap';
+import { find as find$ } from 'rxjs/operator/find';
+import { map as map$ } from 'rxjs/operator/map';
+import { first as first$ } from 'rxjs/operator/first';
+import omit from 'lodash/omit';
+import lodashGet from 'lodash/get';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import { createContainer, resolveContainer } from 'travix-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
@@ -93,7 +101,7 @@ App.prototype._registerRootProviders = function _registerRootProviders() {
 
       const definedProvider = Object.assign(
         {},
-        _.omit(parentProvider, [
+        omit(parentProvider, [
           'useClass',
           'useValue',
           'useFactory'
@@ -174,7 +182,7 @@ App.prototype.getParentApps = function getParentApps() {
 };
 
 App.prototype.getOption = function getOption(key) {
-  return _.get(this.options, key);
+  return lodashGet(this.options, key);
 };
 
 App.prototype.getName = function getName() {
@@ -186,7 +194,7 @@ App.prototype.getProviders = function getProviders() {
 };
 
 App.prototype.getProvider = function getProvider(name) {
-  return _.find(this.options.providers, (p) => {
+  return find(this.options.providers, (p) => {
     return p.name === name;
   });
 };
@@ -207,7 +215,7 @@ App.prototype.getApps$ = function getApps$(regionName = null) {
   }
 
   return this._apps$
-    .map((collection) => {
+    ::map$((collection) => {
       return collection
         .filter((w) => {
           return w.regions.indexOf(regionName) > -1;
@@ -228,7 +236,7 @@ App.prototype.registerApp = function registerApp(AppClass, opts = {}) {
     });
   }
 
-  const existingIndex = _.findIndex(this._appsCollection, (w) => {
+  const existingIndex = findIndex(this._appsCollection, (w) => {
     return w.name === AppClass.frintAppName;
   });
 
@@ -262,7 +270,7 @@ App.prototype.hasAppInstance = function hasAppInstance(name, region = null, regi
 };
 
 App.prototype.getAppInstance = function getAppInstance(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._appsCollection, (w) => {
+  const index = findIndex(this._appsCollection, (w) => {
     return w.name === name;
   });
 
@@ -287,21 +295,21 @@ App.prototype.getAppOnceAvailable$ = function getAppOnceAvailable$(name, region 
   const w = rootApp.getAppInstance(name, region, regionKey);
 
   if (w) {
-    return Observable.of(w);
+    return of$(w);
   }
 
   return rootApp._apps$
-    .concatMap(y => y)
-    .find(app => app.name === name)
-    .map((x) => {
+    ::concatMap$(y => y)
+    ::find$(app => app.name === name)
+    ::map$((x) => {
       const instanceKey = makeInstanceKey(region, regionKey, x.multi);
       return x.instances[instanceKey];
     })
-    .first(y => y);
+    ::first$(y => y);
 };
 
 App.prototype.instantiateApp = function instantiateApp(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._appsCollection, (w) => {
+  const index = findIndex(this._appsCollection, (w) => {
     return w.App.frintAppName === name;
   });
 
@@ -313,7 +321,7 @@ App.prototype.instantiateApp = function instantiateApp(name, region = null, regi
   const key = makeInstanceKey(region, regionKey, w.multi);
 
   this._appsCollection[index].instances[key] = new w.App({
-    ..._.omit(w, ['App', 'instances']),
+    ...omit(w, ['App', 'instances']),
     name: w.App.frintAppName,
     parentApp: this,
   });
@@ -322,7 +330,7 @@ App.prototype.instantiateApp = function instantiateApp(name, region = null, regi
 };
 
 App.prototype.destroyApp = function destroyApp(name, region = null, regionKey = null) {
-  const index = _.findIndex(this._appsCollection, (w) => {
+  const index = findIndex(this._appsCollection, (w) => {
     if (!w || !w.App) {
       return false;
     }
@@ -348,22 +356,6 @@ App.prototype.destroyApp = function destroyApp(name, region = null, regionKey = 
 App.prototype.beforeDestroy = function beforeDestroy() {
   return this.options.beforeDestroy.bind(this)();
 };
-
-// @TODO: Get rid of *Widget* aliases
-[
-  { alias: 'getWidgets$', fn: 'getApps$' },
-  { alias: 'registerWidget', fn: 'registerApp' },
-  { alias: 'hasWidgetInstance', fn: 'hasWidgetInstance' },
-  { alias: 'getWidgetInstance', fn: 'getAppInstance' },
-  { alias: 'getWidgetOnceAvailable$', fn: 'getAppOnceAvailable$' },
-  { alias: 'destroyWidget', fn: 'destroyApp' },
-].forEach(({ alias, fn }) => {
-  App.prototype[alias] = function deprecatedAlias(...args) {
-    // eslint-disable-next-line no-console, prefer-template
-    console.warn('[DEPRECATED] `' + alias + '` has been deprecated. Use `' + fn + '` instead');
-    this[fn](...args);
-  };
-});
 
 // unregisterApp(name, region = null, regionKey = null) {
 //   // @TODO

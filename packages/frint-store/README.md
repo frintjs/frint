@@ -215,13 +215,19 @@ const rootReducer = combineReducers({
 So far we have created a reducer only, with no action creators. We can process them via epic as follows:
 
 ```js
+import { filter } from 'rxjs/operator/filter';
+import { delay } from 'rxjs/operator/delay';
+import { map } from 'rxjs/operator/map';
+
 function pingEpic(action$) {
   return action$
-    .filter(action.type === PING) // we only want PING actions here
-    .delay(100); // lets wait for 100ms asynchronously
-    .map(() => ({ type: PONG })); // after waiting, dispatch a PONG action
+    ::filter(action.type === PING) // we only want PING actions here
+    ::delay(100); // lets wait for 100ms asynchronously
+    ::map(() => ({ type: PONG })); // after waiting, dispatch a PONG action
 }
 ```
+
+The syntax above is written using the [bind-operator](https://github.com/tc39/proposal-bind-operator).
 
 Now just like our root reducer, we can create a root epic by combining them all:
 
@@ -267,13 +273,13 @@ Epics allow you to take full advantage of RxJS, and it makes it easier to handle
 
 ## Extra arguments
 
-You can use the `thunkArgument` option when defining your Store:
+You can use the `deps` option when defining your Store:
 
 ```js
 const Store = createStore({
   reducer: rootReducer,
   epic: rootEpic,
-  thunkArgument: { foo: 'some value' }
+  deps: { foo: 'some value' }
 });
 ```
 
@@ -316,7 +322,8 @@ This package is a close implementation of the APIs introduced by the awesome `re
     * `options.initialState` (`Any`): Default state to start with, defaults to `null`.
     * `options.console`: Override global console with something custom for logging.
     * `options.appendAction` (`Object`): Append extra values to Action payload.
-    * `options.thunkArgument` (`Any`): Extra argument to pass to async actions.
+    * `options.thunkArgument` (`Any`): Deprecated, use `deps` instead.
+    * `options.deps` (`Any`): Extra argument to pass to async actions.
     * `options.enableLogger` (`Boolean`): Enable/disable logging in development mode.
 
 ### Returns
@@ -393,7 +400,7 @@ Dispatches the action, which will later trigger changes in state.
 The `action` argument can also be a function:
 
 ```js
-function (dispatch, getState, thunkArgument) {
+function (dispatch, getState, deps) {
   dispatch(actionPayload);
 }
 ```

@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var externals = require('frint-config').externals;
 
 var minify = process.env.DIST_MIN;
 var plugins = !minify
@@ -23,10 +24,10 @@ module.exports = {
     libraryTarget: 'this',
     library: 'FrintComponentUtils'
   },
-  externals: {
+  externals: Object.assign({}, {
     'lodash': '_',
     'rxjs': 'Rx',
-  },
+  }, externals),
   target: 'web',
   plugins: plugins,
   module: {

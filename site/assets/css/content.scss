@@ -88,33 +88,9 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 .page-repl {
   & > .nav {
     position: relative;
-  }
 
-  .editor-section {
-    top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .editor-section,
-  .editor-section .columns,
-  .editor-column {
-    position: relative;
-    height: 100%;
-  }
-
-  .editor-column {
-    border-right: 1px solid #eee;
-  }
-
-  .root-column {
-    background: #fff;
-  }
-
-  #editor {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    & + section {
+      top: 0;
+    }
   }
 }

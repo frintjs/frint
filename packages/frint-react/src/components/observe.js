@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import composeHandlers from 'frint-component-utils/lib/composeHandlers';
 import ObserveHandler from 'frint-component-handlers/lib/ObserveHandler';

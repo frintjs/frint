@@ -1,4 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map as map$ } from 'rxjs/operator/map';
 
 import matchFromHistory from './matchFromHistory';
 
@@ -43,7 +44,7 @@ export default function makeRouterService(createHistory) {
 
     getLocation$() {
       return this.getHistory$()
-        .map(history => history.location);
+        ::map$(history => history.location);
     }
 
     getLocation() {
@@ -52,7 +53,7 @@ export default function makeRouterService(createHistory) {
 
     getMatch$(pattern, options = {}) {
       return this.getHistory$()
-        .map((history) => {
+        ::map$((history) => {
           return this.getMatch(pattern, history, options);
         });
     }

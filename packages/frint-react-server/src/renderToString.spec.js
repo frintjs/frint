@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it */
 import React from 'react';
-import { Observable } from 'rxjs';
+import { of as of$ } from 'rxjs/observable/of';
 import { expect } from 'chai';
 
 import { createApp } from 'frint';
@@ -49,7 +49,7 @@ describe('frint-react-server › renderToString', function () {
     }
 
     const ObservedTestComponent = observe(function (app) {
-      return Observable.of({
+      return of$({
         name: app.getName(),
       });
     })(TestComponent);

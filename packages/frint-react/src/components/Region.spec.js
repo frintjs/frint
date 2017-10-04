@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it, window, document, beforeEach, resetDOM */
 import { expect } from 'chai';
-import _ from 'lodash';
+import toArray from 'lodash/toArray';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import sinon from 'sinon';
 
 import { createApp } from 'frint';
@@ -235,7 +235,7 @@ describe('frint-react › components › Region', function () {
     expect(document.getElementById('app1-text').innerHTML).to.equal('Hello World from App1');
 
     // verify multi instance app
-    const elements = _.toArray(document.getElementsByClassName('app2-text'));
+    const elements = toArray(document.getElementsByClassName('app2-text'));
     elements.forEach((el, index) => {
       expect(el.innerHTML).to.contain('Hello World from App2 - ');
       expect(el.innerHTML).to.contain(todos[index].title);
@@ -250,7 +250,7 @@ describe('frint-react › components › Region', function () {
 
     // unmount
     ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-    expect(_.toArray(document.getElementsByClassName('app2-text')).length).to.equal(0);
+    expect(toArray(document.getElementsByClassName('app2-text')).length).to.equal(0);
   });
 
   it('calls beforeDestroy when unmounting multi-instance apps', function () {
@@ -333,7 +333,7 @@ describe('frint-react › components › Region', function () {
     });
 
     // verify multi instance app
-    const elements = _.toArray(document.getElementsByClassName('app-text'));
+    const elements = toArray(document.getElementsByClassName('app-text'));
     elements.forEach((el, index) => {
       expect(el.innerHTML).to.contain('Hello World from App - ');
       expect(el.innerHTML).to.contain(todos[index].title);
@@ -345,7 +345,7 @@ describe('frint-react › components › Region', function () {
     // change in props
     todos.pop(); // empty the list
     rootComponentInstance.forceUpdate();
-    const updatedElements = _.toArray(document.getElementsByClassName('app-text'));
+    const updatedElements = toArray(document.getElementsByClassName('app-text'));
     expect(updatedElements.length).to.equal(0);
 
     // check if beforeDestroy was called

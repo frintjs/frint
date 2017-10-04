@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import merge from 'lodash/merge';
 
 // TODO: this needs to be imported from 'ModelPlugin'
 import BaseModel from './Model';
@@ -16,7 +16,7 @@ export default function createModel(extend = {}) {
     }
   }
 
-  _.merge(Model.prototype, extend);
+  merge(Model.prototype, extend);
 
   return Model;
 }

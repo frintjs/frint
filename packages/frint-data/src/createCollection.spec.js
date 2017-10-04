@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
+import { take as take$ } from 'rxjs/operator/take';
+import { last as last$ } from 'rxjs/operator/last';
 
 import Types from './Types';
 import createModel from './createModel';
@@ -146,8 +148,8 @@ describe('frint-data › createCollection', function () {
     ]);
 
     people.get$()
-      .take(3)
-      .last()
+      ::take$(3)
+      ::last$()
       .subscribe(function (collection) {
         expect(collection.length).to.equal(3);
 
@@ -183,8 +185,8 @@ describe('frint-data › createCollection', function () {
     ]);
 
     people.listen$('change')
-      .take(2)
-      .last()
+      ::take$(2)
+      ::last$()
       .subscribe(function ({ collection }) {
         expect(collection.at(2).name).to.equal('Hermione Granger-Weasley');
 
@@ -214,8 +216,8 @@ describe('frint-data › createCollection', function () {
     ]);
 
     people.listen$('change')
-      .take(1)
-      .last()
+      ::take$(1)
+      ::last$()
       .subscribe(function ({ collection }) {
         expect(collection.length).to.equal(2);
         expect(collection.at(0).name).to.equal('Harry');

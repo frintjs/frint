@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 export default function makeMethodReactive(context, method) {
   Object.defineProperty(context, `${method}$`, {

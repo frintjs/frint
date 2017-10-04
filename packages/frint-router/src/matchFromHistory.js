@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import tail from 'lodash/tail';
+import zipObject from 'lodash/zipObject';
 import pathToRegexp from 'path-to-regexp';
 
 export default function matchFromHistory(pattern, history, options = {}) {
@@ -22,7 +23,7 @@ export default function matchFromHistory(pattern, history, options = {}) {
   }
 
   const url = matched[0];
-  const restValues = _.tail(matched);
+  const restValues = tail(matched);
   const keyNames = keys.map(k => k.name);
   const isExact = (url === history.location.pathname);
 
@@ -30,7 +31,7 @@ export default function matchFromHistory(pattern, history, options = {}) {
     return null;
   }
 
-  const params = _.zipObject(keyNames, restValues);
+  const params = zipObject(keyNames, restValues);
 
   return {
     url,

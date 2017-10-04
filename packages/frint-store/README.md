@@ -215,13 +215,19 @@ const rootReducer = combineReducers({
 So far we have created a reducer only, with no action creators. We can process them via epic as follows:
 
 ```js
+import { filter } from 'rxjs/operator/filter';
+import { delay } from 'rxjs/operator/delay';
+import { map } from 'rxjs/operator/map';
+
 function pingEpic(action$) {
   return action$
-    .filter(action.type === PING) // we only want PING actions here
-    .delay(100); // lets wait for 100ms asynchronously
-    .map(() => ({ type: PONG })); // after waiting, dispatch a PONG action
+    ::filter(action.type === PING) // we only want PING actions here
+    ::delay(100); // lets wait for 100ms asynchronously
+    ::map(() => ({ type: PONG })); // after waiting, dispatch a PONG action
 }
 ```
+
+The syntax above is written using the [bind-operator](https://github.com/tc39/proposal-bind-operator).
 
 Now just like our root reducer, we can create a root epic by combining them all:
 

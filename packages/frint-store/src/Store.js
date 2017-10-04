@@ -1,6 +1,11 @@
 /* eslint-disable no-console */
-import _ from 'lodash';
-import { Subject, BehaviorSubject } from 'rxjs';
+import isPlainObject from 'lodash/isPlainObject';
+import padStart from 'lodash/padStart';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map as map$ } from 'rxjs/operator/map';
+import { switchMap as switchMap$ } from 'rxjs/operator/switchMap';
+import { scan as scan$ } from 'rxjs/operator/scan';
 import ActionsObservable from './ActionsObservable';
 
 function Store(options = {}) {
@@ -16,17 +21,17 @@ function Store(options = {}) {
   };
 
   this.internalState$ = new BehaviorSubject(this.options.initialState)
-    .scan((previousState, action) => {
+    ::scan$((previousState, action) => {
       let updatedState;
       const d = new Date();
       const prettyDate = [
-        _.padStart(d.getHours(), 2, 0),
+        padStart(d.getHours(), 2, 0),
         ':',
-        _.padStart(d.getMinutes(), 2, 0),
+        padStart(d.getMinutes(), 2, 0),
         ':',
-        _.padStart(d.getSeconds(), 2, 0),
+        padStart(d.getSeconds(), 2, 0),
         '.',
-        _.padStart(d.getMilliseconds(), 3, 0)
+        padStart(d.getMilliseconds(), 3, 0)
       ].join('');
 
       try {
@@ -85,8 +90,8 @@ function Store(options = {}) {
     this._epic$ = new Subject();
 
     this._epicSubscription = this._epic$
-      .map(epic => epic(this._action$, this, this.options.deps))
-      .switchMap(output$ => output$)
+      ::map$(epic => epic(this._action$, this, this.options.deps))
+      ::switchMap$(output$ => output$)
       .subscribe(this.dispatch);
 
     this._epic$.next(this.options.epic);
@@ -114,7 +119,7 @@ Store.prototype.dispatch = function dispatch(action) {
 
   const payload = (
     this.options.appendAction &&
-    _.isPlainObject(this.options.appendAction)
+    isPlainObject(this.options.appendAction)
   )
     ? { ...this.options.appendAction, ...action }
     : action;

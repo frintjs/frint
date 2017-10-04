@@ -1,5 +1,7 @@
 /* eslint-disable func-names */
-import _ from 'lodash';
+import isArray from 'lodash/isArray';
+import isPlainObject from 'lodash/isPlainObject';
+import mapValues from 'lodash/mapValues';
 
 import TypesError from './errors/Types';
 import chain from './chainType';
@@ -52,7 +54,7 @@ Types.array = chain(function (value) {
     return value;
   }
 
-  if (!_.isArray(value)) {
+  if (!isArray(value)) {
     throw new TypesError('value is not an array');
   }
 
@@ -72,7 +74,7 @@ Types.func = chain(function (value) {
 });
 
 Types.enum = function (enums = []) {
-  if (!_.isArray(enums)) {
+  if (!isArray(enums)) {
     enums = [enums];
   }
 
@@ -94,7 +96,7 @@ Types.enum = function (enums = []) {
 };
 
 Types.enum.of = function (enumTypes = []) {
-  if (!_.isArray(enumTypes)) {
+  if (!isArray(enumTypes)) {
     enumTypes = [enumTypes];
   }
 
@@ -151,7 +153,7 @@ Types.object = chain(function (value) {
     return value;
   }
 
-  if (!_.isPlainObject(value)) {
+  if (!isPlainObject(value)) {
     throw new TypesError('value is not an object');
   }
 
@@ -159,7 +161,7 @@ Types.object = chain(function (value) {
 });
 
 function validateAndReturnObject(value, schema) {
-  return _.mapValues(schema, (type, k) => {
+  return mapValues(schema, (type, k) => {
     try {
       return type(value[k]);
     } catch (e) {
@@ -169,7 +171,7 @@ function validateAndReturnObject(value, schema) {
 }
 
 Types.object.of = function (schema) {
-  if (!_.isPlainObject(schema)) {
+  if (!isPlainObject(schema)) {
     throw new TypesError('`object.of` must receive a plain object');
   }
 
@@ -178,7 +180,7 @@ Types.object.of = function (schema) {
       return value;
     }
 
-    if (!_.isPlainObject(value)) {
+    if (!isPlainObject(value)) {
       throw new TypesError('value is not an object');
     }
 
@@ -219,7 +221,7 @@ Types.model.of = function (Model) {
       throw new TypesError('value is not instance of expected Model');
     }
 
-    if (_.isPlainObject(value)) {
+    if (isPlainObject(value)) {
       return new Model(value);
     }
 
@@ -260,7 +262,7 @@ Types.collection.of = function (Collection) {
       throw new TypesError('value is not instance of expected Collection');
     }
 
-    if (_.isArray(value)) {
+    if (isArray(value)) {
       return new Collection(value);
     }
 

@@ -1,3 +1,5 @@
+const externals = require('frint-config').externals;
+
 module.exports = {
   entry: {
     root: __dirname + '/root/index.js',
@@ -32,7 +34,7 @@ module.exports = {
     ]
   },
   plugins: [],
-  externals: {
+  externals: Object.assign({}, externals, {
     'lodash': '_',
     'frint': 'Frint',
     'frint-react': 'FrintReact',
@@ -40,8 +42,9 @@ module.exports = {
     'frint-router': 'FrintRouter',
     'frint-router/HashRouterService': 'FrintRouter.HashRouterService',
     'frint-router-react': 'FrintRouterReact',
+    'prop-types': 'PropTypes',
     'react': 'React',
     'react-dom': 'ReactDOM',
     'rxjs': 'Rx'
-  }
+  })
 };

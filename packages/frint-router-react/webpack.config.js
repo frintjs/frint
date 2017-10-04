@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var externals = require('frint-config').externals;
 
 var minify = process.env.DIST_MIN;
 var plugins = !minify
@@ -23,14 +24,14 @@ module.exports = {
     libraryTarget: 'this',
     library: 'FrintRouterReact'
   },
-  externals: {
+  externals: Object.assign({}, {
     'lodash': '_',
     'react': 'React',
     'rxjs': 'Rx',
     'prop-types': 'PropTypes',
     'frint-react': 'FrintReact',
     'frint-router': 'FrintRouter',
-  },
+  }, externals),
   target: 'web',
   plugins: plugins,
   module: {

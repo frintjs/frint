@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import merge from 'lodash/merge';
 
 import BaseStore from './Store';
 
@@ -10,7 +10,7 @@ export default function createStore(options = {}) {
 
   class Store extends BaseStore {
     constructor(opts = {}) {
-      super(_.merge(
+      super(merge(
         options,
         opts
       ));

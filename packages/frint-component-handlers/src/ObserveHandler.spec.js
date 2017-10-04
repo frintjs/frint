@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
-import { Observable } from 'rxjs';
+import { of as of$ } from 'rxjs/observable/of';
 
 import { composeHandlers } from 'frint-component-utils';
 import ObserveHandler from './ObserveHandler';
@@ -31,7 +31,7 @@ describe('frint-component-handlers › ObserveHandler', function () {
       ObserveHandler,
       {
         getProps$: function (a) {
-          return Observable.of({
+          return of$({
             appName: a.getName(),
           });
         },

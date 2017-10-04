@@ -1,5 +1,44 @@
 # Change Log
 
+## v3.1.0 (2017-10-04)
+
+#### Pull Requests
+* `frint-router-component-handlers`, `frint-router-react`
+  * [#327](https://github.com/Travix-International/frint/pull/327) frint-router-component-handlers. ([@viacheslaff](https://github.com/viacheslaff))
+* Other
+  * [#329](https://github.com/Travix-International/frint/pull/329) Update .gitignore to ignore all JetBrains IDEs files under .idea folder. ([@viacheslaff](https://github.com/viacheslaff))
+  * [#328](https://github.com/Travix-International/frint/pull/328) REPL: use Codesandbox.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
+## v3.0.1 (2017-09-28)
+
+#### Pull Requests
+* `frint-cli`
+  * [#321](https://github.com/Travix-International/frint/pull/321) frint-cli: fix. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#320](https://github.com/Travix-International/frint/pull/320) Examples: Upgraded to FrintJS v3. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.0.0 (2017-09-28)
+
+#### Pull Requests
+* Other
+  * [#312](https://github.com/Travix-International/frint/pull/312) Docs: Migration guide to v3. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#316](https://github.com/Travix-International/frint/pull/316) Import RxJS and Lodash modules individually. ([@fahad19](https://github.com/fahad19))
+* `frint`
+  * [#309](https://github.com/Travix-International/frint/pull/309) frint: Drop previously deprecated methods.. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`
+  * [#267](https://github.com/Travix-International/frint/pull/267) frint-compat: empty the package.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v2.8.1 (2017-09-26)
 
 #### Pull Requests

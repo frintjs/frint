@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 export default function addListenerMethod(context, instanceKey) {
   Object.defineProperty(context, 'listen$', {

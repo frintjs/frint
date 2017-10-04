@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /**
  * Webpack's `externals` equivalent object,
  * listing dependencies that Frint packages use.

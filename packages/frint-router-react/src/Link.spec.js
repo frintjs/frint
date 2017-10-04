@@ -118,9 +118,8 @@ describe('frint-route-react › Link', () => {
     expect(wrapper.hasClass('anchor-active')).to.be.false;
   });
 
-
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
-    'even when activeClassName is passed later on', function () {
+    'even when activeClassName is passed and changed later on', function () {
     const router = new MemoryRouterService();
 
     const wrapper = mount(
@@ -139,6 +138,9 @@ describe('frint-route-react › Link', () => {
 
     wrapper.setProps({ activeClassName: 'anchor-active' });
     expect(wrapper.hasClass('anchor-active')).to.be.true;
+
+    wrapper.setProps({ activeClassName: 'anchor-super-active' });
+    expect(wrapper.hasClass('anchor-super-active')).to.be.true;
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +

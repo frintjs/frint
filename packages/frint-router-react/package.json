@@ -28,6 +28,7 @@
     "frint"
   ],
   "dependencies": {
+    "frint-react": "^3.0.1",
     "frint-router": "^3.0.1",
     "frint-router-component-handlers": "^3.0.1"
   },
@@ -35,7 +36,6 @@
     "cross-env": "^5.0.5",
     "frint": "^3.0.1",
     "frint-config": "^3.0.1",
-    "frint-react": "^3.0.1",
     "frint-test-utils": "^3.0.1"
   },
   "bugs": {

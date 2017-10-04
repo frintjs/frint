@@ -33,6 +33,7 @@
   "devDependencies": {
     "cross-env": "^5.0.5",
     "frint": "^3.1.0",
+    "frint-config": "^3.1.0",
     "frint-router": "^3.1.0"
   },
   "bugs": {

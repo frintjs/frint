@@ -44,12 +44,6 @@ export default [
       commonjs2: 'react',
       amd: 'react',
     },
-    'react': {
-      root: 'React',
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'react',
-    },
     'react-dom': {
       root: 'ReactDOM',
       commonjs: 'react-dom',

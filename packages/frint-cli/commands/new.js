@@ -1,4 +1,4 @@
-/* eslint-disable no-multi-spaces, no-use-before-define */
+/* eslint-disable no-use-before-define */
 
 const mkdirp = require('mkdirp');
 const request = require('request');
@@ -32,6 +32,14 @@ Invalid <example> value. Must be in one of the following formats:
   * <name>
   * <organization>/<repository>/tree/<branch>/**
 `.trim();
+const COMPLETION_TEXT = `
+Done!
+
+Please run these two commands to start your application:
+
+  $ npm install
+  $ npm start
+`.trim();
 
 module.exports = createApp({
   name: 'new',
@@ -53,7 +61,7 @@ module.exports = createApp({
             .then(mapDepsToContext)
             .then(createOutputDirectory)
             .then(streamExampleToOutputDirectory)
-            .then(() => deps.console.log('Done!'))
+            .then(() => deps.console.log(COMPLETION_TEXT))
             .catch(deps.console.error);
         };
       },
@@ -68,8 +76,6 @@ module.exports = createApp({
 
 function mapDepsToContext(deps) {
   return new Promise((resolve, reject) => {
-    const ctx = {};
-
     // The <example> param has two shapes:
     // * <name> - example name from the official Frint GitHub repository
     // * <organization>/<repo>/tree/<branch>/** - full GitHub path to an arbitrary example
@@ -82,18 +88,34 @@ function mapDepsToContext(deps) {
     // <example> arg might start or end with a separator.
     const exampleParts = example.split('/').filter(str => str !== '');
 
-    const isFullExamplePath = exampleParts.length > 1;
+    const isCustomExample = exampleParts.length > 1;
+    resolve(isCustomExample ? getContextForCustomRepo() : getContextForDefaultRepo());
 
-    ctx.organization = isFullExamplePath ? exampleParts[0]                 : DEFAULT_ORGANIZATION;
-    ctx.repository   = isFullExamplePath ? exampleParts[1]                 : DEFAULT_REPOSITORY;
-    ctx.branch       = isFullExamplePath ? exampleParts[3]                 : DEFAULT_BRANCH;
-    ctx.examplePath  = isFullExamplePath ? exampleParts.slice(4).join('/') : `${DEFAULT_EXAMPLES_DIR}/${example}`;
+    function getContextForDefaultRepo() {
+      return {
+        organization: DEFAULT_ORGANIZATION,
+        repository: DEFAULT_REPOSITORY,
+        branch: DEFAULT_BRANCH,
+        examplePath: `${DEFAULT_EXAMPLES_DIR}/${example}`,
+        outputDirectory: getOutputDirectory(),
+      };
+    }
 
-    // If <directory> is specified, it is taken as the 1st value from params _ array.
-    // Note that this array does not include the <example> flag.
-    ctx.outputDirectory = deps.params._.length >= 1 ? deps.params._[0] : deps.pwd;
+    function getContextForCustomRepo() {
+      return {
+        organization: exampleParts[0],
+        repository: exampleParts[1],
+        branch: exampleParts[3],
+        examplePath: exampleParts.slice(4).join('/'),
+        outputDirectory: getOutputDirectory(),
+      };
+    }
 
-    resolve(ctx);
+    function getOutputDirectory() {
+      // If <directory> is specified, it is taken as the 1st value from params _ array.
+      // Note that this array does not include the <example> flag.
+      return deps.params._.length >= 1 ? deps.params._[0] : deps.pwd;
+    }
   });
 }
 

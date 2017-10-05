@@ -84,11 +84,7 @@ function mapDepsToContext(deps) {
       reject(INVALID_EXAMPLE_ARG_TEXT);
     }
 
-    // Split by '/' and filter out empty results.
-    // <example> arg might start or end with a separator.
-    const exampleParts = example.split('/').filter(str => str !== '');
-
-    const isCustomExample = exampleParts.length > 1;
+    const isCustomExample = example.indexOf('/') >= 0;
     resolve(isCustomExample ? getContextForCustomRepo() : getContextForDefaultRepo());
 
     function getContextForDefaultRepo() {
@@ -102,6 +98,9 @@ function mapDepsToContext(deps) {
     }
 
     function getContextForCustomRepo() {
+      // Split by '/' and filter out empty results.
+      // <example> arg might start or end with a separator.
+      const exampleParts = example.split('/').filter(str => str !== '');
       return {
         organization: exampleParts[0],
         repository: exampleParts[1],

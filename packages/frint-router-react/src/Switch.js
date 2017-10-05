@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 /* eslint-enable import/no-extraneous-dependencies */
+import { createSwitchHandler } from 'frint-router-component-handlers';
+import { ReactHandler } from 'frint-react';
 
 export default class Switch extends React.Component {
   static contextTypes = {
@@ -15,28 +17,17 @@ export default class Switch extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = {
-      history: null,
-    };
+    this._handler = createSwitchHandler(ReactHandler, this.context.app, this);
 
-    this._routerSubscription = null;
+    this.state = this._handler.getInitialData();
   }
 
   componentWillMount() {
-    this._routerSubscription = this.context.app
-      .get('router')
-      .getHistory$()
-      .subscribe((history) => {
-        this.setState({
-          history,
-        });
-      });
+    this._handler.beforeMount();
   }
 
   componentWillUnmount() {
-    if (this._routerSubscription) {
-      this._routerSubscription.unsubscribe();
-    }
+    this._handler.beforeDestroy();
   }
 
   render() {
@@ -54,9 +45,7 @@ export default class Switch extends React.Component {
       const { path, exact } = element.props;
 
       // if Route has no path (it's default) then getMatch will return match with whatever URL
-      const match = this.context.app
-        .get('router')
-        .getMatch(path, this.state.history, { exact });
+      const match = this._handler.getMatch(path, { exact });
 
       if (match !== null) {
         child = React.cloneElement(element, {

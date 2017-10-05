@@ -1,5 +1,7 @@
 import React from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types'; // eslint-disable-line import/no-extraneous-dependencies
+import { createLinkHandler } from 'frint-router-component-handlers';
+import { ReactHandler } from 'frint-react';
 
 export default class Link extends React.Component {
   static contextTypes = {
@@ -18,65 +20,30 @@ export default class Link extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = {
-      active: false,
-    };
+    this._handler = createLinkHandler(ReactHandler, this.context.app, this);
 
-    this.subscription = null;
+    this.state = this._handler.getInitialData();
   }
 
   componentDidMount() {
-    this.considerSubscribingToRouter(this.props);
+    this._handler.beforeMount();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.considerSubscribingToRouter(nextProps);
+    const toChanged = (this.props.to !== nextProps.to);
+    const exactChanged = (this.props.exact !== nextProps.exact);
+
+    this._handler.propsChange(nextProps, toChanged, exactChanged);
   }
 
   componentWillUnmount() {
-    this.unsubscribeFromRouter();
-  }
-
-  considerSubscribingToRouter(nextProps) {
-    if (typeof nextProps.activeClassName === 'string') {
-      if (!this.subscription ||
-          this.props.to !== nextProps.to ||
-          this.props.exact !== nextProps.exact) {
-        this.resubscribeToRouter(nextProps.to, nextProps.exact);
-      }
-    }
-  }
-
-  resubscribeToRouter(to, exact) {
-    this.unsubscribeFromRouter();
-
-    this.subscription = this.context.app
-      .get('router')
-      .getMatch$(to, { exact })
-      .subscribe((matched) => {
-        if (!matched) {
-          return this.setState({ active: false });
-        }
-
-        return this.setState({ active: true });
-      });
-  }
-
-  unsubscribeFromRouter() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this._handler.beforeDestroy();
   }
 
   handleClick = (e) => {
     e.preventDefault();
 
-    const router = this.context.app.get('router');
-    const to = this.props.to;
-
-    if (router.getMatch(to, router.getHistory(), { exact: true }) === null) {
-      router.push(to);
-    }
+    this._handler.handleClick();
   };
 
   render() {
@@ -93,7 +60,7 @@ export default class Link extends React.Component {
       className: className || '',
     };
 
-    if (this.state.active) {
+    if (this._handler.getData('active')) {
       linkProps.className += ` ${activeClassName}`;
     }
 

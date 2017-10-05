@@ -1,5 +1,18 @@
 # Change Log
 
+## v3.1.0 (2017-10-04)
+
+#### Pull Requests
+* `frint-router-component-handlers`, `frint-router-react`
+  * [#327](https://github.com/Travix-International/frint/pull/327) frint-router-component-handlers. ([@viacheslaff](https://github.com/viacheslaff))
+* Other
+  * [#329](https://github.com/Travix-International/frint/pull/329) Update .gitignore to ignore all JetBrains IDEs files under .idea folder. ([@viacheslaff](https://github.com/viacheslaff))
+  * [#328](https://github.com/Travix-International/frint/pull/328) REPL: use Codesandbox.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v3.0.1 (2017-09-28)
 
 #### Pull Requests

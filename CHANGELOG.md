@@ -1,5 +1,14 @@
 # Change Log
 
+# v3.1.1 (2017-10-06)
+
+#### Pull Requests
+* `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react`, `frint-router-component-handlers`, `frint-router-react`, `frint-router`, `frint-store`, `frint`
+  * [#332](https://github.com/Travix-International/frint/pull/332) Webpack: fix for dists. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v3.1.0 (2017-10-04)
 
 #### Pull Requests

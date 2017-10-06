@@ -21,17 +21,25 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: filename,
-    libraryTarget: 'this',
+    libraryTarget: 'umd',
     library: 'FrintRouterReact'
   },
-  externals: Object.assign({}, {
-    'lodash': '_',
-    'react': 'React',
-    'rxjs': 'Rx',
-    'prop-types': 'PropTypes',
-    'frint-react': 'FrintReact',
-    'frint-router': 'FrintRouter',
-  }, externals),
+  externals: externals.concat([
+    {
+      'frint-react': {
+        root: 'FrintReact',
+        commonjs: 'frint-react',
+        commonjs2: 'frint-react',
+        amd: 'frint-react',
+      },
+      'frint-router': {
+        root: 'FrintRouter',
+        commonjs: 'frint-router',
+        commonjs2: 'frint-router',
+        amd: 'frint-router',
+      },
+    },
+  ]),
   target: 'web',
   plugins: plugins,
   module: {

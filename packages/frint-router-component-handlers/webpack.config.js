@@ -13,8 +13,8 @@ var plugins = !minify
     })
   ];
 var filename = !minify
-  ? 'frint-router-react.js'
-  : 'frint-router-react.min.js';
+  ? 'frint-router-component-handlers.js'
+  : 'frint-router-component-handlers.min.js';
 
 module.exports = {
   entry: __dirname + '/src',
@@ -22,24 +22,9 @@ module.exports = {
     path: __dirname + '/dist',
     filename: filename,
     libraryTarget: 'umd',
-    library: 'FrintRouterReact'
+    library: 'FrintRouterComponentHandlers'
   },
-  externals: externals.concat([
-    {
-      'frint-react': {
-        root: 'FrintReact',
-        commonjs: 'frint-react',
-        commonjs2: 'frint-react',
-        amd: 'frint-react',
-      },
-      'frint-router': {
-        root: 'FrintRouter',
-        commonjs: 'frint-router',
-        commonjs2: 'frint-router',
-        amd: 'frint-router',
-      },
-    },
-  ]),
+  externals: externals,
   target: 'web',
   plugins: plugins,
   module: {

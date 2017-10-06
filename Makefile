@@ -61,8 +61,6 @@ site-build:
 
 	cp -rf ./site/assets/img ./_site/img
 
-	cp -rf ./packages/frint*/dist ./_site/js
-
 site-watch:
 	make site-build
 	fswatch -or './site' | xargs -I{} make site-build
@@ -76,8 +74,6 @@ site-serve:
 	make site-serve-only
 
 site-publish:
-	npm run bootstrap
-	npm run dist
 	rm -rf ./_site
 	make site-build
 	make site-publish-only
@@ -94,6 +90,20 @@ site-publish-only:
 	(cd ./_site && git add .)
 	(cd ./_site && git commit -am 'update site')
 	(cd ./_site && git push git@github.com:Travix-International/frint gh-pages --force)
+
+##
+# REPL
+#
+repl-update-dists:
+	npm run dist
+	cp -rf ./packages/frint*/dist/ ./repl/js/
+
+repl-serve-only:
+	./node_modules/.bin/live-server --port=6002 ./repl
+
+repl-serve:
+	make repl-update-dists
+	make repl-serve-only
 
 ##
 # Usage stats

@@ -21,17 +21,17 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: filename,
-    libraryTarget: 'this',
+    libraryTarget: 'umd',
     library: 'FrintReact'
   },
-  externals: Object.assign({}, {
-    'frint': 'Frint',
-    'lodash': '_',
-    'prop-types': 'PropTypes',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx',
-  }, externals),
+  externals: externals.concat([{
+    'frint': {
+      root: 'Frint',
+      commonjs: 'frint',
+      commonjs2: 'frint',
+      amd: 'frint',
+    },
+  }]),
   target: 'web',
   plugins: plugins,
   module: {

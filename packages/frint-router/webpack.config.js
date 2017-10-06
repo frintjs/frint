@@ -21,15 +21,10 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: filename,
-    libraryTarget: 'this',
+    libraryTarget: 'umd',
     library: 'FrintRouter'
   },
-  externals: Object.assign({}, {
-    'lodash': '_',
-    'react': 'React',
-    'rxjs': 'Rx',
-    'prop-types': 'PropTypes',
-  }, externals),
+  externals: externals,
   target: 'web',
   plugins: plugins,
   module: {

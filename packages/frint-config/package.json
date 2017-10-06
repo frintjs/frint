@@ -27,6 +27,9 @@
   "keywords": [
     "frint"
   ],
+  "dependencies": {
+    "webpack-rxjs-externals": "^1.0.0"
+  },
   "devDependencies": {
     "cross-env": "^5.0.5"
   },

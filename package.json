@@ -46,7 +46,7 @@
     "alex": "^5.0.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
-    "babel-eslint": "^7.1.0",
+    "babel-eslint": "^8.0.0",
     "babel-loader": "^7.1.0",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",

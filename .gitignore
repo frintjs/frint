@@ -7,6 +7,13 @@ lib
 _site
 package-lock.json
 
+examples/**/build/js/*.js
+examples/**/build/js/*.map
+examples/**/build/*.js
+examples/**/build/*.map
+
+repl/js/*.js
+
 # Ignore vim temporary files
 *~
 *.swp
@@ -118,11 +125,3 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
-
-examples/**/build/js/*.js
-examples/**/build/js/*.map
-examples/**/build/*.js
-examples/**/build/*.map
-
-dist/frint.js
-dist/frint.min.js

@@ -38,4 +38,4 @@ const config = require('frint-config');
 
 > externals
 
-Webpack's `externals` equivalent object for use in your own bundler.
+Webpack's `externals` equivalent array for use in your own bundler.

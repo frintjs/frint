@@ -92,6 +92,20 @@ site-publish-only:
 	(cd ./_site && git push git@github.com:Travix-International/frint gh-pages --force)
 
 ##
+# REPL
+#
+repl-update-dists:
+	npm run dist
+	cp -rf ./packages/frint*/dist/ ./repl/js/
+
+repl-serve-only:
+	./node_modules/.bin/live-server --port=6002 ./repl
+
+repl-serve:
+	make repl-update-dists
+	make repl-serve-only
+
+##
 # Usage stats
 #
 define list_usage_in_source

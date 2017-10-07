@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var externals = require('frint-config').externals;
 
 var minify = process.env.DIST_MIN;
 var plugins = !minify
@@ -20,16 +21,17 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: filename,
-    libraryTarget: 'this',
+    libraryTarget: 'umd',
     library: 'FrintReact'
   },
-  externals: {
-    'frint': 'Frint',
-    'lodash': '_',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx',
-  },
+  externals: externals.concat([{
+    'frint': {
+      root: 'Frint',
+      commonjs: 'frint',
+      commonjs2: 'frint',
+      amd: 'frint',
+    },
+  }]),
   target: 'web',
   plugins: plugins,
   module: {

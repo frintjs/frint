@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable no-console, global-require, import/no-dynamic-require */
+const Observable = require('rxjs').Observable;
 
 const App = require('../root');
 
@@ -31,7 +32,7 @@ function run() {
     console.log('\n');
     console.log('These commands are currently available:\n');
 
-    return app.getApps$()
+    return Observable.from(app.getApps$())
       .map(registeredApps => (
         registeredApps
           .map(registeredApp => registeredApp.name)

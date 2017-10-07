@@ -1,16 +1,32 @@
 import React from 'react';
 import { observe } from 'frint-react';
 import { Observable } from 'rxjs';
+import PropTypes from 'prop-types';
 
 import {
   changeColor
 } from '../actions/color';
 import {
   GREEN_COLOR,
-  RED_COLOR
+  RED_COLOR,
+  ORANGE_COLOR,
+  CHANGE_COLOR_ASYNC
 } from '../constants';
 
 class Root extends React.Component {
+  static propTypes = {
+    color: PropTypes.string,
+    counter: PropTypes.number,
+    incrementCounter: PropTypes.func,
+    decrementCounter: PropTypes.func,
+    changeColor: PropTypes.func,
+    changeColorAsync: PropTypes.func,
+    regionProps: PropTypes.object,
+    foo: PropTypes.object,
+    bar: PropTypes.object,
+    baz: PropTypes.object
+  };
+
   render() {
     const codeStyle = {
       color: this.props.color,
@@ -26,19 +42,28 @@ class Root extends React.Component {
         <div>
           <button
             className="button"
-            style={{backgroundColor: GREEN_COLOR, color: '#fff'}}
             onClick={() => this.props.changeColor(GREEN_COLOR)}
+            style={{ backgroundColor: GREEN_COLOR, color: '#fff' }}
           >
             Green
           </button>
 
           <button
             className="button"
-            style={{backgroundColor: RED_COLOR, color: '#fff'}}
             onClick={() => this.props.changeColor(RED_COLOR)}
+            style={{ backgroundColor: RED_COLOR, color: '#fff' }}
           >
             Red
           </button>
+
+          <button
+            className="button"
+            onClick={() => this.props.changeColorAsync(ORANGE_COLOR)}
+            style={{ backgroundColor: ORANGE_COLOR, color: '#fff' }}
+          >
+            Async
+          </button>
+
         </div>
 
         <p>Counter value from <strong>CounterApp</strong>: <code>{this.props.counter}</code></p>
@@ -98,7 +123,13 @@ export default observe(function (app) {
   const actions$ = Observable.of({
     changeColor: (...args) => {
       return store.dispatch(changeColor(...args));
-    }
+    },
+    changeColorAsync: (color) => {
+      return store.dispatch({
+        type: CHANGE_COLOR_ASYNC,
+        color,
+      });
+    },
   });
 
   const services$ = Observable.of({
@@ -124,13 +155,13 @@ export default observe(function (app) {
 
   const counterAppActions$ = counterApp$
     .map((counterApp) => {
-      const store = counterApp.get('store');
+      const storeCounter = counterApp.get('store');
 
       return {
         incrementCounter: () => {
-          return store.dispatch({ type: 'INCREMENT_COUNTER' });
+          return storeCounter.dispatch({ type: 'INCREMENT_COUNTER' });
         }
-      }
+      };
     });
 
   // combine them all into props

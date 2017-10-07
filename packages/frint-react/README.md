@@ -20,6 +20,7 @@
   - [Region](#region)
   - [RegionService](#regionservice)
   - [streamProps](#streamprops)
+  - [ReactHandler](#reacthandler)
 
 <!-- /MarkdownTOC -->
 
@@ -276,8 +277,9 @@ We have just made our simple Component reactive, by wrapping it with `observe`. 
 In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your App's component too:
 
 ```js
-const ObservedAppComponent = observe(function (app) {
+const ObservedAppComponent = observe(function (app, props$) {
   // `app` is your App instance
+  // `props$` is an Observable of props being passed by parent Component (if any)
 
   // let's keep our first interval Observable too
   const interval$ = Observable
@@ -468,7 +470,9 @@ Renders a Root App in target DOM node.
 ### Arguments
 
 1. `fn` (`Function`): The function returning an Observable.
-    * The `fn` accepts `app` as an argument, which is the instance of your Root App or the App in scope
+    * The `fn` accepts two arguments:
+      * `app`: the instance of your Root App or the App in scope
+      * `props$`: an Observable of props being passed by parent component (if any)
     * It should return an `Observable`
 
 ### Returns
@@ -489,99 +493,14 @@ The Region component.
 
 ## RegionService
 
-> RegionService
-
-If your App wishes to receive data coming from the Region component it rendered in, RegionService is your way to access it.
-
-Methods exposed by the instance:
-
-### emit
-
-> emit(props)
-
-The props that need to be emitted (Region component uses it internally).
-
-#### Arguments
-
-1. `props` (`Object`)
-
-#### Returns
-
-`void`.
-
-### getProps$
-
-> getProps$()
-
-#### Returns
-
-`Observable`: of emitted props from the Region component.
-
-### getData$
-
-> getdata$()
-
-#### Returns
-
-`Observable`: of the `data` prop from the Region component.
+Exported from [`frint-component-handlers`](../frint-component-handlers#streamprops).
 
 ## streamProps
 
-Helper function, for composing your props inside `observe`, and then generating and returning an single `Observable`.
+Exported from [`frint-component-utils`](../frint-component-utils#streamprops).
 
-### Arguments
+## ReactHandler
 
-1. `defaultProps` (`Object` [optional]): Default props to start with.
+> ReactHandler
 
-### Returns
-
-`Streamer` instance that implements these methods below:
-
-All `set*` methods return the same `Streamer` instance so multiple set calls can be chained in one go.
-
-#### set
-
-> set(key, value)
-
-> set(plainObject)
-
-> set(observable$, ...mapperFunctions)
-
-#### setKey
-
-> setKey('key', 'value')
-
-#### setPlainObject
-
-> setPlainObject({ key: 'value' })
-
-#### setObservable
-
-> setObservable(observable$, ...mapperFunctions)
-
-You can set as many mapper functions until you reach a value of your needs.
-
-```js
-setObservable(
-  observable$,
-  props => props, // no modification
-  propsAgain => modifiedProps // with modification
-)
-```
-
-#### setDispatch
-
-> setDispatch(actionCreators, store)
-
-```js
-setDispatch({
-  incrementCounter: incrementCounter,
-  decrementCounter: decrementCounter,
-}, store)
-```
-
-#### get$
-
-> get$()
-
-Returns an `Observable`.
+Handler for React, according to the spec defined in [`frint-component-utils`](../frint-component-utils).

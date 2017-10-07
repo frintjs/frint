@@ -5,6 +5,14 @@ export function resetDOM() {
   global.window = global.document.defaultView;
   global.location = global.window.location;
   global.navigator = { userAgent: 'node.js' };
+
+  /*
+  Temporary fix for chai's expect(plainObject1).to.include(plainObject2) to work.
+  Until these are solved:
+  - https://github.com/chaijs/type-detect/pull/91
+  - https://github.com/chaijs/type-detect/issues/98
+  */
+  global.HTMLElement = global.window.HTMLElement;
 }
 
 export function takeOverConsole(console) {

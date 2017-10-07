@@ -15,6 +15,7 @@
 - [API](#api)
   - [App](#app)
   - [createApp](#createapp)
+  - [app](#app-1)
 
 <!-- /MarkdownTOC -->
 
@@ -388,12 +389,6 @@ Gives you the computed value of the provider.
 
 `Observable`: That emits an array of most recent available Apps.
 
-### app.getWidgets$ [deprecated]
-
-> app.getWidgets$(regionName = null)
-
-Alias to [`app.getApps$`](#app-getapps-)
-
 ### app.registerApp
 
 > app.registerApp(App, options = {})
@@ -411,12 +406,6 @@ Register App class to Root app.
 
 `void`
 
-### app.registerWidget [deprecated]
-
-> app.registerWidget(App, options = {})
-
-Alias to [`app.registerApp`](#app-registerapp)
-
 ### app.hasAppInstance
 
 > app.hasAppInstance(name, region = null, regionKey = null)
@@ -432,12 +421,6 @@ Check if App instance is available or not.
 #### Returns
 
 `Boolean`: A flag indicating whether an App instance whose name matches the provided `name` parameter is available or not
-
-### app.hasWidgetInstance [deprecated]
-
-> app.hasWidgetInstance(name, region = null, regionKey = null)
-
-Alias to [`app.hasAppInstance`](#app-hasappinstance)
 
 ### app.getAppInstance
 
@@ -455,12 +438,6 @@ Gets the App instance if available.
 
 `App|Boolean`: The app instance, or false if not availble.
 
-### app.getWidgetInstance [deprecated]
-
-> app.getWidgetInstance(name, region = null, regionKey = null)
-
-Alias to [`app.getAppInstance`](#app-getappinstance)
-
 ### app.getAppOnceAvailable$
 
 > app.getAppOnceAvailable$(name, region = null, regionKey = null)
@@ -476,12 +453,6 @@ Returns an Observable, which emits with the App's instance once it is available.
 #### Returns
 
 `Observable`: Emits the App instance once found, only once.
-
-### app.getWidgetOnceAvailable$ [deprecated]
-
-> app.getWidgetOnceAvailable$(name, region = null, regionKey = null)
-
-Alias to [`app.getAppOnceAvailable$`](#app-getapponceavailable-)
 
 ### app.instantiateApp
 
@@ -499,12 +470,6 @@ Instantiates the registered App class, (for the targetted region/regionKey if it
 
 `Array`: The updated collection of apps.
 
-### app.instantiateWidget [deprecated]
-
-> app.instantiateWidget(name, region = null, regionKey = null)
-
-Alias to [`app.instantiateApp`](#app-instantiateapp)
-
 ### app.destroyApp
 
 > app.destroyApp(name, region = null, regionKey = null)
@@ -520,9 +485,3 @@ Destroys App instance.
 #### Returns
 
 `void`.
-
-### app.destroyWidget [deprecated]
-
-> app.destroyWidget(name, region = null, regionKey = null)
-
-Alias to [`app.destroyApp`](#app-destroyapp)

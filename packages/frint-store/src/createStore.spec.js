@@ -1,9 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
+import { filter as filter$ } from 'rxjs/operator/filter';
+import { delay as delay$ } from 'rxjs/operator/delay';
+import { map as map$ } from 'rxjs/operator/map';
+import { take as take$ } from 'rxjs/operator/take';
+import { last as last$ } from 'rxjs/operator/last';
+import { scan as scan$ } from 'rxjs/operator/scan';
 
 import createStore from './createStore';
 import combineReducers from './combineReducers';
+import combineEpics from './combineEpics';
 
 describe('frint-store › createStore', function () {
   it('returns function', function () {
@@ -11,7 +18,7 @@ describe('frint-store › createStore', function () {
     expect(Store).to.be.a('function');
   });
 
-  it('returns initial state upon subscription', function (done) {
+  it('returns initial state upon subscription', function () {
     const Store = createStore();
     const store = new Store({
       enableLogger: false,
@@ -25,8 +32,6 @@ describe('frint-store › createStore', function () {
         expect(state).to.deep.equal({
           ok: true,
         });
-
-        done();
       });
 
     subscription.unsubscribe();
@@ -115,11 +120,11 @@ describe('frint-store › createStore', function () {
     subscription.unsubscribe();
   });
 
-  it('dispatches async actions, with thunk argument', function () {
+  it('dispatches async actions, with deps argument', function () {
     const actions = [];
     const Store = createStore({
       enableLogger: false,
-      thunkArgument: { foo: 'bar' },
+      deps: { foo: 'bar' },
       initialState: {
         counter: 0,
       },
@@ -149,10 +154,10 @@ describe('frint-store › createStore', function () {
       });
 
     store.dispatch({ type: 'INCREMENT_COUNTER' });
-    store.dispatch(function (dispatch, getState, thunkArg) {
+    store.dispatch(function (dispatch, getState, deps) {
       dispatch({
         type: 'INCREMENT_COUNTER',
-        thunkArg
+        deps
       });
     });
     store.dispatch({ type: 'DECREMENT_COUNTER' });
@@ -160,7 +165,7 @@ describe('frint-store › createStore', function () {
     expect(actions).to.deep.equal([
       { type: '__FRINT_INIT__' },
       { type: 'INCREMENT_COUNTER' },
-      { type: 'INCREMENT_COUNTER', thunkArg: { foo: 'bar' } },
+      { type: 'INCREMENT_COUNTER', deps: { foo: 'bar' } },
       { type: 'DECREMENT_COUNTER' },
     ]);
 
@@ -178,6 +183,10 @@ describe('frint-store › createStore', function () {
   it('destroys internal subscription', function () {
     const Store = createStore({
       enableLogger: false,
+      epic: function (action$) {
+        return action$
+          ::filter$(action => action.type === 'PING');
+      },
       initialState: {
         counter: 0
       }
@@ -441,5 +450,81 @@ describe('frint-store › createStore', function () {
 
       subscription.unsubscribe();
     });
+  });
+
+  it('creates Store with epics', function (done) {
+    // constants
+    const PING = 'PING';
+    const PONG = 'PONG';
+
+    const INITIAL_STATE = {
+      isPinging: false,
+    };
+
+    // reducers
+    function pingReducer(state = INITIAL_STATE, action) {
+      switch (action.type) {
+        case PING:
+          return {
+            isPinging: true,
+          };
+
+        case PONG:
+          return {
+            isPinging: false,
+          };
+
+        default:
+          return state;
+      }
+    }
+
+    const rootReducer = combineReducers({
+      ping: pingReducer,
+    });
+
+    // epics
+    function pingEpic$(action$) {
+      return action$
+        ::filter$(action => action.type === PING)
+        ::delay$(10)
+        ::map$(() => ({ type: PONG }));
+    }
+
+    const rootEpic$ = combineEpics(pingEpic$);
+
+    // Store
+    const Store = createStore({
+      enableLogger: false,
+      reducer: rootReducer,
+      epic: rootEpic$,
+    });
+
+    const store = new Store();
+
+    expect(store.getState().ping.isPinging).to.equal(false);
+
+    store.getState$()
+      ::take$(3)
+      ::scan$(
+        function (acc, curr) {
+          acc.push({ isPinging: curr.ping.isPinging });
+
+          return acc;
+        },
+        []
+      )
+      ::last$()
+      .subscribe(function (pingStates) {
+        expect(pingStates).to.deep.equal([
+          { isPinging: false }, // initial state
+          { isPinging: true }, // after PING
+          { isPinging: false }, // after PING has dispatched PONG
+        ]);
+
+        done();
+      });
+
+    store.dispatch({ type: PING });
   });
 });

@@ -1,5 +1,208 @@
 # Change Log
 
+# v3.1.1 (2017-10-06)
+
+#### Pull Requests
+* `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react`, `frint-router-component-handlers`, `frint-router-react`, `frint-router`, `frint-store`, `frint`
+  * [#332](https://github.com/Travix-International/frint/pull/332) Webpack: fix for dists. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.1.0 (2017-10-04)
+
+#### Pull Requests
+* `frint-router-component-handlers`, `frint-router-react`
+  * [#327](https://github.com/Travix-International/frint/pull/327) frint-router-component-handlers. ([@viacheslaff](https://github.com/viacheslaff))
+* Other
+  * [#329](https://github.com/Travix-International/frint/pull/329) Update .gitignore to ignore all JetBrains IDEs files under .idea folder. ([@viacheslaff](https://github.com/viacheslaff))
+  * [#328](https://github.com/Travix-International/frint/pull/328) REPL: use Codesandbox.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
+## v3.0.1 (2017-09-28)
+
+#### Pull Requests
+* `frint-cli`
+  * [#321](https://github.com/Travix-International/frint/pull/321) frint-cli: fix. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#320](https://github.com/Travix-International/frint/pull/320) Examples: Upgraded to FrintJS v3. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.0.0 (2017-09-28)
+
+#### Pull Requests
+* Other
+  * [#312](https://github.com/Travix-International/frint/pull/312) Docs: Migration guide to v3. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#316](https://github.com/Travix-International/frint/pull/316) Import RxJS and Lodash modules individually. ([@fahad19](https://github.com/fahad19))
+* `frint`
+  * [#309](https://github.com/Travix-International/frint/pull/309) frint: Drop previously deprecated methods.. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`
+  * [#267](https://github.com/Travix-International/frint/pull/267) frint-compat: empty the package.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.8.1 (2017-09-26)
+
+#### Pull Requests
+* `frint-model`, `frint-store`
+  * [#313](https://github.com/Travix-International/frint/pull/313) Show  deprecated warnings when creating Store and Model classes. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.8.0 (2017-09-25)
+
+#### Pull Requests
+* `frint-store`
+  * [#310](https://github.com/Travix-International/frint/pull/310) frint-store: Deprecate `thunkArgument`, and introduce `deps`. ([@fahad19](https://github.com/fahad19))
+* `frint-model`
+  * [#308](https://github.com/Travix-International/frint/pull/308) frint-model: Deprecated. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.7.0 (2017-09-22)
+
+#### Pull Requests
+* `frint-data`
+  * [#305](https://github.com/Travix-International/frint/pull/305) frint-data: Reactive data modelling. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#304](https://github.com/Travix-International/frint/pull/304) Enable execution of npm scripts within subpackage folder. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
+## v2.6.0 (2017-09-19)
+
+#### Pull Requests
+* `frint-router-react`
+  * [#303](https://github.com/Travix-International/frint/pull/303) frint-router-react: inline rendering via Route component. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.5.0 (2017-09-12)
+
+#### Pull Requests
+* `frint-react`
+  * [#295](https://github.com/Travix-International/frint/pull/295) frint-react: Allow observing parent component's props. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v2.4.1 (2017-09-06)
+
+#### Pull Requests
+* `frint-cli`
+  * [#283](https://github.com/Travix-International/frint/pull/283) frint-cli: fix init command on Windows platform. ([@discosultan](https://github.com/discosultan))
+* Other
+  * [#293](https://github.com/Travix-International/frint/pull/293) Ignore package-lock.json. ([@discosultan](https://github.com/discosultan))
+  * [#286](https://github.com/Travix-International/frint/pull/286) Remove end of line setting from .editorconfig. ([@discosultan](https://github.com/discosultan))
+  * [#288](https://github.com/Travix-International/frint/pull/288) Fix typo in Hello World guide. ([@discosultan](https://github.com/discosultan))
+  * [#284](https://github.com/Travix-International/frint/pull/284) Link to `frint-vue`.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
+## v2.4.0 (2017-08-30)
+
+#### Pull Requests
+* `frint-component-handlers`, `frint-component-utils`, `frint-react`
+  * [#277](https://github.com/Travix-International/frint/pull/277) Handlers for abstracting reactive components. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`, `frint-compat`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#281](https://github.com/Travix-International/frint/pull/281) Fix script errors on Windows platform. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
+## v2.3.1 (2017-08-30)
+
+#### Pull Requests
+* `frint-react`
+  * [#280](https://github.com/Travix-International/frint/pull/280) frint-react: Declare app in context of Region. ([@reaktivo](https://github.com/reaktivo))
+  * [#278](https://github.com/Travix-International/frint/pull/278) Make `isObservable` more generic. ([@DzmitryKukharuk](https://github.com/DzmitryKukharuk))
+* Other
+  * [#276](https://github.com/Travix-International/frint/pull/276) Remove redundant square brackets from Code of Conduct. ([@gtzio](https://github.com/gtzio))
+  * [#275](https://github.com/Travix-International/frint/pull/275) Code of Conduct. ([@gtzio](https://github.com/gtzio))
+
+#### Committers: 3
+- Georgia Tziola ([gtzio](https://github.com/gtzio))
+- Marcel Miranda Ackerman ([reaktivo](https://github.com/reaktivo))
+- Dzmitry Kukharuk [DzmitryKukharuk](https://github.com/DzmitryKukharuk)
+
+## v2.3.0 (2017-08-23)
+
+#### Pull Requests
+* `frint-store`
+  * [#271](https://github.com/Travix-International/frint/pull/271) frint-store: Epics ([@fahad19](https://github.com/fahad19), [@nunorfpt](https://github.com/nunorfpt))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Nuno Fatela ([nunorfpt](https://github.com/nunorfpt))
+
+## v2.2.1 (2017-08-21)
+
+#### Pull Requests
+* Other
+  * [#263](https://github.com/Travix-International/frint/pull/263) Site: fix REPL by loading `prop-types`.. ([@fahad19](https://github.com/fahad19))
+  * [#255](https://github.com/Travix-International/frint/pull/255) Homepage: header updated. ([@fahad19](https://github.com/fahad19))
+  * [#254](https://github.com/Travix-International/frint/pull/254) Migration to v1.x docs: Add information about combineReducers. ([@viacheslaff](https://github.com/viacheslaff))
+* `frint-compat`, `frint-model`, `frint-react`, `frint-router-react`
+  * [#261](https://github.com/Travix-International/frint/pull/261) Apply Webpack’s `externals` more accurately to reduce dist sizes.. ([@fahad19](https://github.com/fahad19))
+* `frint-model`
+  * [#258](https://github.com/Travix-International/frint/pull/258) Extend the prototype of Model at definition time. ([@reaktivo](https://github.com/reaktivo))
+* `frint-store`
+  * [#251](https://github.com/Travix-International/frint/pull/251) frint-store: Fix wrong combineReducers require in docs. ([@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 3
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Marcel Miranda Ackerman ([reaktivo](https://github.com/reaktivo))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
+## v2.2.0 (2017-08-01)
+
+#### Pull Requests
+
+* `frint-router`, `frint-router-react`, `frint-react`
+  * [#244](https://github.com/Travix-International/frint/pull/244) Router. ([@fahad19](https://github.com/fahad19), [@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn), [@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 3
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Ricardo Machado ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
+## v2.1.0 (2017-07-26)
+
+#### Pull Requests
+* Other
+  * [#231](https://github.com/Travix-International/frint/pull/231) Update lerna-changelog to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+  * [#206](https://github.com/Travix-International/frint/pull/206) Feature #193, allow loading root and child apps asynchronously. ([@reaktivo](https://github.com/reaktivo))
+  * [#229](https://github.com/Travix-International/frint/pull/229) Fix for migration guide typos. ([@fahad19](https://github.com/fahad19))
+  * [#227](https://github.com/Travix-International/frint/pull/227) Upgrade all examples  to FrintJS v2.x. ([@fahad19](https://github.com/fahad19))
+  * [#226](https://github.com/Travix-International/frint/pull/226) Migration guide for v2.x. ([@fahad19](https://github.com/fahad19))
+* `frint-compat`, `frint-react-server`, `frint-react`, `frint`
+  * [#236](https://github.com/Travix-International/frint/pull/236) frint: new `app.getName` method. ([@gtzio](https://github.com/gtzio))
+* `frint-compat`, `frint`
+  * [#238](https://github.com/Travix-International/frint/pull/238) Fixes lint issues detected with the newest version of eslint-config-travix. ([@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+* `frint-compat`
+  * [#221](https://github.com/Travix-International/frint/pull/221) Update chai to the latest version 🚀. ([@greenkeeper[bot]](https://github.com/apps/greenkeeper))
+
+#### Committers: 4
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Georgia Tziola ([gtzio](https://github.com/gtzio))
+- Marcel Miranda Ackerman ([reaktivo](https://github.com/reaktivo))
+- Ricardo Machado ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+
 ## v2.0.1 (2017-06-19)
 
 Maintenance release to force all package versions in the monorepo to be same.

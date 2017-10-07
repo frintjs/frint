@@ -1,10 +1,11 @@
 import { createApp } from 'frint';
-import { createStore } from 'frint-store';
 import { RegionService } from 'frint-react';
+import { createStore } from 'frint-store';
 
 import { DEFAULT_COLOR } from '../constants';
 import RootComponent from '../components/Root';
 import rootReducer from '../reducers';
+import colorEpic$ from '../epics';
 
 export default createApp({
   name: 'ColorApp',
@@ -23,7 +24,8 @@ export default createApp({
             },
           },
           reducer: rootReducer,
-          thunkArgument: { app },
+          epic: colorEpic$,
+          deps: { app },
         });
 
         return new Store();

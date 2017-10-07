@@ -34,6 +34,17 @@ list-packages:
 list-updated:
 	./node_modules/.bin/lerna updated
 
+list-dists:
+	@echo "original \\t gzipped \\t file"
+	@echo "--- \\t\\t --- \\t\\t ---"
+	@ls -alh ./packages/frint*/dist/*.js | grep '.min.js' | awk '{print $$9 }' | while read LINE; do\
+		SIZE="$$(cat $${LINE} | wc -c | bc)";\
+		SIZE_IN_KB=$$(echo "scale=1; $${SIZE} / 1024" | bc);\
+		GZIPPED_SIZE="$$(gzip -c $${LINE} | wc -c | bc)";\
+		GZIPPED_SIZE_IN_KB=$$(echo "scale=1; $${GZIPPED_SIZE} / 1024" | bc);\
+		echo "$${SIZE_IN_KB}K \\t\\t $${GZIPPED_SIZE_IN_KB}K \\t\\t $${LINE}";\
+	done
+
 ##
 # Site
 site-fetch-contributors:
@@ -50,8 +61,6 @@ site-build:
 
 	cp -rf ./site/assets/img ./_site/img
 
-	cp -rf ./packages/frint*/dist ./_site/js
-
 site-watch:
 	make site-build
 	fswatch -or './site' | xargs -I{} make site-build
@@ -65,8 +74,6 @@ site-serve:
 	make site-serve-only
 
 site-publish:
-	npm run bootstrap
-	npm run dist
 	rm -rf ./_site
 	make site-build
 	make site-publish-only
@@ -83,3 +90,30 @@ site-publish-only:
 	(cd ./_site && git add .)
 	(cd ./_site && git commit -am 'update site')
 	(cd ./_site && git push git@github.com:Travix-International/frint gh-pages --force)
+
+##
+# REPL
+#
+repl-update-dists:
+	npm run dist
+	cp -rf ./packages/frint*/dist/ ./repl/js/
+
+repl-serve-only:
+	./node_modules/.bin/live-server --port=6002 ./repl
+
+repl-serve:
+	make repl-update-dists
+	make repl-serve-only
+
+##
+# Usage stats
+#
+define list_usage_in_source
+	find ./packages -iname "*.js" | grep "/src/" | grep -v -e ".spec.js" -e "/node_modules/" | xargs cat | grep $(1) | sort -u
+endef
+
+list-usage-rxjs:
+	@$(call list_usage_in_source,'rxjs/')
+
+list-usage-lodash:
+	@$(call list_usage_in_source,'lodash/')

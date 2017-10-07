@@ -1,30 +1,37 @@
 /* eslint-disable no-console */
-import _ from 'lodash';
-import { BehaviorSubject } from 'rxjs';
+import isPlainObject from 'lodash/isPlainObject';
+import padStart from 'lodash/padStart';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map as map$ } from 'rxjs/operator/map';
+import { switchMap as switchMap$ } from 'rxjs/operator/switchMap';
+import { scan as scan$ } from 'rxjs/operator/scan';
+import ActionsObservable from './ActionsObservable';
 
 function Store(options = {}) {
   this.options = {
     initialState: undefined,
-    thunkArgument: null,
+    deps: null,
     appendAction: false,
     reducer: state => state,
+    epic: null,
     enableLogger: true,
     console: console,
     ...options,
   };
 
   this.internalState$ = new BehaviorSubject(this.options.initialState)
-    .scan((previousState, action) => {
+    ::scan$((previousState, action) => {
       let updatedState;
       const d = new Date();
       const prettyDate = [
-        _.padStart(d.getHours(), 2, 0),
+        padStart(d.getHours(), 2, 0),
         ':',
-        _.padStart(d.getMinutes(), 2, 0),
+        padStart(d.getMinutes(), 2, 0),
         ':',
-        _.padStart(d.getSeconds(), 2, 0),
+        padStart(d.getSeconds(), 2, 0),
         '.',
-        _.padStart(d.getMilliseconds(), 3, 0)
+        padStart(d.getMilliseconds(), 3, 0)
       ].join('');
 
       try {
@@ -68,12 +75,30 @@ function Store(options = {}) {
       this.exposedState$.next(state);
     });
 
-  this.dispatch({ type: '__FRINT_INIT__' });
-
   this.getState = this.getState.bind(this);
   this.dispatch = this.dispatch.bind(this);
-}
 
+  // for epic
+  this._input$ = null;
+  this._action$ = null;
+  this._epic$ = null;
+  this._epicSubscription = null;
+
+  if (this.options.epic) {
+    this._input$ = new Subject();
+    this._action$ = new ActionsObservable(this._input$);
+    this._epic$ = new Subject();
+
+    this._epicSubscription = this._epic$
+      ::map$(epic => epic(this._action$, this, this.options.deps))
+      ::switchMap$(output$ => output$)
+      .subscribe(this.dispatch);
+
+    this._epic$.next(this.options.epic);
+  }
+
+  this.dispatch({ type: '__FRINT_INIT__' });
+}
 
 Store.prototype.getState$ = function getState$() {
   return this.exposedState$;
@@ -88,23 +113,32 @@ Store.prototype.dispatch = function dispatch(action) {
     return action(
       this.dispatch,
       this.getState,
-      this.options.thunkArgument
+      this.options.deps
     );
   }
 
   const payload = (
     this.options.appendAction &&
-    _.isPlainObject(this.options.appendAction)
+    isPlainObject(this.options.appendAction)
   )
     ? { ...this.options.appendAction, ...action }
     : action;
+  const result = this.internalState$.next(payload);
 
-  return this.internalState$.next(payload);
+  if (this.options.epic) {
+    this._input$.next(payload);
+  }
+
+  return result;
 };
 
 Store.prototype.destroy = function destroy() {
   if (this.subscription) {
     this.subscription.unsubscribe();
+  }
+
+  if (this._epicSubscription) {
+    this._epicSubscription.unsubscribe();
   }
 };
 

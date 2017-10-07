@@ -378,10 +378,10 @@ describe('frint-store › createStore', function () {
       store.dispatch({ type: 'SET_COLOR', color: 'green' });
 
       expect(states).to.deep.equal([
-        { counter: { value: 100 }, color: { value: 'red' } },  // initial
-        { counter: { value: 101 }, color: { value: 'red' } },  // INCREMENT_COUNTER
-        { counter: { value: 102 }, color: { value: 'red' } },  // INCREMENT_COUNTER
-        { counter: { value: 101 }, color: { value: 'red' } },  // DECREMENT_COUNTER
+        { counter: { value: 100 }, color: { value: 'red' } }, // initial
+        { counter: { value: 101 }, color: { value: 'red' } }, // INCREMENT_COUNTER
+        { counter: { value: 102 }, color: { value: 'red' } }, // INCREMENT_COUNTER
+        { counter: { value: 101 }, color: { value: 'red' } }, // DECREMENT_COUNTER
         { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
       ]);
 
@@ -407,10 +407,10 @@ describe('frint-store › createStore', function () {
       store.dispatch({ type: 'SET_COLOR', color: 'green' });
 
       expect(states).to.deep.equal([
-        { counter: { value: 0 }, color: { value: 'blue' } },  // initial
-        { counter: { value: 1 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
-        { counter: { value: 2 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
-        { counter: { value: 1 }, color: { value: 'blue' } },  // DECREMENT_COUNTER
+        { counter: { value: 0 }, color: { value: 'blue' } }, // initial
+        { counter: { value: 1 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
+        { counter: { value: 2 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
+        { counter: { value: 1 }, color: { value: 'blue' } }, // DECREMENT_COUNTER
         { counter: { value: 1 }, color: { value: 'green' } } // SET_COLOR
       ]);
 
@@ -441,10 +441,10 @@ describe('frint-store › createStore', function () {
       store.dispatch({ type: 'SET_COLOR', color: 'green' });
 
       expect(states).to.deep.equal([
-        { counter: { value: 100 }, color: { value: 'blue' } },  // initial
-        { counter: { value: 101 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
-        { counter: { value: 102 }, color: { value: 'blue' } },  // INCREMENT_COUNTER
-        { counter: { value: 101 }, color: { value: 'blue' } },  // DECREMENT_COUNTER
+        { counter: { value: 100 }, color: { value: 'blue' } }, // initial
+        { counter: { value: 101 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
+        { counter: { value: 102 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
+        { counter: { value: 101 }, color: { value: 'blue' } }, // DECREMENT_COUNTER
         { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
       ]);
 

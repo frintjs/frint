@@ -18,7 +18,7 @@ describe('frint-store › createStore', function () {
     expect(Store).to.be.a('function');
   });
 
-  it('returns initial state upon subscription', function (done) {
+  it('returns initial state upon subscription', function () {
     const Store = createStore();
     const store = new Store({
       enableLogger: false,
@@ -32,8 +32,6 @@ describe('frint-store › createStore', function () {
         expect(state).to.deep.equal({
           ok: true,
         });
-
-        done();
       });
 
     subscription.unsubscribe();

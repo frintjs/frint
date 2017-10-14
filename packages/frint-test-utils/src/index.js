@@ -5,6 +5,9 @@ export function resetDOM() {
   global.window = global.document.defaultView;
   global.location = global.window.location;
   global.navigator = { userAgent: 'node.js' };
+  global.requestAnimationFrame = function requestAnimationFrame(callback) {
+    setTimeout(callback, 0);
+  };
 
   /*
   Temporary fix for chai's expect(plainObject1).to.include(plainObject2) to work.

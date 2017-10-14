@@ -473,7 +473,7 @@ Renders a Root App in target DOM node.
     * The `fn` accepts two arguments:
       * `app`: the instance of your Root App or the App in scope
       * `props$`: an Observable of props being passed by parent component (if any)
-    * It should return an `Observable`
+    * It should return an `Observable` or `Object`
 
 ### Returns
 

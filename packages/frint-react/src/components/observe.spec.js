@@ -186,4 +186,40 @@ describe('frint-react › components › observe', function () {
     expect(wrapper.find('#name')).to.have.length(1);
     expect(wrapper.text()).to.contain('I am a child');
   });
+
+  it('can return props synchronously', function () {
+    function Component({ name }) {
+      return (
+        <div>
+          <p id="name">{name}</p>
+        </div>
+      );
+    }
+
+    const ObservedComponent = observe(function (app) {
+      return {
+        name: app.getName(),
+      };
+    })(Component);
+
+    const fakeApp = {
+      getName() {
+        return 'FakeApp';
+      }
+    };
+
+    function ComponentToRender(props) {
+      return (
+        <Provider app={fakeApp}>
+          <ObservedComponent {...props} />
+        </Provider>
+      );
+    }
+
+    const wrapper = mount(<ComponentToRender />);
+    expect(wrapper.find(ObservedComponent)).to.have.length(1);
+    expect(wrapper.find(Component)).to.have.length(1);
+    expect(wrapper.find('#name')).to.have.length(1);
+    expect(wrapper.text()).to.contain('FakeApp');
+  });
 });

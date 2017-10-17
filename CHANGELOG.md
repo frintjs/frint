@@ -1,5 +1,14 @@
 # Change Log
 
+## v3.2.1 (2017-10-17)
+
+#### Pull Requests
+* `frint-react`
+  * [#341](https://github.com/Travix-International/frint/pull/341) frint-react: load only required modules for `render`. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v3.2.0 (2017-10-16)
 
 #### Pull Requests

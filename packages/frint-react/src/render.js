@@ -1,11 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies, global-require */
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import FrintReact from './';
+import getMountableComponent from './components/getMountableComponent';
 
 export default function render(app, node) {
-  const MountableComponent = FrintReact.getMountableComponent(app);
+  const MountableComponent = getMountableComponent(app);
+  const ReactDOM = require('react-dom');
 
   return ReactDOM.render(<MountableComponent />, node);
 }

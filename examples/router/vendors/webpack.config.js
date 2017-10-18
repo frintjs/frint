@@ -1,10 +1,12 @@
+const path = require('path');
+
 module.exports = {
   entry: {
-    vendor: __dirname + '/index.js'
+    vendor: path.resolve(__dirname, 'index.js')
   },
   devtool: 'source-map',
   output: {
-    path: __dirname + '/../build/js',
+    path: path.resolve(__dirname, '../build/js'),
     filename: 'vendors.js'
   }
 };

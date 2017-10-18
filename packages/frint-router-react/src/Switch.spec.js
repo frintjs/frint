@@ -97,10 +97,9 @@ describe('frint-router-react › Switch', function () {
     );
 
     router.push('/about');
-
-    expect(wrapper.type()).to.equal(Route);
-
-    expect(wrapper.props()).to.deep.equal({
+    wrapper.update();
+    expect(wrapper.type()).to.eql(Route);
+    expect(wrapper.props()).to.eql({
       computedMatch: { url: '/about', isExact: true, params: {} },
       component: FirstComponent,
       path: '/about'
@@ -123,7 +122,7 @@ describe('frint-router-react › Switch', function () {
     );
 
     router.push('/services');
-
+    wrapper.update();
     expect(wrapper.type()).to.equal(Route);
     expect(wrapper.props()).to.deep.equal({
       component: DefaultComponent,

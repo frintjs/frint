@@ -72,15 +72,19 @@ describe('frint-route-react › Route', function () {
     );
 
     context.app.get('router').push('/');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
 
     context.app.get('router').push('/service');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
   });
 
@@ -101,15 +105,19 @@ describe('frint-route-react › Route', function () {
     );
 
     context.app.get('router').push('/');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.find('.url').text()).to.equal('/about');
 
     context.app.get('router').push('/service');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.find('.url').text()).to.equal('/about');
   });
 
@@ -123,15 +131,19 @@ describe('frint-route-react › Route', function () {
     );
 
     context.app.get('router').push('/');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
 
     context.app.get('router').push('/service');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
   });
 
@@ -148,10 +160,12 @@ describe('frint-route-react › Route', function () {
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
     expect(wrapper.prop('match')).to.include({ url: '/about', isExact: true });
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
     expect(wrapper.prop('match')).to.include({ url: '/about', isExact: false });
   });
@@ -225,6 +239,7 @@ describe('frint-route-react › Route', function () {
 
     it('gets rendered when path matches', function () {
       context.app.get('router').push('/about');
+      wrapper.update();
       expect(wrapper.html()).to.equal('<article>About</article>');
       expect(wrapper.prop('match')).to.include({ url: '/about' });
     });
@@ -281,6 +296,7 @@ describe('frint-route-react › Route', function () {
 
     it('renders HomeComponent when path matches', function () {
       context.app.get('router').push('/about');
+      wrapper.update();
       expect(wrapper.html()).to.equal('<header>Home</header>');
     });
 

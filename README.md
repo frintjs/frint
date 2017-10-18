@@ -113,6 +113,7 @@ The framework is a collection of these packages, which can be composed together 
 ## Community projects
 
 * [frint-vue](https://github.com/frintjs/frint-vue): Vue.js integration
+* [frint-react-native](https://github.com/frintjs/frint-react-native): React Native integration
 
 ## License
 

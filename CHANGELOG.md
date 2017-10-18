@@ -1,5 +1,26 @@
 # Change Log
 
+## v3.2.1 (2017-10-17)
+
+#### Pull Requests
+* `frint-react`
+  * [#341](https://github.com/Travix-International/frint/pull/341) frint-react: load only required modules for `render`. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.2.0 (2017-10-16)
+
+#### Pull Requests
+* `frint-react`
+  * [#339](https://github.com/Travix-International/frint/pull/339) frint-react: `observe` HoC can return props synchronously. ([@fahad19](https://github.com/fahad19))
+* `frint-store`
+  * [#324](https://github.com/Travix-International/frint/pull/324) Update eslint-config-travix to latest. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
 # v3.1.1 (2017-10-06)
 
 #### Pull Requests

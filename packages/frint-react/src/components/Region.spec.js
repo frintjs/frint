@@ -39,8 +39,7 @@ describe('frint-react › components › Region', function () {
     );
 
     const element = document.getElementById('my-component');
-    expect(element.innerHTML.startsWith('<!-- react-empty: ')).to.equal(true);
-    expect(element.innerHTML.endsWith(' -->')).to.equal(true);
+    expect(element.innerHTML).to.eql('');
   });
 
   it('renders apps with weighted ordering', function () {

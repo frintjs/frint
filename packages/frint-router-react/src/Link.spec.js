@@ -38,7 +38,7 @@ describe('frint-route-react › Link', () => {
     expect(wrapper.hasClass('anchor')).to.be.true;
 
     expect(wrapper.children().length).to.equal(1);
-    expect(wrapper.children().get(0)).to.equal(linkContent);
+    expect(wrapper.children().get(0)).to.eql(linkContent);
   });
 
   it('renders button with type, className and children when type prop is passed', function () {
@@ -54,7 +54,7 @@ describe('frint-route-react › Link', () => {
     expect(wrapper.hasClass('fancy-button')).to.be.true;
 
     expect(wrapper.children().length).to.equal(1);
-    expect(wrapper.children().get(0)).to.equal(linkContent);
+    expect(wrapper.children().get(0)).to.eql(linkContent);
   });
 
   it('subscribes to router service for  matching route inexactly and changes activeClass accordingly ' +
@@ -73,20 +73,24 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/');
-    expect(wrapper.hasClass('anchor')).to.be.true;
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor')).to.be.true;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor')).to.be.true;
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor')).to.be.true;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
 
     router.push('/about/whatever');
-    expect(wrapper.hasClass('anchor')).to.be.true;
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor')).to.be.true;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
 
     router.push('/');
-    expect(wrapper.hasClass('anchor')).to.be.true;
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor')).to.be.true;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
   });
 
   it('subscribes to router service for exactly matching route and changes activeClass accordingly ' +
@@ -106,16 +110,19 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/');
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
 
     router.push('/about/whatever');
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
 
     router.push('/');
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
@@ -133,14 +140,14 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
-
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
 
     wrapper.setProps({ activeClassName: 'anchor-active' });
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
 
     wrapper.setProps({ activeClassName: 'anchor-super-active' });
-    expect(wrapper.hasClass('anchor-super-active')).to.be.true;
+    expect(wrapper.find(Link).children().hasClass('anchor-super-active')).to.be.true;
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
@@ -159,13 +166,15 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
 
     wrapper.setProps({ to: '/contact' });
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
 
     router.push('/contact');
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
   });
 
   it('subscribes to router service for matching route and changes activeClass accordingly ' +
@@ -184,13 +193,17 @@ describe('frint-route-react › Link', () => {
     );
 
     router.push('/about/whatever');
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
+
 
     wrapper.setProps({ exact: true });
-    expect(wrapper.hasClass('anchor-active')).to.be.false;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.false;
 
     router.push('/about');
-    expect(wrapper.hasClass('anchor-active')).to.be.true;
+    wrapper.update();
+    expect(wrapper.find(Link).children().hasClass('anchor-active')).to.be.true;
   });
 
   it('unsubscribes from router getMatch$ when unmounted and when resubscribes', function () {

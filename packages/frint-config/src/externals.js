@@ -5,7 +5,7 @@
  */
 import webpackRxJsExternals from 'webpack-rxjs-externals';
 
-export const webpackRxJs = webpackRxJsExternals();
+export const rxJs = webpackRxJsExternals();
 
 export const lodash = function (context, request, callback) {
   if (request.startsWith('lodash/')) {
@@ -113,7 +113,7 @@ export const frint = [{
 
 export default [
   // rxjs/*
-  webpackRxJs,
+  rxJs,
 
   // lodash/*
   lodash,

@@ -2,13 +2,13 @@ import externals, {
   frint,
   lodash,
   thirdParties,
-  webpackRxJs
+  rxJs
 } from './externals';
 
 export default {
   externals,
   frintExternals: frint,
-  lodashExtrnals: lodash,
-  thisPartiesExternals: thirdParties,
-  wepackRxJsExternals: webpackRxJs
+  lodashExternals: lodash,
+  thirdPartiesExternals: thirdParties,
+  rxJsExternals: rxJs
 };

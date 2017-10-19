@@ -12,7 +12,8 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: __dirname + '/build/js',
-    filename: '[name].js'
+    filename: '[name].js',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
@@ -39,6 +40,6 @@ module.exports = {
   externals: []
     .concat(config.rxjsExternals)
     .concat(config.lodashExternals)
-    .concat(config.thirdPartiesExternals)
+    .concat(config.thirdPartyExternals)
     .concat(config.frintExternals),
 };

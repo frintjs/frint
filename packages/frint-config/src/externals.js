@@ -5,22 +5,24 @@
  */
 import webpackRxJsExternals from 'webpack-rxjs-externals';
 
-export const rxJs = webpackRxJsExternals();
+export const rxjs = [webpackRxJsExternals()];
 
-export const lodash = function (context, request, callback) {
-  if (request.startsWith('lodash/')) {
-    const subModule = request.split('/')[1];
+export const lodash = [
+  function (context, request, callback) {
+    if (request.startsWith('lodash/')) {
+      const subModule = request.split('/')[1];
 
-    return callback(null, {
-      root: ['_', subModule],
-      commonjs: request,
-      commonjs2: request,
-      amd: request,
-    });
+      return callback(null, {
+        root: ['_', subModule],
+        commonjs: request,
+        commonjs2: request,
+        amd: request,
+      });
+    }
+
+    return callback();
   }
-
-  return callback();
-};
+];
 
 // full imports
 export const thirdParties = [{
@@ -111,12 +113,6 @@ export const frint = [{
   }
 }];
 
-export default [
-  // rxjs/*
-  rxJs,
-
-  // lodash/*
-  lodash,
-
-  ...thirdParties
-];
+export default rxjs
+  .concat(lodash)
+  .concat(thirdParties);

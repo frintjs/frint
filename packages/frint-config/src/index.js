@@ -7,8 +7,8 @@ import externals, {
 
 export default {
   externals,
-  frint,
-  lodash,
-  thirdParties,
-  webpackRxJs
+  frintExternals: frint,
+  lodashExtrnals: lodash,
+  thisPartiesExternals: thirdParties,
+  wepackRxJsExternals: webpackRxJs
 };

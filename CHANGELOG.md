@@ -1,5 +1,19 @@
 # Change Log
 
+## v3.3.0 (2017-10-19)
+
+#### Pull Requests
+* `frint-config`
+  * [#346](https://github.com/Travix-International/frint/pull/346) frint-config: exports. ([@ascariandrea](https://github.com/ascariandrea))
+* `frint-react`, `frint-router-react`
+  * [#343](https://github.com/Travix-International/frint/pull/343) Fixed frint-router-react tests for React 16 compatibility. ([@ascariandrea](https://github.com/ascariandrea))
+* Other
+  * [#342](https://github.com/Travix-International/frint/pull/342) Add `frint-react-native`. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Andrea Ascari ([ascariandrea](https://github.com/ascariandrea))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v3.2.1 (2017-10-17)
 
 #### Pull Requests

@@ -2,13 +2,13 @@ import externals, {
   frint,
   lodash,
   thirdParties,
-  rxJs
+  rxjs
 } from './externals';
 
 export default {
   externals,
   frintExternals: frint,
   lodashExternals: lodash,
-  thirdPartiesExternals: thirdParties,
-  rxJsExternals: rxJs
+  thirdPartyExternals: thirdParties,
+  rxjsExternals: rxjs,
 };

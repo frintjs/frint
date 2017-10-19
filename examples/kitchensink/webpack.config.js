@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const externals = require('frint-config').externals;
+const config = require('frint-config');
 
 module.exports = {
   entry: {
@@ -36,15 +36,9 @@ module.exports = {
       }
     })
   ],
-  externals: Object.assign({}, externals, {
-    'lodash': '_',
-    'frint': 'Frint',
-    'frint-model': 'FrintModel',
-    'frint-react': 'FrintReact',
-    'frint-store': 'FrintStore',
-    'prop-types': 'PropTypes',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx'
-  })
+  externals: []
+    .concat(config.rxjsExternals)
+    .concat(config.lodashExternals)
+    .concat(config.thirdPartiesExternals)
+    .concat(config.frintExternals),
 };

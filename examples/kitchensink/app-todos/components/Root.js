@@ -1,6 +1,10 @@
 import React from 'react';
 import { observe, Region } from 'frint-react';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { map } from 'rxjs/operator/map';
+import { merge } from 'rxjs/operator/merge';
+import { scan } from 'rxjs/operator/scan';
 
 import { addTodo } from '../actions/todos';
 import Item from './Item';
@@ -51,14 +55,14 @@ export default observe(function (app) {
   const store = app.get('store');
 
   const state$ = store.getState$()
-    .map((state) => {
+    ::map((state) => {
       return {
         todos: state.todos.records,
       };
     });
 
   const formInput$ = (new BehaviorSubject(''))
-    .map((inputValue) => {
+    ::map((inputValue) => {
       return {
         inputValue,
       };
@@ -66,7 +70,7 @@ export default observe(function (app) {
   const clearInput = () => formInput$.next('');
   const changeInput = (value) => formInput$.next(value);
 
-  const actions$ = Observable.of({
+  const actions$ = of({
     addTodo: (...args) => {
       clearInput();
       return store.dispatch(addTodo(...args));
@@ -77,9 +81,9 @@ export default observe(function (app) {
   });
 
   return state$
-    .merge(actions$)
-    .merge(formInput$)
-    .scan((props, emitted) => {
+    ::merge(actions$)
+    ::merge(formInput$)
+    ::scan((props, emitted) => {
       return {
         ...props,
         ...emitted,

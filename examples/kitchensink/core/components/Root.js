@@ -1,6 +1,9 @@
 import React from 'react';
 import { Region, observe } from 'frint-react';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { merge } from 'rxjs/operator/merge';
+import { scan } from 'rxjs/operator/scan';
 
 class Root extends React.Component {
   render() {
@@ -75,22 +78,22 @@ export default observe(function (app) {
       };
     });
 
-  const actions$ = Observable.of({
+  const actions$ = of({
     toggle: (value) => {
       sidebarToggle$.next(value);
     }
   });
 
-  const services$ = Observable.of({
+  const services$ = of({
     foo: app.get('foo'),
     bar: app.get('bar'),
     baz: app.get('baz'),
   });
 
   return sidebarToggle$
-    .merge(actions$)
-    .merge(services$)
-    .scan((props, emitted) => {
+    ::merge(actions$)
+    ::merge(services$)
+    ::scan((props, emitted) => {
       return {
         ...props,
         ...emitted,

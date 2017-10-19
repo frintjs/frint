@@ -1,6 +1,10 @@
 import React from 'react';
 import { observe } from 'frint-react';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/operator/merge';
+import { scan } from 'rxjs/operator/scan';
+import { map } from 'rxjs/operator/map';
+import { concatMap } from 'rxjs/operator/concatMap';
 import PropTypes from 'prop-types';
 
 import {
@@ -107,14 +111,14 @@ export default observe(function (app) {
   const region = app.get('region');
 
   const state$ = store.getState$()
-    .map((state) => {
+    ::map((state) => {
       return {
         color: state.color.value,
       };
     });
 
   const regionProps$ = region.getProps$()
-    .map((regionProps) => {
+    ::map((regionProps) => {
       return {
         regionProps,
       };
@@ -142,19 +146,19 @@ export default observe(function (app) {
   const counterApp$ = app.getAppOnceAvailable$('CounterApp');
 
   const counterAppState$ = counterApp$
-    .concatMap((counterApp) => {
+    ::concatMap((counterApp) => {
       return counterApp
         .get('store')
         .getState$();
     })
-    .map((counterState) => {
+    ::map((counterState) => {
       return {
         counter: counterState.counter.value
       };
     });
 
   const counterAppActions$ = counterApp$
-    .map((counterApp) => {
+    ::map((counterApp) => {
       const storeCounter = counterApp.get('store');
 
       return {
@@ -166,12 +170,12 @@ export default observe(function (app) {
 
   // combine them all into props
   return state$
-    .merge(regionProps$)
-    .merge(actions$)
-    .merge(services$)
-    .merge(counterAppState$)
-    .merge(counterAppActions$)
-    .scan((props, emitted) => {
+    ::merge(regionProps$)
+    ::merge(actions$)
+    ::merge(services$)
+    ::merge(counterAppState$)
+    ::merge(counterAppActions$)
+    ::scan((props, emitted) => {
       return {
         ...props,
         ...emitted,

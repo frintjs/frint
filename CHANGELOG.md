@@ -1,5 +1,14 @@
 # Change Log
 
+## v3.3.1 (2017-10-19)
+
+#### Pull Requests
+* `frint-config`
+  * [#347](https://github.com/Travix-International/frint/pull/347) frint-config: casing for exported keys. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v3.3.0 (2017-10-19)
 
 #### Pull Requests

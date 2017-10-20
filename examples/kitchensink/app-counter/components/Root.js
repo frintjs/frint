@@ -83,7 +83,7 @@ class Root extends React.Component {
   }
 }
 
-export default observe(function (app) {
+export default observe(function (app) { // eslint-disable-line func-names
   return streamProps({}) // start with defualt props
     // map state to this Component's props
     .set(
@@ -98,8 +98,7 @@ export default observe(function (app) {
     )
 
     // map dispatchable actions
-    .setDispatch(
-    {
+    .setDispatch({
       incrementCounter,
       decrementCounter
     },

@@ -199,7 +199,10 @@ Now that we have the store ready, it's time to write our Component:
 ```js
 // components/Root.js
 import React, { Component } from 'react';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
+import { map } from 'rxjs/operators/map';
+import { merge } from 'rxjs/operators/merge';
+import { scan } from 'rxjs/operators/scan';
 import { observe } from 'frint-react';
 
 // our action creators
@@ -225,27 +228,32 @@ export default observe(function (app) {
   const state$ = store.getState$(); // state as an observable
 
   // Observable that maps state to props
-  const stateProps$ = state$.map(function (state) {
-    return {
-      counter: state.counter.value
-    };
-  });
+  const stateProps$ = state$
+    .pipe(
+      map(function (state) {
+        return {
+          counter: state.counter.value
+        };
+      })
+    );
 
   // Observable for our dispatchable action creators as props
-  const actionProps$ = Observable.of({
+  const actionProps$ = of({
     increment: (...args) => store.dispatch(incrementCounter(...args)),
     decrement: (...args) => store.dispatch(decrementCounter(...args)),
   });
 
   // merge the two Observables into one, and return
   return stateProps$
-    .merge(actionProps$)
-    .scan((props, emitted) => {
-      return {
-        ...props,
-        ...emitted,
-      };
-    });
+    .pipe(
+      merge(actionProps$),
+      scan((props, emitted) => {
+        return {
+          ...props,
+          ...emitted,
+        };
+      })
+    );
 })(Root);
 ```
 

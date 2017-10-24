@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
-import { take as take$ } from 'rxjs/operator/take';
-import { last as last$ } from 'rxjs/operator/last';
+import { take as take$ } from 'rxjs/operators/take';
+import { last as last$ } from 'rxjs/operators/last';
 
 import Types from './Types';
 import createModel from './createModel';
@@ -398,8 +398,10 @@ describe('frint-data › createModel', function () {
     });
 
     person.get$() // 1
-      ::take$(3)
-      ::last$()
+      .pipe(
+        take$(3),
+        last$()
+      )
       .subscribe(function (p) {
         expect(p.name).to.equal('Frint changed again');
 
@@ -437,8 +439,10 @@ describe('frint-data › createModel', function () {
     });
 
     person.get$()
-      ::take$(3)
-      ::last$()
+      .pipe(
+        take$(3),
+        last$()
+      )
       .subscribe(function (p) {
         expect(p.address.street).to.equal('New Street Again');
 
@@ -478,8 +482,10 @@ describe('frint-data › createModel', function () {
     });
 
     author.get$()
-      ::take$(3)
-      ::last$()
+      .pipe(
+        take$(3),
+        last$()
+      )
       .subscribe(function (a) {
         expect(a.books.length).to.equal(2);
 

@@ -20,6 +20,7 @@ sidebarPartial: guidesSidebar
   - [Map](#map)
   - [Merge](#merge)
   - [Scan](#scan)
+- [Lettable operators](#lettable-operators)
 - [Further reading](#further-reading)
 
 <!-- /MarkdownTOC -->
@@ -230,6 +231,38 @@ merged$
   });
 ```
 
+## Lettable operators
+
+Since RxJS v5.5, it has introduced [lettable operators](https://github.com/ReactiveX/rxjs/blob/master/doc/lettable-operators.md) so that only the operators your application needs can be bundled, reducing overall bundle size.
+
+You are highly recommended to use RxJS this way:
+
+```js
+import { Observable } from 'rxjs/Observable'; // Rx.Observable
+import { Subject } from 'rxjs/Subject'; // Rx.Subject
+
+import { of } from 'rxjs/observable/of'; // Rx.Observable.of
+import { interval } from 'rxjs/observable/interval'; // Rx.Observable.interval
+
+import { map } from 'rxjs/operators/map';
+import { filter } from 'rxjs/operators/filter';
+```
+
+The imported `Observable` will not make any operators available in its instance (like `map`, `filter`) automatically. And you need to pipe them yourself:
+
+```js
+const numbers$ = of(1, 2, 3, 4, 5);
+
+const evenMultipliedBy10$ = numbers$
+  .pipe(
+    filter(x => x % 2 === 0), // keep only even numbers
+    map(x => x * 10) // multiply by 10
+  );
+
+evenMultipliedBy10$.subscribe(x => console.log(x));
+// outputs: 20, 40
+```
+
 ## Further reading
 
 * [Observable](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html)
@@ -237,3 +270,4 @@ merged$
 * [Subscriber](http://reactivex.io/rxjs/class/es6/Subscriber.js~Subscriber.html)
 * [Subscription](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html)
 * [Subject](http://reactivex.io/rxjs/class/es6/Subject.js~Subject.html)
+* [Lettable operators](https://github.com/ReactiveX/rxjs/blob/master/doc/lettable-operators.md)

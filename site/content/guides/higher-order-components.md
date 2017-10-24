@@ -83,7 +83,7 @@ But we want to inject the App's name to the component, and we could easily do th
 
 ```js
 // components/Root.js
-import { Observable } from 'rxjs';
+import { of } from 'rxjs/observable/of';
 import { observe } from 'frint-react';
 
 function MyComponent(props) {
@@ -99,7 +99,7 @@ export default observe(function (app) {
   };
 
   // this function must always return an Observable of props
-  return Observable.of(props);
+  return of(props);
 })(MyComponent);
 ```
 

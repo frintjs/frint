@@ -38,7 +38,7 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.0/Rx.min.js"></script>
 
 <script src="https://unpkg.com/frint-store@latest/dist/frint-store.min.js"></script>
 
@@ -215,19 +215,19 @@ const rootReducer = combineReducers({
 So far we have created a reducer only, with no action creators. We can process them via epic as follows:
 
 ```js
-import { filter } from 'rxjs/operator/filter';
-import { delay } from 'rxjs/operator/delay';
-import { map } from 'rxjs/operator/map';
+import { filter } from 'rxjs/operators/filter';
+import { delay } from 'rxjs/operators/delay';
+import { map } from 'rxjs/operators/map';
 
 function pingEpic(action$) {
   return action$
-    ::filter(action.type === PING) // we only want PING actions here
-    ::delay(100); // lets wait for 100ms asynchronously
-    ::map(() => ({ type: PONG })); // after waiting, dispatch a PONG action
+    .pipe(
+      filter(action.type === PING), // we only want PING actions here
+      delay(100), // lets wait for 100ms asynchronously
+      map(() => ({ type: PONG })) // after waiting, dispatch a PONG action
+    );
 }
 ```
-
-The syntax above is written using the [bind-operator](https://github.com/tc39/proposal-bind-operator).
 
 Now just like our root reducer, we can create a root epic by combining them all:
 

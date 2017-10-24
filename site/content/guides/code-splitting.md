@@ -119,6 +119,19 @@ module.exports = {
 };
 ```
 
+We also ship a list of `externals` from our internally used `frint-config` package that may help reduce your boilerplate:
+
+```js
+// externals.js
+const config = require('frint-config');
+
+module.exports = []
+  .concat(config.lodashExternals)
+  .concat(config.rxjsExternals)
+  .concat(config.thirdPartyExternals)
+  .concat(config.frintExternals);
+```
+
 ## App bundles
 
 Webpack config for your root app may look like this:

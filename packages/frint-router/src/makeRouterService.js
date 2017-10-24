@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { map as map$ } from 'rxjs/operator/map';
+import { map as map$ } from 'rxjs/operators/map';
 
 import matchFromHistory from './matchFromHistory';
 
@@ -44,7 +44,7 @@ export default function makeRouterService(createHistory) {
 
     getLocation$() {
       return this.getHistory$()
-        ::map$(history => history.location);
+        .pipe(map$(history => history.location));
     }
 
     getLocation() {
@@ -53,9 +53,9 @@ export default function makeRouterService(createHistory) {
 
     getMatch$(pattern, options = {}) {
       return this.getHistory$()
-        ::map$((history) => {
+        .pipe(map$((history) => {
           return this.getMatch(pattern, history, options);
-        });
+        }));
     }
 
     getMatch(pattern, history, opts = {}) { // eslint-disable-line

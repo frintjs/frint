@@ -37,7 +37,7 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.0/Rx.min.js"></script>
 
 <script src="https://unpkg.com/frint-model@latest/dist/frint-model.min.js"></script>
 

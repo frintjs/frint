@@ -46,7 +46,7 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.0.1/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.0/Rx.min.js"></script>
 
 <script src="https://unpkg.com/frint-data@latest/dist/frint-data.min.js"></script>
 
@@ -147,9 +147,13 @@ console.log(lastTodo); // `My second task`
 ### Observing Models and Collections
 
 ```js
+import { map } from 'rxjs/operators/map';
+
 // model
 const todoTitle$ = todo.get$()
-  .map(model => model.title);
+  .pipe(
+    map(model => model.title)
+  );
 
 todoTitle$.subscribe(function (title) {
   console.log(title); // will stream as the Model changes

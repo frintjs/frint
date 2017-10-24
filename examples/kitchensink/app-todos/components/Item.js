@@ -1,6 +1,6 @@
 import React from 'react';
 import { observe, streamProps, Region } from 'frint-react';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { removeTodo, updateTodo } from '../actions/todos';
 

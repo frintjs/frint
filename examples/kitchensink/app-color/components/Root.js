@@ -1,11 +1,16 @@
 import React from 'react';
 import { observe } from 'frint-react';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { concatMap } from 'rxjs/operator/concatMap';
+import { map } from 'rxjs/operator/map';
+import { merge } from 'rxjs/operator/merge';
+import { scan } from 'rxjs/operator/scan';
 import PropTypes from 'prop-types';
 
 import {
   changeColor
 } from '../actions/color';
+
 import {
   GREEN_COLOR,
   RED_COLOR,
@@ -101,20 +106,21 @@ class Root extends React.Component {
   }
 }
 
-export default observe(function (app) {
+
+export default observe(function (app) { // eslint-disable-line func-names
   // self
   const store = app.get('store');
   const region = app.get('region');
 
   const state$ = store.getState$()
-    .map((state) => {
+    ::map((state) => {
       return {
         color: state.color.value,
       };
     });
 
   const regionProps$ = region.getProps$()
-    .map((regionProps) => {
+    ::map((regionProps) => {
       return {
         regionProps,
       };
@@ -140,44 +146,42 @@ export default observe(function (app) {
 
   // other app: CounterApp
   const counterApp$ = app.getAppOnceAvailable$('CounterApp');
-
   const counterAppState$ = counterApp$
-    .concatMap((counterApp) => {
+    ::concatMap((counterApp) => {
       return counterApp
         .get('store')
         .getState$();
     })
-    .map((counterState) => {
+    ::map((counterState) => {
       return {
         counter: counterState.counter.value
       };
     });
 
   const counterAppActions$ = counterApp$
-    .map((counterApp) => {
-      const storeCounter = counterApp.get('store');
-
+    ::map((counterApp) => {
+      const counterStore = counterApp.get('store');
       return {
         incrementCounter: () => {
-          return storeCounter.dispatch({ type: 'INCREMENT_COUNTER' });
+          return counterStore.dispatch({ type: 'INCREMENT_COUNTER' });
         }
       };
     });
 
   // combine them all into props
   return state$
-    .merge(regionProps$)
-    .merge(actions$)
-    .merge(services$)
-    .merge(counterAppState$)
-    .merge(counterAppActions$)
-    .scan((props, emitted) => {
+    ::merge(regionProps$)
+    ::merge(actions$)
+    ::merge(services$)
+    ::merge(counterAppState$)
+    ::merge(counterAppActions$)
+    ::scan((props, emitted) => {
       return {
         ...props,
         ...emitted,
       };
     }, {
       // default props to start with
-      counter: 'n/a',
+      counter: 0,
     });
 })(Root);

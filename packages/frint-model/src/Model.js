@@ -3,7 +3,7 @@ import lodashSet from 'lodash/set';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { map as map$ } from 'rxjs/operator/map';
+import { map as map$ } from 'rxjs/operators/map';
 
 function Model(attributes) {
   this.attributes = Object.assign({}, attributes);
@@ -40,9 +40,9 @@ Model.prototype.get$ = function get$(key) {
   }
 
   return this.$
-    ::map$((attributes) => {
+    .pipe(map$((attributes) => {
       return getFromAttributes(attributes, key);
-    });
+    }));
 };
 
 Model.prototype.toJS = function toJS() {

@@ -31,7 +31,7 @@
     "frint-component-handlers": "^3.3.1",
     "frint-component-utils": "^3.3.1",
     "lodash": "^4.13.1",
-    "rxjs": "^5.2.0"
+    "rxjs": "^5.5.0"
   },
   "devDependencies": {
     "cross-env": "^5.0.5",

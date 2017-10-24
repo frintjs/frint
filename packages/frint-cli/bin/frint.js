@@ -44,9 +44,9 @@ function run() {
           .map(appName => `  - ${appName}`)
           .join('\n')
       ))
-      .do(names => console.log(names))
-      .do(() => console.log('\n'))
-      .do(() => console.log('Type `frint help <commandName>` to learn more.'))
+      .tap(names => console.log(names))
+      .tap(() => console.log('\n'))
+      .tap(() => console.log('Type `frint help <commandName>` to learn more.'))
       .subscribe();
   }
 

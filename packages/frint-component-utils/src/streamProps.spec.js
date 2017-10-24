@@ -2,7 +2,7 @@
 /* global describe, it */
 import { expect } from 'chai';
 import { of as of$ } from 'rxjs/observable/of';
-import { last as last$ } from 'rxjs/operator/last';
+import { last as last$ } from 'rxjs/operators/last';
 
 import streamProps from './streamProps';
 
@@ -38,7 +38,7 @@ describe('frint-react › streamProps', function () {
     });
 
     streamer.get$()
-      ::last$()
+      .pipe(last$())
       .subscribe(function (props) {
         expect(props).to.deep.equal({
           key: 'value',
@@ -59,7 +59,7 @@ describe('frint-react › streamProps', function () {
     streamer.set('key3', 'value3');
 
     streamer.get$()
-      ::last$()
+      .pipe(last$())
       .subscribe(function (props) {
         expect(props).to.deep.equal({
           key: 'value',
@@ -102,7 +102,7 @@ describe('frint-react › streamProps', function () {
     );
 
     streamer.get$()
-      ::last$()
+      .pipe(last$())
       .subscribe(function (props) {
         expect(props).to.deep.equal({
           key: 'value',
@@ -137,7 +137,7 @@ describe('frint-react › streamProps', function () {
     );
 
     streamer.get$()
-      ::last$()
+      .pipe(last$())
       .subscribe(function (props) {
         props.myAction('someValue');
 

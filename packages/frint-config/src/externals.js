@@ -3,7 +3,7 @@
  * Webpack's `externals` equivalent object,
  * listing dependencies that Frint packages use.
  */
-import webpackRxJsExternals from 'webpack-rxjs-externals';
+import webpackRxJsExternals from './utils/webpackRxjsExternals';
 
 export const rxjs = [webpackRxJsExternals()];
 

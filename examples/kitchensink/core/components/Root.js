@@ -1,6 +1,7 @@
 import React from 'react';
 import { Region, observe } from 'frint-react';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 class Root extends React.Component {
   render() {

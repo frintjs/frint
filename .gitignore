@@ -4,7 +4,6 @@ lerna-debug.log
 yarn.lock
 lib
 .changelog/
-_site
 package-lock.json
 
 examples/**/build/js/*.js

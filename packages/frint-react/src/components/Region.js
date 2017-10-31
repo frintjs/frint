@@ -9,6 +9,7 @@ import ReactHandler from '../handlers/ReactHandler';
 
 export default class Region extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     name: PropTypes.string.isRequired,
     uniqueKey: PropTypes.string,
     data: PropTypes.any,
@@ -56,8 +57,10 @@ export default class Region extends React.Component {
       return null;
     }
 
+    const { className } = this.props;
+
     return (
-      <div>
+      <div className={className}>
         {listForRendering.map((item) => {
           const { Component, name } = item;
 

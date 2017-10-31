@@ -27,6 +27,10 @@ function createContext() {
   };
 }
 
+function getAppInstance(wrapper) {
+  return wrapper.instance()._handler._appInstance;
+}
+
 describe('frint-route-react › Route', function () {
   before(function () {
     resetDOM();
@@ -68,15 +72,19 @@ describe('frint-route-react › Route', function () {
     );
 
     context.app.get('router').push('/');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
 
     context.app.get('router').push('/service');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
   });
 
@@ -97,15 +105,19 @@ describe('frint-route-react › Route', function () {
     );
 
     context.app.get('router').push('/');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.find('.url').text()).to.equal('/about');
 
     context.app.get('router').push('/service');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.find('.url').text()).to.equal('/about');
   });
 
@@ -119,15 +131,19 @@ describe('frint-route-react › Route', function () {
     );
 
     context.app.get('router').push('/');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
 
     context.app.get('router').push('/service');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.type()).to.be.null;
   });
 
@@ -144,10 +160,12 @@ describe('frint-route-react › Route', function () {
     expect(wrapper.type()).to.be.null;
 
     context.app.get('router').push('/about');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
     expect(wrapper.prop('match')).to.include({ url: '/about', isExact: true });
 
     context.app.get('router').push('/about/contact');
+    wrapper.update();
     expect(wrapper.type()).to.equal(Component);
     expect(wrapper.prop('match')).to.include({ url: '/about', isExact: false });
   });
@@ -211,7 +229,7 @@ describe('frint-route-react › Route', function () {
     );
 
     it('registers app with parent app from context', function () {
-      const aboutApp = wrapper.instance()._appInstance;
+      const aboutApp = getAppInstance(wrapper);
       expect(aboutApp.getParentApp()).to.equal(context.app);
     });
 
@@ -221,6 +239,7 @@ describe('frint-route-react › Route', function () {
 
     it('gets rendered when path matches', function () {
       context.app.get('router').push('/about');
+      wrapper.update();
       expect(wrapper.html()).to.equal('<article>About</article>');
       expect(wrapper.prop('match')).to.include({ url: '/about' });
     });
@@ -277,6 +296,7 @@ describe('frint-route-react › Route', function () {
 
     it('renders HomeComponent when path matches', function () {
       context.app.get('router').push('/about');
+      wrapper.update();
       expect(wrapper.html()).to.equal('<header>Home</header>');
     });
 
@@ -285,7 +305,7 @@ describe('frint-route-react › Route', function () {
     it('instantiates AboutApp and registers it with parent app from context', function () {
       wrapper.setProps({ app: AboutApp, component: undefined });
 
-      aboutApp = wrapper.instance()._appInstance;
+      aboutApp = getAppInstance(wrapper);
       expect(aboutApp.getParentApp()).to.equal(context.app);
 
       expect(wrapper.html()).to.equal('<article>About</article>');
@@ -294,7 +314,7 @@ describe('frint-route-react › Route', function () {
     it('doesn\'t destroy the app and doesn\'t reinitialise it when it\'s the same app', function () {
       wrapper.setProps({ app: AboutApp });
       expect(beforeDestroyAboutCallCount).to.equal(0);
-      expect(wrapper.instance()._appInstance).to.equal(aboutApp);
+      expect(getAppInstance(wrapper)).to.equal(aboutApp);
     });
 
     it('calls beforeDestroy for AboutApp when app is changed', function () {
@@ -303,7 +323,7 @@ describe('frint-route-react › Route', function () {
     });
 
     it('instantiates servicesApp and registers it with parent app from context', function () {
-      const servicesApp = wrapper.instance()._appInstance;
+      const servicesApp = getAppInstance(wrapper);
       expect(servicesApp.getParentApp()).to.equal(context.app);
       expect(servicesApp).to.not.equal(aboutApp);
     });
@@ -317,7 +337,7 @@ describe('frint-route-react › Route', function () {
 
       wrapper.setProps({ app: undefined, component: HomeComponent });
       expect(beforeDestroyServicesCallCount).to.equal(1);
-      expect(wrapper.instance()._appInstance).to.be.null;
+      expect(getAppInstance(wrapper)).to.be.null;
     });
 
     it('renders HomeComponent', function () {

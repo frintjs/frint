@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /* eslint-disable no-console, global-require, import/no-dynamic-require */
-const Observable = require('rxjs').Observable;
+const take = require('rxjs/operators/take').take;
+const map = require('rxjs/operators/map').map;
+const tap = require('rxjs/operators/tap').tap;
 
 const App = require('../root');
 
@@ -33,21 +35,23 @@ function run() {
     console.log('\n');
     console.log('These commands are currently available:\n');
 
-    return Observable.from(app.getApps$())
-      .map(registeredApps => (
-        registeredApps
-          .map(registeredApp => registeredApp.name)
-          .sort()
-      ))
-      .take(1)
-      .map(registeredAppNames => (
-        registeredAppNames
-          .map(appName => `  - ${appName}`)
-          .join('\n')
-      ))
-      .do(names => console.log(names))
-      .do(() => console.log('\n'))
-      .do(() => console.log('Type `frint help <commandName>` to learn more.'))
+    return app.getApps$()
+      .pipe(
+        map(registeredApps => (
+          registeredApps
+            .map(registeredApp => registeredApp.name)
+            .sort()
+        )),
+        take(1),
+        map(registeredAppNames => (
+          registeredAppNames
+            .map(appName => `  - ${appName}`)
+            .join('\n')
+        )),
+        tap(names => console.log(names)),
+        tap(() => console.log('\n')),
+        tap(() => console.log('Type `frint help <commandName>` to learn more.'))
+      )
       .subscribe();
   }
 

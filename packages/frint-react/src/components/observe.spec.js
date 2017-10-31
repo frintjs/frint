@@ -3,8 +3,8 @@
 import { expect } from 'chai';
 import { merge as merge$ } from 'rxjs/observable/merge';
 import { of as of$ } from 'rxjs/observable/of';
-import { map as map$ } from 'rxjs/operator/map';
-import { scan as scan$ } from 'rxjs/operator/scan';
+import { map as map$ } from 'rxjs/operators/map';
+import { scan as scan$ } from 'rxjs/operators/scan';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
@@ -31,7 +31,7 @@ describe('frint-react › components › observe', function () {
 
     const ObservedComponent = observe(function () {
       return of$(1)
-        ::map$(number => ({ counter: number }));
+        .pipe(map$(number => ({ counter: number })));
     })(Component);
 
     ReactDOM.render(
@@ -73,14 +73,14 @@ describe('frint-react › components › observe', function () {
     const ObservedComponent = observe(function (app, props$) {
       return merge$(
         of$({ name: app.getName() }),
-        props$::map$(parentProps => ({ parentProps }))
+        props$.pipe(map$(parentProps => ({ parentProps })))
       )
-        ::scan$((props, emitted) => {
+        .pipe(scan$((props, emitted) => {
           return {
             ...props,
             ...emitted,
           };
-        });
+        }));
     })(Component);
 
     class ParentComponent extends React.Component {
@@ -162,7 +162,7 @@ describe('frint-react › components › observe', function () {
 
     const ObservedComponent = observe(function (app) {
       return of$(app.getName())
-        ::map$(name => ({ name }));
+        .pipe(map$(name => ({ name })));
     })(Component);
 
     const fakeApp = {
@@ -185,5 +185,41 @@ describe('frint-react › components › observe', function () {
     expect(wrapper.find(ChildComponent)).to.have.length(1);
     expect(wrapper.find('#name')).to.have.length(1);
     expect(wrapper.text()).to.contain('I am a child');
+  });
+
+  it('can return props synchronously', function () {
+    function Component({ name }) {
+      return (
+        <div>
+          <p id="name">{name}</p>
+        </div>
+      );
+    }
+
+    const ObservedComponent = observe(function (app) {
+      return {
+        name: app.getName(),
+      };
+    })(Component);
+
+    const fakeApp = {
+      getName() {
+        return 'FakeApp';
+      }
+    };
+
+    function ComponentToRender(props) {
+      return (
+        <Provider app={fakeApp}>
+          <ObservedComponent {...props} />
+        </Provider>
+      );
+    }
+
+    const wrapper = mount(<ComponentToRender />);
+    expect(wrapper.find(ObservedComponent)).to.have.length(1);
+    expect(wrapper.find(Component)).to.have.length(1);
+    expect(wrapper.find('#name')).to.have.length(1);
+    expect(wrapper.text()).to.contain('FakeApp');
   });
 });

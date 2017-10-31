@@ -1,5 +1,84 @@
 # Change Log
 
+## v4.0.0 (2017-10-24)
+
+#### Pull Requests
+* Other
+  * [#351](https://github.com/Travix-International/frint/pull/351) Migration guide for v4. ([@fahad19](https://github.com/fahad19))
+  * [#344](https://github.com/Travix-International/frint/pull/344) Update React in examples. ([@ascariandrea](https://github.com/ascariandrea))
+* `frint-cli`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router`, `frint-store`, `frint`
+  * [#350](https://github.com/Travix-International/frint/pull/350) Upgrade to RxJS v5.5. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Andrea Ascari ([ascariandrea](https://github.com/ascariandrea))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.3.1 (2017-10-19)
+
+#### Pull Requests
+* `frint-config`
+  * [#347](https://github.com/Travix-International/frint/pull/347) frint-config: casing for exported keys. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.3.0 (2017-10-19)
+
+#### Pull Requests
+* `frint-config`
+  * [#346](https://github.com/Travix-International/frint/pull/346) frint-config: exports. ([@ascariandrea](https://github.com/ascariandrea))
+* `frint-react`, `frint-router-react`
+  * [#343](https://github.com/Travix-International/frint/pull/343) Fixed frint-router-react tests for React 16 compatibility. ([@ascariandrea](https://github.com/ascariandrea))
+* Other
+  * [#342](https://github.com/Travix-International/frint/pull/342) Add `frint-react-native`. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Andrea Ascari ([ascariandrea](https://github.com/ascariandrea))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.2.1 (2017-10-17)
+
+#### Pull Requests
+* `frint-react`
+  * [#341](https://github.com/Travix-International/frint/pull/341) frint-react: load only required modules for `render`. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.2.0 (2017-10-16)
+
+#### Pull Requests
+* `frint-react`
+  * [#339](https://github.com/Travix-International/frint/pull/339) frint-react: `observe` HoC can return props synchronously. ([@fahad19](https://github.com/fahad19))
+* `frint-store`
+  * [#324](https://github.com/Travix-International/frint/pull/324) Update eslint-config-travix to latest. ([@discosultan](https://github.com/discosultan))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
+# v3.1.1 (2017-10-06)
+
+#### Pull Requests
+* `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react`, `frint-router-component-handlers`, `frint-router-react`, `frint-router`, `frint-store`, `frint`
+  * [#332](https://github.com/Travix-International/frint/pull/332) Webpack: fix for dists. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
+## v3.1.0 (2017-10-04)
+
+#### Pull Requests
+* `frint-router-component-handlers`, `frint-router-react`
+  * [#327](https://github.com/Travix-International/frint/pull/327) frint-router-component-handlers. ([@viacheslaff](https://github.com/viacheslaff))
+* Other
+  * [#329](https://github.com/Travix-International/frint/pull/329) Update .gitignore to ignore all JetBrains IDEs files under .idea folder. ([@viacheslaff](https://github.com/viacheslaff))
+  * [#328](https://github.com/Travix-International/frint/pull/328) REPL: use Codesandbox.. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v3.0.1 (2017-09-28)
 
 #### Pull Requests

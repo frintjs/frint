@@ -46,7 +46,7 @@ class Root extends React.Component {
   }
 }
 
-export default observe(function (app) {
+export default observe(function (app) { // eslint-disable-line func-names
   const store = app.get('store');
 
   return streamProps()

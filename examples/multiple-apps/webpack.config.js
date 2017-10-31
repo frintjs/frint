@@ -1,18 +1,20 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const externals = require('frint-config').externals;
+const config = require('frint-config');
+const path = require('path');
 
 module.exports = {
   entry: {
-    core: __dirname + '/core/index.js',
-    'app-bar': __dirname + '/app-bar/index.js',
-    'app-foo': __dirname + '/app-foo/index.js'
+    core: path.resolve(__dirname, 'core/index.js'),
+    'app-bar': path.resolve(__dirname, 'app-bar/index.js'),
+    'app-foo': path.resolve(__dirname, 'app-foo/index.js')
 
   },
   devtool: 'source-map',
   output: {
-    path: __dirname + '/build/js',
-    filename: '[name].js'
+    path: path.resolve(__dirname, 'build/js'),
+    filename: '[name].js',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
@@ -29,21 +31,16 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: __dirname + '/layouts/index.ejs',
-      filename: __dirname + '/build/index.html',
+      template: path.resolve(__dirname, 'layouts/index.ejs'),
+      filename: path.resolve(__dirname, 'build/index.html'),
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
     })
   ],
-  externals: Object.assign({}, externals, {
-    'lodash': '_',
-    'frint': 'Frint',
-    'frint-model': 'FrintModel',
-    'frint-react': 'FrintReact',
-    'frint-store': 'FrintStore',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx'
-  })
+  externals: []
+    .concat(config.lodashExternals)
+    .concat(config.rxjsExternals)
+    .concat(config.thirdPartyExternals)
+    .concat(config.frintExternals)
 };

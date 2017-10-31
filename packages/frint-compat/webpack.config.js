@@ -21,20 +21,10 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     filename: filename,
-    libraryTarget: 'this',
+    libraryTarget: 'umd',
     library: 'FrintCompat'
   },
-  externals: Object.assign({}, {
-    'frint': 'Frint',
-    'frint-model': 'FrintModel',
-    'frint-react': 'FrintReact',
-    'frint-store': 'FrintStore',
-    'lodash': '_',
-    'prop-types': 'PropTypes',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx',
-  }, externals),
+  externals: externals,
   target: 'web',
   plugins: plugins,
   module: {

@@ -14,14 +14,14 @@
   "author": "Travix International B.V.",
   "license": "MIT",
   "dependencies": {
-    "frint": "^3.0.0",
-    "frint-react": "^3.0.0",
-    "frint-store": "^3.0.0",
+    "frint": "^3.3.1",
+    "frint-react": "^3.3.1",
+    "frint-store": "^3.3.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "rxjs": "^5.4.1"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "rxjs": "^5.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -30,7 +30,7 @@
     "babel-loader": "^6.2.9",
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
-    "frint-config": "^3.0.0",
+    "frint-config": "^3.3.1",
     "html-webpack-plugin": "^2.28.0",
     "live-server": "^1.2.0",
     "webpack": "^3.0.0"

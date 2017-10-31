@@ -1,13 +1,15 @@
-const externals = require('frint-config').externals;
+const path = require('path');
+const config = require('frint-config');
 
 module.exports = {
   entry: {
-    root: __dirname + '/root/index.js',
+    root: path.resolve(__dirname, 'root/index.js'),
   },
   devtool: 'source-map',
   output: {
-    path: __dirname + '/build/js',
-    filename: '[name].js'
+    path: path.resolve(__dirname, 'build/js'),
+    filename: '[name].js',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
@@ -34,17 +36,9 @@ module.exports = {
     ]
   },
   plugins: [],
-  externals: Object.assign({}, externals, {
-    'lodash': '_',
-    'frint': 'Frint',
-    'frint-react': 'FrintReact',
-    'frint-store': 'FrintStore',
-    'frint-router': 'FrintRouter',
-    'frint-router/HashRouterService': 'FrintRouter.HashRouterService',
-    'frint-router-react': 'FrintRouterReact',
-    'prop-types': 'PropTypes',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'rxjs': 'Rx'
-  })
+  externals: []
+    .concat(config.lodashExternals)
+    .concat(config.rxjsExternals)
+    .concat(config.thirdPartyExternals)
+    .concat(config.frintExternals)
 };

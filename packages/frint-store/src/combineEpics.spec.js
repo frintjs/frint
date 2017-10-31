@@ -2,18 +2,20 @@
 /* global describe, it */
 import { expect } from 'chai';
 import { Subject } from 'rxjs/Subject';
-import { filter as filter$ } from 'rxjs/operator/filter';
-import { map as map$ } from 'rxjs/operator/map';
+import { filter as filter$ } from 'rxjs/operators/filter';
+import { map as map$ } from 'rxjs/operators/map';
 
 import combineEpics from './combineEpics';
 import ActionsObservable from './ActionsObservable';
 
 describe('frint-store › combineEpics', function () {
-  it('triggers epics correct response', function (done) {
+  it('triggers epics correct response', function () {
     const pingEpic = function (action$) {
       return action$
-        ::filter$(action => action.type === 'PING')
-        ::map$(() => ({ type: 'PONG' }));
+        .pipe(
+          filter$(action => action.type === 'PING'),
+          map$(() => ({ type: 'PONG' }))
+        );
     };
 
     const rootEpic = combineEpics(pingEpic);
@@ -23,14 +25,15 @@ describe('frint-store › combineEpics', function () {
     const result$ = rootEpic(actions$);
     const emittedActions = [];
 
-    result$.subscribe((emittedAction) => {
+    const subscription = result$.subscribe((emittedAction) => {
       emittedActions.push(emittedAction);
-    }).then(done());
-
+    });
     subject$.next({ type: 'PING' });
 
     expect(emittedActions).to.deep.equal([
       { type: 'PONG' }
     ]);
+
+    subscription.unsubscribe();
   });
 });

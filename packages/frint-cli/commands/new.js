@@ -6,8 +6,8 @@ const tar = require('tar');
 
 const createApp = require('frint').createApp;
 
-const DEFAULT_ORGANIZATION = 'Travix-International';
-const DEFAULT_REPOSITORY = 'frint';
+const DEFAULT_ORG = 'Travix-International';
+const DEFAULT_REPO = 'frint';
 const DEFAULT_BRANCH = 'master';
 const DEFAULT_EXAMPLES_DIR = 'examples';
 const DEFAULT_EXAMPLE = 'counter';
@@ -36,7 +36,7 @@ const COMPLETION_TEXT = `
 Done!
 
 Please run these two commands to start your application:
-
+{}
   $ npm install
   $ npm start
 `.trim();
@@ -58,10 +58,10 @@ module.exports = createApp({
         return function execute() {
           deps.console.log('Initializing...');
           Promise.resolve(deps)
-            .then(mapDepsToContext)
-            .then(createOutputDirectory)
-            .then(streamExampleToOutputDirectory)
-            .then(() => deps.console.log(COMPLETION_TEXT))
+            .then(mapDepsToCtx)
+            .then(createOutputDir)
+            .then(streamExampleToOutputDir)
+            .then(ctx => deps.console.log(getCompletionText(ctx)))
             .catch(deps.console.error);
         };
       },
@@ -74,7 +74,7 @@ module.exports = createApp({
   ],
 });
 
-function mapDepsToContext(deps) {
+function mapDepsToCtx(deps) {
   return new Promise((resolve, reject) => {
     // The <example> param has two shapes:
     // * <name> - example name from the official Frint GitHub repository
@@ -84,43 +84,46 @@ function mapDepsToContext(deps) {
       reject(INVALID_EXAMPLE_ARG_TEXT);
     }
 
+    // If <directory> is specified, it is taken as the 1st value from params _ array.
+    // Note that this array does not include the <example> flag.
+    const isOutputCurrentDir = deps.params._.length === 0;
+
+    const ctx = {
+      isOutputCurrentDir,
+      outputDir: isOutputCurrentDir ? deps.pwd : deps.params._[0],
+    };
+
     const isCustomExample = example.indexOf('/') >= 0;
-    resolve(isCustomExample ? getContextForCustomRepo() : getContextForDefaultRepo());
-
-    function getContextForDefaultRepo() {
-      return {
-        organization: DEFAULT_ORGANIZATION,
-        repository: DEFAULT_REPOSITORY,
-        branch: DEFAULT_BRANCH,
-        examplePath: `${DEFAULT_EXAMPLES_DIR}/${example}`,
-        outputDirectory: getOutputDirectory(),
-      };
+    if (isCustomExample) {
+      populateCtxForCustomRepo(ctx, example);
+    } else {
+      populateCtxForDefaultRepo(ctx, example);
     }
 
-    function getContextForCustomRepo() {
-      // Split by '/' and filter out empty results.
-      // <example> arg might start or end with a separator.
-      const exampleParts = example.split('/').filter(str => str !== '');
-      return {
-        organization: exampleParts[0],
-        repository: exampleParts[1],
-        branch: exampleParts[3],
-        examplePath: exampleParts.slice(4).join('/'),
-        outputDirectory: getOutputDirectory(),
-      };
-    }
-
-    function getOutputDirectory() {
-      // If <directory> is specified, it is taken as the 1st value from params _ array.
-      // Note that this array does not include the <example> flag.
-      return deps.params._.length >= 1 ? deps.params._[0] : deps.pwd;
-    }
+    resolve(ctx);
   });
 }
 
-function createOutputDirectory(ctx) {
+function populateCtxForCustomRepo(ctx, example) {
+  // Split by '/' and filter out empty results.
+  // <example> arg might start or end with a separator.
+  const exampleParts = example.split('/').filter(str => str !== '');
+  ctx.org = exampleParts[0];
+  ctx.repo = exampleParts[1];
+  ctx.branch = exampleParts[3];
+  ctx.examplePath = exampleParts.slice(4).join('/');
+}
+
+function populateCtxForDefaultRepo(ctx, example) {
+  ctx.org = DEFAULT_ORG;
+  ctx.repo = DEFAULT_REPO;
+  ctx.branch = DEFAULT_BRANCH;
+  ctx.examplePath = `${DEFAULT_EXAMPLES_DIR}/${example}`;
+}
+
+function createOutputDir(ctx) {
   return new Promise((resolve, reject) => {
-    mkdirp(ctx.outputDirectory, function mkdirpCallback(error) {
+    mkdirp(ctx.outputDir, function mkdirpCallback(error) {
       if (error) {
         reject(error);
         return;
@@ -130,16 +133,22 @@ function createOutputDirectory(ctx) {
   });
 }
 
-function streamExampleToOutputDirectory(ctx) {
+function streamExampleToOutputDir(ctx) {
   return new Promise((resolve, reject) => {
-    request(`https://codeload.github.com/${ctx.organization}/${ctx.repository}/tar.gz/${ctx.branch}`)
+    request(`https://codeload.github.com/${ctx.org}/${ctx.repo}/tar.gz/${ctx.branch}`)
       .on('error', reject)
       .pipe(tar.x({
-        filter: p => p.indexOf(`${ctx.repository}-${ctx.branch}/${ctx.examplePath}/`) === 0,
+        filter: p => p.indexOf(`${ctx.repo}-${ctx.branch}/${ctx.examplePath}/`) === 0,
         strip: 3,
-        C: ctx.outputDirectory,
+        C: ctx.outputDir,
       }))
       .on('error', reject)
-      .on('finish', resolve);
+      .on('finish', resolve(ctx));
   });
+}
+
+function getCompletionText(ctx) {
+  return COMPLETION_TEXT.replace(
+    "{}",
+    ctx.isOutputCurrentDir ? "" : `\n  $ cd ${ctx.outputDir}`);
 }

@@ -1,9 +1,9 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of as of$ } from 'rxjs/observable/of';
-import { concatMap as concatMap$ } from 'rxjs/operator/concatMap';
-import { find as find$ } from 'rxjs/operator/find';
-import { map as map$ } from 'rxjs/operator/map';
-import { first as first$ } from 'rxjs/operator/first';
+import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
+import { find as find$ } from 'rxjs/operators/find';
+import { map as map$ } from 'rxjs/operators/map';
+import { first as first$ } from 'rxjs/operators/first';
 import omit from 'lodash/omit';
 import lodashGet from 'lodash/get';
 import find from 'lodash/find';
@@ -215,12 +215,12 @@ App.prototype.getApps$ = function getApps$(regionName = null) {
   }
 
   return this._apps$
-    ::map$((collection) => {
+    .pipe(map$((collection) => {
       return collection
         .filter((w) => {
           return w.regions.indexOf(regionName) > -1;
         });
-    });
+    }));
 };
 
 App.prototype.registerApp = function registerApp(AppClass, opts = {}) {
@@ -299,13 +299,15 @@ App.prototype.getAppOnceAvailable$ = function getAppOnceAvailable$(name, region 
   }
 
   return rootApp._apps$
-    ::concatMap$(y => y)
-    ::find$(app => app.name === name)
-    ::map$((x) => {
-      const instanceKey = makeInstanceKey(region, regionKey, x.multi);
-      return x.instances[instanceKey];
-    })
-    ::first$(y => y);
+    .pipe(
+      concatMap$(y => y),
+      find$(app => app.name === name),
+      map$((x) => {
+        const instanceKey = makeInstanceKey(region, regionKey, x.multi);
+        return x.instances[instanceKey];
+      }),
+      first$(y => y)
+    );
 };
 
 App.prototype.instantiateApp = function instantiateApp(name, region = null, regionKey = null) {

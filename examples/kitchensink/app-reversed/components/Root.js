@@ -1,5 +1,7 @@
 import React from 'react';
 import { observe } from 'frint-react';
+import { map } from 'rxjs/operator/map';
+import { scan } from 'rxjs/operator/scan';
 
 class Root extends React.Component {
   render() {
@@ -11,22 +13,22 @@ class Root extends React.Component {
   }
 }
 
-export default observe(function (app) {
+export default observe(function (app) { // eslint-disable-line func-names
   const region = app.get('region');
 
   const regionData$ = region.getData$();
 
   return regionData$
-    .map((data) => {
+    ::map((data) => {
       return {
         text: data.text,
       };
     })
-    .scan((props, emitted) => {
+    ::scan((props, emitted) => {
       return {
         ...props,
         ...emitted,
-      }
+      };
     }, {
       text: ''
     });

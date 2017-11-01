@@ -1,5 +1,18 @@
 # Change Log
 
+## v4.0.0 (2017-10-24)
+
+#### Pull Requests
+* Other
+  * [#351](https://github.com/Travix-International/frint/pull/351) Migration guide for v4. ([@fahad19](https://github.com/fahad19))
+  * [#344](https://github.com/Travix-International/frint/pull/344) Update React in examples. ([@ascariandrea](https://github.com/ascariandrea))
+* `frint-cli`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router`, `frint-store`, `frint`
+  * [#350](https://github.com/Travix-International/frint/pull/350) Upgrade to RxJS v5.5. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Andrea Ascari ([ascariandrea](https://github.com/ascariandrea))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v3.3.1 (2017-10-19)
 
 #### Pull Requests

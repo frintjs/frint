@@ -3,9 +3,9 @@ import isPlainObject from 'lodash/isPlainObject';
 import padStart from 'lodash/padStart';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { map as map$ } from 'rxjs/operator/map';
-import { switchMap as switchMap$ } from 'rxjs/operator/switchMap';
-import { scan as scan$ } from 'rxjs/operator/scan';
+import { map as map$ } from 'rxjs/operators/map';
+import { switchMap as switchMap$ } from 'rxjs/operators/switchMap';
+import { scan as scan$ } from 'rxjs/operators/scan';
 import ActionsObservable from './ActionsObservable';
 
 function Store(options = {}) {
@@ -21,7 +21,7 @@ function Store(options = {}) {
   };
 
   this.internalState$ = new BehaviorSubject(this.options.initialState)
-    ::scan$((previousState, action) => {
+    .pipe(scan$((previousState, action) => {
       let updatedState;
       const d = new Date();
       const prettyDate = [
@@ -65,7 +65,7 @@ function Store(options = {}) {
       }
 
       return updatedState;
-    });
+    }));
   this.exposedState$ = new BehaviorSubject();
 
   this.cachedState = Object.assign({}, this.options.initialState);
@@ -90,8 +90,10 @@ function Store(options = {}) {
     this._epic$ = new Subject();
 
     this._epicSubscription = this._epic$
-      ::map$(epic => epic(this._action$, this, this.options.deps))
-      ::switchMap$(output$ => output$)
+      .pipe(
+        map$(epic => epic(this._action$, this, this.options.deps)),
+        switchMap$(output$ => output$)
+      )
       .subscribe(this.dispatch);
 
     this._epic$.next(this.options.epic);

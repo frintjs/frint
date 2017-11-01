@@ -38,7 +38,7 @@ Via [unpkg](https://unpkg.com) CDN:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.0/Rx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.0/Rx.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js"></script>
 <script src="https://unpkg.com/prop-types@15.5.10/prop-types.js"></script>
@@ -260,13 +260,17 @@ function MyComponent(props) {
 We just created a component, that prints out a prop called `interval`. Nothing fancy there. But we wish the interval to update itself every second. Instead of handling it from within the Component, we can do it with `observe` as follows:
 
 ```js
-import { Observable } from 'rxjs';
+import { interval } from 'rxjs/observable/interval';
+import { map } from 'rxjs/operators/map';
 import { observe } from 'frint-react';
 
 const MyObservedComponent = observe(function () {
-  return Observable
-    .interval(1000) // emits an integer every 1 second
-    .map(x => ({ interval: x })); // map the integer to a props-compatible object
+  const interval$ = interval(1000); // emits an integer every 1 second
+
+  return interval$
+    .pipe(
+      map(x => ({ interval: x })) // map the integer to a props-compatible object
+    );
 })(MyComponent);
 ```
 
@@ -277,29 +281,38 @@ We have just made our simple Component reactive, by wrapping it with `observe`. 
 In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your App's component too:
 
 ```js
+import { map } from 'rxjs/operators/map';
+import { merge } from 'rxjs/operators/merge';
+import { scan } from 'rxjs/operators/scan';
+
 const ObservedAppComponent = observe(function (app, props$) {
   // `app` is your App instance
   // `props$` is an Observable of props being passed by parent Component (if any)
 
   // let's keep our first interval Observable too
-  const interval$ = Observable
-    .interval(1000)
-    .map(x => ({ interval: x }));
+  const interval$ = interval(1000)
+    .pipe(
+      map(x => ({ interval: x }))
+    );
 
   const region = app.get('region'); // the RegionService instance
   const regionData$ = region.getData$()
-    .map(regionData => ({ regionData: regionData }));
+    .pipe(
+      map(regionData => ({ regionData: regionData }))
+    );
 
   // now we have two observables, `interval$` and `regionData$`.
   // we need to merge them both into a single props-compatible object:
   return interval$
-    .merge(regionData$)
-    .scan((props, emitted) => {
-      return {
-        ...props,
-        ...emitted,
-      };
-    }, {});
+    .pipe(
+      merge(regionData$),
+      scan((props, emitted) => {
+        return {
+          ...props,
+          ...emitted,
+        };
+      }, {})
+    );
 })(AppComponent);
 ```
 
@@ -322,13 +335,14 @@ When your App's component renders, latest props will be passed to it in this str
 As the number of observables grow, it might be difficult to maintain your `observe` implementation. That's why we are also shipping a `streamProps` function in the library to make it easier for you:
 
 ```js
+import { interval } from 'rxjs/observable/interval';
 import { streamProps } from 'frint-react';
 
 const MyObservedComponent = observe(function (app) {
   return streamProps({}) // start streaming with a default plain object
     // interval
     .set(
-      Observable.interval(1000),
+      interval(1000),
       x => ({ interval: x }),
     )
 
@@ -490,6 +504,7 @@ The Region component.
 1. `name` (`String`): The name of the Region
 1. `data` (`Object`): Data to be made available to rendered App
 1. `uniqueKey` (`String` [optional]): Used when there are multiple Regions of the same `name`. It prop must be unique and fixed throughout the whole app.
+1. `className` (`String` [optional]): The className used by Region wrapper element
 
 ## RegionService
 

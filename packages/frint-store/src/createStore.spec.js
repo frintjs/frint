@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names */
 /* global describe, it */
 import { expect } from 'chai';
-import { filter as filter$ } from 'rxjs/operator/filter';
-import { delay as delay$ } from 'rxjs/operator/delay';
-import { map as map$ } from 'rxjs/operator/map';
-import { take as take$ } from 'rxjs/operator/take';
-import { last as last$ } from 'rxjs/operator/last';
-import { scan as scan$ } from 'rxjs/operator/scan';
+import { filter as filter$ } from 'rxjs/operators/filter';
+import { delay as delay$ } from 'rxjs/operators/delay';
+import { map as map$ } from 'rxjs/operators/map';
+import { take as take$ } from 'rxjs/operators/take';
+import { last as last$ } from 'rxjs/operators/last';
+import { scan as scan$ } from 'rxjs/operators/scan';
 
 import createStore from './createStore';
 import combineReducers from './combineReducers';
@@ -185,7 +185,7 @@ describe('frint-store › createStore', function () {
       enableLogger: false,
       epic: function (action$) {
         return action$
-          ::filter$(action => action.type === 'PING');
+          .pipe(filter$(action => action.type === 'PING'));
       },
       initialState: {
         counter: 0
@@ -486,9 +486,11 @@ describe('frint-store › createStore', function () {
     // epics
     function pingEpic$(action$) {
       return action$
-        ::filter$(action => action.type === PING)
-        ::delay$(10)
-        ::map$(() => ({ type: PONG }));
+        .pipe(
+          filter$(action => action.type === PING),
+          delay$(10),
+          map$(() => ({ type: PONG }))
+        );
     }
 
     const rootEpic$ = combineEpics(pingEpic$);
@@ -505,16 +507,18 @@ describe('frint-store › createStore', function () {
     expect(store.getState().ping.isPinging).to.equal(false);
 
     store.getState$()
-      ::take$(3)
-      ::scan$(
-        function (acc, curr) {
-          acc.push({ isPinging: curr.ping.isPinging });
+      .pipe(
+        take$(3),
+        scan$(
+          function (acc, curr) {
+            acc.push({ isPinging: curr.ping.isPinging });
 
-          return acc;
-        },
-        []
+            return acc;
+          },
+          []
+        ),
+        last$()
       )
-      ::last$()
       .subscribe(function (pingStates) {
         expect(pingStates).to.deep.equal([
           { isPinging: false }, // initial state

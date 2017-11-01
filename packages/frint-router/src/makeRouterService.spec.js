@@ -2,9 +2,9 @@
 /* global describe, it */
 import { expect } from 'chai';
 import createMemoryHistory from 'history/createMemoryHistory';
-import { take as take$ } from 'rxjs/operator/take';
-import { last as last$ } from 'rxjs/operator/last';
-import { scan as scan$ } from 'rxjs/operator/scan';
+import { take as take$ } from 'rxjs/operators/take';
+import { last as last$ } from 'rxjs/operators/last';
+import { scan as scan$ } from 'rxjs/operators/scan';
 
 import makeRouterService from './makeRouterService';
 
@@ -37,8 +37,10 @@ describe('frint-router › makeRouterService', function () {
       const router = new MemoryRouterService();
 
       router.getHistory$()
-        ::take$(2)
-        ::last$()
+        .pipe(
+          take$(2),
+          last$()
+        )
         .subscribe(function (history) {
           expect(history.location.pathname).to.equal('/about');
 
@@ -52,8 +54,10 @@ describe('frint-router › makeRouterService', function () {
       const router = new MemoryRouterService();
 
       router.getLocation$()
-        ::take$(2)
-        ::last$()
+        .pipe(
+          take$(2),
+          last$()
+        )
         .subscribe(function (location) {
           expect(location.pathname).to.equal('/about');
 
@@ -96,12 +100,14 @@ describe('frint-router › makeRouterService', function () {
       const router = new MemoryRouterService();
 
       router.getMatch$('/about')
-        ::take$(4)
-        ::scan$(
-          (matches, currentMatch) => matches.concat([currentMatch]),
-          []
+        .pipe(
+          take$(4),
+          scan$(
+            (matches, currentMatch) => matches.concat([currentMatch]),
+            []
+          ),
+          last$()
         )
-        ::last$()
         .subscribe(function (matches) {
           expect(matches).to.deep.equal([
             // on load

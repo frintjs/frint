@@ -1,5 +1,17 @@
 # Change Log
 
+## v4.1.0 (2017-11-03)
+
+#### Pull Requests
+* `frint-react`
+  * [#356](https://github.com/Travix-International/frint/pull/356) frint-react: className prop in Region component. ([@ascariandrea](https://github.com/ascariandrea))
+* Other
+  * [#353](https://github.com/Travix-International/frint/pull/353) Extracted site out of monorepo. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Andrea Ascari ([ascariandrea](https://github.com/ascariandrea))
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v4.0.0 (2017-10-24)
 
 #### Pull Requests

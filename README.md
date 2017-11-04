@@ -52,15 +52,21 @@ The framework is a collection of these packages, which can be composed together 
 | [frint-router]                     | [![frint-router-status]][frint-router-package]                                       | Router services for building Single Page Applications |
 | [frint-router-react]               | [![frint-router-react-status]][frint-router-react-package]                           | React components for building SPAs |
 | [frint-cli]                        | [![frint-cli-status]][frint-cli-package]                                             | CLI runner |
-| [frint-compat]                     | [![frint-compat-status]][frint-compat-package]                                       | Backwards compatibility for older versions |
 | [frint-model]                      | [![frint-model-status]][frint-model-package]                                         | Use `frint-data` instead |
-| **For library developers:**        |                                                                                      |  |
-| [frint-component-utils]            | [![frint-component-utils-status]][frint-component-utils-package]                     | Utils for reactive Components |
-| [frint-component-handlers]         | [![frint-component-handlers-status]][frint-component-handlers-package]               | Handlers for integrating with other rendering libraries |
-| [frint-router-component-handlers]  | [![frint-router-component-handlers-status]][frint-router-component-handlers-package] | Handlers for integrating `frint-router` with other rendering libraries |
-| **Internally used:**               |                                                                                      |  |
-| [frint-test-utils]                 | [![frint-test-utils-status]][frint-test-utils-package]                               | Internally used test utilities |
-| [frint-config]                     | [![frint-config-status]][frint-config-package]                                       | Common config for your Apps |
+
+### For library developers
+
+These packages enable you to create packages integrating FrintJS with other rendering libraries:
+
+* [frint-component-utils]: Utils for reactive Components
+* [frint-component-handlers]: Handlers for integrating with other rendering libraries
+* [frint-router-component-handlers]: Handlers for integrating `frint-router` with other rendering libraries
+
+### Internally used
+
+* [frint-test-utils]: Internally used test utilities
+* [frint-config]: Common config for your Apps
+* [frint-compat]: Backwards compatibility for older versions
 
 [frint]: https://frint.js.org/docs/packages/frint
 [frint-store]: https://frint.js.org/docs/packages/frint-store

@@ -1,6 +1,6 @@
 # frint
 
-[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/Travix-International/frint/master.svg)](http://travis-ci.org/Travix-International/frint) [![Coverage](https://img.shields.io/coveralls/Travix-International/frint.svg)](https://coveralls.io/github/Travix-International/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c) [![Join the chat at https://gitter.im/frintjs/frintjs](https://badges.gitter.im/frintjs/frintjs.svg)](https://gitter.im/frintjs/frintjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/frintjs/frint/master.svg)](http://travis-ci.org/frintjs/frint) [![Coverage](https://img.shields.io/coveralls/frintjs/frint.svg)](https://coveralls.io/github/frintjs/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c) [![Join the chat at https://gitter.im/frintjs/frintjs](https://badges.gitter.im/frintjs/frintjs.svg)](https://gitter.im/frintjs/frintjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > The modular JavaScript framework
 
@@ -36,7 +36,7 @@ $ npm install
 $ npm start
 ```
 
-Find more examples [here](https://github.com/Travix-International/frint/tree/master/examples).
+Find more examples [here](https://github.com/frintjs/frint/tree/master/examples).
 
 ## Packages
 
@@ -117,4 +117,4 @@ The framework is a collection of these packages, which can be composed together 
 
 ## License
 
-MIT © [Travix International](http://travix.com)
+MIT © [FrintJS Authors](https://github.com/frintjs/frint/graphs/contributors) and [Travix International](http://travix.com)

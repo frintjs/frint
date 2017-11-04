@@ -5,7 +5,7 @@
   ],
   "version": "4.1.0",
   "changelog": {
-    "repo": "Travix-International/frint",
+    "repo": "frintjs/frint",
     "labels": {
       "bug": "Bug fix",
       "PR": "Pull Requests"

@@ -3,7 +3,7 @@
   "version": "4.1.0",
   "description": "Router component handlers package for Frint",
   "main": "lib/index.js",
-  "homepage": "https://github.com/Travix-International/frint/tree/master/packages/frint-router-component-handlers",
+  "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-router-component-handlers",
   "scripts": {
     "lint": "cross-env ../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
     "transpile": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
@@ -18,12 +18,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Travix-International/frint.git"
+    "url": "git+https://github.com/frintjs/frint.git"
   },
-  "author": {
-    "name": "Travix International B.V.",
-    "url": "https://travix.com"
-  },
+  "author": "FrintJS Authors (https://github.com/frintjs/frint/graphs/contributors)",
   "keywords": [
     "frint"
   ],
@@ -37,7 +34,7 @@
     "frint-router": "^4.1.0"
   },
   "bugs": {
-    "url": "https://github.com/Travix-International/frint/issues"
+    "url": "https://github.com/frintjs/frint/issues"
   },
   "license": "MIT"
 }

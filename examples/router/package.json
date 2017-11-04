@@ -11,7 +11,7 @@
     "start:server": "live-server build",
     "start": "npm run build && npm run start:server"
   },
-  "author": "Travix International B.V.",
+  "author": "FrintJS Authors (https://github.com/frintjs/frint/graphs/contributors)",
   "license": "MIT",
   "dependencies": {
     "frint": "^3.3.1",

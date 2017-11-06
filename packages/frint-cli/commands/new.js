@@ -6,7 +6,7 @@ const tar = require('tar');
 
 const createApp = require('frint').createApp;
 
-const DEFAULT_ORG = 'Travix-International';
+const DEFAULT_ORG = 'frintjs';
 const DEFAULT_REPO = 'frint';
 const DEFAULT_BRANCH = 'master';
 const DEFAULT_EXAMPLES_DIR = 'examples';
@@ -24,7 +24,7 @@ Example:
   $ frint new myapp --example frint-vue/tree/master/examples/basic
 
 You can find a list of all available official examples here:
-https://github.com/Travix-International/frint/tree/master/examples
+https://github.com/frintjs/frint/tree/master/examples
 `.trim();
 const INVALID_EXAMPLE_ARG_TEXT = `
 Invalid <example> value. Must be in one of the following formats:

@@ -1,5 +1,17 @@
 # Change Log
 
+## v4.2.0 (2017-11-06)
+
+#### Pull Requests
+* `frint-cli`
+  * [#325](https://github.com/frintjs/frint/pull/325) frint-cli: Introduce "new" command. ([@discosultan](https://github.com/discosultan))
+* `frint-cli`, `frint-compat`, `frint-component-handlers`, `frint-component-utils`, `frint-config`, `frint-data`, `frint-model`, `frint-react-server`, `frint-react`, `frint-router-component-handlers`, `frint-router-react`, `frint-router`, `frint-store`, `frint-test-utils`, `frint`
+  * [#357](https://github.com/frintjs/frint/pull/357) New organization. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Jaanus Varus ([discosultan](https://github.com/discosultan))
+
 ## v4.1.0 (2017-11-03)
 
 #### Pull Requests

@@ -4,7 +4,7 @@ const tar = require('tar');
 
 const createApp = require('frint').createApp;
 
-const descriptionText = `
+const DESCRIPTION_TEXT = `
 Usage:
 
   $ frint init
@@ -30,7 +30,7 @@ module.exports = createApp({
     },
     {
       name: 'description',
-      useValue: descriptionText,
+      useValue: DESCRIPTION_TEXT,
     },
     {
       name: 'execute',

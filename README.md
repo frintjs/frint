@@ -17,21 +17,16 @@ Install [`frint-cli`](https://frint.js.org/docs/packages/frint-cli/):
 $ npm install -g frint-cli
 ```
 
-Create a new empty directory:
-
-```
-$ mkdir my-directory && cd my-directory
-```
-
 Initialize an example app:
 
 ```
-$ frint init --example kitchensink
+$ frint new my-directory --example kitchensink
 ```
 
 Now you can install all the dependencies, and start the application:
 
 ```
+$ cd my-directory
 $ npm install
 $ npm start
 ```

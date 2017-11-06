@@ -1,6 +1,6 @@
 # frint
 
-[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/Travix-International/frint/master.svg)](http://travis-ci.org/Travix-International/frint) [![Coverage](https://img.shields.io/coveralls/Travix-International/frint.svg)](https://coveralls.io/github/Travix-International/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c) [![Join the chat at https://gitter.im/frintjs/frintjs](https://badges.gitter.im/frintjs/frintjs.svg)](https://gitter.im/frintjs/frintjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/frintjs/frint/master.svg)](http://travis-ci.org/frintjs/frint) [![Coverage](https://img.shields.io/coveralls/frintjs/frint.svg)](https://coveralls.io/github/frintjs/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/2c3431f8-ed10-4ef2-8edb-4873c656497c) [![Join the chat at https://gitter.im/frintjs/frintjs](https://badges.gitter.im/frintjs/frintjs.svg)](https://gitter.im/frintjs/frintjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > The modular JavaScript framework
 
@@ -36,7 +36,7 @@ $ npm install
 $ npm start
 ```
 
-Find more examples [here](https://github.com/Travix-International/frint/tree/master/examples).
+Find more examples [here](https://github.com/frintjs/frint/tree/master/examples).
 
 ## Packages
 
@@ -52,15 +52,21 @@ The framework is a collection of these packages, which can be composed together 
 | [frint-router]                     | [![frint-router-status]][frint-router-package]                                       | Router services for building Single Page Applications |
 | [frint-router-react]               | [![frint-router-react-status]][frint-router-react-package]                           | React components for building SPAs |
 | [frint-cli]                        | [![frint-cli-status]][frint-cli-package]                                             | CLI runner |
-| [frint-compat]                     | [![frint-compat-status]][frint-compat-package]                                       | Backwards compatibility for older versions |
 | [frint-model]                      | [![frint-model-status]][frint-model-package]                                         | Use `frint-data` instead |
-| **For library developers:**        |                                                                                      |  |
-| [frint-component-utils]            | [![frint-component-utils-status]][frint-component-utils-package]                     | Utils for reactive Components |
-| [frint-component-handlers]         | [![frint-component-handlers-status]][frint-component-handlers-package]               | Handlers for integrating with other rendering libraries |
-| [frint-router-component-handlers]  | [![frint-router-component-handlers-status]][frint-router-component-handlers-package] | Handlers for integrating `frint-router` with other rendering libraries |
-| **Internally used:**               |                                                                                      |  |
-| [frint-test-utils]                 | [![frint-test-utils-status]][frint-test-utils-package]                               | Internally used test utilities |
-| [frint-config]                     | [![frint-config-status]][frint-config-package]                                       | Common config for your Apps |
+
+### For library developers
+
+These packages enable you to create packages integrating FrintJS with other rendering libraries:
+
+* [frint-component-utils]: Utils for reactive Components
+* [frint-component-handlers]: Handlers for integrating with other rendering libraries
+* [frint-router-component-handlers]: Handlers for integrating `frint-router` with other rendering libraries
+
+### Internally used
+
+* [frint-test-utils]: Internally used test utilities
+* [frint-config]: Common config for your Apps
+* [frint-compat]: Backwards compatibility for older versions
 
 [frint]: https://frint.js.org/docs/packages/frint
 [frint-store]: https://frint.js.org/docs/packages/frint-store
@@ -117,4 +123,4 @@ The framework is a collection of these packages, which can be composed together 
 
 ## License
 
-MIT © [Travix International](http://travix.com)
+MIT © [FrintJS Authors](https://github.com/frintjs/frint/graphs/contributors) and [Travix International](http://travix.com)

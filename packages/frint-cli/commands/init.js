@@ -18,7 +18,7 @@ Example:
   $ frint init --example kitchensink
 
 You can find list of all available examples here:
-https://github.com/Travix-International/frint/tree/master/examples
+https://github.com/frintjs/frint/tree/master/examples
 `.trim();
 
 module.exports = createApp({
@@ -40,7 +40,7 @@ module.exports = createApp({
           const dir = deps.pwd;
 
           function streamFrintExampleToDir() {
-            request('https://codeload.github.com/Travix-International/frint/tar.gz/master')
+            request('https://codeload.github.com/frintjs/frint/tar.gz/master')
               .on('error', deps.console.error)
               .pipe(tar.x({
                 filter: path => path.indexOf(`frint-master/examples/${example}/`) === 0,

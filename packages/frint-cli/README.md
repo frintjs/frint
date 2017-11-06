@@ -49,7 +49,7 @@ $ mkdir my-directory && cd my-directory
 $ frint init
 ```
 
-To scaffold a certain example, as available in the repository [here](https://github.com/Travix-International/frint/tree/master/examples):
+To scaffold a certain example, as available in the repository [here](https://github.com/frintjs/frint/tree/master/examples):
 
 ```
 $ frint init --example exampleName

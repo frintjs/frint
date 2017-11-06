@@ -155,7 +155,7 @@ describe('frint-react › components › Region', function () {
           <div>
             <p id="root-text">Hello World from Root</p>
 
-            <Region name="sidebar" />
+            <Region className="sidebar" name="sidebar" />
 
             <ul className="todos">
               {todos.map((todo) => {
@@ -352,5 +352,52 @@ describe('frint-react › components › Region', function () {
 
     // rootApp should not have the instance any more
     expect(window.app.getAppInstance('App', 'todo-item', 'todo-item-1')).to.equal(null);
+  });
+
+  it('should accept className and pass down to rendered component', function () {
+    const className = 'region-sidebar';
+    // root
+    function RootComponent() {
+      return (
+        <div>
+          <Region className={className} name="sidebar" />
+        </div>
+      );
+    }
+    const RootApp = createApp({
+      name: 'RootApp',
+      providers: [
+        { name: 'component', useValue: RootComponent },
+      ],
+    });
+
+    // apps
+    function App1Component() {
+      return <p>App 1</p>;
+    }
+    const App1 = createApp({
+      name: 'App1',
+      providers: [
+        { name: 'component', useValue: App1Component },
+      ],
+    });
+
+    // render
+    window.app = new RootApp();
+    render(
+      window.app,
+      document.getElementById('root')
+    );
+
+    // register apps
+    window.app.registerApp(App1, {
+      regions: ['sidebar'],
+      weight: 10,
+    });
+
+    // verify
+    const paragraph = document.querySelector('p'); // @TODO: enzyme can be used?
+    expect(paragraph.parentElement.className).to.equal(className);
+    expect(paragraph.innerHTML).to.equal('App 1');
   });
 });

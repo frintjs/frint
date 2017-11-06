@@ -504,6 +504,7 @@ The Region component.
 1. `name` (`String`): The name of the Region
 1. `data` (`Object`): Data to be made available to rendered App
 1. `uniqueKey` (`String` [optional]): Used when there are multiple Regions of the same `name`. It prop must be unique and fixed throughout the whole app.
+1. `className` (`String` [optional]): The className used by Region wrapper element
 
 ## RegionService
 

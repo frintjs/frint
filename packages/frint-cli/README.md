@@ -69,7 +69,7 @@ Scaffolds a new FrintJS application in the specified directory:
 $ frint new my-directory
 ```
 
-To scaffold a certain example, as available in the repository [here](https://github.com/Travix-International/frint/tree/master/examples):
+To scaffold a certain example, as available in the repository [here](https://github.com/frintjs/frint/tree/master/examples):
 
 ```
 $ frint new my-directory --example kitchensink

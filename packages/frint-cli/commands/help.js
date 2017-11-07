@@ -1,7 +1,7 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 const createApp = require('frint').createApp;
 
-const descriptionText = `
+const DESCRIPTION_TEXT = `
 Usage:
 
   $ frint help <commandName>
@@ -21,7 +21,7 @@ module.exports = createApp({
     },
     {
       name: 'description',
-      useValue: descriptionText,
+      useValue: DESCRIPTION_TEXT,
     },
     {
       name: 'execute',

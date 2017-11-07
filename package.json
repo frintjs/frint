@@ -13,12 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Travix-International/frint.git"
+    "url": "git+https://github.com/frintjs/frint.git"
   },
-  "author": {
-    "name": "Travix International B.V.",
-    "url": "https://travix.com"
-  },
+  "author": "FrintJS Authors (https://github.com/frintjs/frint/graphs/contributors)",
   "contributors": [
     {
       "name": "Fahad Ibnay Heylaal",
@@ -39,9 +36,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Travix-International/frint/issues"
+    "url": "https://github.com/frintjs/frint/issues"
   },
-  "homepage": "https://github.com/Travix-International/frint#readme",
+  "homepage": "https://github.com/frintjs/frint#readme",
   "devDependencies": {
     "alex": "^5.0.0",
     "babel-cli": "^6.10.1",

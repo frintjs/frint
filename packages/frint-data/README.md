@@ -94,6 +94,14 @@ const Todo = createModel({
 // a group of Todo models can be put in a Todos collection
 const Todos = createCollection({
   model: Todo,
+
+  addTodo(todo) {
+    return this.push(todo);
+  },
+
+  extractLast() {
+    return this.pop();
+  },
 });
 ```
 
@@ -108,7 +116,7 @@ const todo = new Todo({
 
 // collection
 const todos = new Todos();
-todos.push(todo);
+todos.addTodo(todo);
 ```
 
 ### Model usage
@@ -129,19 +137,20 @@ console.log(todo.title); // `First task [updated]`
 ### Collection usage
 
 ```js
-// lets push the model to collection
-todos.push(todo);
+// lets add the model to collection
+todos.addTodo(todo);
 console.log(todos.length); // `1`
 
-todos.push(new Todo({
+todos.addTodo(new Todo({
   title: 'My second task',
   completed: false
 }));
 console.log(todos.length); // `2`
 
 // let's take the last model out of the collection
-const lastTodo = todos.pop();
+const lastTodo = todos.extractLast();
 console.log(lastTodo); // `My second task`
+console.log(todos.length); // `1`
 ```
 
 ### Observing Models and Collections
@@ -341,6 +350,27 @@ const Todos = createCollection({
 ```
 
 Collection instances also come with built-in methods like `map`, `filter`, `reduce` just like `Array`. See more in API Reference.
+
+### Immutable collections
+
+Collections are immutable by default. If you want to use built-in methods that mutate the collection, then you have to do them by defining custom methods first:
+
+```js
+const Todos = createCollection({
+  model: Todo,
+
+  addTodo(todo) {
+    // `push` and other mutating methods are only avaialble inside custom methods
+    return this.push(todo);
+  },
+});
+
+const todos = new Todos();
+todos.addTodo(new Todo({ title: 'First task' })); // works
+
+// this will NOT work
+todos.push(new Todo({ title: 'Another task' }));
+```
 
 ## Embedding
 

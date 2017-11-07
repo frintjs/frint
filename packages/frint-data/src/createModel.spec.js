@@ -466,7 +466,10 @@ describe('frint-data › createModel', function () {
         this.push(new Book({
           title
         }));
-      }
+      },
+      customPush(m) {
+        return this.push(m);
+      },
     });
 
     const Author = createModel({
@@ -493,7 +496,7 @@ describe('frint-data › createModel', function () {
       });
 
     author.books.addBook('My New Book');
-    author.books.push(new Book({ title: 'Another Book' }));
+    author.books.customPush(new Book({ title: 'Another Book' }));
   });
 
   it('emits `change` event with Event object for self', function (done) {
@@ -570,6 +573,10 @@ describe('frint-data › createModel', function () {
 
     const Books = createCollection({
       model: Book,
+
+      customPush(m) {
+        return this.push(m);
+      },
     });
 
     const Author = createModel({
@@ -611,7 +618,7 @@ describe('frint-data › createModel', function () {
         done();
       });
 
-    author.books.push(new Book({
+    author.books.customPush(new Book({
       title: `Dumbledore's Army`
     }));
   });

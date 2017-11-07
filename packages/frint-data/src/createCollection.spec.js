@@ -141,6 +141,10 @@ describe('frint-data › createCollection', function () {
 
     const People = createCollection({
       model: Person,
+
+      customPush(m) {
+        return this.push(m);
+      },
     });
 
     const people = new People([
@@ -162,8 +166,8 @@ describe('frint-data › createCollection', function () {
         done();
       });
 
-    people.push(new Person({ name: 'Ron' }));
-    people.push(new Person({ name: 'Hermione' }));
+    people.customPush(new Person({ name: 'Ron' }));
+    people.customPush(new Person({ name: 'Hermione' }));
   });
 
   it('listens for child-model changes', function (done) {
@@ -324,13 +328,17 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPush(m) {
+          return this.push(m);
+        },
       });
 
       const people = new People();
 
-      people.push(new Person({ name: 'Harry' }));
-      people.push(new Person({ name: 'Hermione' }));
-      people.push(new Person({ name: 'Ron' }));
+      people.customPush(new Person({ name: 'Harry' }));
+      people.customPush(new Person({ name: 'Hermione' }));
+      people.customPush(new Person({ name: 'Ron' }));
 
       const modelsWithH = people.filter((person) => {
         return person.name.startsWith('H');
@@ -430,13 +438,17 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPush(m) {
+          return this.push(m);
+        },
       });
 
       const people = new People();
 
-      people.push(new Person({ name: 'Harry' }));
-      people.push(new Person({ name: 'Hermione' }));
-      people.push(new Person({ name: 'Ron' }));
+      people.customPush(new Person({ name: 'Harry' }));
+      people.customPush(new Person({ name: 'Hermione' }));
+      people.customPush(new Person({ name: 'Ron' }));
 
       const names = [];
       people.forEach((person) => {
@@ -460,13 +472,17 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPush(m) {
+          return this.push(m);
+        },
       });
 
       const people = new People();
 
-      people.push(new Person({ name: 'Harry' }));
-      people.push(new Person({ name: 'Hermione' }));
-      people.push(new Person({ name: 'Ron' }));
+      people.customPush(new Person({ name: 'Harry' }));
+      people.customPush(new Person({ name: 'Hermione' }));
+      people.customPush(new Person({ name: 'Ron' }));
 
       const names = people.map((person) => {
         return person.name;
@@ -489,6 +505,10 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPop() {
+          return this.pop();
+        }
       });
 
       const people = new People([
@@ -499,7 +519,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.length).to.equal(3);
 
-      const lastModel = people.pop();
+      const lastModel = people.customPop();
 
       expect(people.length).to.equal(2);
 
@@ -520,13 +540,17 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPush(m) {
+          return this.push(m);
+        },
       });
 
       const people = new People();
 
-      people.push(new Person({ name: 'Harry' }));
-      people.push(new Person({ name: 'Hermione' }));
-      people.push(new Person({ name: 'Ron' }));
+      people.customPush(new Person({ name: 'Harry' }));
+      people.customPush(new Person({ name: 'Hermione' }));
+      people.customPush(new Person({ name: 'Ron' }));
 
       expect(people.at(0).name).to.equal('Harry');
       expect(people.at(1).name).to.equal('Hermione');
@@ -543,13 +567,17 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPush(m) {
+          return this.push(m);
+        },
       });
 
       const people = new People();
 
-      people.push(new Person({ age: 10 }));
-      people.push(new Person({ age: 20 }));
-      people.push(new Person({ age: 30 }));
+      people.customPush(new Person({ age: 10 }));
+      people.customPush(new Person({ age: 20 }));
+      people.customPush(new Person({ age: 30 }));
 
       const totalAge = people.reduce((result, model) => {
         return result + model.age;
@@ -568,6 +596,10 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customRemove(m) {
+          return this.remove(m);
+        },
       });
 
       const people = new People([
@@ -579,7 +611,7 @@ describe('frint-data › createCollection', function () {
       expect(people.length).to.equal(3);
 
       const hermione = people.at(1);
-      people.remove(hermione);
+      people.customRemove(hermione);
 
       expect(people.length).to.equal(2);
 
@@ -599,6 +631,10 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customRemoveFrom(n) {
+          return this.removeFrom(n);
+        },
       });
 
       const people = new People([
@@ -609,7 +645,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.length).to.equal(3);
 
-      people.removeFrom(0);
+      people.customRemoveFrom(0);
 
       expect(people.length).to.equal(2);
 
@@ -629,6 +665,10 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customShift() {
+          return this.shift();
+        },
       });
 
       const people = new People([
@@ -639,7 +679,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.length).to.equal(3);
 
-      const firstModel = people.shift();
+      const firstModel = people.customShift();
 
       expect(people.length).to.equal(2);
 
@@ -689,14 +729,22 @@ describe('frint-data › createCollection', function () {
       });
       const People = createCollection({
         model: Person,
+
+        customPush(m) {
+          return this.push(m);
+        },
+
+        customUnshift(m) {
+          return this.unshift(m);
+        },
       });
 
       const people = new People();
 
-      people.push(new Person({ name: 'Harry' }));
-      people.push(new Person({ name: 'Hermione' }));
+      people.customPush(new Person({ name: 'Harry' }));
+      people.customPush(new Person({ name: 'Hermione' }));
 
-      people.unshift(new Person({ name: 'Ron' }));
+      people.customUnshift(new Person({ name: 'Ron' }));
 
       expect(people.at(0).name).to.equal('Ron');
       expect(people.at(1).name).to.equal('Harry');

@@ -257,7 +257,7 @@ describe('frint-data › createCollection', function () {
     expect(people.at(0).name).to.equal('Initialize');
   });
 
-  it.only('does not allow mutation by default', function () {
+  it('does not allow mutation by default', function () {
     const Person = createModel({
       schema: {
         name: Types.string.isRequired,
@@ -266,14 +266,23 @@ describe('frint-data › createCollection', function () {
 
     const People = createCollection({
       model: Person,
+
+      customPush(m) {
+        return this.push(m);
+      },
     });
 
     const people = new People([
       { name: 'Foo' }
     ]);
 
+    expect(people.length).to.equal(1);
     expect(people.at(0).name).to.equal('Foo');
     expect(people.push).to.equal(undefined);
+
+    people.customPush(new Person({ name: 'Bar' }));
+    expect(people.length).to.equal(2);
+    expect(people.at(1).name).to.equal('Bar');
   });
 
   describe('Collection :: at()', function () {

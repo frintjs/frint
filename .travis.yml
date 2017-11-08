@@ -12,7 +12,7 @@ script:
 after_success:
   - 'npm run cover'
   - './node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/frint*/coverage/coverage*.json'
-  - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
+  - 'npm run codecov'
 
 notifications:
   email: false

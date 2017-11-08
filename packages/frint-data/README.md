@@ -360,7 +360,7 @@ const Todos = createCollection({
   model: Todo,
 
   addTodo(todo) {
-    // `push` and other mutating methods are only avaialble inside custom methods
+    // `push` and other mutating methods are only available inside custom methods
     return this.push(todo);
   },
 });

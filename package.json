@@ -11,7 +11,7 @@
     "alex": "alex .",
     "dist": "lerna run dist",
     "codecov": "codecov",
-    "cover:check": "./check-coverage.sh"
+    "cover:check": "scripts/check-coverage.sh"
   },
   "repository": {
     "type": "git",

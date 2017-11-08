@@ -10,7 +10,8 @@
     "test": "lerna run test",
     "alex": "alex .",
     "dist": "lerna run dist",
-    "codecov": "codecov"
+    "codecov": "codecov",
+    "cover:check": "./check-coverage.sh"
   },
   "repository": {
     "type": "git",

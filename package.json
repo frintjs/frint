@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/frintjs/frint#readme",
   "devDependencies": {
-    "alex": "^5.0.0",
+    "alex": "5.0.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.13.2",
     "babel-eslint": "^8.0.0",

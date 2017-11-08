@@ -1,3 +1,5 @@
+set -e
+
 ISTANBUL_COMBINE_OUTPUT=`./node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/frint*/coverage/coverage*.json`;
 
 LINES_COVERAGE_ORIGINAL_LINE=`echo "${ISTANBUL_COMBINE_OUTPUT}" | grep Lines`;

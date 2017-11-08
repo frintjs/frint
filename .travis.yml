@@ -3,10 +3,8 @@ language: node_js
 node_js:
   - 'lts/*'
 
-before_install:
-  - 'set -e'
-
 script:
+  - 'set -e'
   - 'npm run bootstrap'
   - 'npm run lint'
   - 'npm run test'

@@ -11,7 +11,7 @@ script:
 
 after_success:
   - 'npm run cover'
-  - './node_modules/.bin/istanbul-combine -d coverage -p summary -r lcov -r html packages/frint*/coverage/coverage*.json'
+  - 'npm run cover:check'
   - 'npm run codecov'
 
 notifications:

@@ -4,8 +4,8 @@ node_js:
   - 'lts/*'
 
 script:
-  - 'set -e'
   - 'npm run bootstrap'
+  - 'set -e'
   - 'npm run lint'
   - 'npm run test'
   - 'npm run alex'

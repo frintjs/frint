@@ -9,7 +9,9 @@
     "cover": "lerna run cover",
     "test": "lerna run test",
     "alex": "alex .",
-    "dist": "lerna run dist"
+    "dist": "lerna run dist",
+    "codecov": "codecov",
+    "cover:check": "scripts/check-coverage.sh"
   },
   "repository": {
     "type": "git",
@@ -48,7 +50,7 @@
     "babel-preset-travix": "^1.1.0",
     "babel-register": "^6.9.0",
     "chai": "^4.0.2",
-    "coveralls": "^3.0.0",
+    "codecov": "^3.0.0",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "eslint": "^4.1.0",

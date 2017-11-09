@@ -57,18 +57,12 @@ export default class Region extends React.Component {
       return null;
     }
 
-    const { className } = this.props;
+    return listForRendering.map((item) => {
+      const { Component, name } = item;
 
-    return (
-      <div className={className}>
-        {listForRendering.map((item) => {
-          const { Component, name } = item;
-
-          return (
-            <Component key={`app-${name}`} />
-          );
-        })}
-      </div>
-    );
+      return (
+        <Component key={`app-${name}`} />
+      );
+    });
   }
 }

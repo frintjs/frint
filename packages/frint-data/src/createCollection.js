@@ -55,6 +55,8 @@ export default function createCollection(options = {}) {
         }
       });
 
+      const mutableMethods = {};
+
       /**
        * Built-in methods
        */
@@ -68,7 +70,7 @@ export default function createCollection(options = {}) {
       };
       makeMethodReactive(this, 'at');
 
-      this.push = function (model) {
+      mutableMethods.push = function (model) {
         if (!isModel(model)) {
           throw new CollectionError('not a valid Model instance is being pushed');
         }
@@ -101,7 +103,7 @@ export default function createCollection(options = {}) {
 
         return result;
       };
-      makeMethodReactive(this, 'push');
+      makeMethodReactive(mutableMethods, 'push');
 
       // native array methods
       [
@@ -140,7 +142,7 @@ export default function createCollection(options = {}) {
         makeMethodReactive(this, lodashFuncName);
       });
 
-      this.pop = function () {
+      mutableMethods.pop = function () {
         const model = models.pop();
 
         this._trigger('change');
@@ -150,7 +152,7 @@ export default function createCollection(options = {}) {
         return model;
       };
 
-      this.shift = function () {
+      mutableMethods.shift = function () {
         const model = models.shift();
 
         this._trigger('change');
@@ -160,7 +162,7 @@ export default function createCollection(options = {}) {
         return model;
       };
 
-      this.unshift = function (model) {
+      mutableMethods.unshift = function (model) {
         if (!isModel(model)) {
           throw new CollectionError('not a valid Model instance is being pushed');
         }
@@ -187,13 +189,13 @@ export default function createCollection(options = {}) {
         return result;
       };
 
-      this.remove = function (model) {
+      mutableMethods.remove = function (model) {
         const index = this.findIndex(model);
 
         this.removeFrom(index);
       };
 
-      this.removeFrom = function (index) {
+      mutableMethods.removeFrom = function (index) {
         const model = models[index];
 
         if (!model) {
@@ -224,29 +226,48 @@ export default function createCollection(options = {}) {
       // listen$()
       addListenerMethod(this, 'collection');
 
+      // combined context
+      const combinedContext = {
+        _on: this._on,
+        _off: this._off,
+        _trigger: this._trigger,
+      };
+
+      Object.keys(this).forEach((k) => {
+        combinedContext[k] = this[k];
+      });
+
+      Object.keys(mutableMethods).forEach((k) => {
+        combinedContext[k] = mutableMethods[k];
+      });
+
+      Object.keys(combinedContext).forEach((k) => {
+        combinedContext[k] = combinedContext[k].bind(combinedContext);
+      });
+
       // methods
       each(methods, (methodFunc, methodName) => {
         if (typeof this[methodName] !== 'undefined') {
           throw new MethodError(`conflicting method name: ${methodName}`);
         }
 
-        this[methodName] = methodFunc.bind(this);
+        this[methodName] = methodFunc.bind(combinedContext);
       });
 
       // initialize
       givenModels.forEach((v) => {
         if (isModel(v)) {
-          this.push(v);
+          combinedContext.push(v);
 
           return;
         }
 
         const model = new Model(v);
-        this.push(model);
+        combinedContext.push(model);
       });
 
       if (typeof options.initialize === 'function') {
-        options.initialize.bind(this)();
+        options.initialize.bind(combinedContext)();
       }
     }
   }

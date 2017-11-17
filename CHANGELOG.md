@@ -1,5 +1,21 @@
 # Change Log
 
+## v5.0.0 (2017-11-17)
+
+#### Pull Requests
+* `frint-data`
+  * [#361](https://github.com/frintjs/frint/pull/361) frint-data: Collections made immutable. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#370](https://github.com/frintjs/frint/pull/370) Gitter URL updated. ([@fahad19](https://github.com/fahad19))
+  * [#368](https://github.com/frintjs/frint/pull/368) Gitter URL updated. ([@fahad19](https://github.com/fahad19))
+  * [#366](https://github.com/frintjs/frint/pull/366) Updates NSP badge on README.md. ([@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+  * [#363](https://github.com/frintjs/frint/pull/363) Adds coverage threshold check. ([@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+  * [#362](https://github.com/frintjs/frint/pull/362) Removes Coveralls in favor of Codecov.. ([@mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Ricardo Machado ([mAiNiNfEcTiOn](https://github.com/mAiNiNfEcTiOn))
+
 ## v4.2.0 (2017-11-06)
 
 #### Pull Requests

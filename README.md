@@ -1,7 +1,11 @@
 # frint
 
-[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint) [![Build Status](https://img.shields.io/travis/frintjs/frint/master.svg)](http://travis-ci.org/frintjs/frint)
-[![codecov](https://codecov.io/gh/frintjs/frint/branch/master/graph/badge.svg)](https://codecov.io/gh/frintjs/frint) [![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/a1b03b99-d210-41f8-88c5-44313d27ab6f/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/a1b03b99-d210-41f8-88c5-44313d27ab6f) [![Join the chat at https://gitter.im/frintjs/frintjs](https://badges.gitter.im/frintjs/frint.svg)](https://gitter.im/frintjs/frint?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![npm](https://img.shields.io/npm/v/frint.svg)](https://www.npmjs.com/package/frint)
+[![Build Status](https://img.shields.io/travis/frintjs/frint/master.svg)](http://travis-ci.org/frintjs/frint)
+[![codecov](https://codecov.io/gh/frintjs/frint/branch/master/graph/badge.svg)](https://codecov.io/gh/frintjs/frint)
+[![NSP Status](https://nodesecurity.io/orgs/travix-international-bv/projects/a1b03b99-d210-41f8-88c5-44313d27ab6f/badge)](https://nodesecurity.io/orgs/travix-international-bv/projects/a1b03b99-d210-41f8-88c5-44313d27ab6f)
+[![Join the chat at https://gitter.im/frintjs/frint](https://badges.gitter.im/frintjs/frint.svg)](https://gitter.im/frintjs/frint)
+[![Greenkeeper](https://badges.greenkeeper.io/frintjs/frint.svg)](https://greenkeeper.io/)
 
 > The modular JavaScript framework
 

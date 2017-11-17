@@ -1,6 +1,6 @@
 {
   "name": "frint-cli",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "CLI for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-cli",
@@ -30,7 +30,7 @@
     "frint-cli"
   ],
   "dependencies": {
-    "frint": "^4.2.0",
+    "frint": "^5.0.0",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "request": "^2.81.0",

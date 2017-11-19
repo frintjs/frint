@@ -58,7 +58,7 @@
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-react": "^7.5.1",
     "istanbul": "^1.1.0-alpha.1",
     "istanbul-combine": "^0.3.0",
     "lerna": "^2.0.0-beta.38",

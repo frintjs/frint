@@ -51,7 +51,10 @@ const RouteHandler = {
   },
 
   _calculateComponentState(nextProps, appChanged = false) {
-    if (nextProps.component) {
+    if (nextProps.render) {
+      // render
+      this.setData('component', null);
+    } else if (nextProps.component) {
       // component
       this._destroyRouteApp();
 

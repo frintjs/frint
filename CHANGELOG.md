@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.0.1 (2017-11-23)
+
+#### Pull Requests
+* `frint-router-component-handlers`
+  * [#379](https://github.com/frintjs/frint/pull/379) Fix conflict between render and component props in Route component. ([@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 1
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v5.0.0 (2017-11-17)
 
 #### Pull Requests

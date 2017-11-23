@@ -94,6 +94,58 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
     });
   });
 
+  describe('RouteHandler functions properly with render() throughout lifecycle', function () {
+    const router = new MemoryRouterService();
+
+    const component = createComponent();
+    const componentToRender = createComponent();
+
+    component.props = {
+      path: '/',
+      exact: true,
+      render: function () {
+        /* istanbul ignore next */
+        return null;
+      }
+    };
+
+    const handler = createRouteHandler(
+      ComponentHandler,
+      createTestAppInstance(router),
+      component
+    );
+
+    router.push('/');
+
+    it('initially component data is set to null', function () {
+      component.data = handler.getInitialData();
+
+      expect(component.data.component).to.be.null;
+    });
+
+    it('when component prop is set, component data keeps null value', function () {
+      component.props.component = componentToRender;
+      handler.propsChange(component.props, false, false, false);
+
+      expect(component.data.component).to.be.null;
+    });
+
+    it('when render() prop is removed, component data is equal to component prop', function () {
+      component.props.render = undefined;
+      handler.propsChange(component.props, false, false, false);
+
+      expect(component.data.component).to.equal(componentToRender);
+    });
+
+    it('when render() prop is set and component prop removed, component data equals to null', function () {
+      component.props.component = undefined;
+      component.props.render = () => null;
+      handler.propsChange(component.props, false, false, false);
+
+      expect(component.data.component).to.be.null;
+    });
+  });
+
   describe('RouteHandler functions properly with computedMatch throughout lifecycle', function () {
     const router = new MemoryRouterService();
 

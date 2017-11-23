@@ -103,7 +103,10 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
     component.props = {
       path: '/',
       exact: true,
-      render: () => null
+      render: function () {
+        /* istanbul ignore next */
+        return null;
+      }
     };
 
     const handler = createRouteHandler(

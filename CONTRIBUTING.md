@@ -30,7 +30,7 @@ Before submitting any issue, please make sure they are not a duplicate of any ot
 
 For every new feature, package or a change, we post [proposals](https://github.com/frintjs/frint/issues?q=is%3Aissue+is%3Aopen+label%3Aproposal) under GitHub Issues publicly.
 
-Members from the project and other interested parties can then comment on the proposal, discussing about the pros and cons, and the proposal gets refined/updated based on feedback.
+Members from the project and other interested parties can then comment on the proposal, discussing about the strengths and weaknesses, and the proposal gets refined/updated based on feedback.
 
 Once the spec is ready and finalized, the development begins.
 

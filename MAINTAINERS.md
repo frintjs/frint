@@ -22,6 +22,10 @@
 
 When merging Pull Requests on GitHub, use the [squash and merge](https://github.com/blog/2141-squash-your-commits) button, so that our timeline of master branch is linear.
 
+Also make sure every Pull Request has a `PR` label, and one of the semver labels (`patch`, `minor`, or `major`).
+
+These labels later help generate automated changelogs.
+
 ## Development
 
 We use [Lerna](https://github.com/lerna/lerna/) for managing our monorepo. All our packages can be found in [packages](./packages) directory.
@@ -126,6 +130,8 @@ There is a handy command available:
 ```
 $ make push-changelog
 ```
+
+We also copy the generated changelog text of a specific version to [GitHub Releases](https://github.com/frintjs/frint/releases) section.
 
 ## Packages
 

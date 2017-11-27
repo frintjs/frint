@@ -72,7 +72,7 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
 
       handler.propsChange(component.props, false, false, true);
 
-      expect(component.data.component).to.equal(appComponent);
+      expect(component.data.component).to.deep.equal(appComponent);
     });
 
     it('when path prop change and propsChange() is called, matched data is changed', function () {

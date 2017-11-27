@@ -1,5 +1,16 @@
 # Change Log
 
+## v5.1.0 (2017-11-27)
+
+#### Pull Requests
+* `frint-router-component-handlers`, `frint`
+  * [#381](https://github.com/frintjs/frint/pull/381) frint: handle App lifecycle events without overriding options. ([@fahad19](https://github.com/fahad19))
+* Other
+  * [#380](https://github.com/frintjs/frint/pull/380) Contribution guide. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v5.0.1 (2017-11-23)
 
 #### Pull Requests

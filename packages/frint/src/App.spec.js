@@ -447,4 +447,68 @@ describe('frint  › App', function () {
       app.instantiateApp('blah');
     }).to.throw(/No app found with name 'blah'/);
   });
+
+  it('can accept additional lifecycle callbacks for Root Apps while instantiating, without overriding', function () {
+    let counter = 0;
+
+    const Root = createApp({
+      name: 'RootApp',
+      initialize() {
+        counter += 1;
+      },
+    });
+
+    new Root({
+      initialize() {
+        counter += 1;
+      },
+    });
+
+    expect(counter).to.equal(2);
+  });
+
+  it('can accept additional lifecycle callbacks for Child Apps while registering, without overriding', function () {
+    let counter = 0;
+
+    const Root = createApp({
+      name: 'RootApp',
+    });
+    const ChildApp = createApp({
+      name: 'ChildApp',
+      initialize() {
+        counter += 1;
+      },
+    });
+
+    const app = new Root();
+    app.registerApp(ChildApp, {
+      initialize() {
+        counter += 1;
+      },
+    });
+
+    expect(counter).to.equal(2);
+  });
+
+  it('can update providers at lifecycle level', function () {
+    const Root = createApp({
+      name: 'RootApp',
+      providers: [
+        {
+          name: 'foo',
+          useValue: 'original foo',
+        },
+      ],
+      initialize() {
+        const foo = this.get('foo');
+        this.container.register({
+          name: 'foo',
+          useValue: `${foo} [updated]`,
+        });
+      }
+    });
+
+    const app = new Root();
+    expect(app.get('foo')).to.equal('original foo [updated]');
+  });
 });

@@ -73,6 +73,6 @@
     "request": "^2.81.0",
     "sinon": "^4.0.0",
     "sinon-chai": "^2.13.0",
-    "webpack": "^3.0.0"
+    "webpack": "^3.9.0"
   }
 }

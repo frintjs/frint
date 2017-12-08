@@ -1,6 +1,6 @@
 {
   "name": "frint-router-react",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "React Components for router in Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-router-react",
@@ -25,15 +25,15 @@
     "frint"
   ],
   "dependencies": {
-    "frint-react": "^5.1.0",
-    "frint-router": "^5.1.0",
-    "frint-router-component-handlers": "^5.1.0"
+    "frint-react": "^5.1.1",
+    "frint-router": "^5.1.1",
+    "frint-router-component-handlers": "^5.1.1"
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
-    "frint": "^5.1.0",
-    "frint-config": "^5.1.0",
-    "frint-test-utils": "^5.1.0"
+    "frint": "^5.1.1",
+    "frint-config": "^5.1.1",
+    "frint-test-utils": "^5.1.1"
   },
   "bugs": {
     "url": "https://github.com/frintjs/frint/issues"

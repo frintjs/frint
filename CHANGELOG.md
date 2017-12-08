@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.1.1 (2017-12-08)
+
+#### Pull Requests
+* `frint`
+  * [#383](https://github.com/frintjs/frint/pull/383) Ensure proper `this` context in lifecycle callbacks. ([@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 1
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v5.1.0 (2017-11-27)
 
 #### Pull Requests

@@ -16,8 +16,8 @@ function mergeOptions(createAppOptions, constructorOptions) {
       typeof constructorOptions[cbName] === 'function'
     ) {
       mergedOptions[cbName] = function lifecycleCb() {
-        createAppOptions[cbName]();
-        constructorOptions[cbName]();
+        createAppOptions[cbName].call(this);
+        constructorOptions[cbName].call(this);
       };
     }
   });

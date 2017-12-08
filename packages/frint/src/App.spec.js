@@ -511,4 +511,35 @@ describe('frint  › App', function () {
     const app = new Root();
     expect(app.get('foo')).to.equal('original foo [updated]');
   });
+
+  it('can access and update providers from lifecycle callback defined while instantiating', function () {
+    const Root = createApp({
+      name: 'RootApp',
+      providers: [
+        {
+          name: 'foo',
+          useValue: 'original foo',
+        },
+      ],
+      initialize() {
+        const foo = this.get('foo');
+        this.container.register({
+          name: 'foo',
+          useValue: `${foo} [updatedFromCreateApp]`,
+        });
+      }
+    });
+
+    const app = new Root({
+      initialize() {
+        const foo = this.get('foo');
+        this.container.register({
+          name: 'foo',
+          useValue: `${foo} [updatedFromInstantiation]`,
+        });
+      }
+    });
+
+    expect(app.get('foo')).to.equal('original foo [updatedFromCreateApp] [updatedFromInstantiation]');
+  });
 });

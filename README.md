@@ -14,10 +14,10 @@ For documentation, visit [https://frint.js.org](https://frint.js.org).
 Key characteristics and features include:
 
 * Gives your applications a **structure**
-* **Environment** agnostic (browser, server CLI)
-* **Rendering** library agnostic (integrates with React, Vue, Preact)
+* **Environment** agnostic (runs in browser, server, and CLI)
+* **Rendering** library agnostic (integrates with React, Vue, and Preact)
 * **Composable** with multiple packages as needed
-* Each package doing **one thing** well only
+* Each package focused on doing **one thing** well only
 * **Modular** architecture with Apps
 * Embraces **reactive programming** with RxJS
 * **Progressive** and easy to adopt it in existing applications

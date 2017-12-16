@@ -11,7 +11,7 @@
 
 For documentation, visit [https://frint.js.org](https://frint.js.org).
 
-Key characteristics and fetures include:
+Key characteristics and features include:
 
 * Gives your applications a **structure**
 * **Environment** agnostic (browser, server CLI)

@@ -11,6 +11,17 @@
 
 For documentation, visit [https://frint.js.org](https://frint.js.org).
 
+Key characteristics and fetures include:
+
+* Gives your applications a **structure**
+* **Environment** agnostic (browser, server CLI)
+* **Rendering** library agnostic (integrates with React, Vue, Preact)
+* **Composable** with multiple packages as needed
+* Each package doing **one thing** well only
+* **Modular** architecture with Apps
+* Embraces **reactive programming** with RxJS
+* **Progressive** and easy to adopt it in existing applications
+
 This project adheres to the Contributor Covenant code of conduct. By participating, you are expected to uphold this code.
 Please report unacceptable behavior to frintjs-conduct@googlegroups.com.
 

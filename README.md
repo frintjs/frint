@@ -17,7 +17,7 @@ Key characteristics and features include:
 * **Environment** agnostic (runs in browser, server, and CLI)
 * **Rendering** library agnostic (integrates with React, Vue, and Preact)
 * **Composable** with multiple packages as needed
-* Each package is focused on doing **one thing** only and doint it well
+* Each package is focused on doing **one thing** only and doing it well
 * **Modular** architecture with Apps
 * Embraces **reactive programming** with RxJS
 * **Progressive** and easy to adopt in existing applications

@@ -17,10 +17,10 @@ Key characteristics and features include:
 * **Environment** agnostic (runs in browser, server, and CLI)
 * **Rendering** library agnostic (integrates with React, Vue, and Preact)
 * **Composable** with multiple packages as needed
-* Each package focused on doing **one thing** well only
+* Each package is focused on doing **one thing** only and doint it well
 * **Modular** architecture with Apps
 * Embraces **reactive programming** with RxJS
-* **Progressive** and easy to adopt it in existing applications
+* **Progressive** and easy to adopt in existing applications
 
 This project adheres to the Contributor Covenant code of conduct. By participating, you are expected to uphold this code.
 Please report unacceptable behavior to frintjs-conduct@googlegroups.com.

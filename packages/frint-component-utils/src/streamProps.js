@@ -8,6 +8,7 @@ import isObservable from './isObservable';
 
 class Streamer {
   constructor(defaults = {}) {
+    this._defaults = defaults;
     this._observables = [
       of$(defaults),
     ];
@@ -89,13 +90,17 @@ class Streamer {
   }
 
   get$() {
-    return merge$(...this._observables)
+    const result$ = merge$(...this._observables)
       .pipe(scan$((props, emitted) => {
         return {
           ...props,
           ...emitted,
         };
       }));
+
+    result$.defaultProps = this._defaults;
+
+    return result$;
   }
 }
 

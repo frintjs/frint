@@ -170,7 +170,7 @@ Store.prototype[$$observable] = function () {
     },
 
     [$$observable]() {
-      return this;
+      /* istanbul ignore next */ return this;
     },
   };
 };

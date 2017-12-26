@@ -1,11 +1,14 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, func-names */
 import isPlainObject from 'lodash/isPlainObject';
 import padStart from 'lodash/padStart';
 import { Subject } from 'rxjs/Subject';
+import { from as from$ } from 'rxjs/observable/from';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map as map$ } from 'rxjs/operators/map';
 import { switchMap as switchMap$ } from 'rxjs/operators/switchMap';
 import { scan as scan$ } from 'rxjs/operators/scan';
+import $$observable from 'symbol-observable';
+
 import ActionsObservable from './ActionsObservable';
 
 function Store(options = {}) {
@@ -66,7 +69,7 @@ function Store(options = {}) {
 
       return updatedState;
     }));
-  this.exposedState$ = new BehaviorSubject();
+  this.exposedState$ = new Subject();
 
   this.cachedState = Object.assign({}, this.options.initialState);
   this.subscription = this.internalState$
@@ -103,7 +106,7 @@ function Store(options = {}) {
 }
 
 Store.prototype.getState$ = function getState$() {
-  return this.exposedState$;
+  return from$(this);
 };
 
 Store.prototype.getState = function getState() {
@@ -142,6 +145,34 @@ Store.prototype.destroy = function destroy() {
   if (this._epicSubscription) {
     this._epicSubscription.unsubscribe();
   }
+};
+
+/**
+ * Interoperability with reactive libraries.
+ * Read more: https://github.com/tc39/proposal-observable
+ */
+Store.prototype[$$observable] = function () {
+  const self = this;
+
+  return {
+    subscribe(observer) {
+      observer.next(self.getState());
+
+      const subscription = self.exposedState$.subscribe(function (state) {
+        observer.next(state);
+      });
+
+      return {
+        unsubscribe() {
+          subscription.unsubscribe();
+        },
+      };
+    },
+
+    [$$observable]() {
+      return this;
+    },
+  };
 };
 
 export default Store;

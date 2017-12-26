@@ -26,7 +26,8 @@
   ],
   "dependencies": {
     "lodash": "^4.13.1",
-    "rxjs": "^5.5.0"
+    "rxjs": "^5.5.0",
+    "symbol-observable": "^1.1.0"
   },
   "devDependencies": {
     "cross-env": "^5.0.5",

@@ -62,6 +62,14 @@ export default function createModel(options = {}) {
                 return convertToJS(v);
               }
 
+              // for supporting Date objects
+              if (
+                v &&
+                typeof v.toISOString === 'function'
+              ) {
+                return v.toISOString();
+              }
+
               return v;
             });
           }

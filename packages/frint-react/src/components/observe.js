@@ -23,6 +23,9 @@ export default function observe(fn) {
       constructor(props, context) {
         super(props, context);
         this._props$ = new BehaviorSubject(this.props);
+        this.state = {
+          computedProps: {},
+        };
 
         const output = (typeof fn === 'function')
           ? fn(context.app, this._props$)
@@ -30,14 +33,16 @@ export default function observe(fn) {
 
         if (!isObservable(output)) {
           // sync
-          this.state = {
-            computedProps: output,
-          };
+          this.state.computedProps = output;
 
           return;
         }
 
         // async
+        if (output.defaultProps) {
+          this.state.computedProps = output.defaultProps;
+        }
+
         this._handler = composeHandlers(
           ReactHandler,
           ObserveHandler,
@@ -47,7 +52,10 @@ export default function observe(fn) {
           },
         );
 
-        this.state = this._handler.getInitialData();
+        this.state.computedProps = {
+          ...this.state.computedProps,
+          ...this._handler.getInitialData().computedProps,
+        };
       }
 
       componentWillMount() {

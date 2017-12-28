@@ -71,7 +71,7 @@ describe('frint-react › components › observe', function () {
     }
 
     const ObservedComponent = observe(function (app, props$) {
-      return merge$(
+      const generatedProps$ = merge$(
         of$({ name: app.getName() }),
         props$.pipe(map$(parentProps => ({ parentProps })))
       )
@@ -81,6 +81,12 @@ describe('frint-react › components › observe', function () {
             ...emitted,
           };
         }));
+
+      generatedProps$.defaultProps = {
+        name: app.getName(),
+      };
+
+      return generatedProps$;
     })(Component);
 
     class ParentComponent extends React.Component {

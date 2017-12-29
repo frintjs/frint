@@ -1,5 +1,21 @@
 # Change Log
 
+## v5.2.0 (2017-12-29)
+
+#### Pull Requests
+* `frint`
+  * [#396](https://github.com/frintjs/frint/pull/396) Fix the signature of the function getApps$ in the d.ts. ([@markvincze](https://github.com/markvincze))
+* `frint-data`
+  * [#395](https://github.com/frintjs/frint/pull/395) frint-data: support Date as a type. ([@fahad19](https://github.com/fahad19))
+* `frint-component-utils`, `frint-react-server`, `frint-react`
+  * [#392](https://github.com/frintjs/frint/pull/392) frint-react: start props stream with default props synchronously. ([@fahad19](https://github.com/fahad19))
+* `frint-store`
+  * [#393](https://github.com/frintjs/frint/pull/393) frint-store: interop with all reactive libraries. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Mark Vincze ([markvincze](https://github.com/markvincze))
+
 ## v5.1.1 (2017-12-08)
 
 #### Pull Requests

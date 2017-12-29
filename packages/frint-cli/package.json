@@ -5,12 +5,12 @@
   "main": "lib/index.js",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-cli",
   "bin": {
-    "frint": "./bin/frint.js"
+    "frint": "./dist/bin/frint.js"
   },
   "scripts": {
-    "lint": "cross-env ../../node_modules/.bin/eslint --color '{root,commands,bin}/**/*.js'",
-    "transpile": "echo \"Nothing to transpile\"",
-    "test": "cross-env ../../node_modules/.bin/mocha --colors --recursive ./commands/*.spec.js",
+    "lint": "cross-env ./node_modules/.bin/tslint -p .",
+    "transpile": "cross-env ./node_modules/.bin/tsc",
+    "test": "cross-env ../../node_modules/.bin/mocha --require ts-node/register --colors --recursive ./**/*.spec.ts",
     "cover:run": "echo \"Nothing to cover\"",
     "cover:report": "echo \"Nothing to report\"",
     "cover": "npm run cover:run && npm run cover:report",
@@ -39,8 +39,14 @@
     "yargs": "^8.0.1"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.45",
+    "@types/request": "^2.0.9",
+    "@types/tar": "^4.0.0",
     "cross-env": "^5.0.5",
-    "memory-fs": "^0.4.1"
+    "memory-fs": "^0.4.1",
+    "ts-node": "^4.1.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
   },
   "bugs": {
     "url": "https://github.com/frintjs/frint/issues"

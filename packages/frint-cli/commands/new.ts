@@ -1,10 +1,7 @@
-/* eslint-disable no-use-before-define */
-
-const mkdirp = require('mkdirp');
-const request = require('request');
-const tar = require('tar');
-
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
+import * as mkdirp from 'mkdirp';
+import * as request from 'request';
+import * as tar from 'tar';
 
 const DEFAULT_ORG = 'frintjs';
 const DEFAULT_REPO = 'frint';
@@ -41,7 +38,7 @@ Please run these two commands to start your application:
   $ npm start
 `.trim();
 
-module.exports = createApp({
+export default createApp({
   name: 'new',
   providers: [
     {
@@ -143,12 +140,12 @@ function streamExampleToOutputDir(ctx) {
         C: ctx.outputDir,
       }))
       .on('error', reject)
-      .on('finish', resolve(ctx));
+      .on('finish', () => resolve(ctx));
   });
 }
 
 function getCompletionText(ctx) {
   return COMPLETION_TEXT.replace(
-    "{}",
-    ctx.isOutputCurrentDir ? "" : `\n  $ cd ${ctx.outputDir}`);
+    '{}',
+    ctx.isOutputCurrentDir ? '' : `\n  $ cd ${ctx.outputDir}`);
 }

@@ -1,25 +1,24 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it */
-const expect = require('chai').expect;
-const App = require('frint').App;
+import { expect } from 'chai';
+import { App } from 'frint';
+import 'mocha';
 
-const createRootApp = require('../root/index.mock');
-const CommandApp = require('./help');
+import createRootApp from '../root/index.mock';
+import HelpCommand from './help';
 
-describe('frint-cli › commands › help', function () {
-  it('is a Frint App', function () {
+describe('frint-cli › commands › help', () => {
+  it('is a Frint App', () => {
     const RootApp = createRootApp();
     const rootApp = new RootApp();
-    rootApp.registerApp(CommandApp);
+    rootApp.registerApp(HelpCommand);
     const commandApp = rootApp.getAppInstance('help');
 
     expect(commandApp).to.be.an.instanceOf(App);
   });
 
-  it('prints error when run without any command name', function () {
+  it('prints error when run without any command name', () => {
     const RootApp = createRootApp();
     const rootApp = new RootApp();
-    rootApp.registerApp(CommandApp);
+    rootApp.registerApp(HelpCommand);
     const commandApp = rootApp.getAppInstance('help');
     const fakeConsole = rootApp.get('console');
 
@@ -29,7 +28,7 @@ describe('frint-cli › commands › help', function () {
     expect(fakeConsole.errors[0]).to.contain('Must provide a command name');
   });
 
-  it('prints help text when run with a command name', function () {
+  it('prints help text when run with a command name', () => {
     const RootApp = createRootApp({
       providers: [
         {
@@ -47,7 +46,7 @@ describe('frint-cli › commands › help', function () {
       ],
     });
     const rootApp = new RootApp();
-    rootApp.registerApp(CommandApp);
+    rootApp.registerApp(HelpCommand);
     const commandApp = rootApp.getAppInstance('help');
     const fakeConsole = rootApp.get('console');
 

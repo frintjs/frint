@@ -1,9 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const MemoryFs = require('memory-fs');
+import * as MemoryFs from 'memory-fs';
 
 const fs = new MemoryFs();
 
-module.exports = [
+export default [
   {
     name: 'fs',
     useValue: fs,

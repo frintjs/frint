@@ -1,8 +1,7 @@
-const mkdirp = require('mkdirp');
-const request = require('request');
-const tar = require('tar');
-
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
+import * as mkdirp from 'mkdirp';
+import * as request from 'request';
+import * as tar from 'tar';
 
 const DESCRIPTION_TEXT = `
 Usage:
@@ -21,7 +20,7 @@ You can find list of all available examples here:
 https://github.com/frintjs/frint/tree/master/examples
 `.trim();
 
-module.exports = createApp({
+export default createApp({
   name: 'init',
   providers: [
     {

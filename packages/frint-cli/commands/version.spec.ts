@@ -1,24 +1,22 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names */
-/* global describe, it */
-const path = require('path');
+import { expect } from 'chai';
+import { App } from 'frint';
+import 'mocha';
+import * as path from 'path';
 
-const expect = require('chai').expect;
-const App = require('frint').App;
+import createRootApp from '../root/index.mock';
+import VersionCommand from './version';
 
-const createRootApp = require('../root/index.mock');
-const CommandApp = require('./version');
-
-describe('frint-cli › commands › version', function () {
-  it('is a Frint App', function () {
+describe('frint-cli › commands › version', () => {
+  it('is a Frint App', () => {
     const RootApp = createRootApp();
     const rootApp = new RootApp();
-    rootApp.registerApp(CommandApp);
+    rootApp.registerApp(VersionCommand);
     const commandApp = rootApp.getAppInstance('version');
 
     expect(commandApp).to.be.an.instanceOf(App);
   });
 
-  it('prints version number', function () {
+  it('prints version number', () => {
     const RootApp = createRootApp({
       providers: [
         {
@@ -29,15 +27,15 @@ describe('frint-cli › commands › version', function () {
       ],
     });
     const rootApp = new RootApp();
-    rootApp.registerApp(CommandApp);
+    rootApp.registerApp(VersionCommand);
     const commandApp = rootApp.getAppInstance('version');
     const fakeConsole = rootApp.get('console');
 
     rootApp.get('fs').mkdirpSync(
-      path.resolve(`${__dirname}/../`)
+      path.resolve(`${__dirname}/../../`)
     );
     rootApp.get('fs').writeFileSync(
-      path.resolve(`${__dirname}/../package.json`),
+      path.resolve(`${__dirname}/../../package.json`),
       '{"version": "1.2.3"}'
     );
 

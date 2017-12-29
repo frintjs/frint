@@ -1,10 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as clone from 'lodash/clone';
+import * as path from 'path';
+import { argv } from 'yargs';
 
-const clone = require('lodash/clone');
-const argv = require('yargs').argv;
+interface IFrintConfig {
+  plugins: string[];
+}
 
-module.exports = [
+export const providers = [
   {
     name: 'fs',
     useValue: fs,
@@ -12,7 +15,7 @@ module.exports = [
   },
   {
     name: 'pwd',
-    useValue: process.env.PWD,
+    useValue: process.cwd(),
     cascade: true,
   },
   {
@@ -39,7 +42,7 @@ module.exports = [
   {
     name: 'config',
     useFactory: function useFactory(deps) {
-      let config = {};
+      let config: IFrintConfig = { plugins: [] };
       const pwd = deps.pwd;
 
       try {

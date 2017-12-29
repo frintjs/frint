@@ -56,7 +56,7 @@ export class App {
 
     getAppOnceAvailable$(name: string, region?: string, regionKey?: string): Observable<App>;
 
-    getApps$<T extends RegisteredApp>(regionName: string): Observable<T>;
+    getApps$<T extends RegisteredApp>(regionName?: string): Observable<T[]>;
 
     getContainer(): Container;
 

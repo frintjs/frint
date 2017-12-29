@@ -65,7 +65,7 @@ export default function createModel(options = {}) {
               // for supporting Date objects
               if (
                 v &&
-                typeof v.toISOString === 'function'
+                v instanceof Date
               ) {
                 return v.toISOString();
               }

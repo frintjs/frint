@@ -5,5 +5,5 @@ import createSwitchHandler from './createSwitchHandler';
 export default {
   createLinkHandler,
   createRouteHandler,
-  createSwitchHandler
+  createSwitchHandler,
 };

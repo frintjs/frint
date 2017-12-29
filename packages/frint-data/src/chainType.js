@@ -17,7 +17,7 @@ export default function chain(fn, omitChainables = []) {
         if (chainIsFactory) {
           return function (...args) {
             return chain(function (value) {
-              let nextValue = chainFunc(value, ...args);
+              const nextValue = chainFunc(value, ...args);
 
               return fn(nextValue);
             });
@@ -32,7 +32,7 @@ export default function chain(fn, omitChainables = []) {
 
           return nextValue;
         }, omitChainables.concat([chainName]));
-      }
+      },
     });
   });
 

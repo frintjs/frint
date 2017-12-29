@@ -19,7 +19,7 @@ export function resetDOM() {
 }
 
 export function takeOverConsole(console) {
-  let hijackedFns = {};
+  const hijackedFns = {};
 
   function intercept(method, fn) {
     const original = console[method];

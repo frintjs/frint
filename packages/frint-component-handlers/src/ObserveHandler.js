@@ -19,5 +19,5 @@ export default {
     if (this._subscription) {
       this._subscription.unsubscribe();
     }
-  }
+  },
 };

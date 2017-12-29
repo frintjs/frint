@@ -10,9 +10,9 @@ import ReactHandler from '../handlers/ReactHandler';
 export default class Region extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    data: PropTypes.any,
     name: PropTypes.string.isRequired,
     uniqueKey: PropTypes.string,
-    data: PropTypes.any,
   };
 
   static contextTypes = {

@@ -11,6 +11,8 @@
         "rxjs",
         "rxjs/add/*"
       ]
-    }]
+    }],
+    "react/require-default-props": 0,
+    "react/no-unused-prop-types": 0
   }
 }

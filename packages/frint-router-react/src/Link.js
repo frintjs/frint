@@ -5,16 +5,16 @@ import { ReactHandler } from 'frint-react';
 
 export default class Link extends React.Component {
   static contextTypes = {
-    app: PropTypes.object.isRequired
+    app: PropTypes.object.isRequired,
   };
 
   static propTypes = {
-    to: PropTypes.string.isRequired,
-    exact: PropTypes.bool,
-    type: PropTypes.string,
-    className: PropTypes.string,
     activeClassName: PropTypes.string,
     children: PropTypes.node,
+    className: PropTypes.string,
+    exact: PropTypes.bool,
+    to: PropTypes.string.isRequired,
+    type: PropTypes.string,
   };
 
   constructor(...args) {

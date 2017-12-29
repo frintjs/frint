@@ -85,7 +85,7 @@ const RouteHandler = {
       this._appInstance.beforeDestroy();
       this._appInstance = null;
     }
-  }
+  },
 };
 
 export default function createRouteHandler(ComponentHandler, app, component) {
@@ -98,7 +98,7 @@ export default function createRouteHandler(ComponentHandler, app, component) {
     ComponentHandler,
     {
       app,
-      component
+      component,
     },
   );
 }

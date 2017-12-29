@@ -9,8 +9,8 @@ describe('frint-model › Model', () => {
     attribute1: 'value1',
     attribute2: 'value2',
     attribute3: {
-      attribute31: 'value31'
-    }
+      attribute31: 'value31',
+    },
   };
 
   const myModelInstance = new Model(myAttributes);

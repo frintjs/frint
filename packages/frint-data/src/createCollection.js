@@ -33,7 +33,7 @@ export default function createCollection(options = {}) {
       const models = [];
 
       // others listening to this collection
-      let eventHandlers = {};
+      const eventHandlers = {};
 
       // this collection listening to others
       const listeners = [];
@@ -52,7 +52,7 @@ export default function createCollection(options = {}) {
       Object.defineProperty(this, 'length', {
         get() {
           return models.length;
-        }
+        },
       });
 
       const mutableMethods = {};

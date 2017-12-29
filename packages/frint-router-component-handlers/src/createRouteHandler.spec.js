@@ -11,7 +11,7 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
     const handler = createRouteHandler(
       ComponentHandler,
       createTestAppInstance(new MemoryRouterService()),
-      createComponent()
+      createComponent(),
     );
 
     expect(handler).to.include.all.keys('getInitialData', 'beforeMount', 'propsChange', 'beforeDestroy');
@@ -22,7 +22,7 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
       createRouteHandler(
         {},
         createTestAppInstance(new MemoryRouterService()),
-        createComponent()
+        createComponent(),
       );
     };
 
@@ -37,13 +37,13 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
     component.props = {
       path: '/products',
       exact: true,
-      component: componentToRender
+      component: componentToRender,
     };
 
     const handler = createRouteHandler(
       ComponentHandler,
       createTestAppInstance(router),
-      component
+      component,
     );
 
     it('initially component and matched data are set to null', function () {
@@ -106,13 +106,13 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
       render: function () {
         /* istanbul ignore next */
         return null;
-      }
+      },
     };
 
     const handler = createRouteHandler(
       ComponentHandler,
       createTestAppInstance(router),
-      component
+      component,
     );
 
     router.push('/');
@@ -157,13 +157,13 @@ describe('frint-router-component-handlers › createRouteHandler', function () {
       path: '/products',
       exact: true,
       computedMatch,
-      component: componentToRender
+      component: componentToRender,
     };
 
     const handler = createRouteHandler(
       ComponentHandler,
       createTestAppInstance(router),
-      component
+      component,
     );
 
     router.push('/');

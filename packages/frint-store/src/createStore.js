@@ -12,7 +12,7 @@ export default function createStore(options = {}) {
     constructor(opts = {}) {
       super(merge(
         options,
-        opts
+        opts,
       ));
     }
   }

@@ -11,7 +11,7 @@ describe('frint-router-component-handlers › createSwitchHandler', function () 
     const handler = createSwitchHandler(
       ComponentHandler,
       createTestAppInstance(new MemoryRouterService()),
-      createComponent()
+      createComponent(),
     );
 
     expect(handler).to.include.all.keys('getInitialData', 'beforeMount', 'beforeDestroy', 'getMatch');
@@ -21,7 +21,7 @@ describe('frint-router-component-handlers › createSwitchHandler', function () 
     const handler = createSwitchHandler(
       ComponentHandler,
       createTestAppInstance(new MemoryRouterService()),
-      createComponent()
+      createComponent(),
     );
 
     const data = handler.getInitialData();
@@ -36,7 +36,7 @@ describe('frint-router-component-handlers › createSwitchHandler', function () 
     const handler = createSwitchHandler(
       ComponentHandler,
       createTestAppInstance(router),
-      component
+      component,
     );
 
     component.data = handler.getInitialData();

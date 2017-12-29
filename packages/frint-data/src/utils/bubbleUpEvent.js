@@ -11,7 +11,7 @@ export default function bubbleUpEvent(context, modelOrCollection, eventName, pre
     context._trigger(eventName, new Event({
       path: isEvent(event)
         ? p.concat(event.path)
-        : p
+        : p,
     }));
   });
 }

@@ -11,7 +11,7 @@ export default function events(context, listeners = {}) {
       return function cancelListener() {
         return context._off(event, fn);
       };
-    }
+    },
   });
 
   Object.defineProperty(context, '_trigger', {
@@ -23,7 +23,7 @@ export default function events(context, listeners = {}) {
       return listeners[event].forEach(function (listener) { // eslint-disable-line
         listener(...args);
       });
-    }
+    },
   });
 
   Object.defineProperty(context, '_off', {
@@ -49,6 +49,6 @@ export default function events(context, listeners = {}) {
           listeners[event].splice(index, 1);
         }
       });
-    }
+    },
   });
 }

@@ -32,7 +32,7 @@ describe('frint-component-utils › composeHandlers', function () {
       },
       getCounter() {
         return this.counter;
-      }
+      },
     });
 
     expect(handler.beforeMount()).to.equal('beforeMount');
@@ -58,18 +58,18 @@ describe('frint-component-utils › composeHandlers', function () {
       },
       getCounter() {
         return this.counter;
-      }
+      },
     };
 
     const secondHandler = {
       increment() {
         this.counter = this.counter + 2;
-      }
+      },
     };
 
     const handlerInstance = composeHandlers(
       firstHandler,
-      secondHandler
+      secondHandler,
     );
 
     expect(handlerInstance.beforeMount()).to.equal('beforeMount');

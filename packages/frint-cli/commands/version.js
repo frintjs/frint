@@ -16,8 +16,8 @@ module.exports = createApp({
         return function execute() {
           const pkg = JSON.parse(
             deps.fs.readFileSync(
-              path.resolve(`${__dirname}/../package.json`)
-            )
+              path.resolve(`${__dirname}/../package.json`),
+            ),
           );
 
           deps.console.log(`v${pkg.version}`);
@@ -27,6 +27,6 @@ module.exports = createApp({
         'console',
         'fs',
       ],
-    }
+    },
   ],
 });

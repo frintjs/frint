@@ -34,7 +34,7 @@ function Store(options = {}) {
         ':',
         padStart(d.getSeconds(), 2, 0),
         '.',
-        padStart(d.getMilliseconds(), 3, 0)
+        padStart(d.getMilliseconds(), 3, 0),
       ].join('');
 
       try {
@@ -95,7 +95,7 @@ function Store(options = {}) {
     this._epicSubscription = this._epic$
       .pipe(
         map$(epic => epic(this._action$, this, this.options.deps)),
-        switchMap$(output$ => output$)
+        switchMap$(output$ => output$),
       )
       .subscribe(this.dispatch);
 
@@ -118,7 +118,7 @@ Store.prototype.dispatch = function dispatch(action) {
     return action(
       this.dispatch,
       this.getState,
-      this.options.deps
+      this.options.deps,
     );
   }
 

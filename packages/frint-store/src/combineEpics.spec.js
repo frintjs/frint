@@ -14,7 +14,7 @@ describe('frint-store › combineEpics', function () {
       return action$
         .pipe(
           filter$(action => action.type === 'PING'),
-          map$(() => ({ type: 'PONG' }))
+          map$(() => ({ type: 'PONG' })),
         );
     };
 
@@ -31,7 +31,7 @@ describe('frint-store › combineEpics', function () {
     subject$.next({ type: 'PING' });
 
     expect(emittedActions).to.deep.equal([
-      { type: 'PONG' }
+      { type: 'PONG' },
     ]);
 
     subscription.unsubscribe();

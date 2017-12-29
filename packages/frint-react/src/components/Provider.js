@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 export default class Provider extends Component {
   static propTypes = {
     app: PropTypes.object.isRequired,
-    children: PropTypes.element.isRequired
+    children: PropTypes.element.isRequired,
   };
 
   static childContextTypes = {
-    app: PropTypes.object.isRequired
+    app: PropTypes.object.isRequired,
   };
 
   getChildContext() {
     return {
-      app: this.app
+      app: this.app,
     };
   }
 

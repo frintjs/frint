@@ -39,7 +39,7 @@ class Streamer {
 
   setKey(key, value) {
     this._push(of$({
-      [key]: value
+      [key]: value,
     }));
 
     return this;

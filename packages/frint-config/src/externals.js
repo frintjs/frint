@@ -21,7 +21,7 @@ export const lodash = [
     }
 
     return callback();
-  }
+  },
 ];
 
 // full imports
@@ -51,15 +51,15 @@ export const thirdParties = [{
     root: 'ReactDOM',
     commonjs: 'react-dom',
     commonjs2: 'react-dom',
-    amd: 'react-dom'
-  }
+    amd: 'react-dom',
+  },
 }, {
   'prop-types': {
     root: 'PropTypes',
     commonjs: 'prop-types',
     commonjs2: 'prop-types',
     amd: 'prop-types',
-  }
+  },
 }];
 
 export const frint = [{
@@ -67,50 +67,50 @@ export const frint = [{
     root: 'Frint',
     commonjs: 'frint',
     commonjs2: 'frint',
-    amd: 'frint'
+    amd: 'frint',
   },
 }, {
   'frint-store': {
     root: 'FrintStore',
     commonjs: 'frint-store',
     commonjs2: 'frint-store',
-    amd: 'frint-store'
+    amd: 'frint-store',
   },
 }, {
   'frint-model': {
     root: 'FrintModel',
     commonjs: 'frint-model',
     commonjs2: 'frint-model',
-    amd: 'frint-model'
+    amd: 'frint-model',
   },
 }, {
   'frint-data': {
     root: 'FrintData',
     commonjs: 'frint-data',
     commonjs2: 'frint-data',
-    amd: 'frint-data'
+    amd: 'frint-data',
   },
 }, {
   'frint-react': {
     root: 'FrintReact',
     commonjs: 'frint-react',
     commonjs2: 'frint-react',
-    amd: 'frint-react'
+    amd: 'frint-react',
   },
 }, {
   'frint-router': {
     root: 'FrintRouter',
     commonjs: 'frint-router',
     commonjs2: 'frint-router',
-    amd: 'frint-router'
+    amd: 'frint-router',
   },
 }, {
   'frint-router-react': {
     root: 'FrintRouterReact',
     commonjs: 'frint-router-react',
     commonjs2: 'frint-router-react',
-    amd: 'frint-router-react'
-  }
+    amd: 'frint-router-react',
+  },
 }];
 
 export default rxjs

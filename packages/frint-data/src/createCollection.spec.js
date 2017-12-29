@@ -39,7 +39,7 @@ describe('frint-data › createCollection', function () {
       { name: 'Harry' },
       new Person({ name: 'Hermione' }),
       // { name: 'Hermione' },
-      { name: 'Ron' }
+      { name: 'Ron' },
     ]);
 
     expect(people).to.be.instanceof(People);
@@ -71,13 +71,13 @@ describe('frint-data › createCollection', function () {
     const people1 = new People([
       { name: 'Harry' },
       { name: 'Hermione' },
-      { name: 'Ron' }
+      { name: 'Ron' },
     ]);
 
     const people2 = new People([
       { name: 'A' },
       { name: 'B' },
-      { name: 'C' }
+      { name: 'C' },
     ]);
 
     expect(people1.at(0).name).to.equal('Harry');
@@ -99,13 +99,13 @@ describe('frint-data › createCollection', function () {
       model: Person,
       findAt(n) {
         return this.at(n);
-      }
+      },
     });
 
     const people = new People([
       { name: 'Frint' },
       { name: 'Blah' },
-      { name: 'Yo' }
+      { name: 'Yo' },
     ]);
 
     expect(people.findAt).to.be.a('function');
@@ -122,7 +122,7 @@ describe('frint-data › createCollection', function () {
       model: Person,
       at(n) { /* istanbul ignore next */
         return this.at(n);
-      }
+      },
     });
 
     function getPeople() {
@@ -148,13 +148,13 @@ describe('frint-data › createCollection', function () {
     });
 
     const people = new People([
-      { name: 'Harry' }
+      { name: 'Harry' },
     ]);
 
     people.get$()
       .pipe(
         take$(3),
-        last$()
+        last$(),
       )
       .subscribe(function (collection) {
         expect(collection.length).to.equal(3);
@@ -187,13 +187,13 @@ describe('frint-data › createCollection', function () {
     const people = new People([
       { name: 'Harry' },
       { name: 'Ron' },
-      { name: 'Hermione' }
+      { name: 'Hermione' },
     ]);
 
     people.listen$('change')
       .pipe(
         take$(2),
-        last$()
+        last$(),
       )
       .subscribe(function ({ collection }) {
         expect(collection.at(2).name).to.equal('Hermione Granger-Weasley');
@@ -220,13 +220,13 @@ describe('frint-data › createCollection', function () {
     const people = new People([
       { name: 'Harry' },
       { name: 'Ron' },
-      { name: 'Hermione' }
+      { name: 'Hermione' },
     ]);
 
     people.listen$('change')
       .pipe(
         take$(1),
-        last$()
+        last$(),
       )
       .subscribe(function ({ collection }) {
         expect(collection.length).to.equal(2);
@@ -251,7 +251,7 @@ describe('frint-data › createCollection', function () {
       model: Person,
       initialize() {
         this.push(new Person({
-          name: 'Initialize'
+          name: 'Initialize',
         }));
       },
     });
@@ -277,7 +277,7 @@ describe('frint-data › createCollection', function () {
     });
 
     const people = new People([
-      { name: 'Foo' }
+      { name: 'Foo' },
     ]);
 
     expect(people.length).to.equal(1);
@@ -303,7 +303,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.at(0).name).to.equal('Harry');
@@ -374,7 +374,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.length).to.equal(3);
@@ -409,7 +409,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.length).to.equal(3);
@@ -458,7 +458,7 @@ describe('frint-data › createCollection', function () {
       expect(names).to.deep.equal([
         'Harry',
         'Hermione',
-        'Ron'
+        'Ron',
       ]);
     });
   });
@@ -491,7 +491,7 @@ describe('frint-data › createCollection', function () {
       expect(names).to.deep.equal([
         'Harry',
         'Hermione',
-        'Ron'
+        'Ron',
       ]);
     });
   });
@@ -508,13 +508,13 @@ describe('frint-data › createCollection', function () {
 
         customPop() {
           return this.pop();
-        }
+        },
       });
 
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.length).to.equal(3);
@@ -525,7 +525,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.toJS()).to.deep.equal([
         { name: 'Harry' },
-        { name: 'Hermione' }
+        { name: 'Hermione' },
       ]);
       expect(lastModel.name).to.equal('Ron');
     });
@@ -605,7 +605,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.length).to.equal(3);
@@ -617,7 +617,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.toJS()).to.deep.equal([
         { name: 'Harry' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
     });
   });
@@ -640,7 +640,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.length).to.equal(3);
@@ -651,7 +651,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.toJS()).to.deep.equal([
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
     });
   });
@@ -674,7 +674,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(people.length).to.equal(3);
@@ -685,7 +685,7 @@ describe('frint-data › createCollection', function () {
 
       expect(people.toJS()).to.deep.equal([
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
       expect(firstModel.name).to.equal('Harry');
     });
@@ -705,7 +705,7 @@ describe('frint-data › createCollection', function () {
       const people = new People([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
 
       expect(isModel(people.at(0))).to.equal(true);
@@ -715,7 +715,7 @@ describe('frint-data › createCollection', function () {
       expect(people.toJS()).to.deep.equal([
         { name: 'Harry' },
         { name: 'Hermione' },
-        { name: 'Ron' }
+        { name: 'Ron' },
       ]);
     });
   });

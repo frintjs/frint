@@ -16,8 +16,8 @@ function createContextWithRouter(router) {
         }
 
         return null;
-      }
-    }
+      },
+    },
   };
 }
 
@@ -31,7 +31,7 @@ describe('frint-route-react › Link', () => {
 
     const wrapper = shallow(
       <Link className="anchor" to="/about">{linkContent}</Link>,
-      { context: createContextWithRouter() }
+      { context: createContextWithRouter() },
     );
 
     expect(wrapper.name()).to.equal('a');
@@ -46,7 +46,7 @@ describe('frint-route-react › Link', () => {
 
     const wrapper = shallow(
       <Link className="fancy-button" to="/about" type="button">{linkContent}</Link>,
-      { context: { app: {} } }
+      { context: { app: {} } },
     );
 
     expect(wrapper.name()).to.equal('button');
@@ -69,7 +69,7 @@ describe('frint-route-react › Link', () => {
       >
         About
       </Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     router.push('/');
@@ -106,7 +106,7 @@ describe('frint-route-react › Link', () => {
       >
         About
       </Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     router.push('/');
@@ -136,7 +136,7 @@ describe('frint-route-react › Link', () => {
       >
         About
       </Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     router.push('/about');
@@ -162,7 +162,7 @@ describe('frint-route-react › Link', () => {
       >
         About
       </Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     router.push('/about');
@@ -189,7 +189,7 @@ describe('frint-route-react › Link', () => {
       >
         About
       </Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     router.push('/about/whatever');
@@ -213,7 +213,7 @@ describe('frint-route-react › Link', () => {
     const subscription = {
       unsubscribe() {
         unsubscribeCount += 1;
-      }
+      },
     };
 
     const router = {
@@ -222,9 +222,9 @@ describe('frint-route-react › Link', () => {
           subscribe() {
             subscribeCount += 1;
             return subscription;
-          }
+          },
         };
-      }
+      },
     };
 
     const wrapper = mount(
@@ -235,7 +235,7 @@ describe('frint-route-react › Link', () => {
       >
         About
       </Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     expect(subscribeCount).to.equal(1);
@@ -267,12 +267,12 @@ describe('frint-route-react › Link', () => {
 
       getMatch(...args) {
         return actualRouter.getMatch.call(actualRouter, ...args);
-      }
+      },
     };
 
     const wrapper = shallow(
       <Link className="anchor" to="/about">About</Link>,
-      { context: createContextWithRouter(router) }
+      { context: createContextWithRouter(router) },
     );
 
     it('and pushes new url to router when it doesn\'t match current url', function () {
@@ -280,7 +280,7 @@ describe('frint-route-react › Link', () => {
       let stopPropagationCalled = 0;
       wrapper.simulate('click', {
         preventDefault() { preventDefaultCalled += 1; },
-        stopPropagation() { stopPropagationCalled += 1; }
+        stopPropagation() { stopPropagationCalled += 1; },
       });
 
       expect(pushedUrls).to.deep.equal(['/about']);
@@ -294,7 +294,7 @@ describe('frint-route-react › Link', () => {
       let stopPropagationCalled = 0;
       wrapper.simulate('click', {
         preventDefault() { preventDefaultCalled += 1; },
-        stopPropagation() { stopPropagationCalled += 1; }
+        stopPropagation() { stopPropagationCalled += 1; },
       });
 
       // nothing new was added to the pushedUrls and that's the point

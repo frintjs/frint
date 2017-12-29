@@ -17,7 +17,7 @@ export default function observe(fn) {
         : 'observe';
 
       static contextTypes = {
-        app: PropTypes.object.isRequired
+        app: PropTypes.object.isRequired,
       };
 
       constructor(props, context) {

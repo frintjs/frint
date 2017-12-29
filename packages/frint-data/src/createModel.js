@@ -35,7 +35,7 @@ export default function createModel(options = {}) {
       let attributes = {};
 
       // others listening to this model
-      let eventHandlers = {};
+      const eventHandlers = {};
 
       // this model listening to others
       const listeners = [];
@@ -67,7 +67,7 @@ export default function createModel(options = {}) {
           }
 
           return convertToJS(attributes);
-        }
+        },
       });
       makeMethodReactive(this, 'toJS');
 
@@ -88,7 +88,7 @@ export default function createModel(options = {}) {
               v.destroy();
             }
           });
-        }
+        },
       });
 
       // get()
@@ -99,7 +99,7 @@ export default function createModel(options = {}) {
           }
 
           return this.getIn(path.split('.'));
-        }
+        },
       });
       makeMethodReactive(this, 'get');
 
@@ -131,7 +131,7 @@ export default function createModel(options = {}) {
 
             return result[path];
           }, this);
-        }
+        },
       });
       makeMethodReactive(this, 'getIn');
 
@@ -155,14 +155,14 @@ export default function createModel(options = {}) {
               attributes[attributeName] = newValue;
 
               self._trigger('change', new Event({
-                path: [attributeName]
+                path: [attributeName],
               }));
             } catch (typesError) {
               throw typesError;
             }
           },
 
-          enumerable: true
+          enumerable: true,
         });
 
         // watch children
@@ -171,7 +171,7 @@ export default function createModel(options = {}) {
 
           const cancelDestroyListener = value._on('destroy', function () {
             self._trigger('change', new Event({
-              path: [attributeName]
+              path: [attributeName],
             }));
 
             cancelChangeWatcher();

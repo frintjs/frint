@@ -28,7 +28,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Rubeus'
+      name: 'Rubeus',
     });
 
     expect(model).to.be.instanceof(Model);
@@ -40,12 +40,12 @@ describe('frint-data › createModel', function () {
     const Model = createModel({
       schema: {
         name: Types.string.isRequired,
-        language: Types.string.defaults('English')
+        language: Types.string.defaults('English'),
       },
     });
 
     const model = new Model({
-      name: 'Rubeus'
+      name: 'Rubeus',
     });
 
     expect(model).to.be.instanceof(Model);
@@ -63,7 +63,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Rubeus'
+      name: 'Rubeus',
     });
 
     expect(Object.keys(model)).to.deep.equal(['name', 'language']);
@@ -84,8 +84,8 @@ describe('frint-data › createModel', function () {
       name: 'Rubeus',
       address: {
         street: 'Straat',
-        city: 'Amsterdam'
-      }
+        city: 'Amsterdam',
+      },
     });
 
     expect(model).to.be.instanceof(Model);
@@ -94,14 +94,14 @@ describe('frint-data › createModel', function () {
     expect(model.address.city).to.equal('Amsterdam');
     expect(model.address).to.deep.equal({
       street: 'Straat',
-      city: 'Amsterdam'
+      city: 'Amsterdam',
     });
 
     expect(model.address.street).to.equal('Straat');
 
     expect(model.address).to.deep.equal({
       street: 'Straat',
-      city: 'Amsterdam'
+      city: 'Amsterdam',
     });
   });
 
@@ -119,7 +119,7 @@ describe('frint-data › createModel', function () {
     });
 
     const model = new Model({
-      name: 'Rubeus'
+      name: 'Rubeus',
     });
 
     expect(model).to.be.instanceof(Model);
@@ -166,7 +166,7 @@ describe('frint-data › createModel', function () {
 
     const model = new Model({
       firstName: 'Rubeus',
-      lastName: 'Hagrid'
+      lastName: 'Hagrid',
     });
 
     expect(model).to.be.instanceof(Model);
@@ -203,7 +203,7 @@ describe('frint-data › createModel', function () {
     function getPerson() {
       new Person({  // eslint-disable-line
         name: 'Rubeus',
-        bio: 'blah...'
+        bio: 'blah...',
       });
     }
 
@@ -224,7 +224,7 @@ describe('frint-data › createModel', function () {
     function getPerson() {
       new Person({  // eslint-disable-line
         name: 'Rubeus',
-        bio: 'blah...'
+        bio: 'blah...',
       });
     }
 
@@ -251,8 +251,8 @@ describe('frint-data › createModel', function () {
       name: 'Rubeus',
       address: {
         street: 'Straat',
-        country: 'Netherlands'
-      }
+        country: 'Netherlands',
+      },
     });
 
     expect(person).to.be.instanceof(Person);
@@ -275,7 +275,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Rubeus'
+      name: 'Rubeus',
     });
 
     expect(person.name).to.equal('Rubeus');
@@ -358,8 +358,8 @@ describe('frint-data › createModel', function () {
       posts: [
         { title: 'Hello World' },
         { title: 'About' },
-        { title: 'Contact' }
-      ]
+        { title: 'Contact' },
+      ],
     });
 
     expect(author.name).to.equal('Rubeus');
@@ -394,13 +394,13 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Rubeus'
+      name: 'Rubeus',
     });
 
     person.get$() // 1
       .pipe(
         take$(3),
-        last$()
+        last$(),
       )
       .subscribe(function (p) {
         expect(p.name).to.equal('Frint changed again');
@@ -434,14 +434,14 @@ describe('frint-data › createModel', function () {
       name: 'Rubeus',
       address: {
         street: 'Straat',
-        city: 'Amsterdam'
-      }
+        city: 'Amsterdam',
+      },
     });
 
     person.get$()
       .pipe(
         take$(3),
-        last$()
+        last$(),
       )
       .subscribe(function (p) {
         expect(p.address.street).to.equal('New Street Again');
@@ -464,7 +464,7 @@ describe('frint-data › createModel', function () {
       model: Book,
       addBook(title) {
         this.push(new Book({
-          title
+          title,
         }));
       },
       customPush(m) {
@@ -481,13 +481,13 @@ describe('frint-data › createModel', function () {
 
     const author = new Author({
       name: 'Rubeus',
-      books: []
+      books: [],
     });
 
     author.get$()
       .pipe(
         take$(3),
-        last$()
+        last$(),
       )
       .subscribe(function (a) {
         expect(a.books.length).to.equal(2);
@@ -544,8 +544,8 @@ describe('frint-data › createModel', function () {
       name: 'Vernon Dursley',
       address: {
         street: 'Privet Drive',
-        city: 'Surrey'
-      }
+        city: 'Surrey',
+      },
     });
 
     person.listen$('change')
@@ -589,8 +589,8 @@ describe('frint-data › createModel', function () {
     const author = new Author({
       name: 'Rita Skeeter',
       books: [
-        { title: 'The Life and Lies of Dumbledore' }
-      ]
+        { title: 'The Life and Lies of Dumbledore' },
+      ],
     });
 
     // first change
@@ -619,7 +619,7 @@ describe('frint-data › createModel', function () {
       });
 
     author.books.customPush(new Book({
-      title: `Dumbledore's Army`
+      title: `Dumbledore's Army`,
     }));
   });
 
@@ -637,7 +637,7 @@ describe('frint-data › createModel', function () {
     });
 
     const person = new Person({
-      name: 'Initial name'
+      name: 'Initial name',
     });
 
     expect(person.name).to.equal('Updated by initialize');
@@ -682,8 +682,8 @@ describe('frint-data › createModel', function () {
         name: 'Vernon Dursley',
         address: {
           street: 'Privet Drive',
-          city: 'Surrey'
-        }
+          city: 'Surrey',
+        },
       });
 
       expect(isModel(person.get('address'))).to.equal(true);
@@ -713,8 +713,8 @@ describe('frint-data › createModel', function () {
         name: 'Rita Skeeter',
         books: [
           { title: 'The Life and Lies of Dumbledore' },
-          { title: `Dumbledore's Army` }
-        ]
+          { title: `Dumbledore's Army` },
+        ],
       });
 
       expect(author.get('books')).to.equal(author.books);
@@ -764,8 +764,8 @@ describe('frint-data › createModel', function () {
         name: 'Vernon Dursley',
         address: {
           street: 'Privet Drive',
-          city: 'Surrey'
-        }
+          city: 'Surrey',
+        },
       });
 
       expect(isModel(person.getIn(['address']))).to.equal(true);
@@ -795,8 +795,8 @@ describe('frint-data › createModel', function () {
         name: 'Rita Skeeter',
         books: [
           { title: 'The Life and Lies of Dumbledore' },
-          { title: `Dumbledore's Army` }
-        ]
+          { title: `Dumbledore's Army` },
+        ],
       });
 
       expect(author.getIn(['books'])).to.equal(author.books);
@@ -815,7 +815,7 @@ describe('frint-data › createModel', function () {
         },
       });
       const model = new Model({
-        name: 'Blah'
+        name: 'Blah',
       });
 
       expect(model.toJS()).to.deep.equal({ name: 'Blah' });
@@ -845,8 +845,8 @@ describe('frint-data › createModel', function () {
       const person = new Person({
         name: 'Blah',
         address: {
-          street: 'Straat'
-        }
+          street: 'Straat',
+        },
       });
 
       expect(isModel(person.address)).to.equal(true);
@@ -854,8 +854,8 @@ describe('frint-data › createModel', function () {
       expect(person.toJS()).to.deep.equal({
         name: 'Blah',
         address: {
-          street: 'Straat'
-        }
+          street: 'Straat',
+        },
       });
     });
 
@@ -870,14 +870,14 @@ describe('frint-data › createModel', function () {
       const todo = new Todo({
         id: 1,
         title: 'My first todo',
-        x: 'x'
+        x: 'x',
       });
 
       todo.y = 'y';
 
       expect(todo.toJS()).to.deep.equal({
         id: 1,
-        title: 'My first todo'
+        title: 'My first todo',
       });
     });
   });

@@ -39,7 +39,7 @@ describe('frint-router › makeRouterService', function () {
       router.getHistory$()
         .pipe(
           take$(2),
-          last$()
+          last$(),
         )
         .subscribe(function (history) {
           expect(history.location.pathname).to.equal('/about');
@@ -56,7 +56,7 @@ describe('frint-router › makeRouterService', function () {
       router.getLocation$()
         .pipe(
           take$(2),
-          last$()
+          last$(),
         )
         .subscribe(function (location) {
           expect(location.pathname).to.equal('/about');
@@ -73,14 +73,14 @@ describe('frint-router › makeRouterService', function () {
       // initial
       expect(router.getMatch(
         '/about',
-        router.getHistory()
+        router.getHistory(),
       )).to.equal(null);
 
       // after navigating to /about
       router.push('/about');
       expect(router.getMatch(
         '/about',
-        router.getHistory()
+        router.getHistory(),
       )).to.deep.equal({
         isExact: true,
         params: {},
@@ -91,7 +91,7 @@ describe('frint-router › makeRouterService', function () {
       router.push('/');
       expect(router.getMatch(
         '/about',
-        router.getHistory()
+        router.getHistory(),
       )).to.equal(null);
       expect(router.getLocation().pathname).to.equal('/');
     });
@@ -104,9 +104,9 @@ describe('frint-router › makeRouterService', function () {
           take$(4),
           scan$(
             (matches, currentMatch) => matches.concat([currentMatch]),
-            []
+            [],
           ),
-          last$()
+          last$(),
         )
         .subscribe(function (matches) {
           expect(matches).to.deep.equal([

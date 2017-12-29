@@ -16,14 +16,18 @@ describe('frint-react › streamProps', function () {
       key: 'value',
     });
 
-    streamer.get$()
-      .subscribe(function (props) {
-        expect(props).to.deep.equal({
-          key: 'value',
-        });
+    const props$ = streamer.get$();
+    expect(props$.defaultProps).to.deep.equal({
+      key: 'value',
+    });
 
-        done();
+    props$.subscribe(function (props) {
+      expect(props).to.deep.equal({
+        key: 'value',
       });
+
+      done();
+    });
   });
 
   it('streams plain object, by merging with default', function (done) {

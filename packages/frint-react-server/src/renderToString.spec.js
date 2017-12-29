@@ -1,11 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
 /* global describe, it */
 import React from 'react';
-import { of as of$ } from 'rxjs/observable/of';
 import { expect } from 'chai';
 
 import { createApp } from 'frint';
-import { observe } from 'frint-react';
+import { observe, streamProps } from 'frint-react';
 
 import renderToString from './renderToString';
 
@@ -49,9 +48,12 @@ describe('frint-react-server › renderToString', function () {
     }
 
     const ObservedTestComponent = observe(function (app) {
-      return of$({
+      const defaultProps = {
         name: app.getName(),
-      });
+      };
+
+      return streamProps(defaultProps)
+        .get$();
     })(TestComponent);
 
     const TestApp = createApp({

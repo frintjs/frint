@@ -109,6 +109,45 @@ describe('frint-data › Types', function () {
     });
   });
 
+  describe('Types :: date', function () {
+    it('accepts undefined unless required', function () {
+      const type = Types.date;
+
+      expect(type()).to.be.an('undefined');
+      expect(() => type.isRequired()).to.throw('value is not defined');
+    });
+
+    it('accepts date object as value', function () {
+      const type = Types.date;
+
+      const date = new Date();
+      expect(type(date)).to.equal(date);
+    });
+
+    it('rejects non date object values', function () {
+      const type = Types.date;
+
+      expect(() => type(0)).to.throw(/value is not a valid date/);
+      expect(() => type(null)).to.throw(/value is not a valid date/);
+      expect(() => type('hello world')).to.throw(/value is not a valid date/);
+      expect(() => type(() => {})).to.throw(/value is not a valid date/);
+    });
+
+    it('checks for required values', function () {
+      const type = Types.date.isRequired;
+
+      expect(() => type()).to.throw(/value is not defined/);
+    });
+
+    it('allows empty values when default is set', function () {
+      const date = new Date();
+      const type = Types.date.defaults(date);
+
+      expect(type()).to.equal(date);
+      expect(() => type(123)).to.throw(/value is not a valid date/);
+    });
+  });
+
   describe('Types :: collection', function () {
     it('accepts undefined unless required', function () {
       const type = Types.collection;

@@ -643,6 +643,45 @@ describe('frint-data › createModel', function () {
     expect(person.name).to.equal('Updated by initialize');
   });
 
+  it('can work with date objects', function () {
+    const CalendarEvent = createModel({
+      schema: {
+        start: Types.date,
+        end: Types.date,
+        created: Types.date,
+        updated: Types.date,
+      },
+    });
+
+    const d1 = new Date();
+    const d2 = 'Mon Dec 25 2017 12:00:00 GMT+0000';
+    const d3 = undefined;
+    const d4 = d1.toString();
+
+    const calendarEvent = new CalendarEvent({
+      start: d1,
+      end: d2,
+      created: d3,
+      updated: d4,
+    });
+
+    expect(isModel(calendarEvent)).to.equal(true);
+
+    // model values
+    expect(calendarEvent.start).to.deep.equal(d1);
+    expect(calendarEvent.end).to.be.an.instanceof(Date);
+    expect(calendarEvent.created).to.equal(undefined);
+    expect(calendarEvent.updated).to.be.an.instanceof(Date);
+
+    // plain values
+    const calendarEventObj = calendarEvent.toJS();
+    const pattern = /^[0-9]{4}[-][0-9]{2}[-][0-9]{2}T(.*)$/;
+    expect(calendarEventObj.start).to.match(pattern);
+    expect(calendarEventObj.end).to.match(pattern);
+    expect(calendarEventObj.created).to.equal(undefined);
+    expect(calendarEventObj.updated).to.match(pattern);
+  });
+
   describe('Model :: get()', function () {
     it('gets value by path from self', function (done) {
       const Person = createModel({

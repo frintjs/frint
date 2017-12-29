@@ -49,6 +49,26 @@ Types.number = chain(function (value) {
   return value;
 });
 
+Types.date = chain(function (value) {
+  if (typeof value === 'undefined') {
+    return value;
+  }
+
+  if (typeof value === 'string') {
+    const parsedDate = Date.parse(value);
+
+    if (!isNaN(parsedDate)) {
+      return new Date(parsedDate);
+    }
+  }
+
+  if (!(value instanceof Date)) {
+    throw new TypesError('value is not a valid date object');
+  }
+
+  return value;
+});
+
 Types.array = chain(function (value) {
   if (typeof value === 'undefined') {
     return value;

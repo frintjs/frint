@@ -41,7 +41,10 @@
     "@types/request": "^2.0.9",
     "@types/tar": "^4.0.0",
     "cross-env": "^5.0.5",
-    "memory-fs": "^0.4.1"
+    "memory-fs": "^0.4.1",
+    "ts-node": "^4.1.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
   },
   "bugs": {
     "url": "https://github.com/frintjs/frint/issues"

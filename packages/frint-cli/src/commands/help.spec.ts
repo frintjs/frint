@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { App } from 'frint';
 import 'mocha';
 
-import createRootApp from '../root/index.mock';
+import createRootApp from '../index.mock';
 import HelpCommand from './help';
 
 describe('frint-cli › commands › help', () => {

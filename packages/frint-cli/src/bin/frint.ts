@@ -5,7 +5,7 @@ import InitCommand from '../commands/init';
 import NewCommand from '../commands/new';
 import VersionCommand from '../commands/version';
 
-import { App } from '../root/index';
+import { App } from '../index';
 
 const app = new App();
 

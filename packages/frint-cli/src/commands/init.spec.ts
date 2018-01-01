@@ -2,15 +2,15 @@ import { expect } from 'chai';
 import { App } from 'frint';
 import 'mocha';
 
-import createRootApp from '../root/index.mock';
-import NewCommand from './new';
+import createRootApp from '../index.mock';
+import InitCommand from './init';
 
-describe('frint-cli › commands › new', () => {
+describe('frint-cli › commands › init', () => {
   it('is a Frint App', () => {
     const RootApp = createRootApp();
     const rootApp = new RootApp();
-    rootApp.registerApp(NewCommand);
-    const commandApp = rootApp.getAppInstance('new');
+    rootApp.registerApp(InitCommand);
+    const commandApp = rootApp.getAppInstance('init');
 
     expect(commandApp).to.be.an.instanceOf(App);
   });

@@ -3,7 +3,7 @@ import { App } from 'frint';
 import 'mocha';
 import * as path from 'path';
 
-import createRootApp from '../root/index.mock';
+import createRootApp from '../index.mock';
 import VersionCommand from './version';
 
 describe('frint-cli › commands › version', () => {

@@ -6,9 +6,6 @@
         "module": "commonjs"
     },
     "include": [
-        "**/*",
-        "./bin/**/*",
-        "./commands/**/*",
-        "./root/**/*"
+        "./src/**/*.ts"
     ]
 }

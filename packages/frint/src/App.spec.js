@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this */
 /* global describe, it */
 import { expect } from 'chai';
+import { take } from 'rxjs/operators/take';
+import { last } from 'rxjs/operators/last';
 
 import App from './App';
 import createApp from './createApp';
@@ -541,5 +543,35 @@ describe('frint  › App', function () {
     });
 
     expect(app.get('foo')).to.equal('original foo [updatedFromCreateApp] [updatedFromInstantiation]');
+  });
+
+  it('can listen for child apps registration from a provider', function (done) {
+    const Root = createApp({
+      name: 'RootApp',
+      providers: [
+        {
+          name: '__EXEC__',
+          useFactory({ app }) {
+            app.getApps$().pipe(
+              take(2),
+              last()
+            ).subscribe(function (appsList) {
+              expect(appsList.length).to.equal(1);
+              expect(appsList[0].name).to.equal('ChildApp');
+
+              done();
+            });
+          },
+          deps: ['app'],
+        },
+      ],
+    });
+
+    const Child = createApp({
+      name: 'ChildApp',
+    });
+
+    const app = new Root();
+    app.registerApp(Child);
   });
 });

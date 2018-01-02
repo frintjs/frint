@@ -60,6 +60,10 @@ function App(opts = {}) {
     throw new Error('Must provide `name` in options');
   }
 
+  // children - create Observable if root
+  this._appsCollection = [];
+  this._apps$ = new BehaviorSubject(this._appsCollection);
+
   // container
   const Container = createContainer([
     { name: this.options.providerNames.app, useDefinedValue: this },
@@ -77,10 +81,6 @@ function App(opts = {}) {
   this.options.providers.forEach((provider) => {
     this.container.register(provider);
   });
-
-  // children - create Observable if root
-  this._appsCollection = [];
-  this._apps$ = new BehaviorSubject(this._appsCollection);
 
   this.options.initialize.bind(this)();
 }

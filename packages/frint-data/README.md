@@ -526,6 +526,18 @@ const Todo = createModel({
 });
 ```
 
+### Types.date
+
+> Types.date
+
+```js
+const Todo = createModel({
+  schema: {
+    createdAt: Types.date
+  }
+});
+```
+
 ### Types.number
 
 > Types.number

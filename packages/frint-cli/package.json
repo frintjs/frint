@@ -4,7 +4,7 @@
   "description": "CLI for Frint",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-cli",
   "bin": {
-    "frint": "./dist/bin/frint.js"
+    "frint": "./lib/bin/frint.js"
   },
   "scripts": {
     "lint": "cross-env ./node_modules/.bin/tslint -p .",

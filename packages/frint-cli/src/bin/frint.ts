@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { map, take, tap } from 'rxjs/operators';
 
 import HelpCommand from '../commands/help';

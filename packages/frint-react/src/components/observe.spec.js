@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types */
+/* eslint-disable import/no-extraneous-dependencies, func-names, react/prop-types, react/jsx-no-bind */
 /* global describe, it, document, beforeEach, resetDOM */
 import { expect } from 'chai';
 import { merge as merge$ } from 'rxjs/observable/merge';
@@ -36,7 +36,7 @@ describe('frint-react › components › observe', function () {
 
     ReactDOM.render(
       <ObservedComponent />,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     expect(document.getElementById('counter').innerHTML).to.equal('1');
@@ -53,7 +53,7 @@ describe('frint-react › components › observe', function () {
 
     ReactDOM.render(
       <ObservedComponent />,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     expect(document.getElementById('text').innerHTML).to.equal('Hello World');
@@ -73,7 +73,7 @@ describe('frint-react › components › observe', function () {
     const ObservedComponent = observe(function (app, props$) {
       const generatedProps$ = merge$(
         of$({ name: app.getName() }),
-        props$.pipe(map$(parentProps => ({ parentProps })))
+        props$.pipe(map$(parentProps => ({ parentProps }))),
       )
         .pipe(scan$((props, emitted) => {
           return {
@@ -134,12 +134,12 @@ describe('frint-react › components › observe', function () {
       beforeUnmount() {},
       getName() {
         return 'FakeApp';
-      }
+      },
     };
 
     render(
       fakeApp,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     expect(document.getElementById('name').innerHTML).to.equal('FakeApp');
@@ -174,7 +174,7 @@ describe('frint-react › components › observe', function () {
     const fakeApp = {
       getName() {
         return 'ShallowApp';
-      }
+      },
     };
 
     function ComponentToRender(props) {
@@ -211,7 +211,7 @@ describe('frint-react › components › observe', function () {
     const fakeApp = {
       getName() {
         return 'FakeApp';
-      }
+      },
     };
 
     function ComponentToRender(props) {

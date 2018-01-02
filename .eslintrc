@@ -11,6 +11,9 @@
         "rxjs",
         "rxjs/add/*"
       ]
-    }]
+    }],
+    "react/require-default-props": 0,
+    "react/no-unused-prop-types": 0,
+    "comma-dangle": ["error", "always-multiline"]
   }
 }

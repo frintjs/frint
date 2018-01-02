@@ -68,7 +68,7 @@ export default function createLinkHandler(ComponentHandler, app, component) {
     ComponentHandler,
     {
       app,
-      component
+      component,
     },
   );
 }

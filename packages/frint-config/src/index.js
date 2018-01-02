@@ -2,7 +2,7 @@ import externals, {
   frint,
   lodash,
   thirdParties,
-  rxjs
+  rxjs,
 } from './externals';
 
 export default {

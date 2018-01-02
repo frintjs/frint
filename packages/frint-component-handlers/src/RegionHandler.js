@@ -7,7 +7,7 @@ export default {
   getInitialData() {
     return {
       list: [], // array of apps ==> { name, instance }
-      listForRendering: [] // array of {name, Component} objects
+      listForRendering: [], // array of {name, Component} objects
     };
   },
   sendProps(appInstance, props) {
@@ -31,7 +31,7 @@ export default {
     this.rootApp = rootApp;
     const apps$ = rootApp.getApps$(
       this.getProp('name'),
-      this.getProp('uniqueKey')
+      this.getProp('uniqueKey'),
     );
 
     this._subscription = apps$.subscribe({
@@ -41,7 +41,7 @@ export default {
             const {
               name: appName,
               weight: appWeight,
-              multi
+              multi,
             } = item;
             const isPresent = this.getData('listForRendering').some((w) => {
               return w.name === appName;
@@ -85,14 +85,14 @@ export default {
                 })
                 .sort((a, b) => {
                   return a.weight - b.weight;
-                })
+                }),
             );
           });
         });
       },
       error: (err) => {
         console.warn(`Subscription error for <Region name="${this.name}" />:`, err);
-      }
+      },
     });
   },
   shouldUpdate(nextProps, nextData) {
@@ -135,9 +135,9 @@ export default {
           this.rootApp.destroyApp(
             item.name,
             this.getProp('name'),
-            this.getProp('uniqueKey')
+            this.getProp('uniqueKey'),
           );
         });
     }
-  }
+  },
 };

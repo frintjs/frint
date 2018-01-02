@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names, no-unused-expressions */
+/* eslint-disable import/no-extraneous-dependencies, func-names, no-unused-expressions, react/jsx-no-bind */
 /* global describe, it */
 import { expect } from 'chai';
 import React from 'react';
@@ -25,7 +25,7 @@ function createContext() {
   });
 
   return {
-    app: new App()
+    app: new App(),
   };
 }
 
@@ -40,11 +40,11 @@ describe('frint-router-react › Switch', function () {
 
     const wrapper = shallow(
       <Switch>
-        <Route component={HomeComponent} exact path="/"/>
+        <Route component={HomeComponent} exact path="/" />
         <Route component={AboutComponent} path="/about" />
         <Route component={NotFound} />
       </Switch>,
-      { context }
+      { context },
     );
 
 
@@ -57,7 +57,7 @@ describe('frint-router-react › Switch', function () {
         computedMatch: { url: '/', isExact: true, params: {} },
         component: HomeComponent,
         exact: true,
-        path: '/'
+        path: '/',
       });
     });
 
@@ -67,7 +67,7 @@ describe('frint-router-react › Switch', function () {
       expect(wrapper.props()).to.deep.equal({
         computedMatch: { url: '/about', isExact: false, params: {} },
         component: AboutComponent,
-        path: '/about'
+        path: '/about',
       });
     });
 
@@ -76,7 +76,7 @@ describe('frint-router-react › Switch', function () {
 
       expect(wrapper.props()).to.deep.equal({
         component: NotFound,
-        computedMatch: { url: '/not-the-page-youre-looking-for', isExact: false, params: {} }
+        computedMatch: { url: '/not-the-page-youre-looking-for', isExact: false, params: {} },
       });
     });
   });
@@ -93,7 +93,7 @@ describe('frint-router-react › Switch', function () {
         <Route component={FirstComponent} path="/about" />
         <Route component={SecondComponent} path="/about" />
       </Switch>,
-      { context }
+      { context },
     );
 
     router.push('/about');
@@ -102,7 +102,7 @@ describe('frint-router-react › Switch', function () {
     expect(wrapper.props()).to.eql({
       computedMatch: { url: '/about', isExact: true, params: {} },
       component: FirstComponent,
-      path: '/about'
+      path: '/about',
     });
   });
 
@@ -118,7 +118,7 @@ describe('frint-router-react › Switch', function () {
         <Route component={DefaultComponent} />
         <Route component={SecondComponent} path="/services" />
       </Switch>,
-      { context }
+      { context },
     );
 
     router.push('/services');
@@ -126,7 +126,7 @@ describe('frint-router-react › Switch', function () {
     expect(wrapper.type()).to.equal(Route);
     expect(wrapper.props()).to.deep.equal({
       component: DefaultComponent,
-      computedMatch: { url: '/services', isExact: false, params: {} }
+      computedMatch: { url: '/services', isExact: false, params: {} },
     });
   });
 
@@ -140,7 +140,7 @@ describe('frint-router-react › Switch', function () {
       <Switch>
         <Route component={ServicesComponent} path="/services" />
       </Switch>,
-      { context }
+      { context },
     );
 
     router.push('/about');
@@ -158,7 +158,7 @@ describe('frint-router-react › Switch', function () {
       <Switch>
         <Route component={ServicesComponent} path="/services" />
       </Switch>,
-      { context }
+      { context },
     );
 
     router.push('/about');
@@ -173,7 +173,7 @@ describe('frint-router-react › Switch', function () {
     const subscription = {
       unsubscribe() {
         unsubscribeCount += 1;
-      }
+      },
     };
 
     const router = {
@@ -182,9 +182,9 @@ describe('frint-router-react › Switch', function () {
           subscribe() {
             subscribeCount += 1;
             return subscription;
-          }
+          },
         };
-      }
+      },
     };
 
     const context = {
@@ -194,13 +194,13 @@ describe('frint-router-react › Switch', function () {
           if (key === 'router') {
             return router;
           }
-        }
-      }
+        },
+      },
     };
 
     const wrapper = shallow(
       <Switch />,
-      { context }
+      { context },
     );
 
     expect(subscribeCount).to.equal(1);
@@ -224,7 +224,7 @@ describe('frint-router-react › Switch', function () {
       ],
       beforeDestroy: () => {
         beforeDestroyCallCount += 1;
-      }
+      },
     });
 
     const WrapperComponent = ({ routeSet }) => {
@@ -237,7 +237,7 @@ describe('frint-router-react › Switch', function () {
         );
       } else if (routeSet === 2) {
         changingRoutes.push(
-          <Route app={HomeApp} exact key="2h" path="/home" />
+          <Route app={HomeApp} exact key="2h" path="/home" />,
         );
       }
 
@@ -250,7 +250,7 @@ describe('frint-router-react › Switch', function () {
     };
 
     WrapperComponent.propTypes = {
-      routeSet: PropTypes.number
+      routeSet: PropTypes.number,
     };
 
     const context = createContext();
@@ -258,7 +258,7 @@ describe('frint-router-react › Switch', function () {
 
     const wrapper = mount(
       <WrapperComponent routeSet={1} />,
-      { context, childContextTypes: { app: PropTypes.object } }
+      { context, childContextTypes: { app: PropTypes.object } },
     );
 
     it('renders matching Route and component from the first set', function () {
@@ -295,13 +295,13 @@ describe('frint-router-react › Switch', function () {
         {'string'}
         <Route component={DefaultComponent} />
       </Switch>,
-      { context }
+      { context },
     );
 
     expect(wrapper.type()).to.equal(Route);
     expect(wrapper.props()).to.deep.equal({
       component: DefaultComponent,
-      computedMatch: { url: '/', isExact: false, params: {} }
+      computedMatch: { url: '/', isExact: false, params: {} },
     });
   });
 });

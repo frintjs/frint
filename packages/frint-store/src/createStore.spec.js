@@ -24,7 +24,7 @@ describe('frint-store › createStore', function () {
       enableLogger: false,
       initialState: {
         ok: true,
-      }
+      },
     });
 
     const subscription = store.getState$()
@@ -47,16 +47,16 @@ describe('frint-store › createStore', function () {
         switch (action.type) {
           case 'INCREMENT_COUNTER':
             return Object.assign({}, {
-              counter: state.counter + 1
+              counter: state.counter + 1,
             });
           case 'DECREMENT_COUNTER':
             return Object.assign({}, {
-              counter: state.counter - 1
+              counter: state.counter - 1,
             });
           default:
             return state;
         }
-      }
+      },
     });
     const store = new Store();
 
@@ -74,12 +74,12 @@ describe('frint-store › createStore', function () {
 
     const lastState = states[states.length - 1];
     expect(lastState).to.deep.equal({
-      counter: 1
+      counter: 1,
     });
 
     const synchronousState = store.getState();
     expect(synchronousState).to.deep.equal({
-      counter: 1
+      counter: 1,
     });
 
     subscription.unsubscribe();
@@ -99,7 +99,7 @@ describe('frint-store › createStore', function () {
         actions.push(action);
 
         return state;
-      }
+      },
     });
 
     const store = new Store();
@@ -134,16 +134,16 @@ describe('frint-store › createStore', function () {
         switch (action.type) {
           case 'INCREMENT_COUNTER':
             return Object.assign({}, {
-              counter: state.counter + 1
+              counter: state.counter + 1,
             });
           case 'DECREMENT_COUNTER':
             return Object.assign({}, {
-              counter: state.counter - 1
+              counter: state.counter - 1,
             });
           default:
             return state;
         }
-      }
+      },
     });
     const store = new Store();
 
@@ -157,7 +157,7 @@ describe('frint-store › createStore', function () {
     store.dispatch(function (dispatch, getState, deps) {
       dispatch({
         type: 'INCREMENT_COUNTER',
-        deps
+        deps,
       });
     });
     store.dispatch({ type: 'DECREMENT_COUNTER' });
@@ -188,8 +188,8 @@ describe('frint-store › createStore', function () {
           .pipe(filter$(action => action.type === 'PING'));
       },
       initialState: {
-        counter: 0
-      }
+        counter: 0,
+      },
     });
     const store = new Store();
 
@@ -230,16 +230,16 @@ describe('frint-store › createStore', function () {
         switch (action.type) {
           case 'INCREMENT_COUNTER':
             return Object.assign({}, {
-              counter: state.counter + 1
+              counter: state.counter + 1,
             });
           case 'DECREMENT_COUNTER':
             return Object.assign({}, {
-              counter: state.counter - 1
+              counter: state.counter - 1,
             });
           default:
             return state;
         }
-      }
+      },
     });
     const store = new Store();
 
@@ -279,7 +279,7 @@ describe('frint-store › createStore', function () {
       },
       error(...args) {
         consoleCalls.push({ method: 'error', args });
-      }
+      },
     };
 
     const Store = createStore({
@@ -295,7 +295,7 @@ describe('frint-store › createStore', function () {
           default:
             return state;
         }
-      }
+      },
     });
     const store = new Store();
 
@@ -324,11 +324,11 @@ describe('frint-store › createStore', function () {
       switch (action.type) {
         case 'INCREMENT_COUNTER':
           return Object.assign({}, {
-            value: state.value + 1
+            value: state.value + 1,
           });
         case 'DECREMENT_COUNTER':
           return Object.assign({}, {
-            value: state.value - 1
+            value: state.value - 1,
           });
         default:
           return state;
@@ -339,7 +339,7 @@ describe('frint-store › createStore', function () {
       switch (action.type) {
         case 'SET_COLOR':
           return Object.assign({}, {
-            value: action.color
+            value: action.color,
           });
         default:
           return state;
@@ -359,8 +359,8 @@ describe('frint-store › createStore', function () {
             value: 100,
           },
           color: {
-            value: 'red'
-          }
+            value: 'red',
+          },
         },
         reducer: rootReducer,
       });
@@ -382,7 +382,7 @@ describe('frint-store › createStore', function () {
         { counter: { value: 101 }, color: { value: 'red' } }, // INCREMENT_COUNTER
         { counter: { value: 102 }, color: { value: 'red' } }, // INCREMENT_COUNTER
         { counter: { value: 101 }, color: { value: 'red' } }, // DECREMENT_COUNTER
-        { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
+        { counter: { value: 101 }, color: { value: 'green' } }, // SET_COLOR
       ]);
 
       subscription.unsubscribe();
@@ -411,7 +411,7 @@ describe('frint-store › createStore', function () {
         { counter: { value: 1 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
         { counter: { value: 2 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
         { counter: { value: 1 }, color: { value: 'blue' } }, // DECREMENT_COUNTER
-        { counter: { value: 1 }, color: { value: 'green' } } // SET_COLOR
+        { counter: { value: 1 }, color: { value: 'green' } }, // SET_COLOR
       ]);
 
       subscription.unsubscribe();
@@ -445,7 +445,7 @@ describe('frint-store › createStore', function () {
         { counter: { value: 101 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
         { counter: { value: 102 }, color: { value: 'blue' } }, // INCREMENT_COUNTER
         { counter: { value: 101 }, color: { value: 'blue' } }, // DECREMENT_COUNTER
-        { counter: { value: 101 }, color: { value: 'green' } } // SET_COLOR
+        { counter: { value: 101 }, color: { value: 'green' } }, // SET_COLOR
       ]);
 
       subscription.unsubscribe();
@@ -489,7 +489,7 @@ describe('frint-store › createStore', function () {
         .pipe(
           filter$(action => action.type === PING),
           delay$(10),
-          map$(() => ({ type: PONG }))
+          map$(() => ({ type: PONG })),
         );
     }
 
@@ -515,9 +515,9 @@ describe('frint-store › createStore', function () {
 
             return acc;
           },
-          []
+          [],
         ),
-        last$()
+        last$(),
       )
       .subscribe(function (pingStates) {
         expect(pingStates).to.deep.equal([

@@ -63,7 +63,7 @@ describe('frint-component-handlers › ObserveHandler', function () {
       ObserveHandler,
       {
         app: {},
-      }
+      },
     );
 
     handler._data = handler.getInitialData();

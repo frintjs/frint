@@ -35,7 +35,7 @@ describe('frint-react › components › Region', function () {
 
     ReactDOM.render(
       <MyComponent />,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     const element = document.getElementById('my-component');
@@ -83,7 +83,7 @@ describe('frint-react › components › Region', function () {
     window.app = new RootApp();
     render(
       window.app,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     // register apps
@@ -129,7 +129,7 @@ describe('frint-react › components › Region', function () {
     // render
     render(
       window.app,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     // verify
@@ -197,7 +197,7 @@ describe('frint-react › components › Region', function () {
       return streamProps()
         .set(
           app.get('region').getData$(),
-          data => ({ todo: data.todo })
+          data => ({ todo: data.todo }),
         )
         .get$();
     })(({ todo }) => (
@@ -215,7 +215,7 @@ describe('frint-react › components › Region', function () {
     window.app = new RootApp();
     render(
       window.app,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
     expect(document.getElementById('root-text').innerHTML).to.equal('Hello World from Root');
 
@@ -299,7 +299,7 @@ describe('frint-react › components › Region', function () {
       return streamProps()
         .set(
           app.get('region').getData$(),
-          data => ({ todo: data.todo })
+          data => ({ todo: data.todo }),
         )
         .get$();
     })(({ todo }) => (
@@ -321,7 +321,7 @@ describe('frint-react › components › Region', function () {
     window.app = new RootApp();
     render(
       window.app,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
     expect(document.getElementById('root-text').innerHTML).to.equal('Hello World from Root');
 
@@ -386,7 +386,7 @@ describe('frint-react › components › Region', function () {
     window.app = new RootApp();
     render(
       window.app,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     // register apps

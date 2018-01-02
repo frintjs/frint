@@ -34,11 +34,11 @@ describe('frint-cli › commands › version', function () {
     const fakeConsole = rootApp.get('console');
 
     rootApp.get('fs').mkdirpSync(
-      path.resolve(`${__dirname}/../`)
+      path.resolve(`${__dirname}/../`),
     );
     rootApp.get('fs').writeFileSync(
       path.resolve(`${__dirname}/../package.json`),
-      '{"version": "1.2.3"}'
+      '{"version": "1.2.3"}',
     );
 
     commandApp.get('execute')();

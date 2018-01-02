@@ -11,7 +11,7 @@ describe('frint-router-component-handlers › createLinkHandler', function () {
     const handler = createLinkHandler(
       ComponentHandler,
       createTestAppInstance(new MemoryRouterService()),
-      createComponent()
+      createComponent(),
     );
 
     expect(handler).to.include.all.keys('getInitialData', 'beforeMount', 'propsChange', 'handleClick', 'beforeDestroy');
@@ -28,7 +28,7 @@ describe('frint-router-component-handlers › createLinkHandler', function () {
     const handler = createLinkHandler(
       ComponentHandler,
       createTestAppInstance(router),
-      component
+      component,
     );
 
     it('when getInitialData() called, it returns object with active key', function () {

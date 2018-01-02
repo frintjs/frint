@@ -7,16 +7,16 @@ import { createRouteHandler } from 'frint-router-component-handlers';
 
 export default class Route extends React.Component {
   static contextTypes = {
-    app: PropTypes.object.isRequired
+    app: PropTypes.object.isRequired,
   };
 
   static propTypes = {
-    path: PropTypes.string,
-    exact: PropTypes.bool,
-    computedMatch: PropTypes.object,
-    component: PropTypes.func,
-    render: PropTypes.func,
     app: PropTypes.func,
+    component: PropTypes.func,
+    computedMatch: PropTypes.object,
+    exact: PropTypes.bool,
+    path: PropTypes.string,
+    render: PropTypes.func,
   };
 
   constructor(...args) {

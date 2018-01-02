@@ -13,14 +13,14 @@ chai.use(sinonChai);
 
 describe('frint-react › components › Provider', function () {
   const fakeApp = {};
-  const fakeChildren = (<div id="myFakeChildren"/>);
+  const fakeChildren = (<div id="myFakeChildren" />);
   let myProviderInstance;
 
   beforeEach(function () {
     sandbox.spy(Children, 'only');
     myProviderInstance = new Provider({
       app: fakeApp,
-      children: fakeChildren
+      children: fakeChildren,
     });
   });
 
@@ -35,13 +35,13 @@ describe('frint-react › components › Provider', function () {
   it('has static propTypes defined', function () {
     expect(Provider.propTypes).to.be.deep.equal({
       app: PropTypes.object.isRequired,
-      children: PropTypes.element.isRequired
+      children: PropTypes.element.isRequired,
     });
   });
 
   it('has static childContextTypes defined', function () {
     expect(Provider.childContextTypes).to.be.deep.equal({
-      app: PropTypes.object.isRequired
+      app: PropTypes.object.isRequired,
     });
   });
 
@@ -51,7 +51,7 @@ describe('frint-react › components › Provider', function () {
 
   it('has a getChildContext method which returns app object of the instance', function () {
     expect(myProviderInstance.getChildContext()).to.be.deep.equal({
-      app: fakeApp
+      app: fakeApp,
     });
   });
 

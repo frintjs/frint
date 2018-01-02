@@ -9,11 +9,11 @@ describe('frint-store › combineReducers', function () {
     switch (action.type) {
       case 'INCREMENT_COUNTER':
         return Object.assign({}, {
-          value: state.value + 1
+          value: state.value + 1,
         });
       case 'DECREMENT_COUNTER':
         return Object.assign({}, {
-          value: state.value - 1
+          value: state.value - 1,
         });
       default:
         return state;
@@ -24,7 +24,7 @@ describe('frint-store › combineReducers', function () {
     switch (action.type) {
       case 'SET_COLOR':
         return Object.assign({}, {
-          value: action.color
+          value: action.color,
         });
       default:
         return state;
@@ -45,12 +45,12 @@ describe('frint-store › combineReducers', function () {
   it('combines multiple reducers', function () {
     const rootReducer = combineReducers({
       counter: counterReducer,
-      color: colorReducer
+      color: colorReducer,
     });
 
     const initialState = {
       counter: { value: 100 },
-      color: { value: 'red' }
+      color: { value: 'red' },
     };
 
     const states = [];
@@ -66,14 +66,14 @@ describe('frint-store › combineReducers', function () {
       { counter: { value: 101 }, color: { value: 'red' } },
       { counter: { value: 102 }, color: { value: 'red' } },
       { counter: { value: 101 }, color: { value: 'red' } },
-      { counter: { value: 101 }, color: { value: 'blue' } }
+      { counter: { value: 101 }, color: { value: 'blue' } },
     ]);
   });
 
   it('combines multiple reducers with no given initial state', function () {
     const rootReducer = combineReducers({
       counter: counterReducer,
-      color: colorReducer
+      color: colorReducer,
     });
     const state = rootReducer(undefined, { type: 'DO_NOTHING' });
 
@@ -93,9 +93,9 @@ describe('frint-store › combineReducers', function () {
       error(...args) {
         consoleCalls.push({
           method: 'error',
-          args
+          args,
         });
-      }
+      },
     };
 
     const rootReducer = combineReducers({
@@ -103,12 +103,12 @@ describe('frint-store › combineReducers', function () {
       color: colorReducer,
       buggy: buggyReducer,
     }, {
-      console: fakeConsole
+      console: fakeConsole,
     });
 
     const initialState = {
       counter: { value: 100 },
-      color: { value: 'red' }
+      color: { value: 'red' },
     };
 
     const states = [];
@@ -120,7 +120,7 @@ describe('frint-store › combineReducers', function () {
     expect(states).to.deep.equal([
       { counter: { value: 100 }, color: { value: 'red' }, buggy: {} },
       { counter: { value: 101 }, color: { value: 'red' }, buggy: {} },
-      { counter: { value: 101 }, color: { value: 'blue' }, buggy: {} }
+      { counter: { value: 101 }, color: { value: 'blue' }, buggy: {} },
     ]);
 
     expect(() => rootReducer(states[states.length - 1], { type: 'DO_ERROR' }))
@@ -128,7 +128,7 @@ describe('frint-store › combineReducers', function () {
     expect(consoleCalls.length).to.equal(1);
     expect(consoleCalls[0]).to.deep.equal({
       method: 'error',
-      args: ['Reducer for key `buggy` threw an error:']
+      args: ['Reducer for key `buggy` threw an error:'],
     });
 
     expect(() => rootReducer(states[states.length - 1], { type: 'DO_UNDEFINED' }))

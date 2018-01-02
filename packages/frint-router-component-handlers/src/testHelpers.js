@@ -15,7 +15,7 @@ export const ComponentHandler = {
   },
   getMountableComponent(app) {
     return app.get('component');
-  }
+  },
 };
 
 export function createTestApp(router, component) {
@@ -31,7 +31,7 @@ export function createTestApp(router, component) {
 
   return createApp({
     name: 'TestApp',
-    providers
+    providers,
   });
 }
 
@@ -43,6 +43,6 @@ export function createTestAppInstance(router, component) {
 export function createComponent() {
   return {
     data: {},
-    props: {}
+    props: {},
   };
 }

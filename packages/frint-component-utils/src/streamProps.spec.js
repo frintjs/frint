@@ -38,7 +38,7 @@ describe('frint-react › streamProps', function () {
 
     streamer.set({
       key2: 'value2 overridden',
-      key3: 'value3'
+      key3: 'value3',
     });
 
     streamer.get$()
@@ -85,24 +85,24 @@ describe('frint-react › streamProps', function () {
       'Ricardo',
       'Mark',
       'Jean',
-      'Alex' // last one wins
+      'Alex', // last one wins
     );
     const numbers$ = of$(
       1,
       2,
-      3 // last one wins
+      3, // last one wins
     );
 
     streamer.set(
       names$,
-      name => ({ name }) // final plain object
+      name => ({ name }), // final plain object
     );
 
     streamer.set(
       numbers$,
       number => number * 2, // direct mapped values
       number => of$(number), // even mapped observables
-      number => ({ number }) // final plain object
+      number => ({ number }), // final plain object
     );
 
     streamer.get$()
@@ -125,7 +125,7 @@ describe('frint-react › streamProps', function () {
     const fakeStore = {
       dispatch(payload) {
         dispatchedPayload = payload;
-      }
+      },
     };
 
     function myActionCreator(value) {
@@ -137,7 +137,7 @@ describe('frint-react › streamProps', function () {
 
     streamer.setDispatch(
       { myAction: myActionCreator },
-      fakeStore
+      fakeStore,
     );
 
     streamer.get$()

@@ -7,7 +7,7 @@ import { ReactHandler } from 'frint-react';
 
 export default class Switch extends React.Component {
   static contextTypes = {
-    app: PropTypes.object.isRequired
+    app: PropTypes.object.isRequired,
   };
 
   static propTypes = {

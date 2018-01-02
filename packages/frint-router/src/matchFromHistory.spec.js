@@ -25,7 +25,7 @@ describe('frint-router › matchFromHistory', function () {
         url: '/',
         params: {},
         isExact: true,
-      }
+      },
     },
 
     {
@@ -43,7 +43,7 @@ describe('frint-router › matchFromHistory', function () {
         url: '/houses/revenclaw',
         params: {},
         isExact: true,
-      }
+      },
     },
 
     {
@@ -60,7 +60,7 @@ describe('frint-router › matchFromHistory', function () {
         url: '/houses/hufflepuff',
         params: {},
         isExact: true,
-      }
+      },
     },
 
     {
@@ -77,7 +77,7 @@ describe('frint-router › matchFromHistory', function () {
         url: '/houses',
         params: {},
         isExact: false,
-      }
+      },
     },
 
     {
@@ -97,7 +97,7 @@ describe('frint-router › matchFromHistory', function () {
           name: 'slytherin',
         },
         isExact: true,
-      }
+      },
     },
 
     {
@@ -118,7 +118,7 @@ describe('frint-router › matchFromHistory', function () {
           superhero: 'spiderman',
         },
         isExact: true,
-      }
+      },
     },
 
     {
@@ -138,7 +138,7 @@ describe('frint-router › matchFromHistory', function () {
           superhero: 'batman',
         },
         isExact: false,
-      }
+      },
     },
   ];
 
@@ -147,7 +147,7 @@ describe('frint-router › matchFromHistory', function () {
       const result = matchFromHistory(
         entry.input.pattern,
         entry.input.history,
-        { exact: entry.input.exact }
+        { exact: entry.input.exact },
       );
 
       expect(result.url).to.equal(entry.output.url);

@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-
+/* global Promise */
 const mkdirp = require('mkdirp');
 const request = require('request');
 const tar = require('tar');
@@ -70,7 +70,7 @@ module.exports = createApp({
         'params',
         'pwd',
       ],
-    }
+    },
   ],
 });
 

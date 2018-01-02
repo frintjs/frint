@@ -54,7 +54,7 @@
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "eslint": "^4.1.0",
-    "eslint-config-travix": "^3.0.1",
+    "eslint-config-travix": "^4.0.0",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-promise": "^3.5.0",

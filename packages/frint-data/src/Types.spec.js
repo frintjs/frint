@@ -283,7 +283,7 @@ describe('frint-data › Types', function () {
     it('accepts enum of types', function () {
       const type = Types.enum.of([
         Types.string,
-        Types.number
+        Types.number,
       ]).isRequired;
 
       expect(type(1)).to.equal(1);
@@ -493,24 +493,24 @@ describe('frint-data › Types', function () {
         street: Types.string,
         city: Types.string.isRequired,
         postalCode: Types.number.isRequired,
-        country: Types.string.defaults('Netherlands')
+        country: Types.string.defaults('Netherlands'),
       });
 
       expect(type({
         street: 'Amsterdam',
         city: 'Amsterdam',
-        postalCode: 123
+        postalCode: 123,
       })).to.deep.equal({
         street: 'Amsterdam',
         city: 'Amsterdam',
         postalCode: 123,
-        country: 'Netherlands'
+        country: 'Netherlands',
       });
 
       expect(() => type({
         street: 'Amsterdam',
         city: 'Amsterdam',
-        postalCode: '123'
+        postalCode: '123',
       })).to.throw(/schema failed for key 'postalCode', value is not a number/);
     });
 
@@ -521,8 +521,8 @@ describe('frint-data › Types', function () {
           street: Types.string,
           city: Types.string.isRequired,
           postalCode: Types.number.isRequired,
-          country: Types.string.defaults('Netherlands')
-        }).isRequired
+          country: Types.string.defaults('Netherlands'),
+        }).isRequired,
       });
 
       expect(type({
@@ -530,16 +530,16 @@ describe('frint-data › Types', function () {
         address: {
           street: 'Amsterdam',
           city: 'Amsterdam',
-          postalCode: 123
-        }
+          postalCode: 123,
+        },
       })).to.deep.equal({
         name: 'Frint',
         address: {
           street: 'Amsterdam',
           city: 'Amsterdam',
           postalCode: 123,
-          country: 'Netherlands'
-        }
+          country: 'Netherlands',
+        },
       });
 
       expect(() => type({
@@ -547,8 +547,8 @@ describe('frint-data › Types', function () {
         address: {
           street: 'Amsterdam',
           city: 'Amsterdam',
-          postalCode: '123'
-        }
+          postalCode: '123',
+        },
       })).to.throw(/schema failed for key 'postalCode', value is not a number/);
     });
   });

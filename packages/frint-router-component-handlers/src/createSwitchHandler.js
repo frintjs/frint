@@ -5,7 +5,7 @@ const SwitchHandler = {
 
   getInitialData() {
     return {
-      history: null
+      history: null,
     };
   },
 
@@ -48,7 +48,7 @@ export default function createSwitchHandler(ComponentHandler, app, component) {
     ComponentHandler,
     {
       app,
-      component
+      component,
     },
   );
 }

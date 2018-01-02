@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names, no-unused-expressions */
+/* eslint-disable import/no-extraneous-dependencies, func-names, no-unused-expressions, react/jsx-no-bind */
 /* global describe, it, before, resetDOM */
 import { expect } from 'chai';
 import React from 'react';
@@ -23,7 +23,7 @@ function createContext() {
   });
 
   return {
-    app: new App()
+    app: new App(),
   };
 }
 
@@ -40,7 +40,7 @@ describe('frint-route-react › Route', function () {
     // exact and path
     const wrapperPathExact = shallow(
       <Route exact path="/about" />,
-      { context: createContext() }
+      { context: createContext() },
     );
 
     expect(wrapperPathExact.type()).to.be.null;
@@ -48,7 +48,7 @@ describe('frint-route-react › Route', function () {
     // only path
     const wrapperPath = shallow(
       <Route path="/about" />,
-      { context: createContext() }
+      { context: createContext() },
     );
 
     expect(wrapperPath.type()).to.be.null;
@@ -56,7 +56,7 @@ describe('frint-route-react › Route', function () {
     // only computedMatch
     const wrapperComputedMatch = shallow(
       <Route computedMatch={{ url: '/about' }} />,
-      { context: createContext() }
+      { context: createContext() },
     );
 
     expect(wrapperComputedMatch.type()).to.be.null;
@@ -68,7 +68,7 @@ describe('frint-route-react › Route', function () {
     const context = createContext();
     const wrapper = shallow(
       <Route component={Component} path="/about" />,
-      { context }
+      { context },
     );
 
     context.app.get('router').push('/');
@@ -101,7 +101,7 @@ describe('frint-route-react › Route', function () {
           );
         }}
       />,
-      { context }
+      { context },
     );
 
     context.app.get('router').push('/');
@@ -127,7 +127,7 @@ describe('frint-route-react › Route', function () {
     const context = createContext();
     const wrapper = shallow(
       <Route component={Component} exact path="/about" />,
-      { context }
+      { context },
     );
 
     context.app.get('router').push('/');
@@ -153,7 +153,7 @@ describe('frint-route-react › Route', function () {
     const context = createContext();
     const wrapper = shallow(
       <Route component={Component} path="/about" />,
-      { context }
+      { context },
     );
 
     context.app.get('router').push('/');
@@ -176,7 +176,7 @@ describe('frint-route-react › Route', function () {
     const context = createContext();
     const wrapper = shallow(
       <Route component={Component} computedMatch={{ url: '/about' }} />,
-      { context }
+      { context },
     );
 
     expect(wrapper.type()).to.equal(Component);
@@ -192,7 +192,7 @@ describe('frint-route-react › Route', function () {
     const context = createContext();
     const wrapper = shallow(
       <Route component={Component} computedMatch={{ url: '/computed' }} path="/about" />,
-      { context }
+      { context },
     );
 
     context.app.get('router').push('/about');
@@ -219,13 +219,13 @@ describe('frint-route-react › Route', function () {
       ],
       beforeDestroy: () => {
         beforeDestroyCallCount += 1;
-      }
+      },
     });
 
     const context = createContext();
     const wrapper = shallow(
       <Route app={AboutApp} path="/about" />,
-      { context }
+      { context },
     );
 
     it('registers app with parent app from context', function () {
@@ -266,7 +266,7 @@ describe('frint-route-react › Route', function () {
       ],
       beforeDestroy: () => {
         beforeDestroyAboutCallCount += 1;
-      }
+      },
     });
 
     let beforeDestroyServicesCallCount = 0;
@@ -281,13 +281,13 @@ describe('frint-route-react › Route', function () {
       ],
       beforeDestroy: () => {
         beforeDestroyServicesCallCount += 1;
-      }
+      },
     });
 
     const context = createContext();
     const wrapper = shallow(
       <Route component={HomeComponent} path="/about" />,
-      { context }
+      { context },
     );
 
     it('renders nothing then path doesn\'t match', function () {

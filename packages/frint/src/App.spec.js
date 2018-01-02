@@ -44,9 +44,9 @@ describe('frint  › App', function () {
     expect(
       childApp
         .getParentApps()
-        .map(x => x.options.name)
+        .map(x => x.options.name),
     ).to.deep.equal([
-      'RootApp'
+      'RootApp',
     ]);
 
     expect(grandchildApp.getParentApp()).to.deep.equal(childApp);
@@ -54,7 +54,7 @@ describe('frint  › App', function () {
     expect(
       grandchildApp
         .getParentApps()
-        .map(x => x.options.name)
+        .map(x => x.options.name),
     ).to.deep.equal([
       'ChildApp',
       'RootApp',
@@ -118,7 +118,7 @@ describe('frint  › App', function () {
       providers: [
         {
           name: 'foo',
-          useValue: 'fooValue'
+          useValue: 'fooValue',
         },
         {
           name: 'bar',
@@ -131,7 +131,7 @@ describe('frint  › App', function () {
           name: 'baz',
           useClass: Baz,
           deps: ['foo', 'bar'],
-        }
+        },
       ],
     });
 
@@ -183,7 +183,7 @@ describe('frint  › App', function () {
           useValue: 'serviceE',
           cascade: true,
           scoped: false,
-        }
+        },
       ],
     });
 
@@ -219,7 +219,7 @@ describe('frint  › App', function () {
 
   it('gets container', function () {
     const app = new App({
-      name: 'MyApp'
+      name: 'MyApp',
     });
 
     expect(app.getContainer()).to.deep.equal(app.container);
@@ -256,7 +256,7 @@ describe('frint  › App', function () {
       name: 'MyApp',
       initialize() {
         called = true;
-      }
+      },
     });
 
     expect(app.getName()).to.equal('MyApp');
@@ -270,7 +270,7 @@ describe('frint  › App', function () {
       name: 'MyApp',
       beforeDestroy() {
         called = true;
-      }
+      },
     });
     app.beforeDestroy();
 
@@ -505,7 +505,7 @@ describe('frint  › App', function () {
           name: 'foo',
           useValue: `${foo} [updated]`,
         });
-      }
+      },
     });
 
     const app = new Root();
@@ -527,7 +527,7 @@ describe('frint  › App', function () {
           name: 'foo',
           useValue: `${foo} [updatedFromCreateApp]`,
         });
-      }
+      },
     });
 
     const app = new Root({
@@ -537,7 +537,7 @@ describe('frint  › App', function () {
           name: 'foo',
           useValue: `${foo} [updatedFromInstantiation]`,
         });
-      }
+      },
     });
 
     expect(app.get('foo')).to.equal('original foo [updatedFromCreateApp] [updatedFromInstantiation]');

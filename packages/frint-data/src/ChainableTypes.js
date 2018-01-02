@@ -7,7 +7,7 @@ export const isRequired = {
     }
 
     return value;
-  }
+  },
 };
 
 export const defaults = {
@@ -18,5 +18,5 @@ export const defaults = {
     }
 
     return defaultValue;
-  }
+  },
 };

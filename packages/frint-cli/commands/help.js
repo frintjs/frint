@@ -54,6 +54,6 @@ module.exports = createApp({
         'params',
         'rootApp',
       ],
-    }
+    },
   ],
 });

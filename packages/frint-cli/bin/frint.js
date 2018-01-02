@@ -50,7 +50,7 @@ function run() {
         )),
         tap(names => console.log(names)),
         tap(() => console.log('\n')),
-        tap(() => console.log('Type `frint help <commandName>` to learn more.'))
+        tap(() => console.log('Type `frint help <commandName>` to learn more.')),
       )
       .subscribe();
   }

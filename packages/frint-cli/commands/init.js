@@ -45,7 +45,7 @@ module.exports = createApp({
               .pipe(tar.x({
                 filter: path => path.indexOf(`frint-master/examples/${example}/`) === 0,
                 strip: 3,
-                C: dir
+                C: dir,
               }))
               .on('error', deps.console.error)
               .on('finish', () => deps.console.log('Done!'));
@@ -67,6 +67,6 @@ module.exports = createApp({
         'params',
         'pwd',
       ],
-    }
+    },
   ],
 });

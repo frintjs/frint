@@ -17,6 +17,6 @@ module.exports = function createMockedRootApp() {
       }
 
       return acc;
-    }, providers)
+    }, providers),
   });
 };

@@ -104,8 +104,8 @@ App.prototype._registerRootProviders = function _registerRootProviders() {
         omit(parentProvider, [
           'useClass',
           'useValue',
-          'useFactory'
-        ])
+          'useFactory',
+        ]),
       );
 
       // non-scoped
@@ -123,7 +123,7 @@ App.prototype._registerRootProviders = function _registerRootProviders() {
         // `useValue` providers have no impact with scoping
         this.container.register({
           ...definedProvider,
-          useValue: parentApp.get(parentProvider.name)
+          useValue: parentApp.get(parentProvider.name),
         });
 
         return;
@@ -141,7 +141,7 @@ App.prototype._registerRootProviders = function _registerRootProviders() {
       if ('useFactory' in parentProvider) {
         this.container.register({
           ...definedProvider,
-          useFactory: parentProvider.useFactory
+          useFactory: parentProvider.useFactory,
         });
       }
     });
@@ -306,7 +306,7 @@ App.prototype.getAppOnceAvailable$ = function getAppOnceAvailable$(name, region 
         const instanceKey = makeInstanceKey(region, regionKey, x.multi);
         return x.instances[instanceKey];
       }),
-      first$(y => y)
+      first$(y => y),
     );
 };
 

@@ -8,12 +8,12 @@ import createModel from './createModel';
 describe('frint-model › createModel', () => {
   const mySpec = {
     getAttribute1() { return this.attributes.attribute1; },
-    getAttribute2() { return this.attributes.attribute2; }
+    getAttribute2() { return this.attributes.attribute2; },
   };
 
   const myAttributes = {
     attribute1: 'value1',
-    attribute2: 'value2'
+    attribute2: 'value2',
   };
 
   const MyModel = createModel(mySpec);
@@ -45,15 +45,15 @@ describe('frint-model › createModel', () => {
     const TestModel = createModel({
       initialize(attributes) {
         this.storedFromInitialize = attributes;
-      }
+      },
     });
 
     const testModel = new TestModel({
-      foo: 'bar'
+      foo: 'bar',
     });
 
     expect(testModel.storedFromInitialize).to.deep.equal({
-      foo: 'bar'
+      foo: 'bar',
     });
   });
 

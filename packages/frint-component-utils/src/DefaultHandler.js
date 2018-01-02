@@ -36,5 +36,5 @@ export default {
   // other
   getMountableComponent(app) {
     return app.get('component');
-  }
+  },
 };

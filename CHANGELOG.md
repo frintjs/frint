@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.2.1 (2018-01-03)
+
+#### Pull Requests
+* `frint`
+  * [#398](https://github.com/frintjs/frint/pull/398) frint: Support listening to Child App registrations from providers. ([@fahad19](https://github.com/fahad19))
+
+#### Committers: 1
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+
 ## v5.2.0 (2017-12-29)
 
 #### Pull Requests

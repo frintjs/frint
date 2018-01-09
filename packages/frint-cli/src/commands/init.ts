@@ -32,6 +32,11 @@ export default createApp({
       useValue: DESCRIPTION_TEXT,
     },
     {
+      deps: [
+        'console',
+        'params',
+        'pwd',
+      ],
       name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
@@ -42,9 +47,9 @@ export default createApp({
             request('https://codeload.github.com/frintjs/frint/tar.gz/master')
               .on('error', deps.console.error)
               .pipe(tar.x({
+                C: dir,
                 filter: path => path.indexOf(`frint-master/examples/${example}/`) === 0,
                 strip: 3,
-                C: dir
               }))
               .on('error', deps.console.error)
               .on('finish', () => deps.console.log('Done!'));
@@ -61,11 +66,6 @@ export default createApp({
           });
         };
       },
-      deps: [
-        'console',
-        'params',
-        'pwd',
-      ],
     }
   ],
 });

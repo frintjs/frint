@@ -50,6 +50,11 @@ export default createApp({
       useValue: DESCRIPTION_TEXT,
     },
     {
+      deps: [
+        'console',
+        'params',
+        'pwd',
+      ],
       name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
@@ -62,11 +67,6 @@ export default createApp({
             .catch(deps.console.error);
         };
       },
-      deps: [
-        'console',
-        'params',
-        'pwd',
-      ],
     }
   ],
 });
@@ -135,9 +135,9 @@ function streamExampleToOutputDir(ctx) {
     request(`https://codeload.github.com/${ctx.org}/${ctx.repo}/tar.gz/${ctx.branch}`)
       .on('error', reject)
       .pipe(tar.x({
+        C: ctx.outputDir,
         filter: p => p.indexOf(`${ctx.repo}-${ctx.branch}/${ctx.examplePath}/`) === 0,
         strip: 3,
-        C: ctx.outputDir,
       }))
       .on('error', reject)
       .on('finish', () => resolve(ctx));

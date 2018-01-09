@@ -4,40 +4,41 @@ const fs = new MemoryFs();
 
 export default [
   {
+    cascade: true,
     name: 'fs',
     useValue: fs,
-    cascade: true,
   },
   {
+    cascade: true,
     name: 'pwd',
     useValue: process.env.PWD,
-    cascade: true,
   },
   {
+    cascade: true,
     name: 'command',
     useValue: null,
-    cascade: true,
   },
   {
+    cascade: true,
     name: 'params',
     useValue: {
       _: [],
     },
-    cascade: true,
   },
   {
+    cascade: true,
     name: 'config',
     useValue: {
       plugins: [],
     },
-    cascade: true,
   },
   {
+    cascade: true,
     name: 'console',
     useFactory: function useFactory() {
       const fakeConsole = {
-        logs: [],
         errors: [],
+        logs: [],
 
         log: function log(message) {
           this.logs.push(message);
@@ -50,6 +51,5 @@ export default [
 
       return fakeConsole;
     },
-    cascade: true,
   },
 ];

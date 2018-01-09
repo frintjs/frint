@@ -23,6 +23,11 @@ export default createApp({
       useValue: DESCRIPTION_TEXT,
     },
     {
+      deps: [
+        'console',
+        'params',
+        'rootApp',
+      ],
       name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
@@ -48,11 +53,6 @@ export default createApp({
           return deps.console.log(output);
         };
       },
-      deps: [
-        'console',
-        'params',
-        'rootApp',
-      ],
     },
   ],
 });

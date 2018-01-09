@@ -32,16 +32,16 @@ describe('frint-cli › commands › help', () => {
     const RootApp = createRootApp({
       providers: [
         {
+          cascade: true,
           name: 'command',
           useValue: 'help',
-          cascade: true,
         },
         {
+          cascade: true,
           name: 'params',
           useValue: {
             _: ['help'],
           },
-          cascade: true,
         },
       ],
     });

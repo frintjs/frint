@@ -9,18 +9,18 @@ interface IFrintConfig {
 
 export const providers = [
   {
-    cascade: true,
     name: 'fs',
+    cascade: true,
     useValue: fs,
   },
   {
-    cascade: true,
     name: 'pwd',
+    cascade: true,
     useValue: process.cwd(),
   },
   {
-    cascade: true,
     name: 'command',
+    cascade: true,
     useFactory: function useFactory() {
       if (argv._[0] !== undefined) {
         return argv._[0];
@@ -30,8 +30,8 @@ export const providers = [
     },
   },
   {
-    cascade: true,
     name: 'params',
+    cascade: true,
     useFactory: function useFactory() {
       const clonedArgv = clone(argv);
       clonedArgv._.shift();
@@ -40,12 +40,12 @@ export const providers = [
     },
   },
   {
+    name: 'config',
     cascade: true,
     deps: [
       'pwd',
       'fs',
     ],
-    name: 'config',
     useFactory: function useFactory(deps) {
       let config: IFrintConfig = { plugins: [] };
       const pwd = deps.pwd;
@@ -72,8 +72,8 @@ export const providers = [
     },
   },
   {
-    cascade: true,
     name: 'console',
+    cascade: true,
     useValue: console,
   },
 ];

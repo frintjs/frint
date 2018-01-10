@@ -23,12 +23,12 @@ export default createApp({
       useValue: DESCRIPTION_TEXT,
     },
     {
+      name: 'execute',
       deps: [
         'console',
         'params',
         'rootApp',
       ],
-      name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
           const commandName = deps.params._[0];

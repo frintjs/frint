@@ -10,11 +10,11 @@ export default createApp({
       useValue: 'Shows current version number of frint-cli',
     },
     {
+      name: 'execute',
       deps: [
         'console',
         'fs',
       ],
-      name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
           const pkg = JSON.parse(

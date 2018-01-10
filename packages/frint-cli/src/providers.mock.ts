@@ -4,37 +4,37 @@ const fs = new MemoryFs();
 
 export default [
   {
-    cascade: true,
     name: 'fs',
+    cascade: true,
     useValue: fs,
   },
   {
-    cascade: true,
     name: 'pwd',
+    cascade: true,
     useValue: process.env.PWD,
   },
   {
-    cascade: true,
     name: 'command',
+    cascade: true,
     useValue: null,
   },
   {
-    cascade: true,
     name: 'params',
+    cascade: true,
     useValue: {
       _: [],
     },
   },
   {
-    cascade: true,
     name: 'config',
+    cascade: true,
     useValue: {
       plugins: [],
     },
   },
   {
-    cascade: true,
     name: 'console',
+    cascade: true,
     useFactory: function useFactory() {
       const fakeConsole = {
         errors: [],

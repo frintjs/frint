@@ -20,8 +20,8 @@ describe('frint-cli › commands › version', () => {
     const RootApp = createRootApp({
       providers: [
         {
-          cascade: true,
           name: 'command',
+          cascade: true,
           useValue: 'version',
         },
       ],

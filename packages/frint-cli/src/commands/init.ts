@@ -32,12 +32,12 @@ export default createApp({
       useValue: DESCRIPTION_TEXT,
     },
     {
+      name: 'execute',
       deps: [
         'console',
         'params',
         'pwd',
       ],
-      name: 'execute',
       useFactory: function useFactory(deps) {
         return function execute() {
           const example = deps.params.example || 'counter';

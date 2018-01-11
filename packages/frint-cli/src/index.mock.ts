@@ -1,10 +1,8 @@
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
+import providers from './providers.mock';
 
-const providers = require('./providers.mock');
-
-module.exports = function createMockedRootApp() {
-  const options = arguments[0] || {}; // eslint-disable-line
-  const overrideProviders = options.providers || [];
+export default function createMockedRootApp(options?: any) {
+  const overrideProviders = (options && options.providers) || [];
 
   return createApp({
     name: 'FrintCLI Mocked',
@@ -19,4 +17,4 @@ module.exports = function createMockedRootApp() {
       return acc;
     }, providers)
   });
-};
+}

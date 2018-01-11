@@ -1,8 +1,7 @@
-const mkdirp = require('mkdirp');
-const request = require('request');
-const tar = require('tar');
-
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
+import * as mkdirp from 'mkdirp';
+import * as request from 'request';
+import * as tar from 'tar';
 
 const DESCRIPTION_TEXT = `
 Usage:
@@ -21,7 +20,7 @@ You can find list of all available examples here:
 https://github.com/frintjs/frint/tree/master/examples
 `.trim();
 
-module.exports = createApp({
+export default createApp({
   name: 'init',
   providers: [
     {
@@ -34,6 +33,11 @@ module.exports = createApp({
     },
     {
       name: 'execute',
+      deps: [
+        'console',
+        'params',
+        'pwd',
+      ],
       useFactory: function useFactory(deps) {
         return function execute() {
           const example = deps.params.example || 'counter';
@@ -43,9 +47,9 @@ module.exports = createApp({
             request('https://codeload.github.com/frintjs/frint/tar.gz/master')
               .on('error', deps.console.error)
               .pipe(tar.x({
+                C: dir,
                 filter: path => path.indexOf(`frint-master/examples/${example}/`) === 0,
                 strip: 3,
-                C: dir
               }))
               .on('error', deps.console.error)
               .on('finish', () => deps.console.log('Done!'));
@@ -62,11 +66,6 @@ module.exports = createApp({
           });
         };
       },
-      deps: [
-        'console',
-        'params',
-        'pwd',
-      ],
     }
   ],
 });

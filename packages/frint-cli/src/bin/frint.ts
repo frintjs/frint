@@ -1,17 +1,19 @@
 #!/usr/bin/env node
-/* eslint-disable no-console, global-require, import/no-dynamic-require */
-const take = require('rxjs/operators/take').take;
-const map = require('rxjs/operators/map').map;
-const tap = require('rxjs/operators/tap').tap;
+import { map, take, tap } from 'rxjs/operators';
 
-const App = require('../root');
+import HelpCommand from '../commands/help';
+import InitCommand from '../commands/init';
+import NewCommand from '../commands/new';
+import VersionCommand from '../commands/version';
+
+import { App } from '../index';
 
 const app = new App();
 
-app.registerApp(require('../commands/version'));
-app.registerApp(require('../commands/init'));
-app.registerApp(require('../commands/new'));
-app.registerApp(require('../commands/help'));
+app.registerApp(HelpCommand);
+app.registerApp(InitCommand);
+app.registerApp(NewCommand);
+app.registerApp(VersionCommand);
 
 const command = app.get('command');
 const config = app.get('config');

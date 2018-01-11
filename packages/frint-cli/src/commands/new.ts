@@ -1,10 +1,7 @@
-/* eslint-disable no-use-before-define */
-
-const mkdirp = require('mkdirp');
-const request = require('request');
-const tar = require('tar');
-
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
+import * as mkdirp from 'mkdirp';
+import * as request from 'request';
+import * as tar from 'tar';
 
 const DEFAULT_ORG = 'frintjs';
 const DEFAULT_REPO = 'frint';
@@ -41,7 +38,7 @@ Please run these two commands to start your application:
   $ npm start
 `.trim();
 
-module.exports = createApp({
+export default createApp({
   name: 'new',
   providers: [
     {
@@ -54,6 +51,11 @@ module.exports = createApp({
     },
     {
       name: 'execute',
+      deps: [
+        'console',
+        'params',
+        'pwd',
+      ],
       useFactory: function useFactory(deps) {
         return function execute() {
           deps.console.log('Initializing...');
@@ -65,11 +67,6 @@ module.exports = createApp({
             .catch(deps.console.error);
         };
       },
-      deps: [
-        'console',
-        'params',
-        'pwd',
-      ],
     }
   ],
 });
@@ -138,17 +135,17 @@ function streamExampleToOutputDir(ctx) {
     request(`https://codeload.github.com/${ctx.org}/${ctx.repo}/tar.gz/${ctx.branch}`)
       .on('error', reject)
       .pipe(tar.x({
+        C: ctx.outputDir,
         filter: p => p.indexOf(`${ctx.repo}-${ctx.branch}/${ctx.examplePath}/`) === 0,
         strip: 3,
-        C: ctx.outputDir,
       }))
       .on('error', reject)
-      .on('finish', resolve(ctx));
+      .on('finish', () => resolve(ctx));
   });
 }
 
 function getCompletionText(ctx) {
   return COMPLETION_TEXT.replace(
-    "{}",
-    ctx.isOutputCurrentDir ? "" : `\n  $ cd ${ctx.outputDir}`);
+    '{}',
+    ctx.isOutputCurrentDir ? '' : `\n  $ cd ${ctx.outputDir}`);
 }

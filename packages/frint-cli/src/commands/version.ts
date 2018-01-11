@@ -1,8 +1,7 @@
-/* eslint-disable global-require, import/no-dynamic-require */
-const path = require('path');
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
+import * as path from 'path';
 
-module.exports = createApp({
+export default createApp({
   name: 'version',
 
   providers: [
@@ -12,21 +11,21 @@ module.exports = createApp({
     },
     {
       name: 'execute',
+      deps: [
+        'console',
+        'fs',
+      ],
       useFactory: function useFactory(deps) {
         return function execute() {
           const pkg = JSON.parse(
             deps.fs.readFileSync(
-              path.resolve(`${__dirname}/../package.json`)
+              path.resolve(`${__dirname}/../../package.json`)
             )
           );
 
           deps.console.log(`v${pkg.version}`);
         };
       },
-      deps: [
-        'console',
-        'fs',
-      ],
     }
   ],
 });

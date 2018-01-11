@@ -1,44 +1,44 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const MemoryFs = require('memory-fs');
+import * as MemoryFs from 'memory-fs';
 
 const fs = new MemoryFs();
 
-module.exports = [
+export default [
   {
     name: 'fs',
-    useValue: fs,
     cascade: true,
+    useValue: fs,
   },
   {
     name: 'pwd',
-    useValue: process.env.PWD,
     cascade: true,
+    useValue: process.env.PWD,
   },
   {
     name: 'command',
-    useValue: null,
     cascade: true,
+    useValue: null,
   },
   {
     name: 'params',
+    cascade: true,
     useValue: {
       _: [],
     },
-    cascade: true,
   },
   {
     name: 'config',
+    cascade: true,
     useValue: {
       plugins: [],
     },
-    cascade: true,
   },
   {
     name: 'console',
+    cascade: true,
     useFactory: function useFactory() {
       const fakeConsole = {
-        logs: [],
         errors: [],
+        logs: [],
 
         log: function log(message) {
           this.logs.push(message);
@@ -51,6 +51,5 @@ module.exports = [
 
       return fakeConsole;
     },
-    cascade: true,
   },
 ];

@@ -1,5 +1,4 @@
-/* eslint-disable global-require, import/no-dynamic-require */
-const createApp = require('frint').createApp;
+import { createApp } from 'frint';
 
 const DESCRIPTION_TEXT = `
 Usage:
@@ -11,7 +10,7 @@ Example:
   $ frint help init
 `.trim();
 
-module.exports = createApp({
+export default createApp({
   name: 'help',
 
   providers: [
@@ -25,6 +24,11 @@ module.exports = createApp({
     },
     {
       name: 'execute',
+      deps: [
+        'console',
+        'params',
+        'rootApp',
+      ],
       useFactory: function useFactory(deps) {
         return function execute() {
           const commandName = deps.params._[0];
@@ -49,11 +53,6 @@ module.exports = createApp({
           return deps.console.log(output);
         };
       },
-      deps: [
-        'console',
-        'params',
-        'rootApp',
-      ],
-    }
+    },
   ],
 });

@@ -1,22 +1,26 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from 'fs';
+import * as clone from 'lodash/clone';
+import * as path from 'path';
+import { argv } from 'yargs';
 
-const clone = require('lodash/clone');
-const argv = require('yargs').argv;
+interface IFrintConfig {
+  plugins: string[];
+}
 
-module.exports = [
+export const providers = [
   {
     name: 'fs',
-    useValue: fs,
     cascade: true,
+    useValue: fs,
   },
   {
     name: 'pwd',
-    useValue: process.env.PWD,
     cascade: true,
+    useValue: process.cwd(),
   },
   {
     name: 'command',
+    cascade: true,
     useFactory: function useFactory() {
       if (argv._[0] !== undefined) {
         return argv._[0];
@@ -24,22 +28,26 @@ module.exports = [
 
       return null;
     },
-    cascade: true,
   },
   {
     name: 'params',
+    cascade: true,
     useFactory: function useFactory() {
       const clonedArgv = clone(argv);
       clonedArgv._.shift();
 
       return clonedArgv;
     },
-    cascade: true,
   },
   {
     name: 'config',
+    cascade: true,
+    deps: [
+      'pwd',
+      'fs',
+    ],
     useFactory: function useFactory(deps) {
-      let config = {};
+      let config: IFrintConfig = { plugins: [] };
       const pwd = deps.pwd;
 
       try {
@@ -62,15 +70,10 @@ module.exports = [
 
       return config;
     },
-    deps: [
-      'pwd',
-      'fs',
-    ],
-    cascade: true,
   },
   {
     name: 'console',
-    useValue: console,
     cascade: true,
+    useValue: console,
   },
 ];

@@ -33,7 +33,8 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
-    "frint-config": "^5.2.1"
+    "frint-config": "^5.2.1",
+    "frint-data": "^5.2.1"
   },
   "license": "MIT"
 }

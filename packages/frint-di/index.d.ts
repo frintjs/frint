@@ -1,8 +1,4 @@
-export interface IGeneratedClass<T> {
-  new (...args: any[]): T;
-}
-
-export interface IProvider {
+export interface Provider {
   name: string;
   useValue?: any;
   useDefinedValue?: any;
@@ -14,20 +10,20 @@ export interface IProvider {
   [others: string]: any;
 }
 
-export interface IContainer {
-  getDeps(container: IProvider): any;
-  register(container: IProvider): any;
-  get<T extends IProvider>(name: string): T;
+export interface Container {
+  getDeps(container: Provider): any;
+  register(container: Provider): any;
+  get<T extends Provider>(name: string): T;
 }
 
-export interface IContainerOptions {
+export interface ContainerOptions {
   containerName: string;
 }
 
-export interface IConstructor<T> {
+export interface Constructor<T> {
   new(): T;
 }
 
-export function createContainer(providers: IProvider[], options: IContainerOptions): IConstructor<IContainer>;
+export function createContainer(providers: Provider[], options: ContainerOptions): Constructor<Container>;
 
-export function resolveContainer<T>(Container: IConstructor<T>): T;
+export function resolveContainer<T>(Container: Constructor<T>): T;

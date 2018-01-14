@@ -1,14 +1,11 @@
-import find from 'lodash/find';
-import findIndex from 'lodash/findIndex';
-import lodashGet from 'lodash/get';
-import omit from 'lodash/omit';
+import { find, findIndex, get, omit } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of as of$ } from 'rxjs/observable/of';
 import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
 import { find as find$ } from 'rxjs/operators/find';
 import { first as first$ } from 'rxjs/operators/first';
 import { map as map$ } from 'rxjs/operators/map';
-import { createContainer, resolveContainer } from 'travix-di';
+import { createContainer, IContainer, IProvider, resolveContainer } from 'travix-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
   if (
@@ -32,22 +29,25 @@ function makeInstanceKey(region = null, regionKey = null, multi = false) {
 }
 
 interface IProviderNames {
-  component: 'component';
-  container: 'container';
-  store: 'store';
-  app: 'app';
-  parentApp: 'parentApp';
-  rootApp: 'rootApp';
-  region: 'region';
+  component: string;
+  container: string;
+  store: string;
+  app: string;
+  parentApp: string;
+  rootApp: string;
+  region: string;
 }
 
-interface IAppOptions {
-  name: string;
-  parentApp: App;
-  providers: Container[];
-  providerNames: IProviderNames;
+interface IRegisterAppOptions {
+  name?: string;
+  multi?: boolean;
+  regions?: string[];
   initialize?: () => void;
-  beforeDestroy?: () => void;
+}
+
+interface IFrintProvider extends IProvider {
+  cascade?: boolean;
+  scoped?: boolean;
 }
 
 const defaultProviderNames = {
@@ -60,13 +60,37 @@ const defaultProviderNames = {
   region: 'region',
 };
 
-class App {
-  private options: any;
-  private container: any;
-  private _appsCollection: any[];
-  private _apps$: BehaviorSubject<any[]>;
+interface IAppRegistration {
+  // tslint:disable-next-line:variable-name
+  AppClass: typeof App;
+  name: string;
+  regions: any[];
+  instances: { [name: string]: App };
+  multi: boolean;
+  initialize?: () => void;
+}
 
-  constructor(opts = {}) {
+export interface IAppOptions {
+  name: string;
+  parentApp?: App;
+  providers?: IFrintProvider[];
+  providerNames?: IProviderNames;
+  initialize?: () => void;
+  beforeDestroy?: () => void;
+}
+
+interface IAppClass {
+  frintAppName?: string;
+  new(opts: IAppOptions): App;
+}
+
+export class App {
+  public container: IContainer;
+  private options: IAppOptions;
+  private _appsCollection: IAppRegistration[];
+  private _apps$: BehaviorSubject<IAppRegistration[]>;
+
+  constructor(opts: IAppOptions) {
     this.options = {
       name: null,
       parentApp: null,
@@ -89,13 +113,17 @@ class App {
       throw new Error('Must provide `name` in options');
     }
 
+    // children - create Observable if root
+    this._appsCollection = [];
+    this._apps$ = new BehaviorSubject(this._appsCollection);
+
     // container
     const container = createContainer([
       { name: this.options.providerNames.app, useDefinedValue: this },
       { name: this.options.providerNames.parentApp, useDefinedValue: this.getParentApp() },
       { name: this.options.providerNames.rootApp, useDefinedValue: this.getRootApp() },
     ], {
-      containerKey: this.options.providerNames.container,
+      containerName: this.options.providerNames.container,
     });
 
     this.container = resolveContainer(container);
@@ -107,10 +135,6 @@ class App {
     this.options.providers.forEach((provider) => {
       this.container.register(provider);
     });
-
-    // children - create Observable if root
-    this._appsCollection = [];
-    this._apps$ = new BehaviorSubject(this._appsCollection);
 
     this.options.initialize.bind(this)();
   }
@@ -130,11 +154,11 @@ class App {
   }
 
   public getParentApp() {
-    return this.options[this.options.providerNames.parentApp] || null;
+    return this.options[this.options.providerNames.parentApp] as App || null;
   }
 
   public getParentApps() {
-    function findParents(app, parents = []) {
+    function findParents(app: App, parents: App[] = []): App[] {
       const parentApp = app.getParentApp();
 
       if (!parentApp) {
@@ -149,7 +173,7 @@ class App {
   }
 
   public getOption(key) {
-    return lodashGet(this.options, key);
+    return get(this.options, key);
   }
 
   public getName() {
@@ -167,7 +191,7 @@ class App {
   }
 
   public get(providerName) {
-    const value = this.container.get(providerName);
+    const value = this.container.get<IFrintProvider>(providerName);
 
     if (typeof value !== 'undefined') {
       return value;
@@ -190,14 +214,14 @@ class App {
       }));
   }
 
-  public registerApp(appClass, opts = {}) {
+  public registerApp(AppClass: IAppClass, opts: IRegisterAppOptions = {}) {
     const options = {
       multi: false,
       ...opts,
     };
 
     if (typeof options.name !== 'undefined') {
-      Object.defineProperty(appClass, 'frintAppName', {
+      Object.defineProperty(AppClass, 'frintAppName', {
         value: options.name,
         configurable: true,
       });
@@ -214,9 +238,9 @@ class App {
     this._appsCollection.push({
       ...options,
       name: AppClass.frintAppName,
-      App: appClass,
-      regions: options.regions || [],
+      AppClass,
       instances: {},
+      regions: options.regions || [],
     });
 
     if (options.multi === false) {
@@ -237,17 +261,17 @@ class App {
   }
 
   public getAppInstance(name, region = null, regionKey = null) {
-    const index = findIndex(this._appsCollection, (w) => {
-      return w.name === name;
+    const index = findIndex(this._appsCollection, a => {
+      return a.name === name;
     });
 
     if (index === -1) {
       return null;
     }
 
-    const w = this._appsCollection[index];
-    const instanceKey = makeInstanceKey(region, regionKey, w.multi);
-    const instance = w.instances[instanceKey];
+    const app = this._appsCollection[index];
+    const instanceKey = makeInstanceKey(region, regionKey, app.multi);
+    const instance = app.instances[instanceKey];
 
     if (!instance || typeof instance === 'undefined') {
       return null;
@@ -273,13 +297,14 @@ class App {
           const instanceKey = makeInstanceKey(region, regionKey, x.multi);
           return x.instances[instanceKey];
         }),
-        first$(y => y)
+        first$()
       );
   }
 
   public instantiateApp(name, region = null, regionKey = null) {
-    const index = findIndex(this._appsCollection, (w) => {
-      return w.App.frintAppName === name;
+    const index = findIndex(this._appsCollection, a => {
+      // HACK: we should handle frintAppName differently.
+      return (a.AppClass as any).frintAppName === name;
     });
 
     if (index === -1) {
@@ -289,9 +314,9 @@ class App {
     const w = this._appsCollection[index];
     const key = makeInstanceKey(region, regionKey, w.multi);
 
-    this._appsCollection[index].instances[key] = new w.App({
-      ...omit(w, ['App', 'instances']),
-      name: w.App.frintAppName,
+    this._appsCollection[index].instances[key] = new w.AppClass({
+      ...omit(w, ['AppClass', 'instances']) as IAppOptions,
+      name: (w.AppClass as any).frintAppName,
       parentApp: this,
     });
 
@@ -299,8 +324,8 @@ class App {
   }
 
   public destroyApp(name, region = null, regionKey = null) {
-    const index = findIndex(this._appsCollection, (w) => {
-      if (!w || !w.App) {
+    const index = findIndex(this._appsCollection, a => {
+      if (!a || !a.AppClass) {
         return false;
       }
 
@@ -347,7 +372,7 @@ class App {
             'useValue',
             'useFactory'
           ])
-        );
+        ) as IProvider;
 
         // non-scoped
         if (!parentProvider.scoped) {
@@ -393,5 +418,3 @@ class App {
 // unregisterApp(name, region = null, regionKey = null) {
 //   // @TODO
 // }
-
-export default App;

@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/frintjs/frint#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.92",
     "@types/mocha": "^2.2.45",
     "alex": "^5.0.0",
     "babel-cli": "^6.10.1",

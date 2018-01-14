@@ -6,8 +6,8 @@
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-core",
   "scripts": {
     "lint": "cross-env ../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
-    "transpile": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
-    "test": "cross-env ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "transpile": "cross-env ../../node_modules/.bin/tsc",
+    "test": "cross-env ../../node_modules/.bin/mocha --require ts-node/register --colors --recursive ./src/**/*.spec.ts",
     "cover:run": "cross-env ../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
     "cover:report": "cross-env ../../node_modules/.bin/nyc report",
     "cover": "npm run cover:run && npm run cover:report",

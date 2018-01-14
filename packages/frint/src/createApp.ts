@@ -1,6 +1,6 @@
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 
-import BaseApp from './App';
+import { App, IAppOptions } from './App';
 
 function mergeOptions(createAppOptions, constructorOptions) {
   const mergedOptions = merge({}, createAppOptions, constructorOptions);
@@ -25,19 +25,19 @@ function mergeOptions(createAppOptions, constructorOptions) {
   return mergedOptions;
 }
 
-export default function createApp(options = {}) {
-  class App extends BaseApp {
+export default function createApp(options: IAppOptions) {
+  class NewApp extends App {
     constructor(opts = {}) {
       super(mergeOptions(options, opts));
     }
   }
 
   if (typeof options.name !== 'undefined') {
-    Object.defineProperty(App, 'frintAppName', {
+    Object.defineProperty(NewApp, 'frintAppName', {
       value: options.name,
       configurable: true,
     });
   }
 
-  return App;
+  return NewApp;
 }

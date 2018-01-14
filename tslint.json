@@ -9,7 +9,10 @@
     "no-console": false,
     "quotemark": [ true, "single" ],
     "object-literal-sort-keys": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case"],
+    "max-classes-per-file": false,
+    "max-line-length": [true, 160]
   },
   "rulesDirectory": []
 }

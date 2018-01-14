@@ -2,10 +2,10 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import createContainer from '../src/createContainer';
-import resolveContainer from '../src/resolveContainer';
+import createContainer from './createContainer';
+import resolveContainer from './resolveContainer';
 
-describe('resolveContainer', function () {
+describe('frint-data › resolveContainer', function () {
   it('resolves Container class', function () {
     const Container = createContainer([
       { name: 'foo', useValue: 'foo value' }

@@ -11,7 +11,6 @@
   - [Usage](#usage)
   - [Note](#note)
 - [API](#api)
-  - [createClass](#createclass)
   - [resolveContainer](#resolvecontainer)
   - [createContainer](#createcontainer)
 
@@ -116,18 +115,6 @@ class Foo {
 }
 ```
 
-Or, they can be created with the handy `createClass` function shipped with this library:
-
-```js
-import { createClass } from 'travix-di';
-
-const Foo = createClass({
-  text: function () {
-    return 'foo text';
-  }
-});
-```
-
 Once the class is written, we can define our container:
 
 ```js
@@ -195,27 +182,6 @@ The package is a fork of [diyai](https://github.com/fahad19/diyai), which is a c
 
 # API
 
-## createClass
-
-> createClass(extend = {})
-
-Creates and returns a class.
-
-```js
-import { createClass } from 'travix-di';
-
-const MyClass = createClass({
-  initialize(deps) {
-    // `deps` contains injected dependencies if any.
-    // Should be treated as constructors of ES6 classes.
-  },
-
-  someMethod() {
-    return true;
-  }
-});
-```
-
 ## resolveContainer
 
 > resolveContainer(Container)
@@ -243,7 +209,7 @@ A single provider object would contain:
   // and one of the following keys
   useValue: 'direct value of any type', // OR
   useFactory: () => 'returned value of any type', OR
-  useClass: SomeClass, // created via `createClass` or ES6 classes
+  useClass: SomeClass, // ES6 classes
 
   // if `useClass` or `useFactory` is used, then `deps` can be provided
   deps: ['depName1', 'depName2', ...]

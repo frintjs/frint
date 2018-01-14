@@ -1,9 +1,7 @@
 import createContainer from './createContainer';
 import resolveContainer from './resolveContainer';
-import createClass from './createClass';
 
-module.exports = {
+export default {
   createContainer,
   resolveContainer,
-  createClass,
 };

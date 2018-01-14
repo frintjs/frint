@@ -2,15 +2,26 @@
 /* global describe, it */
 import { expect } from 'chai';
 
-import createClass from '../src/createClass';
-import createContainer from '../src/createContainer';
-import resolveContainer from '../src/resolveContainer';
+import createContainer from './createContainer';
+import resolveContainer from './resolveContainer';
 
-describe('createContainer', function () {
+describe('frint-data › createContainer', function () {
   it('creates Container with direct vaules', function () {
     const Container = createContainer([
       { name: 'foo', useValue: 'foo value' },
       { name: 'bar', useValue: 'bar value' },
+    ]);
+
+    const container = resolveContainer(Container);
+
+    expect(container.get('foo')).to.equal('foo value');
+    expect(container.get('bar')).to.equal('bar value');
+  });
+
+  it('creates Container with defined vaules', function () {
+    const Container = createContainer([
+      { name: 'foo', useDefinedValue: 'foo value' },
+      { name: 'bar', useDefinedValue: 'bar value' },
     ]);
 
     const container = resolveContainer(Container);
@@ -43,30 +54,6 @@ describe('createContainer', function () {
         return 'bar value';
       }
     }
-
-    const Container = createContainer([
-      { name: 'foo', useClass: Foo },
-      { name: 'bar', useClass: Bar },
-    ]);
-
-    const container = resolveContainer(Container);
-
-    expect(container.get('foo').text()).to.equal('foo value');
-    expect(container.get('bar').text()).to.equal('bar value');
-  });
-
-  it('creates Container with values coming from ES5 classes, created by createClass', function () {
-    const Foo = createClass({
-      text() {
-        return 'foo value';
-      }
-    });
-
-    const Bar = createClass({
-      text() {
-        return 'bar value';
-      }
-    });
 
     const Container = createContainer([
       { name: 'foo', useClass: Foo },
@@ -192,5 +179,46 @@ describe('createContainer', function () {
 
     expect(container.get('foo')).to.equal('foo value');
     expect(container.get('customContainerName')).to.deep.equal(container);
+  });
+
+  it('throws error when requried dependency is not available', function () {
+    const Container = createContainer([
+      {
+        name: 'bar',
+        /* istanbul ignore next */
+        useFactory() {},
+        deps: ['foo'],
+      },
+    ]);
+
+    expect(() => {
+      resolveContainer(Container);
+    }).to.throw(/is not available/);
+  });
+
+  it('throws error when provider name is not a string', function () {
+    const Container = createContainer([
+      {
+        name: 123,
+        /* istanbul ignore next */
+        useFactory() {},
+      },
+    ]);
+
+    expect(() => {
+      resolveContainer(Container);
+    }).to.throw(/has no 'name' key/);
+  });
+
+  it('throws error when provider has no value', function () {
+    const Container = createContainer([
+      {
+        name: 'foo',
+      },
+    ]);
+
+    expect(() => {
+      resolveContainer(Container);
+    }).to.throw(/No value given for 'foo'/);
   });
 });

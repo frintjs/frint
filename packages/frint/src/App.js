@@ -8,7 +8,7 @@ import omit from 'lodash/omit';
 import lodashGet from 'lodash/get';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
-import { createContainer, resolveContainer } from 'travix-di';
+import { createContainer, resolveContainer } from 'frint-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
   if (

@@ -1,8 +1,8 @@
 /* eslint-disable no-proto, func-names */
-function extractRules(model, givenRules) {
+function extractRules(model, options) {
   // check if rules are passed manually
-  if (givenRules) {
-    return givenRules;
+  if (options.rules) {
+    return options.rules;
   }
 
   // check if Model class had rules defined statically
@@ -30,18 +30,12 @@ export default function validate(model, opts = {}) {
     rules: null,
     ...opts,
   };
-  const rules = extractRules(model, options.rules);
+  const rules = extractRules(model, options);
 
   if (rules.length === 0) {
     // nothing to validate
     return [];
   }
-
-  // const options = {
-  //   // @TODO: handle async later
-  //   // async: false,
-  //   ...opts,
-  // };
 
   const result = rules
     .map(function (r) {
@@ -63,11 +57,6 @@ export default function validate(model, opts = {}) {
       return null;
     })
     .filter(r => r);
-
-  // @TODO: handle async later
-  // if (options.async) {
-  //   // @TODO: handle async validations in `result`
-  // }
 
   return result;
 }

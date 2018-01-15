@@ -50,20 +50,24 @@ describe('frint-data-validation › validate', function () {
       const post = new Post({
         title: 'Hello World',
       });
+      const validateOptions = {
+        rules: [
+          {
+            name: 'title',
+            message: 'Cannot be empty at all!',
+            rule: model => model.title.length > 0,
+          },
+        ],
+      };
 
-      expect(validate(post), [
-        {
-          name: 'title',
-          message: 'Cannot be empty',
-          rule: model => model.title.length > 0,
-        },
-      ]).to.deep.equal([]);
+
+      expect(validate(post, validateOptions)).to.deep.equal([]);
 
       post.setTitle('');
-      expect(validate(post)).to.deep.equal([
+      expect(validate(post, validateOptions)).to.deep.equal([
         {
           name: 'title',
-          message: 'Cannot be empty',
+          message: 'Cannot be empty at all!',
         },
       ]);
     });

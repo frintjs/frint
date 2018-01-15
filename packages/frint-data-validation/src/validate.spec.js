@@ -71,5 +71,16 @@ describe('frint-data-validation › validate', function () {
         },
       ]);
     });
+
+    it('with no rules', function () {
+      const post = new Post({
+        title: 'Hello World',
+      });
+      const validateOptions = {
+        rules: [],
+      };
+
+      expect(validate(post, validateOptions)).to.deep.equal([]);
+    });
   });
 });

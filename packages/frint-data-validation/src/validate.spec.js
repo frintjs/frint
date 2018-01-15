@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import { createModel, Types } from 'frint-data';
 
 import validate from './validate';
+import Rules from './Rules';
 
 describe('frint-data-validation › validate', function () {
   it('is a function', function () {
@@ -36,6 +37,24 @@ describe('frint-data-validation › validate', function () {
       });
 
       expect(validate(post)).to.deep.equal([]);
+
+      post.setTitle('');
+      expect(validate(post)).to.deep.equal([
+        {
+          name: 'title',
+          message: 'Cannot be empty',
+        },
+      ]);
+    });
+
+    it('with rule passed manually', function () {
+      const post = new Post({
+        title: 'Hello World',
+      });
+
+      expect(validate(post), [
+        Rules.isNotEmpty('title', 'Cannot be empty'),
+      ]).to.deep.equal([]);
 
       post.setTitle('');
       expect(validate(post)).to.deep.equal([

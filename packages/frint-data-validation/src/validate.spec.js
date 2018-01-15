@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import { createModel, Types } from 'frint-data';
 
 import validate from './validate';
-import Rules from './Rules';
 
 describe('frint-data-validation › validate', function () {
   it('is a function', function () {
@@ -53,10 +52,11 @@ describe('frint-data-validation › validate', function () {
       });
 
       expect(validate(post), [
-        Rules.isNotEmpty({
-          field: 'title',
+        {
+          name: 'title',
           message: 'Cannot be empty',
-        }),
+          rule: model => model.title.length > 0,
+        },
       ]).to.deep.equal([]);
 
       post.setTitle('');

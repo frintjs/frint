@@ -5,7 +5,6 @@ import { createModel, Types } from 'frint-data';
 import { take } from 'rxjs/operators/take';
 
 import validate$ from './validateObservable';
-import Rules from './Rules';
 
 describe('frint-data-validation › validate$', function () {
   it('is a function', function () {
@@ -62,10 +61,11 @@ describe('frint-data-validation › validate$', function () {
       });
 
       validate$(post, [
-        Rules.isNotEmpty({
-          field: 'title',
+        {
+          name: 'title',
           message: 'Cannot be empty',
-        }),
+          rule: model => model.title.length > 0,
+        },
       ]).pipe(
         take(1),
       ).subscribe((result) => {

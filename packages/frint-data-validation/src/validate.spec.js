@@ -53,7 +53,10 @@ describe('frint-data-validation › validate', function () {
       });
 
       expect(validate(post), [
-        Rules.isNotEmpty('title', 'Cannot be empty'),
+        Rules.isNotEmpty({
+          field: 'title',
+          message: 'Cannot be empty',
+        }),
       ]).to.deep.equal([]);
 
       post.setTitle('');

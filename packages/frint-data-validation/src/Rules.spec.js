@@ -14,30 +14,72 @@ describe('frint-data-validation › Rules', function () {
       const fakeModel = {
         foo: 'foo value here',
       };
-      const check = Rules.isNotEmpty('foo', 'Cannot be empty').rule;
+      const { rule } = Rules.isNotEmpty({
+        field: 'foo',
+        message: 'Cannot be empty',
+      });
 
-      expect(check(fakeModel)).to.equal(true);
+      expect(rule(fakeModel)).to.equal(true);
 
       fakeModel.foo = '';
-      expect(check(fakeModel)).to.equal(false);
+      expect(rule(fakeModel)).to.equal(false);
     });
 
     it('with non-string values', function () {
       const fakeModel = {
         foo: null,
       };
-      const check = Rules.isNotEmpty('foo', 'Cannot be empty').rule;
+      const { rule } = Rules.isNotEmpty({
+        field: 'foo',
+        message: 'Cannot be empty',
+      });
 
-      expect(check(fakeModel)).to.equal(false);
+      expect(rule(fakeModel)).to.equal(false);
 
       fakeModel.foo = undefined;
-      expect(check(fakeModel)).to.equal(false);
+      expect(rule(fakeModel)).to.equal(false);
 
       fakeModel.foo = false;
-      expect(check(fakeModel)).to.equal(false);
+      expect(rule(fakeModel)).to.equal(false);
 
       fakeModel.foo = false;
-      expect(check(fakeModel)).to.equal(false);
+      expect(rule(fakeModel)).to.equal(false);
+    });
+  });
+
+  describe('maxLength', function () {
+    it('with string', function () {
+      const fakeModel = {
+        foo: '333',
+      };
+      const { rule } = Rules.maxLength({
+        field: 'foo',
+        length: 3,
+        message: 'Cannot be more than 3 characters',
+      });
+
+      expect(rule(fakeModel)).to.equal(true);
+
+      fakeModel.foo = '4444';
+      expect(rule(fakeModel)).to.equal(false);
+    });
+  });
+
+  describe('minLength', function () {
+    it('with string', function () {
+      const fakeModel = {
+        foo: '333',
+      };
+      const { rule } = Rules.minLength({
+        field: 'foo',
+        length: 3,
+        message: 'Cannot be more than 3 characters',
+      });
+
+      expect(rule(fakeModel)).to.equal(true);
+
+      fakeModel.foo = '22';
+      expect(rule(fakeModel)).to.equal(false);
     });
   });
 });

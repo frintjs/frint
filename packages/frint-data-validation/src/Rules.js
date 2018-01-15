@@ -16,30 +16,57 @@ function checkIsNotEmpty({ field }) {
   };
 }
 
-function extractOptions(...args) {
-  if (typeof args[0] === 'string') {
-    return {
-      field: args[0],
-      message: args[1],
-      name: args[0],
-      ...args[2],
-    };
-  }
+function checkMaxLength({ field, length }) {
+  return function (model) {
+    if (!model[field]) {
+      return false;
+    }
 
-  if (typeof args[0] === 'object') {
-    return args[0];
-  }
+    if (
+      typeof model[field] === 'string' &&
+      model[field].length > length
+    ) {
+      return false;
+    }
 
-  throw new Error('Invalid arguments for validation rule');
+    return true;
+  };
 }
 
-export default {
-  isNotEmpty: function (...args) {
-    const options = extractOptions(...args);
+function checkMinLength({ field, length }) {
+  return function (model) {
+    if (!model[field]) {
+      return false;
+    }
+
+    if (
+      typeof model[field] === 'string' &&
+      model[field].length < length
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+}
+
+function applyRule(checker) {
+  return function (opts) {
+    const options = opts;
+
+    if (typeof options.name === 'undefined') {
+      options.name = opts.field;
+    }
 
     return {
       ...options,
-      rule: model => checkIsNotEmpty(options)(model),
+      rule: model => checker(options)(model),
     };
-  },
+  };
+}
+
+export default {
+  isNotEmpty: applyRule(checkIsNotEmpty),
+  maxLength: applyRule(checkMaxLength),
+  minLength: applyRule(checkMinLength),
 };

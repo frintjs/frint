@@ -25,8 +25,12 @@ function extractRules(model, givenRules) {
   return rules;
 }
 
-export default function validate(model, givenRules = null) {
-  const rules = extractRules(model, givenRules);
+export default function validate(model, opts = {}) {
+  const options = {
+    rules: null,
+    ...opts,
+  };
+  const rules = extractRules(model, options.rules);
 
   if (rules.length === 0) {
     // nothing to validate

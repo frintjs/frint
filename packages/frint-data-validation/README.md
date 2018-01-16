@@ -67,7 +67,7 @@ We can now optionally add our validation rules as follows:
 ```js
 Post.validationRules = [
   {
-    name: 'titleIsNotEmpty', // this can come handly later for grouping errors
+    name: 'titleIsNotEmpty', // this can come handy later for grouping errors
     message: 'Title must not be empty',
     rule: function (model) {
       // `model` is your Post model's instance

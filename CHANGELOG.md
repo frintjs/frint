@@ -1,5 +1,19 @@
 # Change Log
 
+## v5.3.0 (2018-01-16)
+
+#### Pull Requests
+* `frint-data-validation`
+  * [#404](https://github.com/frintjs/frint/pull/404) frint-data-validation. ([@fahad19](https://github.com/fahad19))
+* `frint-di`, `frint`
+  * [#403](https://github.com/frintjs/frint/pull/403) frint-di: move it into monorepo. ([@fahad19](https://github.com/fahad19))
+* `frint-cli`
+  * [#400](https://github.com/frintjs/frint/pull/400) Migrate frint-cli to TypeScript. ([@markvincze](https://github.com/markvincze))
+
+#### Committers: 2
+- Fahad Ibnay Heylaal ([fahad19](https://github.com/fahad19))
+- Mark Vincze ([markvincze](https://github.com/markvincze))
+
 ## v5.2.1 (2018-01-03)
 
 #### Pull Requests

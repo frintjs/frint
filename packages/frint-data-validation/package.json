@@ -1,0 +1,40 @@
+{
+  "name": "frint-data-validation",
+  "version": "5.2.1",
+  "description": "Validation for Models in FrintJS",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-data-validation",
+  "scripts": {
+    "lint": "cross-env ../../node_modules/.bin/eslint --color '{src,test}/**/*.js'",
+    "transpile": "cross-env ../../node_modules/.bin/babel src --out-dir lib",
+    "test": "cross-env ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "cover:run": "cross-env ../../node_modules/.bin/nyc --reporter=json --require babel-register ../../node_modules/.bin/mocha --colors --compilers js:babel-register --recursive ./src/**/*.spec.js",
+    "cover:report": "cross-env ../../node_modules/.bin/nyc report",
+    "cover": "npm run cover:run && npm run cover:report",
+    "dist:lib": "cross-env ../../node_modules/.bin/webpack --config ./webpack.config.js",
+    "dist:min": "cross-env DIST_MIN=1 ../../node_modules/.bin/webpack --config ./webpack.config.js",
+    "dist": "npm run dist:lib && npm run dist:min",
+    "prepublish": "npm run transpile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frintjs/frint.git"
+  },
+  "author": "FrintJS Authors (https://github.com/frintjs/frint/graphs/contributors)",
+  "keywords": [
+    "frint"
+  ],
+  "bugs": {
+    "url": "https://github.com/frintjs/frint/issues"
+  },
+  "dependencies": {
+    "lodash": "^4.13.1",
+    "rxjs": "^5.5.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "frint-config": "^5.2.1",
+    "frint-data": "^5.2.1"
+  },
+  "license": "MIT"
+}

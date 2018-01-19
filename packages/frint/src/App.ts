@@ -1,10 +1,12 @@
 import { find, findIndex, get, omit } from 'lodash';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { of as of$ } from 'rxjs/observable/of';
-import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
-import { find as find$ } from 'rxjs/operators/find';
-import { first as first$ } from 'rxjs/operators/first';
-import { map as map$ } from 'rxjs/operators/map';
+import { BehaviorSubject } from 'rxjs';
+// import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+// import { of as of$ } from 'rxjs/observable';
+import { concatMap as concatMap$, find as find$, first as first$, map as map$ } from 'rxjs/operators';
+// import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
+// import { find as find$ } from 'rxjs/operators/find';
+// import { first as first$ } from 'rxjs/operators/first';
+// import { map as map$ } from 'rxjs/operators/map';
 import { createContainer, IContainer, IProvider, resolveContainer } from 'travix-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {

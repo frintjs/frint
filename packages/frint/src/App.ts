@@ -298,8 +298,7 @@ export class App {
 
   public instantiateApp(name, region = null, regionKey = null) {
     const index = findIndex(this._appsCollection, a => {
-      // HACK: we should handle frintAppName differently.
-      return (a.appClass as any).frintAppName === name;
+      return a.appClass.frintAppName === name;
     });
 
     if (index === -1) {

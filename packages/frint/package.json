@@ -37,5 +37,5 @@
     "url": "https://github.com/frintjs/frint/issues"
   },
   "license": "MIT",
-  "types": "index.d.ts"
+  "types": "./lib/index.d.ts"
 }

@@ -1,12 +1,6 @@
 import { find, findIndex, get, omit } from 'lodash';
-import { BehaviorSubject } from 'rxjs';
-// import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-// import { of as of$ } from 'rxjs/observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { concatMap as concatMap$, find as find$, first as first$, map as map$ } from 'rxjs/operators';
-// import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
-// import { find as find$ } from 'rxjs/operators/find';
-// import { first as first$ } from 'rxjs/operators/first';
-// import { map as map$ } from 'rxjs/operators/map';
 import { createContainer, IContainer, IProvider, resolveContainer } from 'travix-di';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
@@ -30,7 +24,7 @@ function makeInstanceKey(region = null, regionKey = null, multi = false) {
   return key;
 }
 
-interface IProviderNames {
+export interface IProviderNames {
   component: string;
   container: string;
   store: string;
@@ -40,14 +34,14 @@ interface IProviderNames {
   region: string;
 }
 
-interface IRegisterAppOptions {
+export interface IRegisterAppOptions {
   name?: string;
   multi?: boolean;
   regions?: string[];
   initialize?: () => void;
 }
 
-interface IFrintProvider extends IProvider {
+export interface IFrintProvider extends IProvider {
   cascade?: boolean;
   scoped?: boolean;
 }
@@ -62,9 +56,9 @@ const defaultProviderNames = {
   region: 'region',
 };
 
-interface IAppRegistration {
+export interface IAppRegistration {
   // tslint:disable-next-line:variable-name
-  AppClass: typeof App;
+  AppClass: IAppClass;
   name: string;
   regions: any[];
   instances: { [name: string]: App };
@@ -73,7 +67,7 @@ interface IAppRegistration {
 }
 
 export interface IAppOptions {
-  name: string;
+  name?: string;
   parentApp?: App;
   providers?: IFrintProvider[];
   providerNames?: IProviderNames;
@@ -81,9 +75,9 @@ export interface IAppOptions {
   beforeDestroy?: () => void;
 }
 
-interface IAppClass {
+export interface IAppClass {
   frintAppName?: string;
-  new(opts: IAppOptions): App;
+  new(opts?: IAppOptions): App;
 }
 
 export class App {
@@ -192,8 +186,8 @@ export class App {
     });
   }
 
-  public get(providerName) {
-    const value = this.container.get<IFrintProvider>(providerName);
+  public get<T extends IFrintProvider>(providerName) {
+    const value = this.container.get<T>(providerName);
 
     if (typeof value !== 'undefined') {
       return value;
@@ -288,7 +282,7 @@ export class App {
     const w = rootApp.getAppInstance(name, region, regionKey);
 
     if (w) {
-      return of$(w);
+      return Observable.of(w);
     }
 
     return rootApp._apps$
@@ -331,7 +325,7 @@ export class App {
         return false;
       }
 
-      return w.App.frintAppName === name;
+      return a.AppClass.frintAppName === name;
     });
 
     if (index === -1) {
@@ -416,7 +410,3 @@ export class App {
     });
   }
 }
-
-// unregisterApp(name, region = null, regionKey = null) {
-//   // @TODO
-// }

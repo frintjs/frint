@@ -1,6 +1,6 @@
 import { merge } from 'lodash';
 
-import { App, IAppOptions } from './App';
+import { App, IAppClass, IAppOptions } from './App';
 
 function mergeOptions(createAppOptions, constructorOptions) {
   const mergedOptions = merge({}, createAppOptions, constructorOptions);
@@ -25,7 +25,7 @@ function mergeOptions(createAppOptions, constructorOptions) {
   return mergedOptions;
 }
 
-export default function createApp(options: IAppOptions) {
+export default function createApp(options: IAppOptions): IAppClass {
   class NewApp extends App {
     constructor(opts = {}) {
       super(mergeOptions(options, opts));

@@ -6,6 +6,7 @@ import InitCommand from '../commands/init';
 import NewCommand from '../commands/new';
 import VersionCommand from '../commands/version';
 
+import { IFrintCliProvider } from '../IFrintCliProvider';
 import { App } from '../index';
 
 const app = new App();
@@ -63,7 +64,7 @@ function run() {
     return console.log('Command not available.');
   }
 
-  return commandApp.get('execute')();
+  return commandApp.get<IFrintCliProvider>('execute')();
 }
 
 run();

@@ -3,7 +3,7 @@ import { App } from 'frint';
 import 'mocha';
 import * as path from 'path';
 
-import { IFrintCliProvider } from '../IFrintCliProvider';
+import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';
 import VersionCommand from './version';
 
@@ -40,7 +40,7 @@ describe('frint-cli › commands › version', () => {
       '{"version": "1.2.3"}'
     );
 
-    commandApp.get<IFrintCliProvider>('execute')();
+    commandApp.get<FrintCliProvider>('execute')();
 
     expect(fakeConsole.logs.length).to.equal(1);
     expect(fakeConsole.logs[0]).to.contain('v1.2.3');

@@ -47,7 +47,7 @@ Let's start by defining a simple container first.
 When defining the providers, we can directly assign values for them via the `useValue` key.
 
 ```js
-import { createContainer, resolveContainer } from 'travix-di';
+import { createContainer, resolveContainer } from 'frint-di';
 
 const Container = createContainer([
   { name: 'foo', useValue: 'foo value' },
@@ -89,7 +89,7 @@ We can also pass functions in the Container definition for the providers, and th
 For that, we will use the `useFactory` key:
 
 ```js
-import { createContainer, resolveContainer } from 'travix-di';
+import { createContainer, resolveContainer } from 'frint-di';
 
 const Container = createContainer([
   { name: 'foo', useFactory: () => 'foo value' },

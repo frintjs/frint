@@ -3,7 +3,7 @@ import { clone } from 'lodash';
 import * as path from 'path';
 import { argv } from 'yargs';
 
-interface IFrintConfig {
+interface FrintConfig {
   plugins: string[];
 }
 
@@ -47,7 +47,7 @@ export const providers = [
       'fs',
     ],
     useFactory: function useFactory(deps) {
-      let config: IFrintConfig = { plugins: [] };
+      let config: FrintConfig = { plugins: [] };
       const pwd = deps.pwd;
 
       try {

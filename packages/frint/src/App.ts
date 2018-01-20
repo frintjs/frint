@@ -57,7 +57,6 @@ const defaultProviderNames = {
 };
 
 export interface AppRegistration {
-  // tslint:disable-next-line:variable-name
   appClass: AppClass;
   name: string;
   regions: any[];

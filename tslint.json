@@ -11,7 +11,7 @@
     "object-literal-sort-keys": false,
     "trailing-comma": false,
     "variable-name": [true, "allow-leading-underscore", "allow-pascal-case"],
-    "max-classes-per-file": false,
+    "max-classes-per-file": true,
     "max-line-length": [true, 160],
     "interface-name": [true, "never-prefix"]
   },

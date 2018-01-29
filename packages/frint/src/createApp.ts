@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import merge = require('lodash/merge');
 
 import { App, AppClass, AppOptions } from './App';
 

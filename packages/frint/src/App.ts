@@ -1,7 +1,15 @@
 import { Container, createContainer, Provider, resolveContainer } from 'frint-di';
-import { find, findIndex, get, omit } from 'lodash';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { concatMap as concatMap$, find as find$, first as first$, map as map$ } from 'rxjs/operators';
+import find = require('lodash/find');
+import findIndex = require('lodash/findIndex');
+import get = require('lodash/get');
+import omit = require('lodash/omit');
+import 'rxjs/add/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
+import { find as find$ } from 'rxjs/operators/find';
+import { first as first$ } from 'rxjs/operators/first';
+import { map as map$ } from 'rxjs/operators/map';
 
 function makeInstanceKey(region = null, regionKey = null, multi = false) {
   if (

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { clone } from 'lodash';
+import clone = require('lodash/clone');
 import * as path from 'path';
 import { argv } from 'yargs';
 

@@ -3,9 +3,9 @@ import find = require('lodash/find');
 import findIndex = require('lodash/findIndex');
 import get = require('lodash/get');
 import omit = require('lodash/omit');
-import 'rxjs/add/observable/of';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { of as of$ } from 'rxjs/observable/of';
 import { concatMap as concatMap$ } from 'rxjs/operators/concatMap';
 import { find as find$ } from 'rxjs/operators/find';
 import { first as first$ } from 'rxjs/operators/first';
@@ -289,7 +289,7 @@ export class App {
     const w = rootApp.getAppInstance(name, region, regionKey);
 
     if (w) {
-      return Observable.of(w);
+      return of$(w);
     }
 
     return rootApp._apps$

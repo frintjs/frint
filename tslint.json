@@ -7,9 +7,15 @@
   "rules": {
     "arrow-parens": false,
     "no-console": false,
-    "quotemark": [ true, "single" ],
+    "no-import-side-effect": true,
+    "interface-name": [true, "never-prefix"],
+    "max-classes-per-file": false,
+    "max-line-length": [true, 160],
+    "no-unused-expression": false,
     "object-literal-sort-keys": false,
-    "trailing-comma": false
+    "quotemark": [ true, "single" ],
+    "trailing-comma": false,
+    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case"]
   },
   "rulesDirectory": []
 }

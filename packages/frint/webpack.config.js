@@ -17,28 +17,28 @@ var filename = !minify
   : 'frint.min.js';
 
 module.exports = {
-  entry: __dirname + '/src',
+  plugins: plugins,
+  target: 'web',
+  entry: __dirname + '/src/index.ts',
+  externals: externals,
   output: {
     path: __dirname + '/dist',
     filename: filename,
     libraryTarget: 'umd',
     library: 'Frint',
   },
-  externals: externals,
-  target: 'web',
-  plugins: plugins,
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-          presets: [
-            'travix'
-          ],
-        },
-      },
-    ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
+  module: {
+    rules: [{
+      test: /\.ts(x?)$/,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: 'ts-loader'
+        }
+      ]
+    }]
+  }
 };

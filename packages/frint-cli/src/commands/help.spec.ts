@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { App } from 'frint';
-import 'mocha';
 
+import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';
 import HelpCommand from './help';
 
@@ -22,7 +22,7 @@ describe('frint-cli › commands › help', () => {
     const commandApp = rootApp.getAppInstance('help');
     const fakeConsole = rootApp.get('console');
 
-    commandApp.get('execute')();
+    commandApp.get<FrintCliProvider>('execute')();
 
     expect(fakeConsole.errors.length).to.equal(1);
     expect(fakeConsole.errors[0]).to.contain('Must provide a command name');
@@ -50,7 +50,7 @@ describe('frint-cli › commands › help', () => {
     const commandApp = rootApp.getAppInstance('help');
     const fakeConsole = rootApp.get('console');
 
-    commandApp.get('execute')();
+    commandApp.get<FrintCliProvider>('execute')();
 
     expect(fakeConsole.logs.length).to.equal(1);
   });

@@ -1,9 +1,9 @@
 import * as fs from 'fs';
-import * as clone from 'lodash/clone';
+import clone = require('lodash/clone');
 import * as path from 'path';
 import { argv } from 'yargs';
 
-interface IFrintConfig {
+interface FrintConfig {
   plugins: string[];
 }
 
@@ -47,7 +47,7 @@ export const providers = [
       'fs',
     ],
     useFactory: function useFactory(deps) {
-      let config: IFrintConfig = { plugins: [] };
+      let config: FrintConfig = { plugins: [] };
       const pwd = deps.pwd;
 
       try {

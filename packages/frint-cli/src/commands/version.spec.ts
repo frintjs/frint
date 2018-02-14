@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { App } from 'frint';
-import 'mocha';
 import * as path from 'path';
 
 import { FrintCliProvider } from '../FrintCliProvider';

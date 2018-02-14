@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { App } from 'frint';
-import 'mocha';
 
 import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';

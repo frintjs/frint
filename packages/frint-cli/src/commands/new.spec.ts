@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { App } from 'frint';
-import 'mocha';
 
 import createRootApp from '../index.mock';
 import NewCommand from './new';

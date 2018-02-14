@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies, func-names, no-new, class-methods-use-this */
-/* global describe, it */
 import { expect } from 'chai';
 import { last } from 'rxjs/operators/last';
 import { take } from 'rxjs/operators/take';
@@ -451,6 +449,45 @@ describe('frint  › App', () => {
     expect(() => {
       app.instantiateApp('blah');
     }).to.throw(/No app found with name 'blah'/);
+  });
+
+  it('throws error when trying to destroy non-existent App', () => {
+    const Root = createApp({ name: 'MyApp' });
+    const app = new Root();
+
+    expect(() => {
+      app.destroyApp('blah');
+    }).to.throw(/No app found with name 'blah'/);
+  });
+
+  it('throws error when trying to destroy existing App without instances', () => {
+    const Root = createApp({ name: 'MyApp' });
+    const App1 = createApp({ name: 'App1' });
+    const app = new Root();
+
+    app.registerApp(App1);
+
+    app.destroyApp('App1');
+
+    expect(() => {
+      app.destroyApp('App1');
+    }).to.throw(/No instance with key 'default' found for app with name 'App1'./);
+  });
+
+  it('app instance is removed when destroyApp is called', () => {
+    const Root = createApp({ name: 'MyApp' });
+    const App1 = createApp({ name: 'App1' });
+    const app = new Root();
+
+    app.registerApp(App1);
+
+    expect(app.getAppInstance('App1')).to.not.be.null;
+    expect(app.hasAppInstance('App1')).to.be.true;
+
+    app.destroyApp('App1');
+
+    expect(app.getAppInstance('App1')).to.be.null;
+    expect(app.hasAppInstance('App1')).to.be.false;
   });
 
   it('can accept additional lifecycle callbacks for Root Apps while instantiating, without overriding', () => {

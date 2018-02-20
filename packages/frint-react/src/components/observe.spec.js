@@ -23,11 +23,7 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component with display name if WrappedComponent has display name', function () {
-    function Component() {
-      return (
-        <p id="text">Hello World</p>
-      );
-    }
+    function Component() {}
     Component.displayName = 'NamedComponent';
 
     const ObservedComponent = observe()(Component);
@@ -36,11 +32,7 @@ describe('frint-react › components › observe', function () {
   });
 
   it('generates Component with display name if WrappedComponent has no display name', function () {
-    function UnnamedComponent() {
-      return (
-        <p id="text">Hello World</p>
-      );
-    }
+    function UnnamedComponent() {}
 
     const ObservedComponent = observe()(UnnamedComponent);
 

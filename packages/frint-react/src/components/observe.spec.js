@@ -22,6 +22,31 @@ describe('frint-react › components › observe', function () {
     expect(observe).to.be.a('function');
   });
 
+  it('generates Component with display name if WrappedComponent has display name', function () {
+    function Component() {
+      return (
+        <p id="text">Hello World</p>
+      );
+    }
+    Component.displayName = 'NamedComponent';
+
+    const ObservedComponent = observe()(Component);
+
+    expect(ObservedComponent.displayName).to.equal('observe(NamedComponent)');
+  });
+
+  it('generates Component with display name if WrappedComponent has no display name', function () {
+    function UnnamedComponent() {
+      return (
+        <p id="text">Hello World</p>
+      );
+    }
+
+    const ObservedComponent = observe()(UnnamedComponent);
+
+    expect(ObservedComponent.displayName).to.equal('observe(UnnamedComponent)');
+  });
+
   it('generates Component bound to observable for props, without app in context', function () {
     function Component({ counter }) {
       return (

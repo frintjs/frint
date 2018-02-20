@@ -11,9 +11,13 @@ import isObservable from '../isObservable';
 
 export default function observe(fn) {
   return (Component) => {
+    const componentName = (typeof Component.displayName !== 'undefined')
+      ? Component.displayName
+      : Component.name;
+
     class WrappedComponent extends React.Component {
-      static displayName = (typeof Component.displayName !== 'undefined')
-        ? `observe(${Component.displayName})`
+      static displayName = (typeof componentName !== 'undefined')
+        ? `observe(${componentName})`
         : 'observe';
 
       static contextTypes = {

@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.4.0 (2018-02-14)
+
+#### Pull Requests
+* `frint-cli`, `frint-di`, `frint`
+  * [#406](https://github.com/frintjs/frint/pull/406) Port the frint package to TypeScript. ([@markvincze](https://github.com/markvincze))
+
+#### Committers: 1
+- Mark Vincze ([markvincze](https://github.com/markvincze))
+
 ## v5.3.0 (2018-01-16)
 
 #### Pull Requests

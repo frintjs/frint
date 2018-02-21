@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.4.1 (2018-02-21)
+
+#### Pull Requests
+* `frint-react`
+  * [#413](https://github.com/frintjs/frint/pull/413) frint-react: improve display name of observed components. ([@rbardini](https://github.com/rbardini))
+
+#### Committers: 1
+- Rafael Bardini ([rbardini](https://github.com/rbardini))
+
 ## v5.4.0 (2018-02-14)
 
 #### Pull Requests

@@ -24,6 +24,6 @@ export interface Constructor<T> {
   new(): T;
 }
 
-export function createContainer(providers: Provider[], options: ContainerOptions): Constructor<Container>;
+export function createContainer(providers: Provider[], options?: ContainerOptions): Constructor<Container>;
 
 export function resolveContainer<T>(Container: Constructor<T>): T;

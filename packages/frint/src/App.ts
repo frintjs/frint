@@ -193,8 +193,8 @@ export class App {
     });
   }
 
-  public get<T extends FrintProvider>(providerName) {
-    const value = this.container.get<T>(providerName);
+  public get(providerName) {
+    const value = this.container.get(providerName);
 
     if (typeof value !== 'undefined') {
       return value;

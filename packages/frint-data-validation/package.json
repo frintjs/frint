@@ -1,6 +1,6 @@
 {
   "name": "frint-data-validation",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "Validation for Models in FrintJS",
   "main": "lib/index.js",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-data-validation",
@@ -33,8 +33,8 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
-    "frint-config": "^5.4.1",
-    "frint-data": "^5.4.1"
+    "frint-config": "^5.4.2",
+    "frint-data": "^5.4.2"
   },
   "license": "MIT"
 }

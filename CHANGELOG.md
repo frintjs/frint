@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.4.2 (2018-03-26)
+
+#### Pull Requests
+* `frint-cli`, `frint-di`, `frint`
+  * [#414](https://github.com/frintjs/frint/pull/414) frint-di: Fix Container.get() return type. ([@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 1
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v5.4.1 (2018-02-21)
 
 #### Pull Requests

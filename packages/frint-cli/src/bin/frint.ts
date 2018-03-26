@@ -66,7 +66,7 @@ function run() {
     return console.log('Command not available.');
   }
 
-  return commandApp.get<FrintCliProvider>('execute')();
+  return (commandApp.get('execute') as FrintCliProvider)();
 }
 
 run();

@@ -13,7 +13,7 @@ export interface Provider {
 export interface Container {
   getDeps(container: Provider): any;
   register(container: Provider): any;
-  get<T extends Provider>(name: string): T;
+  get(name: string): any;
 }
 
 export interface ContainerOptions {
@@ -24,6 +24,6 @@ export interface Constructor<T> {
   new(): T;
 }
 
-export function createContainer(providers: Provider[], options: ContainerOptions): Constructor<Container>;
+export function createContainer(providers: Provider[], options?: ContainerOptions): Constructor<Container>;
 
 export function resolveContainer<T>(Container: Constructor<T>): T;

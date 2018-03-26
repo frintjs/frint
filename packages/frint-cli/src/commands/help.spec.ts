@@ -22,7 +22,7 @@ describe('frint-cli › commands › help', () => {
     const commandApp = rootApp.getAppInstance('help');
     const fakeConsole = rootApp.get('console');
 
-    commandApp.get<FrintCliProvider>('execute')();
+    commandApp.get('execute')();
 
     expect(fakeConsole.errors.length).to.equal(1);
     expect(fakeConsole.errors[0]).to.contain('Must provide a command name');
@@ -50,7 +50,7 @@ describe('frint-cli › commands › help', () => {
     const commandApp = rootApp.getAppInstance('help');
     const fakeConsole = rootApp.get('console');
 
-    commandApp.get<FrintCliProvider>('execute')();
+    commandApp.get('execute')();
 
     expect(fakeConsole.logs.length).to.equal(1);
   });

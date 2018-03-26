@@ -39,7 +39,7 @@ describe('frint-cli › commands › version', () => {
       '{"version": "1.2.3"}'
     );
 
-    commandApp.get<FrintCliProvider>('execute')();
+    commandApp.get('execute')();
 
     expect(fakeConsole.logs.length).to.equal(1);
     expect(fakeConsole.logs[0]).to.contain('v1.2.3');

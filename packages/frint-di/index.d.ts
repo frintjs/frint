@@ -13,7 +13,7 @@ export interface Provider {
 export interface Container {
   getDeps(container: Provider): any;
   register(container: Provider): any;
-  get(name: string): any;
+  get<T>(name: string): T;
 }
 
 export interface ContainerOptions {

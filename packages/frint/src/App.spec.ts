@@ -98,7 +98,7 @@ describe('frint  › App', () => {
       ],
     });
 
-    expect(app.get('foo').getValue()).to.equal('fooValue');
+    expect(app.get<Foo>('foo').getValue()).to.equal('fooValue');
   });
 
   it('registers providers with dependencies', () => {
@@ -140,7 +140,7 @@ describe('frint  › App', () => {
 
     expect(app.get('foo')).to.equal('fooValue');
     expect(app.get('bar')).to.equal('barValue, fooValue');
-    expect(app.get('baz').getValue()).to.equal('bazValue, fooValue, barValue, fooValue');
+    expect(app.get<Baz>('baz').getValue()).to.equal('bazValue, fooValue, barValue, fooValue');
   });
 
   it('returns services from Root that are cascaded', () => {
@@ -198,7 +198,7 @@ describe('frint  › App', () => {
     const app = root.getAppInstance('App1');
     // expect(app.get('serviceA')).to.equal('serviceA');
     expect(app.get('serviceB')).to.equal('serviceB');
-    expect(app.get('serviceC').getValue()).to.equal('serviceC');
+    expect(app.get<ServiceC>('serviceC').getValue()).to.equal('serviceC');
     expect(app.get('serviceD')).to.equal(null);
     expect(app.get('serviceE')).to.equal('serviceE');
 

@@ -1,10 +1,12 @@
 import { expect } from 'chai';
 import { App } from 'frint';
 import * as path from 'path';
+import * as MemoryFs from 'memory-fs';
 
 import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';
 import VersionCommand from './version';
+import { FakeConsole } from '../providers.mock';
 
 describe('frint-cli › commands › version', () => {
   it('is a Frint App', () => {
@@ -29,17 +31,17 @@ describe('frint-cli › commands › version', () => {
     const rootApp = new RootApp();
     rootApp.registerApp(VersionCommand);
     const commandApp = rootApp.getAppInstance('version');
-    const fakeConsole = rootApp.get('console');
+    const fakeConsole = rootApp.get<FakeConsole>('console');
 
-    rootApp.get('fs').mkdirpSync(
+    rootApp.get<MemoryFs>('fs').mkdirpSync(
       path.resolve(`${__dirname}/../../`)
     );
-    rootApp.get('fs').writeFileSync(
+    rootApp.get<MemoryFs>('fs').writeFileSync(
       path.resolve(`${__dirname}/../../package.json`),
       '{"version": "1.2.3"}'
     );
 
-    commandApp.get('execute')();
+    commandApp.get<FrintCliProvider>('execute')();
 
     expect(fakeConsole.logs.length).to.equal(1);
     expect(fakeConsole.logs[0]).to.contain('v1.2.3');

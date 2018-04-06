@@ -3,8 +3,8 @@ import { App } from 'frint';
 
 import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';
-import HelpCommand from './help';
 import { FakeConsole } from '../providers.mock';
+import HelpCommand from './help';
 
 describe('frint-cli › commands › help', () => {
   it('is a Frint App', () => {

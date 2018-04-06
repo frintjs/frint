@@ -1,10 +1,10 @@
 import * as MemoryFs from 'memory-fs';
 
 export interface FakeConsole {
-  errors: string[],
-  logs: string[],
-  log: (message: string) => void,
-  error: (message: string) => void,
+  errors: string[];
+  logs: string[];
+  log: (message: string) => void;
+  error: (message: string) => void;
 }
 
 const fs = new MemoryFs();

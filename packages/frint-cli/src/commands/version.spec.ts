@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { App } from 'frint';
-import * as path from 'path';
 import * as MemoryFs from 'memory-fs';
+import * as path from 'path';
 
 import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';
-import VersionCommand from './version';
 import { FakeConsole } from '../providers.mock';
+import VersionCommand from './version';
 
 describe('frint-cli › commands › version', () => {
   it('is a Frint App', () => {

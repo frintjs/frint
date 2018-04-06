@@ -1,6 +1,6 @@
 {
   "name": "frint-component-handlers",
-  "version": "5.4.2",
+  "version": "5.4.3",
   "description": "Component handlers package for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-component-handlers",
@@ -30,9 +30,9 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
-    "frint": "^5.4.2",
-    "frint-component-utils": "^5.4.2",
-    "frint-config": "^5.4.2"
+    "frint": "^5.4.3",
+    "frint-component-utils": "^5.4.3",
+    "frint-config": "^5.4.3"
   },
   "bugs": {
     "url": "https://github.com/frintjs/frint/issues"

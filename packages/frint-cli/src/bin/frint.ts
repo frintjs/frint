@@ -10,6 +10,7 @@ import VersionCommand from '../commands/version';
 
 import { FrintCliProvider } from '../FrintCliProvider';
 import { App } from '../index';
+import { FrintConfig } from '../providers';
 
 const app = new App();
 
@@ -19,7 +20,7 @@ app.registerApp(NewCommand);
 app.registerApp(VersionCommand);
 
 const command = app.get('command');
-const config = app.get('config');
+const config = app.get<FrintConfig>('config');
 
 // register custom plugins
 if (Array.isArray(config.plugins)) {
@@ -66,7 +67,7 @@ function run() {
     return console.log('Command not available.');
   }
 
-  return (commandApp.get('execute') as FrintCliProvider)();
+  return commandApp.get<FrintCliProvider>('execute')();
 }
 
 run();

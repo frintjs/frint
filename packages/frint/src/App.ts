@@ -193,8 +193,8 @@ export class App {
     });
   }
 
-  public get(providerName) {
-    const value = this.container.get(providerName);
+  public get<T>(providerName) {
+    const value = this.container.get<T>(providerName);
 
     if (typeof value !== 'undefined') {
       return value;

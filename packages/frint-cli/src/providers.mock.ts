@@ -1,5 +1,12 @@
 import * as MemoryFs from 'memory-fs';
 
+export interface FakeConsole {
+  errors: string[];
+  logs: string[];
+  log: (message: string) => void;
+  error: (message: string) => void;
+}
+
 const fs = new MemoryFs();
 
 export default [
@@ -36,7 +43,7 @@ export default [
     name: 'console',
     cascade: true,
     useFactory: function useFactory() {
-      const fakeConsole = {
+      const fakeConsole: FakeConsole = {
         errors: [],
         logs: [],
 

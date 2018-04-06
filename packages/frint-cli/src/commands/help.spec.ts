@@ -3,6 +3,7 @@ import { App } from 'frint';
 
 import { FrintCliProvider } from '../FrintCliProvider';
 import createRootApp from '../index.mock';
+import { FakeConsole } from '../providers.mock';
 import HelpCommand from './help';
 
 describe('frint-cli › commands › help', () => {
@@ -20,9 +21,9 @@ describe('frint-cli › commands › help', () => {
     const rootApp = new RootApp();
     rootApp.registerApp(HelpCommand);
     const commandApp = rootApp.getAppInstance('help');
-    const fakeConsole = rootApp.get('console');
+    const fakeConsole = rootApp.get<FakeConsole>('console');
 
-    commandApp.get('execute')();
+    commandApp.get<FrintCliProvider>('execute')();
 
     expect(fakeConsole.errors.length).to.equal(1);
     expect(fakeConsole.errors[0]).to.contain('Must provide a command name');
@@ -48,9 +49,9 @@ describe('frint-cli › commands › help', () => {
     const rootApp = new RootApp();
     rootApp.registerApp(HelpCommand);
     const commandApp = rootApp.getAppInstance('help');
-    const fakeConsole = rootApp.get('console');
+    const fakeConsole = rootApp.get<FakeConsole>('console');
 
-    commandApp.get('execute')();
+    commandApp.get<FrintCliProvider>('execute')();
 
     expect(fakeConsole.logs.length).to.equal(1);
   });

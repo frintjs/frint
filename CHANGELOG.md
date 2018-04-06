@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.4.3 (2018-04-06)
+
+#### Pull Requests
+* `frint-cli`, `frint-di`, `frint`
+  * [#416](https://github.com/frintjs/frint/pull/416) Define type of Container.get() return value with generic. ([@viacheslaff](https://github.com/viacheslaff))
+
+#### Committers: 1
+- Viacheslav Zhuravski ([viacheslaff](https://github.com/viacheslaff))
+
 ## v5.4.2 (2018-03-26)
 
 #### Pull Requests

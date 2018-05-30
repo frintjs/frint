@@ -18,6 +18,28 @@ export class Streamer {
   get$(): Observable<any>;
 }
 
+export interface RegionProps {
+  name: string;
+  uniqueKey?: string;
+  data?: any;
+}
+
+export class Region extends React.Component<RegionProps, any> {
+  constructor(...args: any[]);
+
+  shouldComponentUpdate(): boolean;
+  
+  componentWillMount(): any;
+  UNSAFE_componentWillMount(): any;
+
+  componentWillReceiveProps(): any;
+  UNSAFE_componentWillReceiveProps(): any;
+
+  componentWillUnmount(): any;
+
+  render(): React.ReactElement<React.Component>;
+}
+
 export class RegionService {
   constructor();
 

@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.4.5 (2018-06-25)
+
+#### Pull Requests
+* `frint`
+  * [#422](https://github.com/frintjs/frint/pull/422) [#406][#412] Fix 3 frintTypescript Errors. ([@adrw](https://github.com/adrw))
+
+#### Committers: 1
+- Andrew Paradi ([adrw](https://github.com/adrw))
+
 ## v5.4.4 (2018-05-30)
 
 #### Pull Requests

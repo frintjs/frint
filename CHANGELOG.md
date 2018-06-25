@@ -1,5 +1,17 @@
 # Change Log
 
+## v5.4.4 (2018-05-30)
+
+#### Pull Requests
+* `frint-react`
+  * [#421](https://github.com/frintjs/frint/pull/421) Typescript fix: export function Region. ([@andrewparadi](https://github.com/andrewparadi))
+* Other
+  * [#420](https://github.com/frintjs/frint/pull/420) Corrects the README file description. ([@Hajjiri](https://github.com/Hajjiri))
+
+#### Committers: 2
+- Andrew Paradi ([andrewparadi](https://github.com/andrewparadi))
+- MHD HASAN HAJJIRI ([Hajjiri](https://github.com/Hajjiri))
+
 ## v5.4.3 (2018-04-06)
 
 #### Pull Requests

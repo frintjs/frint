@@ -217,7 +217,7 @@ export class App {
       }));
   }
 
-  public registerApp(appClass: AppClass, opts: RegisterAppOptions = {}) {
+  public registerApp(appClass: AppClass = App, opts: RegisterAppOptions = {}) {
     const options = {
       multi: false,
       ...opts,

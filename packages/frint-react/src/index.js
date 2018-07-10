@@ -1,4 +1,5 @@
 import render from './render';
+import hydrate from './hydrate';
 import streamProps from './streamProps';
 import isObservable from './isObservable';
 
@@ -13,6 +14,7 @@ import ReactHandler from './handlers/ReactHandler';
 
 export default {
   render,
+  hydrate,
   streamProps,
   isObservable,
 

@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.5.0 (2018-07-10)
+
+#### Pull Requests
+* `frint-react`
+  * [#427](https://github.com/frintjs/frint/pull/427) frint-react: add `hydrate` function to `frint-react`. ([@rbardini](https://github.com/rbardini))
+
+#### Committers: 1
+- Rafael Bardini ([rbardini](https://github.com/rbardini))
+
 ## v5.4.5 (2018-06-25)
 
 #### Pull Requests

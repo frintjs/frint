@@ -16,6 +16,7 @@
   - [Multi-instance Apps](#multi-instance-apps)
 - [API](#api)
   - [render](#render)
+  - [hydrate](#hydrate)
   - [observe](#observe)
   - [Region](#region)
   - [RegionService](#regionservice)
@@ -476,6 +477,12 @@ Renders a Root App in target DOM node.
 
 1. `app` (`App`): The Root App instance.
 1. `node` (`Element`): The DOM Element where you want your App to render.
+
+## hydrate
+
+> hydrate(app, node)
+
+Hydrates a Root App in target DOM node.
 
 ## observe
 

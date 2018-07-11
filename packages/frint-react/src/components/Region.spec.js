@@ -457,5 +457,6 @@ describe('frint-react › components › Region', function () {
 
     // verify
     expect(string).to.include('App 1');
+    expect(string).not.to.include('App 2');
   });
 });

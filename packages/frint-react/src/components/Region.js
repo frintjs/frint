@@ -145,7 +145,7 @@ export default class Region extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps = {}) {
+  componentWillReceiveProps(nextProps) {
     const {
       name = this.props.name,
       uniqueKey = this.props.uniqueKey,

@@ -459,4 +459,24 @@ describe('frint-react › components › Region', function () {
     expect(string).to.include('App 1');
     expect(string).not.to.include('App 2');
   });
+
+  it('should unmount component when no root app is available', function () {
+    function MyComponent() {
+      return (
+        <div id="my-component">
+          <Region name="left-sidebar" />
+        </div>
+      );
+    }
+
+    ReactDOM.render(
+      <MyComponent />,
+      document.getElementById('root')
+    );
+
+    const element = document.getElementById('my-component');
+    expect(element.innerHTML).to.eql('');
+    expect(ReactDOM.unmountComponentAtNode(document.getElementById('root'))).to.equal(true);
+    expect(document.getElementById('my-component')).to.equal(null);
+  });
 });

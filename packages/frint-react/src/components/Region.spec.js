@@ -403,6 +403,56 @@ describe('frint-react › components › Region', function () {
     expect(paragraph.innerHTML).to.equal('App 1');
   });
 
+  it('should pass props to render the component', function () {
+    const data = 'data';
+    // root
+    function RootComponent() {
+      return (
+        <div>
+          <Region data={data} name="sidebar">
+            {(list, props) => list.map(({ Component }) => (
+              <Component data={props.data} />
+            ))}
+          </Region>
+        </div>
+      );
+    }
+
+    const RootApp = createApp({
+      name: 'RootApp',
+      providers: [
+        { name: 'component', useValue: RootComponent },
+      ],
+    });
+
+    function App1Component(props) {
+      return <p>{props.data}</p>;
+    }
+    const App1 = createApp({
+      name: 'App1',
+      providers: [
+        { name: 'component', useValue: App1Component },
+      ],
+    });
+
+    // render
+    window.app = new RootApp();
+    render(
+      window.app,
+      document.getElementById('root')
+    );
+
+    // register apps
+    window.app.registerApp(App1, {
+      regions: ['sidebar'],
+      weight: 10,
+    });
+
+    // verify
+    const paragraph = document.querySelector('p');
+    expect(paragraph.innerHTML).to.equal(data);
+  });
+
   it('should render when renderToString is called', function () {
     // root
     function RootComponent() {

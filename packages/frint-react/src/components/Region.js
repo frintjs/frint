@@ -8,6 +8,7 @@ import getMountableComponent from './getMountableComponent';
 
 export default class Region extends React.Component {
   static propTypes = {
+    children: PropTypes.function,
     className: PropTypes.string,
     name: PropTypes.string.isRequired,
     uniqueKey: PropTypes.string,
@@ -186,7 +187,15 @@ export default class Region extends React.Component {
       return null;
     }
 
-    const { className } = this.props;
+    const { className, children, ...props } = this.props;
+
+    if (typeof children === 'function') {
+      return (
+        <div className={className}>
+          {children(listForRendering, props)}
+        </div>
+      );
+    }
 
     return (
       <div className={className}>

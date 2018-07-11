@@ -4,10 +4,9 @@ import React from 'react';
 import { expect } from 'chai';
 
 import { createApp } from 'frint';
-import { observe, streamProps } from 'frint-react';
+import { observe, streamProps, Region } from 'frint-react';
 
 import renderToString from './renderToString';
-import Region from '../../frint-react/src/components/Region';
 
 describe('frint-react-server › renderToString', function () {
   it('is a function', function () {

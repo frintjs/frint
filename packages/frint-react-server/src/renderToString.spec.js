@@ -7,6 +7,7 @@ import { createApp } from 'frint';
 import { observe, streamProps } from 'frint-react';
 
 import renderToString from './renderToString';
+import Region from '../../frint-react/src/components/Region';
 
 describe('frint-react-server › renderToString', function () {
   it('is a function', function () {
@@ -70,5 +71,63 @@ describe('frint-react-server › renderToString', function () {
 
     const html = renderToString(app);
     expect(html).to.contain('>TestAppName</p></div>');
+  });
+
+  it('returns HTML output of an App instance, with childs Apps', function () {
+    // root
+    function RootComponent() {
+      return (
+        <div>
+          <Region name="sidebar" />
+        </div>
+      );
+    }
+    const RootApp = createApp({
+      name: 'RootApp',
+      providers: [
+        { name: 'component', useValue: RootComponent },
+      ],
+    });
+
+    // apps
+    function App1Component() {
+      return <p>App 1</p>;
+    }
+    const App1 = createApp({
+      name: 'App1',
+      providers: [
+        { name: 'component', useValue: App1Component },
+      ],
+    });
+
+    function App2Component() {
+      return <p>App 2</p>;
+    }
+    const App2 = createApp({
+      name: 'App2',
+      providers: [
+        { name: 'component', useValue: App2Component },
+      ],
+    });
+
+    // render
+    const rootApp = new RootApp();
+
+    // register apps
+    rootApp.registerApp(App1, {
+      regions: ['sidebar'],
+      weight: 10,
+    });
+
+    rootApp.registerApp(App2, {
+      regions: ['sidebar2'],
+      weight: 10,
+    });
+
+    const string = renderToString(rootApp);
+
+    // verify
+    expect(string).to.include('>App 1</p>');
+    expect(string).not.to.include('>App 2</p>');
   });
 });

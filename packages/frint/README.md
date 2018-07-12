@@ -314,14 +314,6 @@ The `App` instance
 
 `String`: The App's name.
 
-### app.getMethods
-
-> app.getMethods()
-
-#### Returns
-
-`Object`: The App's methods.
-
 ### app.getRootApp
 
 > app.getRootApp()

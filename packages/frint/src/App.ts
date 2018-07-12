@@ -203,10 +203,6 @@ export class App {
     return this.getOption('name');
   }
 
-  public getMethods() {
-    return this.getOption('methods');
-  }
-
   public getProviders() {
     return this.options.providers;
   }

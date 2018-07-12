@@ -21,20 +21,6 @@ describe('frint  › App', () => {
     expect(app.getName()).to.equal('MyApp');
   });
 
-  it('gets methods option value', () => {
-    const methods = {
-      foo() { return 'foo'; },
-    };
-
-    const app = new App({
-      name: 'MyApp',
-      methods,
-    });
-
-    expect(app.getMethods()).to.deep.equal(methods);
-    expect(app.getMethods().foo()).to.equal('foo');
-  });
-
   it('exposes methods as class properties', () => {
     const methods = {
       foo() { return 'foo'; },

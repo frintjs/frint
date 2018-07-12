@@ -8,12 +8,13 @@ import { Subject } from 'rxjs/Subject';
 import sinon from 'sinon';
 
 import { createApp } from 'frint';
+import { renderToString } from 'frint-react-server';
 
 import render from '../render';
 import observe from './observe';
 import Region from './Region';
 import RegionService from '../services/Region';
-import renderToString from '../../../frint-react-server/src/renderToString';
+
 import streamProps from '../streamProps';
 
 describe('frint-react › components › Region', function () {

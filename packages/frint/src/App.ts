@@ -93,7 +93,7 @@ export interface AppClass {
 }
 
 export class App {
-  [field: string]: any;
+  [method: string]: any;
   public container: Container;
   private options: AppOptions;
   private _appsCollection: AppRegistration[];

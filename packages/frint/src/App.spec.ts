@@ -13,12 +13,38 @@ describe('frint  › App', () => {
     }).to.throw(/Must provide `name` in options/);
   });
 
-  it('gets option value', () => {
+  it('gets name option value', () => {
     const app = new App({
       name: 'MyApp',
     });
 
     expect(app.getName()).to.equal('MyApp');
+  });
+
+  it('gets methods option value', () => {
+    const methods = {
+      foo() {},
+    }
+
+    const app = new App({
+      name: 'MyApp',
+      methods,
+    });
+
+    expect(app.getMethods()).to.deep.equal(methods);
+  });
+
+  it('exposes methods as class properties', () => {
+    const methods = {
+      foo() { return 'foo'; },
+    }
+
+    const app = new App({
+      name: 'MyApp',
+      methods,
+    });
+
+    expect(app.foo()).to.equal('foo');
   });
 
   it('gets parent and root app', () => {

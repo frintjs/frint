@@ -48,6 +48,20 @@ describe('frint  › App', () => {
     expect(app.foo()).to.equal('foo');
   });
 
+  it('does not overwrite app properties or methods with options methods', () => {
+    const methods = {
+      // tslint:disable-next-line:no-empty
+      getName() {},
+    };
+
+    expect(() => (
+      new App({
+        name: 'MyApp',
+        methods,
+      })
+    )).to.throw(/Cannot overwrite app's `getName` property or method with options method/);
+  });
+
   it('gets parent and root app', () => {
     const rootApp = new App({
       name: 'RootApp',

@@ -93,7 +93,7 @@ export interface AppClass {
 }
 
 export class App {
-  [property: string]: any;
+  [field: string]: any;
   public container: Container;
   private options: AppOptions;
   private _appsCollection: AppRegistration[];
@@ -128,6 +128,10 @@ export class App {
       const method = this.options.methods[methodName];
 
       if (typeof method === 'function') {
+        if (this[methodName] !== undefined) {
+          throw new Error(`Cannot overwrite app's \`${methodName}\` property or method with options method.`);
+        }
+
         this[methodName] = method.bind(this);
       }
     });

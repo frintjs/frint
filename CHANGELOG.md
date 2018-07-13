@@ -1,5 +1,19 @@
 # Change Log
 
+## v5.6.0 (2018-07-13)
+
+#### Pull Requests
+* `frint`
+  * [#431](https://github.com/frintjs/frint/pull/431) frint: Expose class methods on the app instance level. ([@rbardini](https://github.com/rbardini))
+* `frint-react`
+  * [#430](https://github.com/frintjs/frint/pull/430) Region component added render prop support. ([@jcampalo](https://github.com/jcampalo))
+* `frint-react-server`, `frint-react`
+  * [#429](https://github.com/frintjs/frint/pull/429) Added support for SSR on regions and refactored to remove handlers. ([@jcampalo](https://github.com/jcampalo))
+
+#### Committers: 2
+- Javier ([jcampalo](https://github.com/jcampalo))
+- Rafael Bardini ([rbardini](https://github.com/rbardini))
+
 ## v5.5.0 (2018-07-10)
 
 #### Pull Requests

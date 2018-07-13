@@ -8,11 +8,13 @@ import { Subject } from 'rxjs/Subject';
 import sinon from 'sinon';
 
 import { createApp } from 'frint';
+import { renderToString } from 'frint-react-server';
 
 import render from '../render';
 import observe from './observe';
 import Region from './Region';
 import RegionService from '../services/Region';
+
 import streamProps from '../streamProps';
 
 describe('frint-react › components › Region', function () {
@@ -399,5 +401,83 @@ describe('frint-react › components › Region', function () {
     const paragraph = document.querySelector('p'); // @TODO: enzyme can be used?
     expect(paragraph.parentElement.className).to.equal(className);
     expect(paragraph.innerHTML).to.equal('App 1');
+  });
+
+  it('should render when renderToString is called', function () {
+    // root
+    function RootComponent() {
+      return (
+        <div>
+          <Region name="sidebar" />
+        </div>
+      );
+    }
+    const RootApp = createApp({
+      name: 'RootApp',
+      providers: [
+        { name: 'component', useValue: RootComponent },
+      ],
+    });
+
+    // apps
+    function App1Component() {
+      return <p>App 1</p>;
+    }
+    const App1 = createApp({
+      name: 'App1',
+      providers: [
+        { name: 'component', useValue: App1Component },
+      ],
+    });
+
+    function App2Component() {
+      return <p>App 2</p>;
+    }
+    const App2 = createApp({
+      name: 'App2',
+      providers: [
+        { name: 'component', useValue: App2Component },
+      ],
+    });
+
+    // render
+    const rootApp = new RootApp();
+
+    // register apps
+    rootApp.registerApp(App1, {
+      regions: ['sidebar'],
+      weight: 10,
+    });
+
+    rootApp.registerApp(App2, {
+      regions: ['sidebar2'],
+      weight: 10,
+    });
+
+    const string = renderToString(rootApp);
+
+    // verify
+    expect(string).to.include('App 1');
+    expect(string).not.to.include('App 2');
+  });
+
+  it('should unmount component when no root app is available', function () {
+    function MyComponent() {
+      return (
+        <div id="my-component">
+          <Region name="left-sidebar" />
+        </div>
+      );
+    }
+
+    ReactDOM.render(
+      <MyComponent />,
+      document.getElementById('root')
+    );
+
+    const element = document.getElementById('my-component');
+    expect(element.innerHTML).to.eql('');
+    expect(ReactDOM.unmountComponentAtNode(document.getElementById('root'))).to.equal(true);
+    expect(document.getElementById('my-component')).to.equal(null);
   });
 });

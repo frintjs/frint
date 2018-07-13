@@ -34,10 +34,16 @@
     "cross-env": "^5.0.5",
     "frint": "^5.5.0",
     "frint-config": "^5.5.0",
-    "frint-test-utils": "^5.5.0"
+    "frint-test-utils": "^5.5.0",
+    "frint-react-server": "^5.5.0"
   },
   "bugs": {
     "url": "https://github.com/frintjs/frint/issues"
+  },
+  "nyc": {
+    "exclude": [
+      "lib"
+    ]
   },
   "license": "MIT",
   "types": "index.d.ts"

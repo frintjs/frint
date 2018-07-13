@@ -240,6 +240,28 @@ regionData$.subscribe((data) => {
 
 We will discuss more in details how to get Region's props in your App's components via `observe` in the next section.
 
+You can also use take data or other props passed to the Region as render prop:
+
+```js
+function Root() {
+  const data = {
+    foo: 'bar'
+  };
+
+  return (
+    <div>
+      <p>Hello World from Root App!</p>
+
+      <Region data={data} name="sidebar">
+        {(list, props) => list.map(({ Component }) => (
+          <Component foo={props.data.foo} />
+        ))}
+      </Region>
+    </div>
+  );
+}
+```
+
 ## Observing components
 
 We encourage everyone to write their components in as dumb way as possible. Meaning, we just pass the props, and Components just render them. Nothing more.
@@ -510,6 +532,7 @@ The Region component.
 
 1. `name` (`String`): The name of the Region
 1. `data` (`Object`): Data to be made available to rendered App
+1. `children` (`Function` [optional]): Render prop function to render region component with passed props.
 1. `uniqueKey` (`String` [optional]): Used when there are multiple Regions of the same `name`. It prop must be unique and fixed throughout the whole app.
 1. `className` (`String` [optional]): The className used by Region wrapper element
 

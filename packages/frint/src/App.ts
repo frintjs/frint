@@ -32,6 +32,10 @@ function makeInstanceKey(region = null, regionKey = null, multi = false) {
   return key;
 }
 
+export interface Methods {
+  [key: string]: () => any;
+}
+
 export interface ProviderNames {
   component: string;
   container: string;
@@ -75,6 +79,7 @@ export interface AppRegistration {
 
 export interface AppOptions {
   name?: string;
+  methods?: Methods;
   parentApp?: App;
   providers?: FrintProvider[];
   providerNames?: ProviderNames;
@@ -88,6 +93,7 @@ export interface AppClass {
 }
 
 export class App {
+  [method: string]: any;
   public container: Container;
   private options: AppOptions;
   private _appsCollection: AppRegistration[];
@@ -96,6 +102,7 @@ export class App {
   constructor(opts: AppOptions) {
     this.options = {
       name: null,
+      methods: {},
       parentApp: null,
       providers: [],
 
@@ -115,6 +122,19 @@ export class App {
     if (!this.options.name) {
       throw new Error('Must provide `name` in options');
     }
+
+    // expose methods as class properties
+    Object.keys(this.options.methods).forEach(methodName => {
+      const method = this.options.methods[methodName];
+
+      if (typeof method === 'function') {
+        if (this[methodName] !== undefined) {
+          throw new Error(`Cannot overwrite app's \`${methodName}\` property or method with options method.`);
+        }
+
+        this[methodName] = method.bind(this);
+      }
+    });
 
     // children - create Observable if root
     this._appsCollection = [];

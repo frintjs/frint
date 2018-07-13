@@ -275,6 +275,7 @@ The base App class.
 
 1. `options` (`Object`)
     * `options.name`: (`String` [required]): Name of your App.
+    * `options.methods`: (`Object` [optional]): Object with the methods your App exposes on the instance level.
     * `options.initialize`: (`Function` [optional]): Called when App is constructed.
     * `options.beforeDestroy`: (`Function` [optional]): Called when App is about to be destroyed.
     * `options.providers`: (`Array` [optional]): Array of provider objects.

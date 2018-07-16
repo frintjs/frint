@@ -1,5 +1,18 @@
 # Change Log
 
+## v5.6.1 (2018-07-16)
+
+#### Bug fix
+* `frint-react`
+  * [#434](https://github.com/frintjs/frint/pull/434) frint-react: Fix typo in `children` prop type. ([@rbardini](https://github.com/rbardini))
+
+#### Pull Requests
+* `frint-react`
+  * [#434](https://github.com/frintjs/frint/pull/434) frint-react: Fix typo in `children` prop type. ([@rbardini](https://github.com/rbardini))
+
+#### Committers: 1
+- Rafael Bardini ([rbardini](https://github.com/rbardini))
+
 ## v5.6.0 (2018-07-13)
 
 #### Pull Requests

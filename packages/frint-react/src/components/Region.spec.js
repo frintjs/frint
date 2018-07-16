@@ -410,8 +410,8 @@ describe('frint-react › components › Region', function () {
       return (
         <div>
           <Region data={data} name="sidebar">
-            {(list, props) => list.map(({ Component }) => (
-              <Component data={props.data} />
+            {(list, props) => list.map(({ Component, name }) => (
+              <Component data={props.data} key={`app-${name}`} />
             ))}
           </Region>
         </div>

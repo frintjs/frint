@@ -301,7 +301,9 @@ We have just made our simple Component reactive, by wrapping it with `observe`. 
 
 ### Observing Region's data
 
-In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your App's component too:
+In previous example, we showed you how to access Region's data via `RegionService`. Now let's see how we can pass it to your App's component too.
+
+All Region props but `children` and `className` are forwarded to the App's component by default. However, if you prefer a reactive approach:
 
 ```js
 import { map } from 'rxjs/operators/map';

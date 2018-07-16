@@ -66,11 +66,12 @@ export default {
 
             const appInstance = rootApp.getAppInstance(appName, ...regionArgs);
             if (appInstance) {
-              this.sendProps(appInstance, {
-                name: this.getProp('name'),
-                uniqueKey: this.getProp('uniqueKey'),
-                data: this.getProp('data'),
-              });
+              const {
+                children,
+                className,
+                ...props
+              } = this.getProps();
+              this.sendProps(appInstance, props);
             }
 
             this.setData(
@@ -110,18 +111,14 @@ export default {
   },
   afterUpdate(newProps = null) {
     const {
-      name = this.getProp('name'),
-      uniqueKey = this.getProp('uniqueKey'),
-      data = this.getProp('data'),
+      children,
+      className,
+      ...props
     } = newProps || {};
 
     this.getData('listForRendering')
       .filter(item => item.instance)
-      .forEach(item => this.sendProps(item.instance, {
-        name,
-        uniqueKey,
-        data,
-      }));
+      .forEach(item => this.sendProps(item.instance, props));
   },
   beforeDestroy() {
     if (this._subscription) {

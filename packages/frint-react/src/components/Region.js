@@ -8,7 +8,7 @@ import getMountableComponent from './getMountableComponent';
 
 export default class Region extends React.Component {
   static propTypes = {
-    children: PropTypes.function,
+    children: PropTypes.func,
     className: PropTypes.string,
     name: PropTypes.string.isRequired,
     uniqueKey: PropTypes.string,

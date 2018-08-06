@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.7.0 (2018-08-06)
+
+#### Pull Requests
+* `frint-component-handlers`, `frint-react`
+  * [#436](https://github.com/frintjs/frint/pull/436) frint-react:  Forward `Region` props to children components. ([@rbardini](https://github.com/rbardini))
+
+#### Committers: 1
+- Rafael Bardini ([rbardini](https://github.com/rbardini))
+
 ## v5.6.1 (2018-07-16)
 
 #### Bug fix

@@ -52,8 +52,9 @@ export default class Region extends React.Component {
 
   getListForRendering(list, rootApp, listForRendering = []) {
     const {
-      uniqueKey,
-      data
+      children,
+      className,
+      ...props
     } = this.props;
 
     return list
@@ -72,12 +73,12 @@ export default class Region extends React.Component {
           return null;
         }
 
-        const regionArgs = uniqueKey
-          ? [this.props.name, uniqueKey]
+        const regionArgs = this.props.uniqueKey
+          ? [this.props.name, this.props.uniqueKey]
           : [this.props.name];
 
         if (
-          uniqueKey &&
+          this.props.uniqueKey &&
           !rootApp.hasAppInstance(name, ...regionArgs)
         ) {
           rootApp.instantiateApp(name, ...regionArgs);
@@ -86,11 +87,7 @@ export default class Region extends React.Component {
         const instance = rootApp.getAppInstance(name, ...regionArgs);
 
         if (instance) {
-          Region.sendProps(instance, {
-            name: this.props.name,
-            uniqueKey,
-            data,
-          });
+          Region.sendProps(instance, props);
         }
 
         return {
@@ -148,18 +145,14 @@ export default class Region extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      name = this.props.name,
-      uniqueKey = this.props.uniqueKey,
-      data = this.props.data,
+      children,
+      className,
+      ...props
     } = nextProps;
 
     this.state.listForRendering
       .filter(item => item.instance)
-      .forEach(item => Region.sendProps(item.instance, {
-        name,
-        uniqueKey,
-        data,
-      }));
+      .forEach(item => Region.sendProps(item.instance, props));
   }
 
   componentWillUnmount() {
@@ -203,7 +196,7 @@ export default class Region extends React.Component {
           const { Component, name } = item;
 
           return (
-            <Component key={`app-${name}`} />
+            <Component {...props} key={`app-${name}`} />
           );
         })}
       </div>

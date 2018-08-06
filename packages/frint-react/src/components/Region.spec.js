@@ -405,13 +405,16 @@ describe('frint-react › components › Region', function () {
 
   it('should pass props to render the component', function () {
     const data = 'data';
+    const foo = 'foo';
+
     // root
     function RootComponent() {
       return (
         <div>
-          <Region data={data} name="sidebar">
-            {(list, props) => list.map(({ Component }) => (
-              <Component data={props.data} />
+          <Region data={data} foo={foo} name="sidebar1" />
+          <Region data={data} foo={foo} name="sidebar2">
+            {(list, props) => list.map(({ Component, name }) => (
+              <Component data={props.data} foo={props.foo} key={`app-${name}`} />
             ))}
           </Region>
         </div>
@@ -425,8 +428,9 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
+    // apps
     function App1Component(props) {
-      return <p>{props.data}</p>;
+      return <p>App1 {props.data} {props.foo}</p>;
     }
     const App1 = createApp({
       name: 'App1',
@@ -435,22 +439,35 @@ describe('frint-react › components › Region', function () {
       ],
     });
 
+    function App2Component(props) {
+      return <p>App2 {props.data} {props.foo}</p>;
+    }
+    const App2 = createApp({
+      name: 'App2',
+      providers: [
+        { name: 'component', useValue: App2Component },
+      ],
+    });
+
     // render
-    window.app = new RootApp();
+    const rootApp = new RootApp();
     render(
-      window.app,
+      rootApp,
       document.getElementById('root')
     );
 
     // register apps
-    window.app.registerApp(App1, {
-      regions: ['sidebar'],
-      weight: 10,
+    rootApp.registerApp(App1, {
+      regions: ['sidebar1'],
+    });
+    rootApp.registerApp(App2, {
+      regions: ['sidebar2'],
     });
 
     // verify
-    const paragraph = document.querySelector('p');
-    expect(paragraph.innerHTML).to.equal(data);
+    const paragraphs = document.querySelectorAll('p');
+    expect(paragraphs[0].innerHTML).to.equal(`App1 ${data} ${foo}`);
+    expect(paragraphs[1].innerHTML).to.equal(`App2 ${data} ${foo}`);
   });
 
   it('should render when renderToString is called', function () {

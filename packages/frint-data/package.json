@@ -1,6 +1,6 @@
 {
   "name": "frint-data",
-  "version": "5.6.1",
+  "version": "5.7.0",
   "description": "Reactive data modelling for Frint",
   "main": "lib/index.js",
   "homepage": "https://github.com/frintjs/frint/tree/master/packages/frint-data",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.0.5",
-    "frint-config": "^5.6.1"
+    "frint-config": "^5.7.0"
   },
   "license": "MIT"
 }

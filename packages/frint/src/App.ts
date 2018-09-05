@@ -33,7 +33,7 @@ function makeInstanceKey(region = null, regionKey = null, multi = false) {
 }
 
 export interface Methods {
-  [key: string]: () => any;
+  [key: string]: (...args: any[]) => any;
 }
 
 export interface ProviderNames {

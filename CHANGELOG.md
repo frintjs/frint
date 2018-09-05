@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.7.1 (2018-09-05)
+
+#### Pull Requests
+* `frint`
+  * [#438](https://github.com/frintjs/frint/pull/438) Closes [#437](https://github.com/frintjs/frint/issues/437) - Add generic type for Frint Methods interface. ([@leandrooriente](https://github.com/leandrooriente))
+
+#### Committers: 1
+- Leandro Oriente ([leandrooriente](https://github.com/leandrooriente))
+
 ## v5.7.0 (2018-08-06)
 
 #### Pull Requests

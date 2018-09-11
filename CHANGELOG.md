@@ -1,5 +1,14 @@
 # Change Log
 
+## v5.7.2 (2018-09-11)
+
+#### Pull Requests
+* `frint-react`
+  * [#439](https://github.com/frintjs/frint/pull/439) Fix getMountableComponent type changing to React.SFC. ([@noisae](https://github.com/noisae))
+
+#### Committers: 1
+- Lucas Barboza ([noisae](https://github.com/noisae))
+
 ## v5.7.1 (2018-09-05)
 
 #### Pull Requests

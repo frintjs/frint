@@ -70,6 +70,6 @@ export class Provider extends React.Component<ProviderProps, any> {
 export function streamProps(...args: any[]): Streamer;
 export function isObservable(obj: any): boolean;
 export function render(app: App, node: Element): void | Element | React.Component<any, React.ComponentState>;
-export function getMountableComponent(app: App): () => React.Component<ProviderProps, undefined> | Element;
+export function getMountableComponent(app: App): React.SFC;
 type Constructor<T extends React.Component<any, any>> = new(...args: any[]) => T;
 export function observe<T extends Constructor<React.Component<any, any>>>(fn: (app: App) => Observable<any>): (comp: T) => any;

@@ -7,7 +7,7 @@ import webpackRxJsExternals from './utils/webpackRxjsExternals';
 
 export const rxjs = [webpackRxJsExternals()];
 
-export const lodash = [
+export const lodash : any = [
   function (context, request, callback) {
     if (request.startsWith('lodash/')) {
       const subModule = request.split('/')[1];
@@ -25,7 +25,7 @@ export const lodash = [
 ];
 
 // full imports
-export const thirdParties = [{
+export const thirdParties : any = [{
   'lodash': {
     root: '_',
     commonjs: 'lodash',

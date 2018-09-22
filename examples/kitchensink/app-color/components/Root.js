@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observe } from 'frint-react';
 import { Observable } from 'rxjs/Observable';
 import { concatMap } from 'rxjs/operator/concatMap';
@@ -18,7 +18,7 @@ import {
   CHANGE_COLOR_ASYNC
 } from '../constants';
 
-class Root extends React.Component {
+class Root extends Component {
   static propTypes = {
     color: PropTypes.string,
     counter: PropTypes.number,

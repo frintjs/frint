@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observe, streamProps } from 'frint-react';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,7 @@ import {
   decrementCounter
 } from '../actions/counter';
 
-class Root extends React.Component {
+class Root extends Component {
   static propTypes = {
     color: PropTypes.string,
     counter: PropTypes.number,

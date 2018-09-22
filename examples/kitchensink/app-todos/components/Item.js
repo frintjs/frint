@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observe, streamProps, Region } from 'frint-react';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { removeTodo, updateTodo } from '../actions/todos';
 
-class Item extends React.Component {
+class Item extends Component {
   render() {
     const { todo } = this.props;
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { observe } from 'frint-react';
 import { map } from 'rxjs/operator/map';
 import { scan } from 'rxjs/operator/scan';
 
-class Root extends React.Component {
+class Root extends Component {
   render() {
     return (
       <div>

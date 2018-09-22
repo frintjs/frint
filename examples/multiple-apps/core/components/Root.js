@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Region } from 'frint-react';
 
-export default class Root extends React.Component {
+export default class Root extends Component {
   render() {
     return (
       <div className="container">

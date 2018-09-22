@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Region, observe } from 'frint-react';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
-class Root extends React.Component {
+class Root extends Component {
   render() {
     return (
       <div className="container">
